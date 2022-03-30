@@ -14,7 +14,7 @@
   },
 
   "license": "MIT",
-  "icon": "assets/thaumcraft/icon.png",
+  "icon": "assets/icon.png",
 
   "environment": "*",
   "entrypoints": {

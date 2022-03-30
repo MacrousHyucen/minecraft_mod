@@ -18,6 +18,14 @@ repositories {
 	// for more information about repositories.
 }
 
+// added 30.03.2022
+repositories {
+	maven {
+		name = "CottonMC"
+		url = "https://server.bbkr.space/artifactory/libs-release"
+	}
+}
+
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -26,6 +34,8 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+	modImplementation include("io.github.cottonmc:LibGui:5.3.2+1.18.2")
 }
 
 processResources {

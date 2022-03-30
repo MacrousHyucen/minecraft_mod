@@ -1,0 +1,40 @@
+{
+  "itemGroup.thaumcraft.thaumcraft": "§5Таумкрафт",
+
+  "item.thaumcraft.book.thaumonomicon": "§6Таумономикон",
+  "item.thaumcraft.book.thaumonomicon_cheat": "§6Таумономикон (чит-версия)",
+
+  "item.thaumcraft.material.primal_charm": "Сингулярный амулет",
+
+  "item.thaumcraft.misc.nitor": "Нитор",
+  "item.thaumcraft.misc.alumentum": "Алюментум",
+
+  "item.thaumcraft.cap.cap_copper": "Медный наконечник",
+  "item.thaumcraft.cap.cap_gold": "Золотой наконечник",
+  "item.thaumcraft.cap.cap_iron": "Железный наконечник",
+  "item.thaumcraft.cap.cap_silver": "Заряженный серебряный наконечник",
+  "item.thaumcraft.cap.cap_silver_inert": "Инертный серебряный наконечник",
+  "item.thaumcraft.cap.cap_thaumium": "Заряженный таум-наконечник",
+  "item.thaumcraft.cap.cap_thaumium_inert": "Инертный таум-наконечник",
+  "item.thaumcraft.cap.cap_void": "Заряженный пустотный наконечник",
+  "item.thaumcraft.cap.cap_void_inert": "Инертный пустотный наконечник",
+
+  "item.thaumcraft.rod.wand_rod_blaze": "Огненный стержень",
+  "item.thaumcraft.rod.wand_rod_bone": "Костяной стержень",
+  "item.thaumcraft.rod.wand_rod_greatwood": "Великодревесный стержень",
+  "item.thaumcraft.rod.wand_rod_ice": "Ледяной стержень",
+  "item.thaumcraft.rod.wand_rod_obsidian": "Обсидиановый стержень",
+  "item.thaumcraft.rod.wand_rod_quartz": "Кварцевый стержень",
+  "item.thaumcraft.rod.wand_rod_reed": "Тростниковый стержень",
+  "item.thaumcraft.rod.wand_rod_silverwood": "Серебрянодревесный стержень",
+
+  "item.thaumcraft.rod.staff_rod_blaze": "Огненное ядро посоха",
+  "item.thaumcraft.rod.staff_rod_bone": "Костяное ядро посоха",
+  "item.thaumcraft.rod.staff_rod_greatwood": "Великодревесное ядро посоха",
+  "item.thaumcraft.rod.staff_rod_ice": "Ледяное ядро посоха",
+  "item.thaumcraft.rod.staff_rod_obsidian": "Обсидиановое ядро посоха",
+  "item.thaumcraft.rod.staff_rod_quartz": "Кварцевое ядро посоха",
+  "item.thaumcraft.rod.staff_rod_reed": "Тростниковое ядро посоха",
+  "item.thaumcraft.rod.staff_rod_silverwood": "Серебрянодревесное ядро посоха",
+  "item.thaumcraft.rod.staff_rod_primal": "Сингулярное ядро посоха"
+}

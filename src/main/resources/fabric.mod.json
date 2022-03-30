@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "thaumcraft",
+  "version": "${version}",
+
+  "name": "Thaumcraft 4",
+  "description": "Rewritten version of famous magic mod on 1.7.10. All license rights on Azanor.",
+  "authors": [
+    "Archasmiel"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/Archasmiel"
+  },
+
+  "license": "MIT",
+  "icon": "assets/thaumcraft/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.archasmiel.thaumcraft.Thaumcraft"
+    ]
+  },
+  "mixins": [
+    "thaumcraft.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.13.3",
+    "fabric": "*",
+    "minecraft": "1.18.x",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

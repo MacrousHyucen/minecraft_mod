@@ -13,11 +13,8 @@ import org.slf4j.LoggerFactory;
 
 public class Thaumcraft implements ModInitializer {
 	public static final String MOD_ID = "thaumcraft";
-	public static final Logger LOGGER = LoggerFactory.getLogger("modid");
-	public static final ScreenHandlerRegistry SCREEN_HANDLER_TYPE =
-			ScreenHandlerRegistry.registerSimple(,
-			(syncId, inventory) -> new ExampleGuiDescription(syncId, inventory, ScreenHandlerContext.EMPTY)
-	);
+	public static final String MOD_NAME = "Thaumcraft";
+	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
 	public static final ItemGroup MOD_GROUP = FabricItemGroupBuilder.build(
 			new Identifier(Thaumcraft.MOD_ID, Thaumcraft.MOD_ID),

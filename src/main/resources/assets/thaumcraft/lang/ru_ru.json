@@ -1,6 +1,13 @@
 {
   "itemGroup.thaumcraft.thaumcraft": "§5Таумкрафт",
 
+  "thaumcraft.gui.basics_tab":  "Базовые знания",
+  "thaumcraft.gui.thaumaturgy_tab": "Тауматургия",
+  "thaumcraft.gui.alchemy_tab":  "Алхимия",
+  "thaumcraft.gui.artifice_tab": "Изобретения",
+  "thaumcraft.gui.golemancy_tab":  "Големоведение",
+  "thaumcraft.gui.eldritch_tab": "Древние знания",
+
   "item.thaumcraft.book.thaumonomicon": "§6Таумономикон",
   "item.thaumcraft.book.thaumonomicon_cheat": "§6Таумономикон (чит-версия)",
 

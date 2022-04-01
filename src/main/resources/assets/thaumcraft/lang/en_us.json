@@ -1,6 +1,13 @@
 {
   "itemGroup.thaumcraft.thaumcraft": "§5Thaumcraft",
 
+  "thaumcraft.gui.basics_tab":  "Basics",
+  "thaumcraft.gui.thaumaturgy_tab": "Thaumaturgy",
+  "thaumcraft.gui.alchemy_tab":  "Alchemy",
+  "thaumcraft.gui.artifice_tab": "Artifice",
+  "thaumcraft.gui.golemancy_tab":  "Golemancy",
+  "thaumcraft.gui.eldritch_tab": "Eldritch",
+
   "item.thaumcraft.book.thaumonomicon": "§6Thaumonomicon",
   "item.thaumcraft.book.thaumonomicon_cheat": "§6Thaumonomicon (cheat version)",
 

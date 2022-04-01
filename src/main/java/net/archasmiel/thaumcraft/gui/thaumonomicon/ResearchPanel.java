@@ -15,20 +15,15 @@ public class ResearchPanel extends WWidget {
     private final Integer sizeX, sizeY;
     private float textureX = 0, textureY = 0;
 
-    public Integer getSizeX() {
-        return sizeX;
-    }
 
-    public Integer getSizeY() {
-        return sizeY;
-    }
+
 
     public ResearchPanel(Integer sizeX, Integer sizeY) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
-        // highly important!
-        setSize(sizeX, sizeY);
     }
+
+
 
     @Environment(EnvType.CLIENT)
     @Override
@@ -41,27 +36,20 @@ public class ResearchPanel extends WWidget {
     @Environment(EnvType.CLIENT)
     @Override
     public InputResult onMouseDrag(int x, int y, int button, double deltaX, double deltaY) {
-        if (button == 0 || button == 1)
-            update(-deltaX, -deltaY);
+        if (button == 0) update(-deltaX, -deltaY);
         return InputResult.PROCESSED;
     }
 
+
+
     private void update(double deltaX, double deltaY) {
         textureX += deltaX;
-        if ((textureX + deltaX) < 0) {
-            textureX = 0;
-        }
-        if ((textureX + deltaX) > sizeX){
-            textureX = sizeX;
-        }
+        if (textureX < 0) textureX = 0;
+        if (textureX > sizeX) textureX = sizeX;
 
         textureY += deltaY;
-        if ((textureY + deltaY) < 0) {
-            textureY = 0;
-        }
-        if ((textureY + deltaY) > sizeY){
-            textureY = sizeY;
-        }
+        if (textureY < 0) textureY = 0;
+        if (textureY > sizeY) textureY = sizeY;
     }
 
     private Texture cutBackground(Texture texture) {
@@ -73,9 +61,13 @@ public class ResearchPanel extends WWidget {
         );
     }
 
-    @Override
-    public boolean canResize() {
-        return true;
+    public Integer getSizeX() {
+        return sizeX;
     }
+
+    public Integer getSizeY() {
+        return sizeY;
+    }
+
 
 }

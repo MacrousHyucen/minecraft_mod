@@ -4,10 +4,14 @@ import io.github.cottonmc.cotton.gui.client.BackgroundPainter;
 import io.github.cottonmc.cotton.gui.widget.WPanel;
 import io.github.cottonmc.cotton.gui.widget.WPlainPanel;
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.sound.SoundEvents;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 
 public class ResearchGui extends WPlainPanel {
@@ -18,13 +22,18 @@ public class ResearchGui extends WPlainPanel {
     private Integer panelX, panelY;
 
     private List<ResearchTab> tabs = new ArrayList<>();
-    private ResearchTab activeTab;
+
+
+
+
 
     public ResearchGui(Integer sizeX, Integer sizeY) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
-        setSize(sizeX, sizeY);
+        this.setSize(sizeX, sizeY);
     }
+
+
 
     @Override
     public void paint(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
@@ -37,11 +46,6 @@ public class ResearchGui extends WPlainPanel {
     }
 
     @Override
-    public WPanel setBackgroundPainter(BackgroundPainter painter) {
-        return null;
-    }
-
-    @Override
     public InputResult onClick(int x, int y, int button) {
         if (button == 0) {
             if (x >= 0 && x <= panelX)
@@ -50,6 +54,11 @@ public class ResearchGui extends WPlainPanel {
                         if (!tabs.get(i).isActive()){
                             for (ResearchTab tab: tabs) tab.setActive(false);
                             tabs.get(i).setActive(true);
+
+                            // testing sound
+                            MinecraftClient.getInstance()
+                            .getSoundManager().play(PositionedSoundInstance
+                            .master(SoundEvents.ENTITY_LIGHTNING_BOLT_IMPACT, 1.0F));
                         }
                     }
                 }
@@ -57,23 +66,30 @@ public class ResearchGui extends WPlainPanel {
         return InputResult.IGNORED;
     }
 
+    @Override
+    public WPanel setBackgroundPainter(BackgroundPainter painter) {
+        return null;
+    }
+
+
+
     public void addTab(ResearchTab w) {
         tabs.add(w);
-        super.children.clear();
+        this.children.clear();
         addTabsToScreen();
     }
 
     public void setTabs(List<ResearchTab> wList) {
         tabs.clear();
         tabs.addAll(wList);
-        super.children.clear();
+        this.children.clear();
         addTabsToScreen();
     }
 
     private void addTabsToScreen() {
         int ypos = 0;
         for (ResearchTab tab : tabs) {
-            super.add(tab, 0, ypos, tab.getSize(), tab.getSize());
+            this.add(tab, 0, ypos, tab.getSize(), tab.getSize());
             ypos += tab.getSize();
         }
     }
@@ -82,10 +98,10 @@ public class ResearchGui extends WPlainPanel {
         return tabs;
     }
 
-    public void setResearchPanel(ResearchPanel w, int x, int y, int width, int height) {
+    public void setResearchPanel(ResearchPanel w, int x, int y) {
         panel = w;
         panelX = x;
         panelY = y;
-        super.add(w, x, y, width, height);
+        this.add(w, x, y, sizeX, sizeY);
     }
 }

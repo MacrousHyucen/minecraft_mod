@@ -8,6 +8,13 @@
   "thaumcraft.gui.golemancy_tab":  "Golemancy",
   "thaumcraft.gui.eldritch_tab": "Eldritch",
 
+  "advancements.journey.root.title": "§5Thaumcraft",
+  "advancements.journey.root.description": "Let's create magic stuff! But firstly craft a workbench)",
+  "advancements.journey.paper_gather.title": "Research...",
+  "advancements.journey.paper_gather.description": "... needs a lot of sugar cane and paper!",
+  "advancements.journey.scribing_tools.title": "Hours of scribing",
+  "advancements.journey.scribing_tools.description": "Gather empty bottle, feather and inc sac",
+
   "item.thaumcraft.book.thaumonomicon": "§6Thaumonomicon",
   "item.thaumcraft.book.thaumonomicon_cheat": "§6Thaumonomicon (cheat version)",
 

@@ -3,9 +3,11 @@ package net.archasmiel.thaumcraft.item;
 import io.github.cottonmc.cotton.gui.client.CottonClientScreen;
 import net.archasmiel.thaumcraft.gui.thaumonomicon.ThaumonomiconGui;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
@@ -17,13 +19,21 @@ public class Thaumonomicon extends Item {
         super(settings);
     }
 
-    private void drawScreen(World world) {
-        if (world.isClient) MinecraftClient.getInstance().setScreenAndRender(new CottonClientScreen(new ThaumonomiconGui()));
+    private void drawScreen(PlayerEntity user, Hand hand) {
+
+        if (user.getWorld().isClient()) {
+            MinecraftClient.getInstance().setScreenAndRender(new CottonClientScreen(new ThaumonomiconGui()));
+            // testing sound
+            MinecraftClient.getInstance()
+            .getSoundManager().play(PositionedSoundInstance
+            .master(SoundEvents.ENTITY_LIGHTNING_BOLT_IMPACT, 1.0F));
+        }
+
     }
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        drawScreen(world);
+        drawScreen(user, hand);
         return super.use(world, user, hand);
     }
 

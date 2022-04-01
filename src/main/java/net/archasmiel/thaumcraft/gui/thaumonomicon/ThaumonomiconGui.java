@@ -11,12 +11,12 @@ import static net.archasmiel.thaumcraft.gui.Icons.rt_basics;
 public class ThaumonomiconGui extends LightweightGuiDescription {
 
     private static final Integer tabSize = 26;
-    private static final Integer researchesX = 256, researchesY = 230;
-    private static final Integer sizeX = tabSize + researchesX, sizeY = 230;
+    private static final Integer researchX = 256, researchY = 230;
+    private static final Integer sizeX = tabSize + researchX, sizeY = 230;
 
     public static final ResearchGui root = new ResearchGui(sizeX, sizeY);
 
-    private final ResearchPanel research = new ResearchPanel(researchesX, researchesY);
+    private final ResearchPanel research = new ResearchPanel(researchX, researchY);
     List<ResearchTab> origTabs = Arrays.asList(
             new ResearchTab(tabSize, rt_basics, "thaumcraft.gui.basics_tab"),
             new ResearchTab(tabSize, rt_thaumaturgy, "thaumcraft.gui.thaumaturgy_tab"),
@@ -26,18 +26,18 @@ public class ThaumonomiconGui extends LightweightGuiDescription {
             new ResearchTab(tabSize, rt_eldritch, "thaumcraft.gui.eldritch_tab")
     );
 
-    public ThaumonomiconGui() {
 
+
+
+
+    public ThaumonomiconGui() {
         root.setSize(sizeX, sizeY);
+        research.setSize(researchX, researchY);
         setRootPanel(root);
 
         origTabs.get(0).setActive(true);
         root.setTabs(origTabs);
-        root.setResearchPanel(research, tabSize, 0, researchesX, researchesY);
-
+        root.setResearchPanel(research, tabSize, 0);
     }
-
-
-
 
 }

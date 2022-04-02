@@ -7,7 +7,7 @@ import io.github.cottonmc.cotton.gui.widget.data.Texture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.TranslatableText;
 
-import static net.archasmiel.thaumcraft.gui.GuiUtil.*;
+import static net.archasmiel.thaumcraft.gui.thaumonomicon.GuiUtil.*;
 
 public class ResearchTab extends WButton {
 

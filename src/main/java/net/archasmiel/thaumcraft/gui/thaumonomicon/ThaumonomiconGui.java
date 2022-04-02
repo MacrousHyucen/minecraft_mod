@@ -5,8 +5,8 @@ import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
 import java.util.Arrays;
 import java.util.List;
 
-import static net.archasmiel.thaumcraft.gui.Icons.*;
-import static net.archasmiel.thaumcraft.gui.Icons.rt_basics;
+import static net.archasmiel.thaumcraft.gui.thaumonomicon.Icons.*;
+import static net.archasmiel.thaumcraft.gui.thaumonomicon.Icons.rt_basics;
 
 public class ThaumonomiconGui extends LightweightGuiDescription {
 
@@ -18,12 +18,12 @@ public class ThaumonomiconGui extends LightweightGuiDescription {
 
     private final ResearchPanel research = new ResearchPanel(researchX, researchY);
     List<ResearchTab> origTabs = Arrays.asList(
-            new ResearchTab(tabSize, rt_basics, "thaumcraft.gui.basics_tab"),
-            new ResearchTab(tabSize, rt_thaumaturgy, "thaumcraft.gui.thaumaturgy_tab"),
-            new ResearchTab(tabSize, rt_alchemy, "thaumcraft.gui.alchemy_tab"),
-            new ResearchTab(tabSize, rt_artifice, "thaumcraft.gui.artifice_tab"),
-            new ResearchTab(tabSize, rt_golemancy, "thaumcraft.gui.golemancy_tab"),
-            new ResearchTab(tabSize, rt_eldritch, "thaumcraft.gui.eldritch_tab")
+            new ResearchTab(tabSize, rt_basics, "gui.thaumcraft.basics_tab"),
+            new ResearchTab(tabSize, rt_thaumaturgy, "gui.thaumcraft.thaumaturgy_tab"),
+            new ResearchTab(tabSize, rt_alchemy, "gui.thaumcraft.alchemy_tab"),
+            new ResearchTab(tabSize, rt_artifice, "gui.thaumcraft.artifice_tab"),
+            new ResearchTab(tabSize, rt_golemancy, "gui.thaumcraft.golemancy_tab"),
+            new ResearchTab(tabSize, rt_eldritch, "gui.thaumcraft.eldritch_tab")
     );
 
 

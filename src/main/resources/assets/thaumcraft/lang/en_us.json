@@ -17,8 +17,23 @@
 
   "item.thaumcraft.thaumonomicon": "§6Thaumonomicon",
   "item.thaumcraft.thaumonomicon_cheat": "§6Thaumonomicon (cheat version)",
-
   "item.thaumcraft.primal_charm": "Primal Charm",
+
+  "item.thaumcraft.shard_air": "Air Shard",
+  "item.thaumcraft.shard_fire": "Fire Shard",
+  "item.thaumcraft.shard_water": "Water Shard",
+  "item.thaumcraft.shard_earth": "Earth Shard",
+  "item.thaumcraft.shard_order": "Order Shard",
+  "item.thaumcraft.shard_entropy": "Entropy Shard",
+  "item.thaumcraft.shard_balanced": "Balanced Shard",
+
+  "item.thaumcraft.ingot_thaumium": "Thaumium Ingot",
+  "item.thaumcraft.ingot_void_metal": "Void Metal Ingot",
+  "item.thaumcraft.ingot_quicksilver": "Quicksilver",
+  "item.thaumcraft.nugget_thaumium": "Thaumium Nugget",
+  "item.thaumcraft.nugget_void_metal": "Void Metal Nugget",
+  "item.thaumcraft.nugget_quicksilver": "Quicksilver Drop",
+
 
   "item.thaumcraft.nitor": "Nitor",
   "item.thaumcraft.alumentum": "Alumentum",

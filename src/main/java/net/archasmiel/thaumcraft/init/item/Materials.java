@@ -26,11 +26,6 @@ public class Materials {
 
 
 
-    public static final Item AMBER = Register.registerItem(
-            "amber",
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
-    );
-
     public static final Item AIR_SHARD = Register.registerItem(
             "shard_air",
             new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
@@ -68,32 +63,38 @@ public class Materials {
 
 
 
-    public static final Item THAUMIUM_INGOT = Register.registerItem("thau_mium_ingot",
+    public static final Item AMBER = Register.registerItem(
+            "amber",
+            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
+    );
+
+    public static final Item THAUMIUM_INGOT = Register.registerItem(
+            "ingot_thaumium",
             new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
     );
 
     public static final Item VOID_METAL_INGOT = Register.registerItem(
-            "void_metal_ingot",
+            "ingot_void_metal",
             new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
     );
 
     public static final Item QUICKSILVER = Register.registerItem(
-            "quicksilver",
+            "ingot_quicksilver",
             new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
     );
 
     public static final Item THAUMIUM_NUGGET = Register.registerItem(
-            "thaumium_nugget",
+            "nugget_thaumium",
             new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
     );
 
     public static final Item VOID_METAL_NUGGET = Register.registerItem(
-            "void_metal_nugget",
+            "nugget_void_metal",
             new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
     );
 
     public static final Item QUICKSILVER_DROP = Register.registerItem(
-            "quicksilver_drop",
+            "nugget_quicksilver",
             new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
     );
 

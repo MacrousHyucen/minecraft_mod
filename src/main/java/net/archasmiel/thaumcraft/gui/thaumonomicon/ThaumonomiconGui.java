@@ -10,20 +10,21 @@ import static net.archasmiel.thaumcraft.gui.thaumonomicon.Icons.rt_basics;
 
 public class ThaumonomiconGui extends LightweightGuiDescription {
 
+    private static final String translatePath = "gui.thaumcraft.";
     private static final Integer tabSize = 26;
-    private static final Integer researchX = 256, researchY = 230;
-    private static final Integer sizeX = tabSize + researchX, sizeY = 230;
+    private static final Integer researchX = 256, researchY = researchX-tabSize;
+    private static final Integer sizeX = tabSize + researchX, sizeY = researchY;
 
     public static final ResearchGui root = new ResearchGui(sizeX, sizeY);
 
     private final ResearchPanel research = new ResearchPanel(researchX, researchY);
-    List<ResearchTab> origTabs = Arrays.asList(
-            new ResearchTab(tabSize, rt_basics, "gui.thaumcraft.basics_tab"),
-            new ResearchTab(tabSize, rt_thaumaturgy, "gui.thaumcraft.thaumaturgy_tab"),
-            new ResearchTab(tabSize, rt_alchemy, "gui.thaumcraft.alchemy_tab"),
-            new ResearchTab(tabSize, rt_artifice, "gui.thaumcraft.artifice_tab"),
-            new ResearchTab(tabSize, rt_golemancy, "gui.thaumcraft.golemancy_tab"),
-            new ResearchTab(tabSize, rt_eldritch, "gui.thaumcraft.eldritch_tab")
+    private static List<ResearchTab> tabs = Arrays.asList(
+            new ResearchTab(tabSize, rt_basics, translatePath + "basics_tab"),
+            new ResearchTab(tabSize, rt_thaumaturgy, translatePath + "thaumaturgy_tab"),
+            new ResearchTab(tabSize, rt_alchemy, translatePath + "alchemy_tab"),
+            new ResearchTab(tabSize, rt_artifice, translatePath + "artifice_tab"),
+            new ResearchTab(tabSize, rt_golemancy, translatePath + "golemancy_tab"),
+            new ResearchTab(tabSize, rt_eldritch, translatePath + "eldritch_tab")
     );
 
 
@@ -35,9 +36,25 @@ public class ThaumonomiconGui extends LightweightGuiDescription {
         research.setSize(researchX, researchY);
         setRootPanel(root);
 
-        origTabs.get(0).setActive(true);
-        root.setTabs(origTabs);
+        for (ResearchTab tab: tabs)
+            tab.setActive(false);
+        tabs.get(0).setActive(true);
+        root.setTabs(tabs);
         root.setResearchPanel(research, tabSize, 0);
+    }
+
+
+
+    public static List<ResearchTab> getTabs() {
+        return tabs;
+    }
+
+    public static void setTabs(List<ResearchTab> origTabs) {
+        ThaumonomiconGui.tabs = origTabs;
+    }
+
+    public static void addTabs(ResearchTab tab) {
+        ThaumonomiconGui.tabs.add(tab);
     }
 
 }

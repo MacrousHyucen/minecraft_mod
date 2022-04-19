@@ -32,14 +32,14 @@ public class ResearchTab extends WButton {
 
     @Override
     public void paint(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
-        int size1 = size*3/4;
+        int size_temp = size*3/4;
         if (active) {
             ScreenDrawing.texturedRect(matrices, x, y, size, size, research_tab_active, 0xFFFFFFFF);
-            ScreenDrawing.texturedRect(matrices, x + size/4, y + size/8, size1, size1, icon, 0xFFFFFFFF);
+            ScreenDrawing.texturedRect(matrices, x + size/4, y + size/8, size_temp, size_temp, icon, 0xFFFFFFFF);
         }
         else {
             ScreenDrawing.texturedRect(matrices, x, y, size, size, research_tab_inactive, 0xFFFFFFFF);
-            ScreenDrawing.texturedRect(matrices, x + size/2, y + size/8, size1, size1, icon, 0xFFFFFFFF);
+            ScreenDrawing.texturedRect(matrices, x + size/2, y + size/8, size_temp, size_temp, icon, 0xFFFFFFFF);
             ScreenDrawing.texturedRect(matrices, x, y, size, size, research_tab_shadow, 0xFFFFFFFF);
         }
     }

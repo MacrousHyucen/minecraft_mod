@@ -21,8 +21,8 @@ public class Register {
         return Registry.register(Registry.BLOCK, new Identifier(Thaumcraft.MOD_ID, name), block);
     }
 
-    public static Item registerBlockItem(String name, Block block) {
-        return Registry.register(Registry.ITEM, new Identifier(Thaumcraft.MOD_ID, "block/"+name),
+    public static void registerBlockItem(String name, Block block) {
+        Registry.register(Registry.ITEM, new Identifier(Thaumcraft.MOD_ID, "block/"+name),
                 new BlockItem(block, new FabricItemSettings().group(Thaumcraft.MOD_GROUP)));
     }
 

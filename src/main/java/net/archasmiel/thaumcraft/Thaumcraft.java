@@ -23,6 +23,9 @@ public class Thaumcraft implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+
 		Register.register();
+
+
 	}
 }

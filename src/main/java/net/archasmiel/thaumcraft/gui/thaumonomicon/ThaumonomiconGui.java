@@ -53,7 +53,7 @@ public class ThaumonomiconGui extends LightweightGuiDescription {
         ThaumonomiconGui.tabs = origTabs;
     }
 
-    public static void addTabs(ResearchTab tab) {
+    public static void addTab(ResearchTab tab) {
         ThaumonomiconGui.tabs.add(tab);
     }
 

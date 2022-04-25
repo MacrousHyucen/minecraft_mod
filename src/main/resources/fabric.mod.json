@@ -20,6 +20,9 @@
   "entrypoints": {
     "main": [
       "net.archasmiel.thaumcraft.Thaumcraft"
+    ],
+    "client": [
+      "net.archasmiel.thaumcraft.ThaumcraftClient"
     ]
   },
   "mixins": [

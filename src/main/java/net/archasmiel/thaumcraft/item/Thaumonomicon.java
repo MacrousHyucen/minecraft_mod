@@ -2,6 +2,8 @@ package net.archasmiel.thaumcraft.item;
 
 import io.github.cottonmc.cotton.gui.client.CottonClientScreen;
 import net.archasmiel.thaumcraft.gui.thaumonomicon.ThaumonomiconGui;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerEntity;
@@ -19,6 +21,7 @@ public class Thaumonomicon extends Item {
         super(settings);
     }
 
+    @Environment(EnvType.CLIENT)
     private void drawScreen(PlayerEntity user, Hand hand) {
 
         if (user.getWorld().isClient()) {

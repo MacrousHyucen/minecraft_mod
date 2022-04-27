@@ -34,6 +34,8 @@ public class ArcaneWorkbench extends Block {
         return state.rotate(mirror.getRotation(state.get(FACING)));
     }
 
+
+
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(FACING);

@@ -5,10 +5,12 @@ import net.archasmiel.thaumcraft.init.Register;
 import net.archasmiel.thaumcraft.item.Shard;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.Item;
-import net.minecraft.item.Items;
+
+
 
 public class Materials {
 
+    // Alchemy materials
     public static final Item ALUMENTUM = Register.registerItem(
             "alumentum",
             new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
@@ -21,40 +23,49 @@ public class Materials {
 
 
 
+    // Thaumaturgy materials
     public static final Item PRIMAL_CHARM = Register.registerItem(
             "primal_charm",
             new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
     );
 
 
+
+    // Shards
     public static final Item AIR_SHARD = Register.registerItem(
             "shard_air",
-            new Shard(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
+            new Shard(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            0xffff7e
     );
 
     public static final Item FIRE_SHARD = Register.registerItem(
             "shard_fire",
-            new Shard(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
+            new Shard(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            0xff3c01
     );
 
     public static final Item WATER_SHARD = Register.registerItem(
             "shard_water",
-            new Shard(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
+            new Shard(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            0x0090ff
     );
 
     public static final Item EARTH_SHARD = Register.registerItem(
             "shard_earth",
-            new Shard(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
+            new Shard(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            0x00a000
     );
 
     public static final Item ORDER_SHARD = Register.registerItem(
             "shard_order",
-            new Shard(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
+            new Shard(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            0xeeccff
     );
 
     public static final Item ENTROPY_SHARD = Register.registerItem(
             "shard_entropy",
-            new Shard(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
+            new Shard(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            0x555577
     );
 
     public static final Item BALANCED_SHARD = Register.registerItem(
@@ -63,7 +74,7 @@ public class Materials {
     );
 
 
-
+    // Bars and nuggets
     public static final Item AMBER = Register.registerItem(
             "amber",
             new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))

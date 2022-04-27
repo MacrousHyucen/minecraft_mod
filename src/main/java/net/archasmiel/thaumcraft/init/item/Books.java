@@ -16,7 +16,7 @@ public class Books {
 
     public static final Item THAUMONOMICON_CHEAT = Register.registerItem(
             "thaumonomicon_cheat",
-            new Item(new FabricItemSettings().group(ItemGroup.INVENTORY))
+            new Item(new FabricItemSettings().group(ItemGroup.HOTBAR))
     );
 
 

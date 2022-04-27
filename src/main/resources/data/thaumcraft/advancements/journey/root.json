@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "thaumcraft:book/thaumonomicon_cheat"
+      "item": "thaumcraft:thaumonomicon_cheat"
     },
     "title": {
       "translate": "advancements.journey.root.title"

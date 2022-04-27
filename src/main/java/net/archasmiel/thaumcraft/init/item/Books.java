@@ -11,12 +11,12 @@ public class Books {
 
     public static final Item THAUMONOMICON = Register.registerItem(
             "thaumonomicon",
-            new Thaumonomicon(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
+            new Thaumonomicon(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1))
     );
 
     public static final Item THAUMONOMICON_CHEAT = Register.registerItem(
             "thaumonomicon_cheat",
-            new Item(new FabricItemSettings().group(ItemGroup.HOTBAR))
+            new Item(new FabricItemSettings().group(ItemGroup.HOTBAR).maxCount(1))
     );
 
 

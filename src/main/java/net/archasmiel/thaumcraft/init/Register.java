@@ -37,6 +37,8 @@ public class Register {
         return result;
     }
 
+
+
     public static void registerBlockItem(String name, Block block) {
         Registry.register(Registry.ITEM, new Identifier(Thaumcraft.MOD_ID, "block/"+name),
                 new BlockItem(block, new FabricItemSettings().group(Thaumcraft.MOD_GROUP)));
@@ -47,6 +49,8 @@ public class Register {
                 new BlockItem(block, new FabricItemSettings().group(Thaumcraft.MOD_GROUP)));
         ColorProviderRegistry.ITEM.register((stack, tintIndex) -> color, result);
     }
+
+
 
     public static void register() {
         // Blocks

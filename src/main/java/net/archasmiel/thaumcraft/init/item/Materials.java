@@ -11,13 +11,13 @@ import net.minecraft.item.Item;
 public class Materials {
 
     // Alchemy materials
-    public static final Item ALUMENTUM = Register.registerItem(
-            "alumentum",
+    public static final Item NITOR = Register.registerItem(
+            "nitor",
             new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
     );
 
-    public static final Item NITOR = Register.registerItem(
-            "nitor",
+    public static final Item ALUMENTUM = Register.registerItem(
+            "alumentum",
             new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
     );
 
@@ -26,7 +26,7 @@ public class Materials {
     // Thaumaturgy materials
     public static final Item PRIMAL_CHARM = Register.registerItem(
             "primal_charm",
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
+            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1))
     );
 
 

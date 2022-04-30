@@ -21,12 +21,58 @@ public class Materials {
             new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
     );
 
+    public static final Item TALLOW = Register.registerItem(
+            "tallow",
+            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
+    );
+
 
 
     // Thaumaturgy materials
     public static final Item PRIMAL_CHARM = Register.registerItem(
             "primal_charm",
             new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1))
+    );
+
+    public static final Item SALIS_MUNDUS = Register.registerItem(
+            "salis_mundus",
+            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
+    );
+
+
+
+    // Artifice materials
+    public static final Item CLOTH = Register.registerItem(
+            "cloth",
+            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
+    );
+
+    public static final Item FILTER = Register.registerItem(
+            "filter",
+            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
+    );
+
+    public static final Item KNOWLEDGE_FRAGMENT = Register.registerItem(
+            "knowledge_fragment",
+            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
+    );
+
+    public static final Item MIRROR_GLASS = Register.registerItem(
+            "mirror_glass",
+            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
+    );
+
+
+
+    // Tainted
+    public static final Item TAINT_SLIME = Register.registerItem(
+            "taint_slime",
+            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
+    );
+
+    public static final Item TAINT_TENDRIL = Register.registerItem(
+            "taint_tendril",
+            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
     );
 
 
@@ -97,6 +143,11 @@ public class Materials {
 
     public static final Item THAUMIUM_NUGGET = Register.registerItem(
             "nugget_thaumium",
+            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
+    );
+
+    public static final Item VOID_SEED = Register.registerItem(
+            "void_seed",
             new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
     );
 

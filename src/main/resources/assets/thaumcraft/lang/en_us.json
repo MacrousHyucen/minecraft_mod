@@ -17,6 +17,7 @@
 
   "item.thaumcraft.thaumonomicon": "§6Thaumonomicon",
   "item.thaumcraft.thaumonomicon_cheat": "§6Thaumonomicon (cheat version)",
+  "item.thaumcraft.crimson_rites": "§6Crimson Rites",
   "item.thaumcraft.primal_charm": "Primal Charm",
 
   "item.thaumcraft.shard_air": "Air Shard",
@@ -32,8 +33,18 @@
   "item.thaumcraft.ingot_void_metal": "Void Metal Ingot",
   "item.thaumcraft.ingot_quicksilver": "Quicksilver",
   "item.thaumcraft.nugget_thaumium": "Thaumium Nugget",
+  "item.thaumcraft.void_seed": "Void Seed",
   "item.thaumcraft.nugget_void_metal": "Void Metal Nugget",
   "item.thaumcraft.nugget_quicksilver": "Quicksilver Drop",
+
+  "item.thaumcraft.tallow": "Magical Tallow",
+  "item.thaumcraft.cloth": "Magical Cloth",
+  "item.thaumcraft.filter": "Filter",
+  "item.thaumcraft.knowledge_fragment": "Knowledge Fragment",
+  "item.thaumcraft.mirror_glass": "Mirror Glass",
+  "item.thaumcraft.taint_slime": "Taint Slime",
+  "item.thaumcraft.taint_tendril": "Taint Tendril",
+  "item.thaumcraft.salis_mundus": "Salis Mundus",
 
 
   "item.thaumcraft.nitor": "Nitor",
@@ -67,6 +78,19 @@
   "item.thaumcraft.staff_rod_reed": "Reed Staff Core",
   "item.thaumcraft.staff_rod_silverwood": "Silverwood Staff Core",
   "item.thaumcraft.staff_rod_primal": "Staff Core of the Primal",
+
+  "item.thaumcraft.thaumium_sword": "Thaumium Sword",
+  "item.thaumcraft.thaumium_pickaxe": "Thaumium Pickaxe",
+  "item.thaumcraft.thaumium_axe": "Thaumium Axe",
+  "item.thaumcraft.thaumium_shovel": "Thaumium Shovel",
+  "item.thaumcraft.thaumium_hoe": "Thaumium Hoe",
+
+  "item.thaumcraft.inkwell": "Inkwell",
+  "item.thaumcraft.label": "Label",
+  "item.thaumcraft.bottle_taint": "Bottled Taint",
+  "item.thaumcraft.coin": "Coin",
+
+
 
   "block.thaumcraft.arcane_workbench": "Arcane Workbench",
   "block.thaumcraft.deconstruction_table": "Deconstruction Table",

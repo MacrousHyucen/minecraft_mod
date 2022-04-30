@@ -13,6 +13,8 @@ import net.minecraft.util.registry.Registry;
 
 public class Register {
 
+
+
     public static Item registerItem(String name, Item item) {
         return Registry.register(Registry.ITEM, new Identifier(Thaumcraft.MOD_ID, name), item);
     }
@@ -58,6 +60,7 @@ public class Register {
 
         // Items
         Books.register();
+        Tools.register();
         Miscellaneous.register();
         WandRods.register();
         StaffRods.register();

@@ -19,6 +19,11 @@ public class Books {
             new Item(new FabricItemSettings().group(ItemGroup.HOTBAR).maxCount(1))
     );
 
+    public static final Item CRIMSON_RITES = Register.registerItem(
+            "crimson_rites",
+            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1))
+    );
+
 
 
     public static void register() {}

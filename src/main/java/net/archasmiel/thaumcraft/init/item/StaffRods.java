@@ -53,6 +53,8 @@ public class StaffRods {
             new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1))
     );
 
-    public static void register() {}
+    public static void register() {
+        Thaumcraft.LOGGER.info("Loading staff rods");
+    }
 
 }

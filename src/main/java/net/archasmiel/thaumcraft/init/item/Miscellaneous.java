@@ -30,6 +30,8 @@ public class Miscellaneous {
             new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
     );
 
-    public static void register() {}
+    public static void register() {
+        Thaumcraft.LOGGER.info("Loading misc");
+    }
 
 }

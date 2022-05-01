@@ -26,7 +26,9 @@ public class Books {
 
 
 
-    public static void register() {}
+    public static void register() {
+        Thaumcraft.LOGGER.info("Loading books");
+    }
 
 
 }

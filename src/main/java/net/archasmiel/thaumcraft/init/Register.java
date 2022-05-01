@@ -60,12 +60,14 @@ public class Register {
 
         // Items
         Books.register();
-        Tools.register();
         Miscellaneous.register();
+        Materials.register();
+        Tools.register();
+
         WandRods.register();
         StaffRods.register();
         Caps.register();
-        Materials.register();
+
     }
 
 }

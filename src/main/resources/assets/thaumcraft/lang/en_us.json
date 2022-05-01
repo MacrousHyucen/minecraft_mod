@@ -57,8 +57,8 @@
   "item.thaumcraft.cap_silver_inert": "Inert Silver Cap",
   "item.thaumcraft.cap_thaumium": "Charged Thaumium Cap",
   "item.thaumcraft.cap_thaumium_inert": "Inert Thaumium Cap",
-  "item.thaumcraft.cap_void": "Charged Void Cap",
-  "item.thaumcraft.cap_void_inert": "Inert Void Cap",
+  "item.thaumcraft.cap_void": "Charged Void metal Cap",
+  "item.thaumcraft.cap_void_inert": "Inert Void metal Cap",
 
   "item.thaumcraft.wand_rod_blaze": "Blazing Rod",
   "item.thaumcraft.wand_rod_bone": "Bone Rod",
@@ -84,6 +84,12 @@
   "item.thaumcraft.thaumium_axe": "Thaumium Axe",
   "item.thaumcraft.thaumium_shovel": "Thaumium Shovel",
   "item.thaumcraft.thaumium_hoe": "Thaumium Hoe",
+
+  "item.thaumcraft.voidmetal_sword": "Void metal Sword",
+  "item.thaumcraft.voidmetal_pickaxe": "Void metal Pickaxe",
+  "item.thaumcraft.voidmetal_axe": "Void metal Axe",
+  "item.thaumcraft.voidmetal_shovel": "Void metal Shovel",
+  "item.thaumcraft.voidmetal_hoe": "Void metal Hoe",
 
   "item.thaumcraft.inkwell": "Inkwell",
   "item.thaumcraft.label": "Label",

@@ -1,5 +1,6 @@
 package net.archasmiel.thaumcraft.init.block;
 
+import net.archasmiel.thaumcraft.Thaumcraft;
 import net.archasmiel.thaumcraft.block.ArcaneWorkbench;
 import net.archasmiel.thaumcraft.block.DeconstructionTable;
 import net.archasmiel.thaumcraft.block.Table;
@@ -41,6 +42,8 @@ public class Functional {
 
 
 
-    public static void register() {}
+    public static void register() {
+        Thaumcraft.LOGGER.info("Loading functional blocks");
+    }
 
 }

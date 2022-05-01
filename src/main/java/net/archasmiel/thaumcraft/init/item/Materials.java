@@ -163,6 +163,8 @@ public class Materials {
 
 
 
-    public static void register() {}
+    public static void register() {
+        Thaumcraft.LOGGER.info("Loading materials");
+    }
 
 }

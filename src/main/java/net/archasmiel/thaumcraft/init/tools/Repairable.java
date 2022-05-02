@@ -16,7 +16,7 @@ public class Repairable {
                     nbt.putLong("ThaumcraftRepairCounter", currentTime);
                     nbt.putInt("Damage", nbt.getInt("Damage") - 1);
                 }
-                if (time_elapsed >= 30) {
+                if (time_elapsed >= 20) {
                     nbt.putLong("ThaumcraftRepairCounter", currentTime);
                     nbt.putInt("Damage", nbt.getInt("Damage") - 1);
                 }
@@ -33,9 +33,6 @@ public class Repairable {
                 }
             }
         }
-
-
-
     }
 
 }

@@ -1,7 +1,7 @@
 {
 	"textures": {
-		"0": "thaumcraft:models/deconstruction_table",
-		"particle": "thaumcraft:models/deconstruction_table"
+		"0": "thaumcraft:block/deconstruction_table",
+		"particle": "thaumcraft:block/deconstruction_table"
 	},
 	"elements": [
 		{

@@ -2,6 +2,7 @@ package net.archasmiel.thaumcraft.mixin;
 
 import net.archasmiel.thaumcraft.Thaumcraft;
 import net.minecraft.client.gui.screen.TitleScreen;
+import net.minecraft.client.render.model.ModelLoader;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -14,3 +15,5 @@ public class ThaumcraftMixin {
 		Thaumcraft.LOGGER.info("This line is printed by an example mod mixin!");
 	}
 }
+
+

@@ -1,7 +1,7 @@
 {
 	"textures": {
-		"0": "thaumcraft:models/table",
-		"particle": "thaumcraft:models/table"
+		"0": "thaumcraft:block/table",
+		"particle": "thaumcraft:block/table"
 	},
 	"elements": [
 		{

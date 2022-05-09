@@ -1,7 +1,7 @@
 {
 	"textures": {
-		"0": "thaumcraft:models/arcane_workbench",
-		"particle": "thaumcraft:models/arcane_workbench"
+		"0": "thaumcraft:block/arcane_workbench",
+		"particle": "thaumcraft:block/arcane_workbench"
 	},
 	"elements": [
 		{

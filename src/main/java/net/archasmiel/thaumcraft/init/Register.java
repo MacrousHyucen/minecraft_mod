@@ -68,6 +68,8 @@ public class Register {
         StaffRods.register();
         Caps.register();
 
+        Test.register();
+
     }
 
 }

@@ -1,8 +1,6 @@
 
 
 ## ***Info & Contacts***
-
-
 ###  **Who am I?**<br>
   Hello, dear visitor, my name is Archasmiel. <br>
   I have 5 years of programming expirience. Actually I started coding minecraft mods 1 year ago.<br><br>
@@ -31,15 +29,12 @@
 
 
 ## ***Working Stuff***
-  
 - [x] *Custom ItemGroup for mod*
-- [x] *Basic Thaumonomicon GUI (sorry for explosion test sound)*
+- [x] *Basic Thaumonomicon GUI (explosion test sound)*
 - [x] *Blockbench models of table, arcane workbench and deconstruction table (and rotation ability)*
 - [x] *Some amount of original items (including all types of shards, wand+staff cores and caps)*
-
-- [x] *Working thaumium tool set *
+- [x] *Working thaumium tool set*
 - [x] *Working void metal tool set (with self-repairing)*
-  
 - [x] *English and Russian translation files*
 
 
@@ -51,7 +46,6 @@
 
 
 ## ***WIP***
-  
 - [ ] *Dynamic generating of wand, staff and scepter models with their material textures* **(Current Goal)**
 - [ ] *Arcane workbench and deconstruction table GUI and storage*
 
@@ -64,10 +58,8 @@
 
 
 ## ***Fabric Example Mod Credits***
-  
   #### Setup
   For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
-
   #### License
   This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
 

@@ -18,6 +18,7 @@
   Used additional API:
   1. Parchment (mappings) [Link](https://github.com/ParchmentMC/Parchment)
   2. LibGui (GUI API) [Link](https://github.com/CottonMC/LibGui)
+  3. ARRP (Advanced Runtime Resource Packs) [Link](https://github.com/Devan-Kerman/ARRP/)
 
 
 

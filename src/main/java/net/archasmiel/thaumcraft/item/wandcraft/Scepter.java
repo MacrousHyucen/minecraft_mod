@@ -11,8 +11,6 @@ public class Scepter extends WandAbstract implements VisCraft, Weapon, FociWear 
 
     public Scepter(Settings settings, Cap caps, Rod rod) {
         super(settings, rod, caps, 0.10f, 1.5f);
-        super.setCaps(caps);
-        super.setRod(rod);
     }
 
 

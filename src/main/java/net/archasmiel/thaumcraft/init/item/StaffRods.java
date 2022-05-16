@@ -2,55 +2,56 @@ package net.archasmiel.thaumcraft.init.item;
 
 import net.archasmiel.thaumcraft.Thaumcraft;
 import net.archasmiel.thaumcraft.init.Register;
+import net.archasmiel.thaumcraft.lib.register.Material;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.Item;
 
 public class StaffRods {
 
-    public static final Item STAFF_ROD_BLAZE = Register.registerItem(
+    public static final Item STAFF_ROD_BLAZE = Material.register(
             "staff_rod_blaze",
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1))
+            1
     );
 
-    public static final Item STAFF_ROD_BONE = Register.registerItem(
+    public static final Item STAFF_ROD_BONE = Material.register(
             "staff_rod_bone",
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1))
+            1
     );
 
-    public static final Item STAFF_ROD_GREATWOOD = Register.registerItem(
+    public static final Item STAFF_ROD_GREATWOOD = Material.register(
             "staff_rod_greatwood",
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1))
+            1
     );
 
-    public static final Item STAFF_ROD_ICE = Register.registerItem(
+    public static final Item STAFF_ROD_ICE = Material.register(
             "staff_rod_ice",
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1))
+            1
     );
 
-    public static final Item STAFF_ROD_OBSIDIAN = Register.registerItem(
+    public static final Item STAFF_ROD_OBSIDIAN = Material.register(
             "staff_rod_obsidian",
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1))
+            1
     );
 
-    public static final Item STAFF_ROD_QUARTZ = Register.registerItem(
+    public static final Item STAFF_ROD_QUARTZ = Material.register(
             "staff_rod_quartz",
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1))
+            1
     );
 
-    public static final Item STAFF_ROD_REED = Register.registerItem(
+    public static final Item STAFF_ROD_REED = Material.register(
             "staff_rod_reed",
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1))
+            1
     );
 
-    public static final Item STAFF_ROD_SILVERWOOD = Register.registerItem(
+    public static final Item STAFF_ROD_SILVERWOOD = Material.register(
             "staff_rod_silverwood",
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1))
+            1
     );
 
     /* SPECIAL STAFF ROD */
-    public static final Item STAFF_ROD_PRIMAL = Register.registerItem(
+    public static final Item STAFF_ROD_PRIMAL = Material.register(
             "staff_rod_primal",
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1))
+            1
     );
 
     public static void register() {

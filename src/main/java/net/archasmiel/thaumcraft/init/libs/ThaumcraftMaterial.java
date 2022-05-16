@@ -1,4 +1,4 @@
-package net.archasmiel.thaumcraft.init;
+package net.archasmiel.thaumcraft.init.libs;
 
 
 import net.archasmiel.thaumcraft.init.item.Materials;

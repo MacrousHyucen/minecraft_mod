@@ -1,46 +1,48 @@
 {
 	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "thaumcraft:models/wand_rod_wood",
+		"1": "thaumcraft:models/wand_cap_iron",
+		"particle": "thaumcraft:models/wand_rod_wood"
+	},
 	"elements": [
 		{
 			"name": "cap_top",
 			"from": [6.5, 15, 6.5],
 			"to": [9.5, 17, 9.5],
-			"color": 0,
 			"faces": {
-				"north": {"uv": [0, 0, 3, 2], "texture": "#missing"},
-				"east": {"uv": [0, 0, 3, 2], "texture": "#missing"},
-				"south": {"uv": [0, 0, 3, 2], "texture": "#missing"},
-				"west": {"uv": [0, 0, 3, 2], "texture": "#missing"},
-				"up": {"uv": [0, 0, 3, 3], "texture": "#missing"},
-				"down": {"uv": [0, 0, 3, 3], "texture": "#missing"}
+				"north": {"uv": [2, 3.5, 4, 4.5], "texture": "#1"},
+				"east": {"uv": [0, 3.5, 2, 4.5], "texture": "#1"},
+				"south": {"uv": [2, 3.5, 4, 4.5], "texture": "#1"},
+				"west": {"uv": [0, 4.5, 2, 3.5], "texture": "#1"},
+				"up": {"uv": [2, 0, 3, 1], "texture": "#1"},
+				"down": {"uv": [1, 0, 2, 1], "texture": "#1"}
 			}
 		},
 		{
 			"name": "rod",
 			"from": [7, 2, 7],
 			"to": [9, 15, 9],
-			"color": 0,
 			"faces": {
-				"north": {"uv": [0, 0, 2, 13], "texture": "#missing"},
-				"east": {"uv": [0, 0, 2, 13], "texture": "#missing"},
-				"south": {"uv": [0, 0, 2, 13], "texture": "#missing"},
-				"west": {"uv": [0, 0, 2, 13], "texture": "#missing"},
-				"up": {"uv": [0, 0, 2, 2], "texture": "#missing"},
-				"down": {"uv": [0, 0, 2, 2], "texture": "#missing"}
+				"north": {"uv": [2, 5, 4, 14], "texture": "#0"},
+				"east": {"uv": [0, 5, 2, 14], "texture": "#0"},
+				"south": {"uv": [2, 5, 4, 14], "texture": "#0"},
+				"west": {"uv": [0, 5, 2, 14], "texture": "#0"},
+				"up": {"uv": [1, 4, 2, 5], "texture": "#0"},
+				"down": {"uv": [2, 4, 3, 5], "texture": "#0"}
 			}
 		},
 		{
 			"name": "cap_bot",
 			"from": [6.5, 0, 6.5],
 			"to": [9.5, 2, 9.5],
-			"color": 0,
 			"faces": {
-				"north": {"uv": [0, 0, 3, 2], "texture": "#missing"},
-				"east": {"uv": [0, 0, 3, 2], "texture": "#missing"},
-				"south": {"uv": [0, 0, 3, 2], "texture": "#missing"},
-				"west": {"uv": [0, 0, 3, 2], "texture": "#missing"},
-				"up": {"uv": [0, 0, 3, 3], "texture": "#missing"},
-				"down": {"uv": [0, 0, 3, 3], "texture": "#missing"}
+				"north": {"uv": [0, 1, 2, 2], "texture": "#1"},
+				"east": {"uv": [2, 1, 4, 2], "texture": "#1"},
+				"south": {"uv": [2, 1, 4, 2], "texture": "#1"},
+				"west": {"uv": [0, 1, 2, 2], "texture": "#1"},
+				"up": {"uv": [1, 0, 2, 1], "texture": "#1"},
+				"down": {"uv": [2, 0, 3, 1], "texture": "#1"}
 			}
 		}
 	],

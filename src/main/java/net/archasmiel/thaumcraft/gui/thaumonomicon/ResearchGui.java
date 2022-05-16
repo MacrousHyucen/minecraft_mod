@@ -21,7 +21,7 @@ public class ResearchGui extends WPlainPanel {
     private ResearchPanel panel;
     private Integer panelX, panelY;
 
-    private List<ResearchTab> tabs = new ArrayList<>();
+    private final List<ResearchTab> tabs = new ArrayList<>();
 
 
 

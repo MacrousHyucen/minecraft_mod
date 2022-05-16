@@ -1,9 +1,9 @@
 package net.archasmiel.thaumcraft.init.item;
 
 import net.archasmiel.thaumcraft.Thaumcraft;
-import net.archasmiel.thaumcraft.init.Register;
-import net.archasmiel.thaumcraft.init.ThaumcraftMaterial;
+import net.archasmiel.thaumcraft.init.libs.ThaumcraftMaterial;
 import net.archasmiel.thaumcraft.init.tools.*;
+import net.archasmiel.thaumcraft.lib.register.Tool;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.ToolItem;
 import net.minecraft.item.Item;
@@ -47,37 +47,40 @@ public class Tools {
 
 
     // Creating actual items
-    public static final Item THAUMIUM_SWORD = Register.registerItem(
+    public static final Item THAUMIUM_SWORD = Tool.register(
             "thaumium_sword", THAUMIUM_SWORD_TOOL
     );
-    public static final Item THAUMIUM_PICKAXE = Register.registerItem(
+    public static final Item THAUMIUM_PICKAXE = Tool.register(
             "thaumium_pickaxe", THAUMIUM_PICKAXE_TOOL
     );
-    public static final Item THAUMIUM_AXE = Register.registerItem(
+    public static final Item THAUMIUM_AXE = Tool.register(
             "thaumium_axe", THAUMIUM_AXE_TOOL
     );
-    public static final Item THAUMIUM_SHOVEL = Register.registerItem(
+    public static final Item THAUMIUM_SHOVEL = Tool.register(
             "thaumium_shovel", THAUMIUM_SHOVEL_TOOL
     );
-    public static final Item THAUMIUM_HOE = Register.registerItem(
+    public static final Item THAUMIUM_HOE = Tool.register(
             "thaumium_hoe", THAUMIUM_HOE_TOOL
     );
 
-    public static final Item VOIDMETAL_SWORD = Register.registerItem(
+    public static final Item VOIDMETAL_SWORD = Tool.register(
             "voidmetal_sword", VOIDMETAL_SWORD_TOOL
     );
-    public static final Item VOIDMETAL_PICKAXE = Register.registerItem(
+    public static final Item VOIDMETAL_PICKAXE = Tool.register(
             "voidmetal_pickaxe", VOIDMETAL_PICKAXE_TOOL
     );
-    public static final Item VOIDMETAL_AXE = Register.registerItem(
+    public static final Item VOIDMETAL_AXE = Tool.register(
             "voidmetal_axe", VOIDMETAL_AXE_TOOL
     );
-    public static final Item VOIDMETAL_SHOVEL = Register.registerItem(
+    public static final Item VOIDMETAL_SHOVEL = Tool.register(
             "voidmetal_shovel", VOIDMETAL_SHOVEL_TOOL
     );
-    public static final Item VOIDMETAL_HOE = Register.registerItem(
+    public static final Item VOIDMETAL_HOE = Tool.register(
             "voidmetal_hoe", VOIDMETAL_HOE_TOOL
     );
+
+
+
 
     public static void register() {
         Thaumcraft.LOGGER.info("Loading tools");

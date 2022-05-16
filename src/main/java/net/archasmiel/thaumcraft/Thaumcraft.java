@@ -2,6 +2,10 @@ package net.archasmiel.thaumcraft;
 
 import net.archasmiel.thaumcraft.init.Register;
 import net.archasmiel.thaumcraft.init.item.Books;
+import net.devtech.arrp.api.RRPCallback;
+import net.devtech.arrp.api.RuntimeResourcePack;
+
+
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.item.ItemGroup;
@@ -10,35 +14,27 @@ import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Thaumcraft implements ModInitializer {
 	public static final String MOD_ID = "thaumcraft";
 	public static final String MOD_NAME = "Thaumcraft";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
+	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create("thaumcraft:test");
+
 	public static final ItemGroup MOD_GROUP = FabricItemGroupBuilder.build(
 			new Identifier(MOD_ID, MOD_ID),
 			() -> new ItemStack(Books.THAUMONOMICON)
 	);
 
-	public static final List<String> restrictedIDs = new ArrayList<>();
-	private void addRestrictedIDs() {
-		restrictedIDs.add("block/table");
-		restrictedIDs.add("block/arcane_workbench");
-		restrictedIDs.add("block/deconstruction_table");
 
-		restrictedIDs.add("item/block/wand");
-		restrictedIDs.add("block/wand");
-		restrictedIDs.add("item/wand");
-	}
 
-	public static boolean isRestricted(String id){
-		return restrictedIDs.contains(id);
-	}
 
+	// archasmiel, can we have json gen methods methods?
+	// archasmiel: no, we have json gen methods at home
+	// json gen methods at home:
 	public static String createItemModelJson(String id, String type) {
+
 		if ("generated".equals(type) || "handheld".equals(type)) {
 			//The two types of items. "handheld" is used mostly for tools and the like, while "generated" is used for everything else.
 			return "{\n" +
@@ -80,12 +76,19 @@ public class Thaumcraft implements ModInitializer {
 			//If the type is invalid, return an empty json string.
 			return "";
 		}
+
+		// Wall Of Shame
+		// this DEFINITELY MUST BE ERASED from existence
 	}
+
+
 
 	@Override
 	public void onInitialize() {
-		addRestrictedIDs();
 
 		Register.register();
+
+		RRPCallback.AFTER_VANILLA.register(a -> a.add(RESOURCE_PACK));
+
 	}
 }

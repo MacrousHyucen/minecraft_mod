@@ -9,7 +9,7 @@ import net.archasmiel.thaumcraft.item.wandcraft.variants.Weapon;
 
 public class Wand extends WandAbstract implements VisCraft, Weapon, FociWear {
 
-    public Wand(Settings settings, Cap caps, Rod rod, String type) {
+    public Wand(Settings settings, Cap caps, Rod rod) {
         super(settings, rod, caps, 0.00f, 1.00f);
     }
 

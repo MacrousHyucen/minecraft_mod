@@ -1,23 +1,25 @@
 package net.archasmiel.thaumcraft.init.libs;
 
 
-import net.archasmiel.thaumcraft.init.item.Materials;
 import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
+
+import static net.archasmiel.thaumcraft.init.item.ItemRegister.THAUMIUM_INGOT;
+import static net.archasmiel.thaumcraft.init.item.ItemRegister.VOID_METAL_INGOT;
 
 
 public enum ThaumcraftMaterial implements ToolMaterial {
     // 0 - wood/gold, 1 - stone, 2 - iron, 3 - diamond, 4 - netherite
 
     THAUMIUMIUM(3, 400, 7.0F, 3.0F, 18,
-            Ingredient.ofItems(Materials.THAUMIUM_INGOT), false
+            Ingredient.ofItems(THAUMIUM_INGOT.getItem()), false
     ),
     ELEMENTAL(3, 1561, 8.0F, 4.0F, 18,
             Ingredient.ofItems(Items.DIAMOND), false
     ),
     VOID(3, 150, 7.0F, 4.0F, 18,
-            Ingredient.ofItems(Materials.VOID_METAL_INGOT), true
+            Ingredient.ofItems(VOID_METAL_INGOT.getItem()), true
     );
 
     private final int miningLevel;

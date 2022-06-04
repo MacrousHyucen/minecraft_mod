@@ -11,31 +11,18 @@ public class ItemDataGen {
     public static final RuntimeResourcePack RESOURCE_PACK = Thaumcraft.RESOURCE_PACK;
 
 
-
-    // Models
-    public static void simpleItemModel(String type, String itemName) {
+    public static void simpleItemModel(String type, String modelName, String textureName) {
         RESOURCE_PACK.addModel(
                 new JModel()
                         .parent("item/" + type)
                         .textures(
-                                new JTextures().layer0("thaumcraft:item/" + itemName)
-                        ),
-
-                new Identifier("thaumcraft:item/" + itemName)
-        );
-    }
-
-    public static void simpleItemModel(String type, String modelName, String itemName) {
-        RESOURCE_PACK.addModel(
-                new JModel()
-                        .parent("item/" + type)
-                        .textures(
-                                new JTextures().layer0("thaumcraft:item/" + itemName)
+                                new JTextures().layer0("thaumcraft:item/" + textureName)
                         ),
 
                 new Identifier("thaumcraft:item/" + modelName)
         );
     }
+
 
     public static void simpleItemBlockModel(String blockName) {
         RESOURCE_PACK.addModel(

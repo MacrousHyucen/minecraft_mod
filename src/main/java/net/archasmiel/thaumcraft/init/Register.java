@@ -59,21 +59,8 @@ public class Register {
 
 
     public static void register() {
-        // Blocks
         Functional.register();
-
-        // Items
-        Books.register();
-        Miscellaneous.register();
-        Materials.register();
-        Tools.register();
-
-        WandRods.register();
-        StaffRods.register();
-        Caps.register();
-
-        WandCraft.register();
-
+        ItemRegister.register();
     }
 
 }

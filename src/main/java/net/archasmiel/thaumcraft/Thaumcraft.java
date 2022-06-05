@@ -1,6 +1,7 @@
 package net.archasmiel.thaumcraft;
 
-import net.archasmiel.thaumcraft.init.Register;
+import net.archasmiel.thaumcraft.init.block.Functional;
+import net.archasmiel.thaumcraft.init.item.ItemRegister;
 import net.devtech.arrp.api.RRPCallback;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.fabricmc.api.ModInitializer;
@@ -20,7 +21,7 @@ public class Thaumcraft implements ModInitializer {
 	public static final String MOD_NAME = "Thaumcraft";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
-	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create("thaumcraft:test");
+	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create("thaumcraft:resources");
 
 	public static final ItemGroup MOD_GROUP = FabricItemGroupBuilder.build(
 			new Identifier(MOD_ID, MOD_ID),
@@ -29,10 +30,18 @@ public class Thaumcraft implements ModInitializer {
 
 
 
+	// Registering all items and blocks
+	public void register() {
+		Functional.register();
+		ItemRegister.register();
+	}
+
+
+
 	@Override
 	public void onInitialize() {
 
-		Register.register();
+		register();
 
 		RRPCallback.BEFORE_VANILLA.register(a -> a.add(RESOURCE_PACK));
 

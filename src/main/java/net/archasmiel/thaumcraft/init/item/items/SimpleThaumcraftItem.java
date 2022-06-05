@@ -22,27 +22,24 @@ public class SimpleThaumcraftItem extends ThaumcraftItem {
 
     @Override
     public void model() {
-        simpleItemModel("generated", this.name(), this.name());
+        simpleItemModel("generated", name(), name());
     }
 
     @Override
     public void register() {
-        if (this.color() == 0x000000)
-            this.setItem(
-                Register.registerItem(name(), item())
-            );
-        else
-            this.setItem(
-                Register.registerItem(name(), item(), color())
-            );
 
-        this.setRegistered(true);
+        if (color() == 0x000000)
+            setItem(Register.registerItem(name(), item()));
+        else
+            setItem(Register.registerItem(name(), item(), color()));
+
+        setRegistered(true);
     }
 
     @Override
     public void load() {
-        this.model();
-        this.register();
+        model();
+        register();
     }
 
 }

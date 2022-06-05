@@ -23,27 +23,23 @@ public class ShardThaumcraftItem extends ThaumcraftItem {
 
     @Override
     public void model() {
-        simpleItemModel("generated", this.name(), "shard");
+        simpleItemModel("generated", name(), "shard");
     }
 
     @Override
     public void register() {
-        if (this.color() == 0x000000)
-            this.setItem(
-                    Register.registerItem(name(), item())
-            );
+        if (color() == 0x000000)
+            setItem(Register.registerItem(name(), item()));
         else
-            this.setItem(
-                    Register.registerItem(name(), item(), color())
-            );
+            setItem(Register.registerItem(name(), item(), color()));
 
-        this.setRegistered(true);
+        setRegistered(true);
     }
 
     @Override
     public void load() {
-        this.model();
-        this.register();
+        model();
+        register();
     }
 
 }

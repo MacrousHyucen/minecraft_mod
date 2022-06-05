@@ -47,8 +47,10 @@
 
 
 ## ***WIP***
-- [ ] *Dynamic generating of wand, staff and scepter models with their material textures* **(Current Goal)**
+- [ ] *Predicates of wand, staff and scepter models with their material textures* **(Current Goal)**
 - [ ] *Arcane workbench and deconstruction table GUI and storage*
+- [ ] *Wand NBT data + only wand as arcane workbench input in special slot*
+- [ ] *Thaumonomicon GUI improvements (working tabs with moving icons, action on clicking, current page saving)*
 
 
 

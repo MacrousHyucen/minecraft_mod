@@ -1,4 +1,4 @@
-package net.archasmiel.thaumcraft.item.wandcraft.variants;
+package net.archasmiel.thaumcraft.item.wandcraft;
 
 import net.archasmiel.thaumcraft.item.wandcraft.ingredients.Cap;
 import net.archasmiel.thaumcraft.item.wandcraft.ingredients.Rod;

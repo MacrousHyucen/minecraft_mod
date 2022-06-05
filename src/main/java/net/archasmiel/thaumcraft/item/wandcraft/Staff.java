@@ -4,7 +4,6 @@ import net.archasmiel.thaumcraft.item.wandcraft.ingredients.Cap;
 import net.archasmiel.thaumcraft.item.wandcraft.ingredients.Rod;
 import net.archasmiel.thaumcraft.item.wandcraft.variants.FociWear;
 import net.archasmiel.thaumcraft.item.wandcraft.variants.VisCraft;
-import net.archasmiel.thaumcraft.item.wandcraft.variants.WandAbstract;
 import net.archasmiel.thaumcraft.item.wandcraft.variants.Weapon;
 
 public class Staff extends WandAbstract implements VisCraft, Weapon, FociWear {

@@ -6,7 +6,6 @@
   "mixins": [
   ],
   "client": [
-    "ThaumcraftMixin"
   ],
   "injectors": {
     "defaultRequire": 1

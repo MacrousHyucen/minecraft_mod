@@ -369,9 +369,10 @@ public class ItemRegister {
 
 
 
-    public static final ThaumcraftItem WAND_ITEM = new SimpleThaumcraftItem(
+    public static final ThaumcraftItem WAND_ITEM = new WandThaumcraftItem(
             new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
-            "wand"
+            "wand",
+            "wand_rod_greatwood", "wand_cap_thaumium", "wand"
     );
 
 

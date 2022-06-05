@@ -1,7 +1,5 @@
 package net.archasmiel.thaumcraft.lib;
 
-import net.archasmiel.thaumcraft.Thaumcraft;
-import net.devtech.arrp.api.RuntimeResourcePack;
 import net.devtech.arrp.json.blockstate.JBlockModel;
 import net.devtech.arrp.json.blockstate.JState;
 import net.devtech.arrp.json.blockstate.JVariant;
@@ -13,11 +11,9 @@ import net.devtech.arrp.json.models.JModel;
 import net.devtech.arrp.json.models.JTextures;
 import net.minecraft.util.Identifier;
 
+import static net.archasmiel.thaumcraft.Thaumcraft.RESOURCE_PACK;
+
 public class BlockDataGen {
-
-    public static final RuntimeResourcePack RESOURCE_PACK = Thaumcraft.RESOURCE_PACK;
-
-
 
     // Models
     public static void simpleBlockModel(String blockName) {

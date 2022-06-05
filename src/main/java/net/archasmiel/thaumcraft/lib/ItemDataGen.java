@@ -1,15 +1,12 @@
 package net.archasmiel.thaumcraft.lib;
 
-import net.archasmiel.thaumcraft.Thaumcraft;
-import net.devtech.arrp.api.RuntimeResourcePack;
-import net.devtech.arrp.json.models.JModel;
-import net.devtech.arrp.json.models.JTextures;
+import net.devtech.arrp.json.models.*;
 import net.minecraft.util.Identifier;
 
+
+import static net.archasmiel.thaumcraft.Thaumcraft.RESOURCE_PACK;
+
 public class ItemDataGen {
-
-    public static final RuntimeResourcePack RESOURCE_PACK = Thaumcraft.RESOURCE_PACK;
-
 
     public static void simpleItemModel(String type, String modelName, String textureName) {
         RESOURCE_PACK.addModel(
@@ -31,5 +28,6 @@ public class ItemDataGen {
                 new Identifier("thaumcraft:item/block/" + blockName)
         );
     }
+
 
 }

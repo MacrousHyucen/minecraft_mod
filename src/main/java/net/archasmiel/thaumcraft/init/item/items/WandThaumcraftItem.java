@@ -10,72 +10,92 @@ import static net.archasmiel.thaumcraft.Thaumcraft.*;
 import static net.archasmiel.thaumcraft.lib.gen.WandcraftDataGen.wandModel;
 
 
+
+
+
+
+
+
 public class WandThaumcraftItem extends ThaumcraftItem {
 
     private final String rod, cap, type;
+    private final String genName;
 
 
-    public WandThaumcraftItem(Item item, String name, String rod, String cap, String type) {
-        super(item, name);
+
+
+
+
+
+    public WandThaumcraftItem(Item item, String rod, String cap, String type) {
+
+        super(item, String.format("%s_%s_%s", type, rod.split("rod_")[1], cap.split("cap_")[1]));
+
+        this.genName = this.name();
         this.rod = rod;
         this.cap = cap;
         this.type = type;
+
     }
+
+
+
+
+
+
 
     @Override
     public void model() {
-        String gen_name = String.format("%s_%s_%s", type, rod.split("rod_")[1], cap.split("cap_")[1]);
+
         String EN_US_name = String.format("%s %s capped %s", rod.split("rod_")[1], cap.split("cap_")[1], type);
+        String RU_RU_name = "Тестовое название";
+        String ZH_CN_name = "基础学";
 
 
         // lang translation testing
-        // normal text here
-        EN_US_lang.item(
-                new Identifier("thaumcraft:" + gen_name),
-                EN_US_name
-        );
-
         // TODO
-        // charset error
-        RU_RU_lang.item(
-                new Identifier("thaumcraft:" + gen_name),
-                "Тестовое название"
+        // add translations from lang file and compose them
+        THAUMCRAFT_LANG.addTranslation(
+                "en_us",
+                THAUMCRAFT_LANG.getTranslation("en_us").item(
+                        new Identifier("thaumcraft:" + genName),
+                        EN_US_name
+                )
         );
 
 
-        // same charset error
-        // new String("", charset)   - only gets more weird
-        // new TranslationText()     - doesn't fit here
-        ZN_CN_lang.item(
-                new Identifier("thaumcraft:" + gen_name),
-                "基础学"
+        THAUMCRAFT_LANG.addTranslation(
+                "ru_ru",
+                THAUMCRAFT_LANG.getTranslation("ru_ru").item(
+                        new Identifier("thaumcraft:" + genName),
+                        RU_RU_name
+                )
         );
 
+        THAUMCRAFT_LANG.addTranslation(
+                "zh_cn",
+                THAUMCRAFT_LANG.getTranslation("zh_cn").item(
+                        new Identifier("thaumcraft:" + genName),
+                        ZH_CN_name
+                )
+        );
 
 
 
         RESOURCE_PACK.addModel(
                 wandModel(rod, cap),
-
-                new Identifier("thaumcraft:item/" + String.format("%s_%s_%s", type, rod.split("rod_")[1], cap.split("cap_")[1]))
-
+                new Identifier("thaumcraft:item/" + genName)
         );
-
-
-        // identifier of model
-        // String.format("thaumcraft:item/%s_%s_%s", type, rod.split("rod_")[1], cap.split("cap_")[1]);
 
     }
 
     @Override
     public void register() {
-        // auto-gen registry name
-        String gen_name = String.format("%s_%s_%s", type, rod.split("rod_")[1], cap.split("cap_")[1]);
 
         if (color() == 0x000000)
-            setItem( Register.registerItem(gen_name, item()) );
+            setItem( Register.registerItem(genName, item()) );
         else
-            setItem( Register.registerItem(gen_name, item(), color()) );
+            setItem( Register.registerItem(genName, item(), color()) );
 
         setRegistered(true);
     }

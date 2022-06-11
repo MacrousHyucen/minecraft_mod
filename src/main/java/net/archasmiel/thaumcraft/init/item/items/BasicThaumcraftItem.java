@@ -7,14 +7,14 @@ import static net.archasmiel.thaumcraft.lib.gen.ItemDataGen.simpleItemModel;
 
 
 
-public class SimpleThaumcraftItem extends ThaumcraftItem {
+public class BasicThaumcraftItem extends ThaumcraftItem {
 
 
 
-    public SimpleThaumcraftItem(Item item, String name) {
+    public BasicThaumcraftItem(Item item, String name) {
         super(item, name);
     }
-    public SimpleThaumcraftItem(Item item, String name, int color) {
+    public BasicThaumcraftItem(Item item, String name, int color) {
         super(item, name, color);
     }
 

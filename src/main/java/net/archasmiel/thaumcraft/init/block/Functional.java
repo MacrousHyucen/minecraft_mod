@@ -4,12 +4,10 @@ import net.archasmiel.thaumcraft.Thaumcraft;
 import net.archasmiel.thaumcraft.block.ArcaneWorkbench;
 import net.archasmiel.thaumcraft.block.DeconstructionTable;
 import net.archasmiel.thaumcraft.block.Table;
-import net.archasmiel.thaumcraft.init.Register;
 import net.archasmiel.thaumcraft.lib.register.Rotatable;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.Material;
 
 public class Functional {
 
@@ -39,16 +37,6 @@ public class Functional {
                     .nonOpaque()
             )
     );
-
-
-    public static final Block TESTBLOCK = Register.registerBlock(
-            "testblock",
-            new Block(FabricBlockSettings.of(Material.METAL).strength(4.0f))
-    );
-
-
-
-
 
 
 

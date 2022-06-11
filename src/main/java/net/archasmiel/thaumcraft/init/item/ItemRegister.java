@@ -369,10 +369,22 @@ public class ItemRegister {
 
 
 
-    public static final ThaumcraftItem WAND_ITEM = new WandThaumcraftItem(
+    public static final ThaumcraftItem WAND_ITEM1 = new WandThaumcraftItem(
             new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
-            "wand",
-            "wand_rod_greatwood", "wand_cap_thaumium", "wand"
+            "wand" /* in-game name */,
+            "wand_rod_wood", "wand_cap_iron", "wand"
+    );
+
+    public static final ThaumcraftItem WAND_ITEM2 = new WandThaumcraftItem(
+            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            "wand" /* in-game name */,
+            "wand_rod_greatwood", "wand_cap_gold", "wand"
+    );
+
+    public static final ThaumcraftItem WAND_ITEM3 = new WandThaumcraftItem(
+            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            "wand" /* in-game name */,
+            "wand_rod_silverwood", "wand_cap_thaumium", "wand"
     );
 
 
@@ -506,7 +518,9 @@ public class ItemRegister {
 
     public static void loadFullWands() {
 
-        WAND_ITEM.load();
+        WAND_ITEM1.load();
+        WAND_ITEM2.load();
+        WAND_ITEM3.load();
 
         Thaumcraft.LOGGER.info("Loaded full wands");
     }

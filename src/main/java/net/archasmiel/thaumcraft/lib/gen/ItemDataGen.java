@@ -1,4 +1,4 @@
-package net.archasmiel.thaumcraft.lib;
+package net.archasmiel.thaumcraft.lib.gen;
 
 import net.devtech.arrp.json.models.*;
 import net.minecraft.util.Identifier;

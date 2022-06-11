@@ -1,8 +1,8 @@
 package net.archasmiel.thaumcraft.lib.register;
 
 import net.archasmiel.thaumcraft.init.Register;
-import net.archasmiel.thaumcraft.lib.BlockDataGen;
-import net.archasmiel.thaumcraft.lib.ItemDataGen;
+import net.archasmiel.thaumcraft.lib.gen.BlockDataGen;
+import net.archasmiel.thaumcraft.lib.gen.ItemDataGen;
 import net.minecraft.block.Block;
 
 public class Rotatable {

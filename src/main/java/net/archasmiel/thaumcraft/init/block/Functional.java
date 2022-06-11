@@ -5,18 +5,11 @@ import net.archasmiel.thaumcraft.block.ArcaneWorkbench;
 import net.archasmiel.thaumcraft.block.DeconstructionTable;
 import net.archasmiel.thaumcraft.block.Table;
 import net.archasmiel.thaumcraft.init.Register;
-import net.archasmiel.thaumcraft.lib.BlockDataGen;
-import net.archasmiel.thaumcraft.lib.ItemDataGen;
 import net.archasmiel.thaumcraft.lib.register.Rotatable;
-import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.block.Material;
 
 public class Functional {
 
@@ -46,6 +39,17 @@ public class Functional {
                     .nonOpaque()
             )
     );
+
+
+    public static final Block TESTBLOCK = Register.registerBlock(
+            "testblock",
+            new Block(FabricBlockSettings.of(Material.METAL).strength(4.0f))
+    );
+
+
+
+
+
 
 
 

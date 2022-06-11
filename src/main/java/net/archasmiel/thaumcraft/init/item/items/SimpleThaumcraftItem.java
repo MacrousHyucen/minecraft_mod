@@ -3,7 +3,7 @@ package net.archasmiel.thaumcraft.init.item.items;
 import net.archasmiel.thaumcraft.init.Register;
 import net.archasmiel.thaumcraft.init.item.ThaumcraftItem;
 import net.minecraft.item.Item;
-import static net.archasmiel.thaumcraft.lib.ItemDataGen.simpleItemModel;
+import static net.archasmiel.thaumcraft.lib.gen.ItemDataGen.simpleItemModel;
 
 
 

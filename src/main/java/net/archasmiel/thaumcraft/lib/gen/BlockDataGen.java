@@ -1,4 +1,4 @@
-package net.archasmiel.thaumcraft.lib;
+package net.archasmiel.thaumcraft.lib.gen;
 
 import net.devtech.arrp.json.blockstate.JBlockModel;
 import net.devtech.arrp.json.blockstate.JState;

@@ -2,16 +2,11 @@
 
 ## ***Info & Contacts***
 ###  **Who am I?**<br>
-  Hello, dear visitor, my name is Archasmiel. <br>
+  Hello, dear visitor, my name is Archasmiel, its not my real name btw. <br>
   I have 5 years of programming expirience. Actually I started coding minecraft mods 1 year ago.<br><br>
   
 ###  **What's this project?**<br>
   This project is my fun-made rewrite of Thaumcraft 4 (based on latest 1.7.10 mod version).<br><br>
-  
-###  **What about license?**<br>
-  I do not own all original images, ideas and etc. All license rights for Thaumcraft mod are on author - Azanor.<br>
-  [**Azanor GitHub**](https://github.com/Azanor)<br>
-  [**Azanor Repos**](https://github.com/Azanor?tab=repositories)<br><br>
   
 ###  **Version and mod loader used?**<br>
   Project currently using Fabric 1.18.2.<br>
@@ -19,6 +14,13 @@
   1. Parchment (mappings) [Link](https://github.com/ParchmentMC/Parchment)
   2. LibGui (GUI API) [Link](https://github.com/CottonMC/LibGui)
   3. ARRP (Advanced Runtime Resource Packs) [Link](https://github.com/Devan-Kerman/ARRP/)
+  
+###  **What about license?**<br>
+  I do not own all original images, ideas and etc. All license rights for Thaumcraft mod are on author - Azanor.<br>
+  [**Azanor GitHub**](https://github.com/Azanor)<br>
+  [**Azanor Repos**](https://github.com/Azanor?tab=repositories)<br><br>
+  
+
 
 
 
@@ -36,7 +38,8 @@
 - [x] *Some amount of original items (including all types of shards, wand+staff cores and caps)*
 - [x] *Working thaumium tool set*
 - [x] *Working void metal tool set (with self-repairing)*
-- [x] *English and Russian translation files*
+- [x] *English, Russian and Chinese translation files*
+- [x] *Auto generating of wand models and lang (3 items in version 0.0.3.7)*
 
 
 
@@ -47,10 +50,10 @@
 
 
 ## ***WIP***
-- [ ] *Wand NBT data* **(Current Goal)**
-- [ ] *Predicates of wand, staff and scepter models with their material textures* **(Next Goal)**
-- [ ] *Arcane workbench+only wand as input in special slot and deconstruction table GUI and storage*
-- [ ] *Thaumonomicon GUI improvements (working tabs with moving icons, action on clicking, current page saving)*
+- [ ] *Auto gen of staff and scepter models with material textures* **(Current Goal)**
+- [ ] *Wand NBT data and tooltip* **(Next Goal)**
+- [ ] *Arcane workbench+only wand as input in special slot and deconstruction table GUI+storage*
+- [ ] *Thaumonomicon GUI improvements (working tabs with moving icons, action on clicking, current page saving after closing)*
 
 
 

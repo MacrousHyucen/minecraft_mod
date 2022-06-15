@@ -5,7 +5,6 @@ import net.archasmiel.thaumcraft.init.item.ThaumcraftItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 
-
 import static net.archasmiel.thaumcraft.Thaumcraft.*;
 import static net.archasmiel.thaumcraft.lib.gen.WandcraftDataGen.wandModel;
 
@@ -19,6 +18,7 @@ import static net.archasmiel.thaumcraft.lib.gen.WandcraftDataGen.wandModel;
 public class WandThaumcraftItem extends ThaumcraftItem {
 
     private final String rod, cap, type;
+    private final String rodName, capName;
     private final String genName;
 
 
@@ -31,7 +31,10 @@ public class WandThaumcraftItem extends ThaumcraftItem {
 
         super(item, String.format("%s_%s_%s", type, rod.split("rod_")[1], cap.split("cap_")[1]));
 
+        this.rodName = rod.split("rod_")[1];
+        this.capName = cap.split("cap_")[1];
         this.genName = this.name();
+
         this.rod = rod;
         this.cap = cap;
         this.type = type;
@@ -47,40 +50,32 @@ public class WandThaumcraftItem extends ThaumcraftItem {
     @Override
     public void model() {
 
-        String EN_US_name = String.format("%s %s capped %s", rod.split("rod_")[1], cap.split("cap_")[1], type);
-        String RU_RU_name = "Тестовое название";
-        String ZH_CN_name = "基础学";
-
-
         // lang translation testing
-        // TODO
-        // add translations from lang file and compose them
-        THAUMCRAFT_LANG.addTranslation(
-                "en_us",
-                THAUMCRAFT_LANG.getTranslation("en_us").item(
-                        new Identifier("thaumcraft:" + genName),
-                        EN_US_name
-                )
-        );
+        System.out.println(capName + "+" + rodName);
 
-
-        THAUMCRAFT_LANG.addTranslation(
-                "ru_ru",
-                THAUMCRAFT_LANG.getTranslation("ru_ru").item(
-                        new Identifier("thaumcraft:" + genName),
-                        RU_RU_name
-                )
-        );
-
-        THAUMCRAFT_LANG.addTranslation(
-                "zh_cn",
-                THAUMCRAFT_LANG.getTranslation("zh_cn").item(
-                        new Identifier("thaumcraft:" + genName),
-                        ZH_CN_name
-                )
-        );
-
-
+        for (String lang: supportedLanguages) {
+            THAUMCRAFT_LANG.addTranslation(
+                    lang,
+                    THAUMCRAFT_LANG.getTranslation(lang).item(
+                            new Identifier(MOD_ID, genName),
+                            String.format(
+                                    "%s %s %s",
+                                    THAUMCRAFT_LANGTRANS.getTranslation(
+                                            lang,
+                                            String.format("%s.%s.%s", "wand_cap", MOD_ID, capName)
+                                    ),
+                                    THAUMCRAFT_LANGTRANS.getTranslation(
+                                            lang,
+                                            String.format("%s.%s.%s", "wand_rod", MOD_ID, rodName)
+                                    ),
+                                    THAUMCRAFT_LANGTRANS.getTranslation(
+                                            lang,
+                                            String.format("%s.%s.%s", "wand_type", MOD_ID, type)
+                                    )
+                            )
+                    )
+            );
+        }
 
         RESOURCE_PACK.addModel(
                 wandModel(rod, cap),

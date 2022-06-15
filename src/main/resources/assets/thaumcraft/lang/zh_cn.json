@@ -100,5 +100,30 @@
 
   "block.thaumcraft.arcane_workbench": "奥术工作台",
   "block.thaumcraft.deconstruction_table": "解构工作台",
-  "block.thaumcraft.table": "神秘工作台"
+  "block.thaumcraft.table": "神秘工作台",
+
+
+
+
+  "wand_type.thaumcraft.wand": "Wand",
+  "wand_type.thaumcraft.scepter": "Scepter",
+  "wand_type.thaumcraft.staff": "Staff",
+
+  "wand_cap.thaumcraft.copper": "Copper capped",
+  "wand_cap.thaumcraft.silver": "Silver capped",
+  "wand_cap.thaumcraft.iron": "Iron capped",
+  "wand_cap.thaumcraft.gold": "Gold capped",
+  "wand_cap.thaumcraft.thaumium": "Thaumium capped",
+  "wand_cap.thaumcraft.void": "Void capped",
+
+  "wand_rod.thaumcraft.wood": "Wood",
+  "wand_rod.thaumcraft.blaze": "Blazing",
+  "wand_rod.thaumcraft.bone": "Bone",
+  "wand_rod.thaumcraft.greatwood": "Greatwood",
+  "wand_rod.thaumcraft.ice": "Icy",
+  "wand_rod.thaumcraft.obsidian": "Obsidian",
+  "wand_rod.thaumcraft.quartz": "Quartz",
+  "wand_rod.thaumcraft.reed": "Reed",
+  "wand_rod.thaumcraft.silverwood": "Silverwood",
+  "wand_rod.thaumcraft.primal": "Primal"
 }

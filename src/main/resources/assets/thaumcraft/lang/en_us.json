@@ -51,14 +51,15 @@
   "item.thaumcraft.alumentum": "Alumentum",
 
   "item.thaumcraft.cap_copper": "Copper Cap",
-  "item.thaumcraft.cap_gold": "Gold Cap",
-  "item.thaumcraft.cap_iron": "Iron Cap",
-  "item.thaumcraft.cap_silver": "Charged Silver Cap",
   "item.thaumcraft.cap_silver_inert": "Inert Silver Cap",
-  "item.thaumcraft.cap_thaumium": "Charged Thaumium Cap",
+  "item.thaumcraft.cap_silver": "Charged Silver Cap",
+  "item.thaumcraft.cap_iron": "Iron Cap",
+  "item.thaumcraft.cap_gold": "Gold Cap",
   "item.thaumcraft.cap_thaumium_inert": "Inert Thaumium Cap",
-  "item.thaumcraft.cap_void": "Charged Void metal Cap",
+  "item.thaumcraft.cap_thaumium": "Charged Thaumium Cap",
   "item.thaumcraft.cap_void_inert": "Inert Void metal Cap",
+  "item.thaumcraft.cap_void": "Charged Void metal Cap",
+
 
   "item.thaumcraft.wand_rod_blaze": "Blazing Rod",
   "item.thaumcraft.wand_rod_bone": "Bone Rod",
@@ -97,8 +98,31 @@
   "item.thaumcraft.coin": "Coin",
 
 
-
   "block.thaumcraft.arcane_workbench": "Arcane Workbench",
   "block.thaumcraft.deconstruction_table": "Deconstruction Table",
-  "block.thaumcraft.table": "Table"
+  "block.thaumcraft.table": "Table",
+
+
+
+  "wand_type.thaumcraft.wand": "Wand",
+  "wand_type.thaumcraft.scepter": "Scepter",
+  "wand_type.thaumcraft.staff": "Staff",
+
+  "wand_cap.thaumcraft.copper": "Copper capped",
+  "wand_cap.thaumcraft.silver": "Silver capped",
+  "wand_cap.thaumcraft.iron": "Iron capped",
+  "wand_cap.thaumcraft.gold": "Gold capped",
+  "wand_cap.thaumcraft.thaumium": "Thaumium capped",
+  "wand_cap.thaumcraft.void": "Void capped",
+
+  "wand_rod.thaumcraft.wood": "Wood",
+  "wand_rod.thaumcraft.blaze": "Blazing",
+  "wand_rod.thaumcraft.bone": "Bone",
+  "wand_rod.thaumcraft.greatwood": "Greatwood",
+  "wand_rod.thaumcraft.ice": "Icy",
+  "wand_rod.thaumcraft.obsidian": "Obsidian",
+  "wand_rod.thaumcraft.quartz": "Quartz",
+  "wand_rod.thaumcraft.reed": "Reed",
+  "wand_rod.thaumcraft.silverwood": "Silverwood",
+  "wand_rod.thaumcraft.primal": "Primal"
 }

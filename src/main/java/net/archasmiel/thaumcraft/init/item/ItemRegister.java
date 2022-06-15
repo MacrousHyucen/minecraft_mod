@@ -384,6 +384,11 @@ public class ItemRegister {
             "wand_rod_silverwood", "wand_cap_thaumium", "wand"
     );
 
+    public static final ThaumcraftItem WAND_ITEM4 = new WandThaumcraftItem(
+            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            "wand_rod_obsidian", "wand_cap_void", "wand"
+    );
+
 
 
     public static void register() {
@@ -391,11 +396,11 @@ public class ItemRegister {
         loadMaterials();
         loadMiscellaneous();
 
-        loadTools();
-        loadFullWands();
-
         loadCaps();
         loadRods();
+
+        loadTools();
+        loadFullWands();
     }
 
 
@@ -518,6 +523,7 @@ public class ItemRegister {
         WAND_ITEM1.load();
         WAND_ITEM2.load();
         WAND_ITEM3.load();
+        WAND_ITEM4.load();
 
         Thaumcraft.LOGGER.info("Loaded full wands");
     }

@@ -7,8 +7,9 @@ import net.minecraft.util.Identifier;
 import java.util.HashMap;
 
 import static net.archasmiel.thaumcraft.Thaumcraft.RESOURCE_PACK;
+import static net.archasmiel.thaumcraft.Thaumcraft.supportedLanguages;
 
-public class Translations {
+public class GenTranslations {
 
     private final String modID;
     private final HashMap<String, JLang> translations = new HashMap<>();
@@ -17,7 +18,7 @@ public class Translations {
 
 
 
-    public Translations(String modID) {
+    public GenTranslations(String modID) {
         this.modID = modID;
     }
 
@@ -34,9 +35,9 @@ public class Translations {
     }
 
     public void register() {
-        for (String i: translations.keySet()){
+        for (String i: supportedLanguages){
             RESOURCE_PACK.addLang(new Identifier(modID, i), translations.get(i));
-            Thaumcraft.LOGGER.info("Registered lang " + i);
+            Thaumcraft.LOGGER.info("Registered generated data for " + i);
         }
     }
 

@@ -39,7 +39,7 @@
 - [x] *Working thaumium tool set*
 - [x] *Working void metal tool set (with self-repairing)*
 - [x] *English, Russian and Chinese translation files*
-- [x] *Auto generating of wand models and lang (3 items in version 0.0.3.7)*
+- [x] *Auto generating of wand models and lang (4 wand items)*
 
 
 

@@ -4,8 +4,8 @@ package net.archasmiel.thaumcraft.init.libs;
 
 public enum RodMaterials implements ThaumcraftRodMaterial {
     WOOD       ("wood",      25),
-    GREATWOOD  ("gold",      50),
-    SILVERWOOD ("thaumium",  100),
+    GREATWOOD  ("greatwood",      50),
+    SILVERWOOD ("silverwood",  100),
 
     ELEMENTAL  ("elemental", 75);
 

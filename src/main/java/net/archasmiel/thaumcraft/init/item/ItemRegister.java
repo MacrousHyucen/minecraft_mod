@@ -2,9 +2,12 @@ package net.archasmiel.thaumcraft.init.item;
 
 import net.archasmiel.thaumcraft.Thaumcraft;
 import net.archasmiel.thaumcraft.init.item.items.*;
+import net.archasmiel.thaumcraft.init.libs.CapMaterials;
+import net.archasmiel.thaumcraft.init.libs.RodMaterials;
 import net.archasmiel.thaumcraft.init.libs.ThaumcraftMaterial;
 import net.archasmiel.thaumcraft.init.tools.*;
 import net.archasmiel.thaumcraft.item.Thaumonomicon;
+import net.archasmiel.thaumcraft.item.wandcraft.Wand;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.Item;
 import net.minecraft.item.ToolItem;
@@ -370,22 +373,34 @@ public class ItemRegister {
 
 
     public static final ThaumcraftItem WAND_ITEM1 = new WandThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            new Wand(
+                    new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1),
+                    CapMaterials.IRON, RodMaterials.WOOD
+            ),
             "wand_rod_wood", "wand_cap_iron", "wand"
     );
 
     public static final ThaumcraftItem WAND_ITEM2 = new WandThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            new Wand(
+                    new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1),
+                    CapMaterials.GOLD, RodMaterials.GREATWOOD
+            ),
             "wand_rod_greatwood", "wand_cap_gold", "wand"
     );
 
     public static final ThaumcraftItem WAND_ITEM3 = new WandThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            new Wand(
+                    new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1),
+                    CapMaterials.THAUMIUM, RodMaterials.SILVERWOOD
+            ),
             "wand_rod_silverwood", "wand_cap_thaumium", "wand"
     );
 
     public static final ThaumcraftItem WAND_ITEM4 = new WandThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            new Wand(
+                    new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1),
+                    CapMaterials.VOID, RodMaterials.ELEMENTAL
+            ),
             "wand_rod_obsidian", "wand_cap_void", "wand"
     );
 

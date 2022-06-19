@@ -1,5 +1,7 @@
 package net.archasmiel.thaumcraft.item.wandcraft;
 
+import net.archasmiel.thaumcraft.init.libs.CapMaterials;
+import net.archasmiel.thaumcraft.init.libs.RodMaterials;
 import net.archasmiel.thaumcraft.item.wandcraft.ingredients.Cap;
 import net.archasmiel.thaumcraft.item.wandcraft.ingredients.Rod;
 import net.minecraft.item.Item;
@@ -26,8 +28,8 @@ public abstract class WandAbstract extends Item {
 
 
 
-    private Cap caps;
-    private Rod rod;
+    private CapMaterials cap;
+    private RodMaterials rod;
 
     private float discountMultiplier;
     private float capacityMultiplier;
@@ -36,7 +38,58 @@ public abstract class WandAbstract extends Item {
 
 
 
-    public WandAbstract(Settings settings, Rod rod, Cap caps, float rawDiscountMultiplier, float capacityMultiplier) {
+    public float getAerVis() {
+        return aerVis;
+    }
+    public void setAerVis(float aerVis) {
+        this.aerVis = aerVis;
+    }
+
+    public float getIgnisVis() {
+        return ignisVis;
+    }
+    public void setIgnisVis(float ignisVis) {
+        this.ignisVis = ignisVis;
+    }
+
+    public float getAquaVis() {
+        return aquaVis;
+    }
+    public void setAquaVis(float aquaVis) {
+        this.aquaVis = aquaVis;
+    }
+
+    public float getTerraVis() {
+        return terraVis;
+    }
+    public void setTerraVis(float terraVis) {
+        this.terraVis = terraVis;
+    }
+
+    public float getOrdoVis() {
+        return ordoVis;
+    }
+    public void setOrdoVis(float ordoVis) {
+        this.ordoVis = ordoVis;
+    }
+
+    public float getPerditioVis() {
+        return perditioVis;
+    }
+    public void setPerditioVis(float perditioVis) {
+        this.perditioVis = perditioVis;
+    }
+
+    private float aerVis;
+    private float ignisVis;
+    private float aquaVis;
+    private float terraVis;
+    private float ordoVis;
+    private float perditioVis;
+
+
+
+    public WandAbstract(Settings settings, RodMaterials rod, CapMaterials caps, float rawDiscountMultiplier, float capacityMultiplier) {
         super(settings);
 
         // basic info for capacity and discount
@@ -50,19 +103,19 @@ public abstract class WandAbstract extends Item {
 
 
 
-    public Cap getCaps() {
-        return caps;
+    public CapMaterials getCaps() {
+        return cap;
     }
 
-    public void setCaps(Cap caps) {
-        this.caps = caps;
+    public void setCaps(CapMaterials cap) {
+        this.cap = cap;
     }
 
-    public Rod getRod() {
+    public RodMaterials getRod() {
         return rod;
     }
 
-    public void setRod(Rod rod) {
+    public void setRod(RodMaterials rod) {
         this.rod = rod;
     }
 
@@ -72,7 +125,7 @@ public abstract class WandAbstract extends Item {
 
     public void setDiscountMultiplier(float discountMultiplier) {
         this.discountMultiplier = discountMultiplier;
-        this.discount = 1.00f - this.caps.getDiscount() - this.discountMultiplier;
+        this.discount = 1.00f - this.cap.getVisDiscount() - this.discountMultiplier;
     }
 
     public float getCapacityMultiplier() {
@@ -81,7 +134,7 @@ public abstract class WandAbstract extends Item {
 
     public void setCapacityMultiplier(float capacityMultiplier) {
         this.capacityMultiplier = capacityMultiplier;
-        this.capacity = (int) (this.rod.getCapacity() * this.capacityMultiplier);
+        this.capacity = (int) (this.rod.getVisCapacity() * this.capacityMultiplier);
     }
 
     public float getDiscount() {

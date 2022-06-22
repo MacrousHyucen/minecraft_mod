@@ -50,16 +50,14 @@ public class WandThaumcraftItem extends ThaumcraftItem {
     @Override
     public void model() {
 
-        // lang translation testing
-        System.out.println(capName + "+" + rodName);
-
+        // translation
         for (String lang: supportedLanguages) {
             THAUMCRAFT_LANG.addTranslation(
                     lang,
                     THAUMCRAFT_LANG.getTranslation(lang).item(
                             new Identifier(MOD_ID, genName),
                             String.format(
-                                    "%s %s %s",
+                                    "§e%s %s %s",
                                     THAUMCRAFT_LANGTRANS.getTranslation(
                                             lang,
                                             String.format("%s.%s.%s", "wand_cap", MOD_ID, capName)
@@ -77,6 +75,7 @@ public class WandThaumcraftItem extends ThaumcraftItem {
             );
         }
 
+        // model
         RESOURCE_PACK.addModel(
                 wandModel(rod, cap),
                 new Identifier("thaumcraft:item/" + genName)

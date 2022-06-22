@@ -125,5 +125,8 @@
   "wand_rod.thaumcraft.quartz": "Quartz",
   "wand_rod.thaumcraft.reed": "Reed",
   "wand_rod.thaumcraft.silverwood": "Silverwood",
-  "wand_rod.thaumcraft.primal": "Primal"
+  "wand_rod.thaumcraft.primal": "Primal",
+
+  "gui.thaumcraft.wand_capacity": "Capacity ",
+  "gui.thaumcraft.vis_cost": " vis cost"
 }

@@ -15,20 +15,24 @@ import net.minecraft.item.ToolItem;
 
 public class ItemRegister {
 
+    private static final FabricItemSettings STANDARD_SETTINGS = new FabricItemSettings().group(Thaumcraft.MOD_GROUP);
+    private static final FabricItemSettings ONE_ITEM_SETTINGS = STANDARD_SETTINGS.maxCount(1);
+
+
 
     // books
     public static final ThaumcraftItem THAUMONOMICON = new BasicThaumcraftItem(
-            new Thaumonomicon(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            new Thaumonomicon(ONE_ITEM_SETTINGS),
             "thaumonomicon"
     );
 
     public static final ThaumcraftItem THAUMONOMICON_CHEAT = new BasicThaumcraftItem(
-            new Thaumonomicon(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            new Thaumonomicon(ONE_ITEM_SETTINGS),
             "thaumonomicon_cheat"
     );
 
     public static final ThaumcraftItem CRIMSON_RITES = new BasicThaumcraftItem(
-            new Thaumonomicon(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            new Thaumonomicon(ONE_ITEM_SETTINGS),
             "crimson_rites"
     );
 
@@ -38,39 +42,39 @@ public class ItemRegister {
 
     // caps
     public static final ThaumcraftItem CAP_COPPER = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "cap_copper"
     );
     public static final ThaumcraftItem CAP_SILVER_INERT = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "cap_silver_inert"
     );
     public static final ThaumcraftItem CAP_SILVER = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "cap_silver"
     );
     public static final ThaumcraftItem CAP_IRON = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "cap_iron"
     );
     public static final ThaumcraftItem CAP_GOLD = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "cap_gold"
     );
     public static final ThaumcraftItem CAP_THAUMIUM_INERT = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "cap_thaumium_inert"
     );
     public static final ThaumcraftItem CAP_THAUMIUM = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "cap_thaumium"
     );
     public static final ThaumcraftItem CAP_VOID_INERT = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "cap_void_inert"
     );
     public static final ThaumcraftItem CAP_VOID = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "cap_void"
     );
 
@@ -81,117 +85,117 @@ public class ItemRegister {
 
     // materials
     public static final ThaumcraftItem NITOR = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "nitor"
     );
     public static final ThaumcraftItem ALUMENTUM = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "alumentum"
     );
     public static final ThaumcraftItem TALLOW = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "tallow"
     );
     public static final ThaumcraftItem FILTER = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "filter"
     );
 
 
     public static final ThaumcraftItem PRIMAL_CHARM = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            new Item(ONE_ITEM_SETTINGS),
             "primal_charm"
     );
     public static final ThaumcraftItem SALIS_MUNDUS = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "salis_mundus"
     );
 
 
     public static final ThaumcraftItem CLOTH = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "cloth"
     );
     public static final ThaumcraftItem KNOWLEDGE_FRAGMENT = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "knowledge_fragment"
     );
     public static final ThaumcraftItem MIRROR_GLASS = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "mirror_glass"
     );
 
 
     public static final ThaumcraftItem TAINT_SLIME = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "taint_slime"
     );
     public static final ThaumcraftItem TAINT_TENDRIL = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "taint_tendril"
     );
 
 
     public static final ThaumcraftItem AIR_SHARD = new ShardThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "shard_air", 0xffff7e
     );
     public static final ThaumcraftItem FIRE_SHARD = new ShardThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "shard_fire", 0xff3c01
     );
     public static final ThaumcraftItem WATER_SHARD = new ShardThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "shard_water", 0x0090ff
     );
     public static final ThaumcraftItem EARTH_SHARD = new ShardThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "shard_earth", 0x00a000
     );
     public static final ThaumcraftItem ORDER_SHARD = new ShardThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "shard_order", 0xeeccff
     );
     public static final ThaumcraftItem ENTROPY_SHARD = new ShardThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "shard_entropy", 0x555577
     );
     public static final ThaumcraftItem BALANCED_SHARD = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "shard_balanced"
     );
 
 
     public static final ThaumcraftItem AMBER = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "amber"
     );
     public static final ThaumcraftItem THAUMIUM_INGOT = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "ingot_thaumium"
     );
     public static final ThaumcraftItem VOID_METAL_INGOT = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "ingot_void_metal"
     );
     public static final ThaumcraftItem QUICKSILVER = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "ingot_quicksilver"
     );
     public static final ThaumcraftItem THAUMIUM_NUGGET = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "nugget_thaumium"
     );
     public static final ThaumcraftItem VOID_SEED = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "void_seed"
     );
     public static final ThaumcraftItem VOID_METAL_NUGGET = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "nugget_void_metal"
     );
     public static final ThaumcraftItem QUICKSILVER_DROP = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "nugget_quicksilver"
     );
 
@@ -201,19 +205,19 @@ public class ItemRegister {
 
     // miscellaneous
     public static final ThaumcraftItem INKWELL = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            new Item(ONE_ITEM_SETTINGS),
             "inkwell"
     );
     public static final ThaumcraftItem LABEL = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "label"
     );
     public static final ThaumcraftItem BOTTLE_TAINT = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "bottle_taint"
     );
     public static final ThaumcraftItem COIN = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP)),
+            new Item(STANDARD_SETTINGS),
             "coin"
     );
 
@@ -223,39 +227,39 @@ public class ItemRegister {
 
     
     public static final ThaumcraftItem STAFF_ROD_BLAZE = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            new Item(ONE_ITEM_SETTINGS),
             "staff_rod_blaze"
     );
     public static final ThaumcraftItem STAFF_ROD_BONE = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            new Item(ONE_ITEM_SETTINGS),
             "staff_rod_bone"
     );
     public static final ThaumcraftItem STAFF_ROD_GREATWOOD = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            new Item(ONE_ITEM_SETTINGS),
             "staff_rod_greatwood"
     );
     public static final ThaumcraftItem STAFF_ROD_ICE = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            new Item(ONE_ITEM_SETTINGS),
             "staff_rod_ice"
     );
     public static final ThaumcraftItem STAFF_ROD_OBSIDIAN = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            new Item(ONE_ITEM_SETTINGS),
             "staff_rod_obsidian"
     );
     public static final ThaumcraftItem STAFF_ROD_QUARTZ = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            new Item(ONE_ITEM_SETTINGS),
             "staff_rod_quartz"
     );
     public static final ThaumcraftItem STAFF_ROD_REED = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            new Item(ONE_ITEM_SETTINGS),
             "staff_rod_reed"
     );
     public static final ThaumcraftItem STAFF_ROD_SILVERWOOD = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            new Item(ONE_ITEM_SETTINGS),
             "staff_rod_silverwood"
     );
     public static final ThaumcraftItem STAFF_ROD_PRIMAL = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            new Item(ONE_ITEM_SETTINGS),
             "staff_rod_primal"
     );
 
@@ -265,35 +269,35 @@ public class ItemRegister {
 
 
     public static final ThaumcraftItem WAND_ROD_BLAZE = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            new Item(ONE_ITEM_SETTINGS),
             "wand_rod_blaze"
     );
     public static final ThaumcraftItem WAND_ROD_BONE = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            new Item(ONE_ITEM_SETTINGS),
             "wand_rod_bone"
     );
     public static final ThaumcraftItem WAND_ROD_GREATWOOD = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            new Item(ONE_ITEM_SETTINGS),
             "wand_rod_greatwood"
     );
     public static final ThaumcraftItem WAND_ROD_ICE = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            new Item(ONE_ITEM_SETTINGS),
             "wand_rod_ice"
     );
     public static final ThaumcraftItem WAND_ROD_OBSIDIAN = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            new Item(ONE_ITEM_SETTINGS),
             "wand_rod_obsidian"
     );
     public static final ThaumcraftItem WAND_ROD_QUARTZ = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            new Item(ONE_ITEM_SETTINGS),
             "wand_rod_quartz"
     );
     public static final ThaumcraftItem WAND_ROD_REED = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            new Item(ONE_ITEM_SETTINGS),
             "wand_rod_reed"
     );
     public static final ThaumcraftItem WAND_ROD_SILVERWOOD = new BasicThaumcraftItem(
-            new Item(new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1)),
+            new Item(ONE_ITEM_SETTINGS),
             "wand_rod_silverwood"
     );
 
@@ -303,35 +307,35 @@ public class ItemRegister {
 
 
     public static ToolItem THAUMIUM_SWORD_TOOL = new ThaumcraftSword(
-            ThaumcraftMaterial.THAUMIUMIUM, 3, -2.4F, new FabricItemSettings().group(Thaumcraft.MOD_GROUP)
+            ThaumcraftMaterial.THAUMIUMIUM, 3, -2.4F, STANDARD_SETTINGS
     );
     public static ToolItem THAUMIUM_PICKAXE_TOOL = new ThaumcraftPickaxe(
-            ThaumcraftMaterial.THAUMIUMIUM, 1, -2.8F, new FabricItemSettings().group(Thaumcraft.MOD_GROUP)
+            ThaumcraftMaterial.THAUMIUMIUM, 1, -2.8F, STANDARD_SETTINGS
     );
     public static ToolItem THAUMIUM_AXE_TOOL = new ThaumcraftAxe(
-            ThaumcraftMaterial.THAUMIUMIUM, 5.0F, -3.0F, new FabricItemSettings().group(Thaumcraft.MOD_GROUP)
+            ThaumcraftMaterial.THAUMIUMIUM, 5.0F, -3.0F, STANDARD_SETTINGS
     );
     public static ToolItem THAUMIUM_SHOVEL_TOOL = new ThaumcraftShovel(
-            ThaumcraftMaterial.THAUMIUMIUM, 1.5F, -3.0F, new FabricItemSettings().group(Thaumcraft.MOD_GROUP)
+            ThaumcraftMaterial.THAUMIUMIUM, 1.5F, -3.0F, STANDARD_SETTINGS
     );
     public static ToolItem THAUMIUM_HOE_TOOL = new ThaumcraftHoe(
-            ThaumcraftMaterial.THAUMIUMIUM, -3, 0.0F, new FabricItemSettings().group(Thaumcraft.MOD_GROUP)
+            ThaumcraftMaterial.THAUMIUMIUM, -3, 0.0F, STANDARD_SETTINGS
     );
 
     public static ToolItem VOIDMETAL_SWORD_TOOL = new ThaumcraftSword(
-            ThaumcraftMaterial.VOID, 3, -2.4F, new FabricItemSettings().group(Thaumcraft.MOD_GROUP)
+            ThaumcraftMaterial.VOID, 3, -2.4F, STANDARD_SETTINGS
     );
     public static ToolItem VOIDMETAL_PICKAXE_TOOL = new ThaumcraftPickaxe(
-            ThaumcraftMaterial.VOID, 1, -2.8F, new FabricItemSettings().group(Thaumcraft.MOD_GROUP)
+            ThaumcraftMaterial.VOID, 1, -2.8F, STANDARD_SETTINGS
     );
     public static ToolItem VOIDMETAL_AXE_TOOL = new ThaumcraftAxe(
-            ThaumcraftMaterial.VOID, 5.0F, -3.0F, new FabricItemSettings().group(Thaumcraft.MOD_GROUP)
+            ThaumcraftMaterial.VOID, 5.0F, -3.0F, STANDARD_SETTINGS
     );
     public static ToolItem VOIDMETAL_SHOVEL_TOOL = new ThaumcraftShovel(
-            ThaumcraftMaterial.VOID, 1.5F, -3.0F, new FabricItemSettings().group(Thaumcraft.MOD_GROUP)
+            ThaumcraftMaterial.VOID, 1.5F, -3.0F, STANDARD_SETTINGS
     );
     public static ToolItem VOIDMETAL_HOE_TOOL = new ThaumcraftHoe(
-            ThaumcraftMaterial.VOID, -3, 0.0F, new FabricItemSettings().group(Thaumcraft.MOD_GROUP)
+            ThaumcraftMaterial.VOID, -3, 0.0F, STANDARD_SETTINGS
     );
 
 
@@ -373,34 +377,22 @@ public class ItemRegister {
 
 
     public static final ThaumcraftItem WAND_ITEM1 = new WandThaumcraftItem(
-            new Wand(
-                    new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1),
-                    CapMaterials.IRON, RodMaterials.WOOD
-            ),
+            new Wand(ONE_ITEM_SETTINGS, RodMaterials.WOOD, CapMaterials.IRON),
             "wand_rod_wood", "wand_cap_iron", "wand"
     );
 
     public static final ThaumcraftItem WAND_ITEM2 = new WandThaumcraftItem(
-            new Wand(
-                    new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1),
-                    CapMaterials.GOLD, RodMaterials.GREATWOOD
-            ),
+            new Wand(ONE_ITEM_SETTINGS, RodMaterials.GREATWOOD, CapMaterials.GOLD),
             "wand_rod_greatwood", "wand_cap_gold", "wand"
     );
 
     public static final ThaumcraftItem WAND_ITEM3 = new WandThaumcraftItem(
-            new Wand(
-                    new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1),
-                    CapMaterials.THAUMIUM, RodMaterials.SILVERWOOD
-            ),
+            new Wand(ONE_ITEM_SETTINGS, RodMaterials.SILVERWOOD, CapMaterials.THAUMIUM),
             "wand_rod_silverwood", "wand_cap_thaumium", "wand"
     );
 
     public static final ThaumcraftItem WAND_ITEM4 = new WandThaumcraftItem(
-            new Wand(
-                    new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1),
-                    CapMaterials.VOID, RodMaterials.ELEMENTAL
-            ),
+            new Wand(ONE_ITEM_SETTINGS, RodMaterials.OBSIDIAN, CapMaterials.VOID),
             "wand_rod_obsidian", "wand_cap_void", "wand"
     );
 

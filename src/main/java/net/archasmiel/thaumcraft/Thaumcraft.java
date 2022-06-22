@@ -35,6 +35,7 @@ public class Thaumcraft implements ModInitializer {
 	public static LangTranslations THAUMCRAFT_LANGTRANS = new LangTranslations(MOD_ID);
 
 	public static String[] primaryAspects = {"aer", "ignis", "aqua", "terra", "ordo", "perditio"};
+	public static String[] primaryAspectsColor = {"§e", "§c", "§b", "§a", "§f", "§8"};
 
 
 

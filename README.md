@@ -9,8 +9,9 @@
   This project is my fun-made rewrite of Thaumcraft 4 (based on latest 1.7.10 mod version).<br><br>
   
 ###  **Version and mod loader used?**<br>
-  Project currently using Fabric 1.18.2.<br>
-  Used additional API:
+  **Project currently using Fabric 1.18.2.** <br>
+  Not planning transfer mod to 1.19 in near time (unstable APIs). <br><br>
+  Used APIs:
   1. Parchment (mappings) [Link](https://github.com/ParchmentMC/Parchment)
   2. LibGui (GUI API) [Link](https://github.com/CottonMC/LibGui)
   3. ARRP (Advanced Runtime Resource Packs) [Link](https://github.com/Devan-Kerman/ARRP/)

@@ -9,8 +9,9 @@
   This project is my fun-made rewrite of Thaumcraft 4 (based on latest 1.7.10 mod version).<br><br>
   
 ###  **Version and mod loader used?**<br>
-  Project currently using Fabric 1.18.2.<br>
-  Used additional API:
+  **Project currently using Fabric 1.18.2.** <br>
+  Not planning transfer mod to 1.19 in near time (unstable APIs). <br><br>
+  Used APIs:
   1. Parchment (mappings) [Link](https://github.com/ParchmentMC/Parchment)
   2. LibGui (GUI API) [Link](https://github.com/CottonMC/LibGui)
   3. ARRP (Advanced Runtime Resource Packs) [Link](https://github.com/Devan-Kerman/ARRP/)
@@ -40,7 +41,7 @@
 - [x] *Working void metal tool set (with self-repairing)*
 - [x] *English, Russian and Chinese translation files*
 - [x] *Auto generating of wand models and lang (4 wand items)*
-
+- [x] *Wand NBT data and tooltip*
 
 
 
@@ -50,9 +51,10 @@
 
 
 ## ***WIP***
-- [ ] *Auto gen of staff and scepter models with material textures* **(Current Goal)**
-- [ ] *Wand NBT data and tooltip* **(Next Goal)**
-- [ ] *Arcane workbench+only wand as input in special slot and deconstruction table GUI+storage*
+- [ ] *Staff and scepter implementation like wand* **(Current Goal)**
+- [ ] *Arcane workbench GUI+wand as input in special slot* **(Next Goal)**
+- [ ] *Arcane workbench recipe type*
+- [ ] *Deconstruction table GUI+storage*
 - [ ] *Thaumonomicon GUI improvements (working tabs with moving icons, action on clicking, current page saving after closing)*
 
 

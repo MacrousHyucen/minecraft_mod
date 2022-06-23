@@ -2,7 +2,7 @@ package net.archasmiel.thaumcraft.init.item.items;
 
 import net.archasmiel.thaumcraft.init.Register;
 import net.archasmiel.thaumcraft.init.item.ThaumcraftItem;
-import net.minecraft.item.Item;
+import net.archasmiel.thaumcraft.item.wandcraft.WandAbstract;
 import net.minecraft.util.Identifier;
 
 import static net.archasmiel.thaumcraft.Thaumcraft.*;
@@ -17,28 +17,32 @@ import static net.archasmiel.thaumcraft.lib.gen.WandcraftDataGen.wandModel;
 
 public class WandThaumcraftItem extends ThaumcraftItem {
 
-    private final String rod, cap, type;
-    private final String rodName, capName;
-    private final String genName;
+    private WandAbstract wandItem;
+
+    public WandAbstract getWandItem() {
+        return wandItem;
+    }
+    public void setWandItem(WandAbstract wandItem) {
+        this.wandItem = wandItem;
+    }
 
 
 
 
 
+    public WandThaumcraftItem(WandAbstract item) {
 
+        super(
+            item,
+            String.format(
+                "%s_%s_%s",
+                item.getType(),
+                item.getRod().getMaterialName(),
+                item.getCap().getMaterialName()
+            )
+        );
 
-    public WandThaumcraftItem(Item item, String rod, String cap, String type) {
-
-        super(item, String.format("%s_%s_%s", type, rod.split("rod_")[1], cap.split("cap_")[1]));
-
-        this.rodName = rod.split("rod_")[1];
-        this.capName = cap.split("cap_")[1];
-        this.genName = this.name();
-
-        this.rod = rod;
-        this.cap = cap;
-        this.type = type;
-
+        this.setWandItem(item);
     }
 
 
@@ -50,25 +54,25 @@ public class WandThaumcraftItem extends ThaumcraftItem {
     @Override
     public void model() {
 
-        // translation
+        // lang translation
         for (String lang: supportedLanguages) {
-            THAUMCRAFT_LANG.addTranslation(
+            THAUMCRAFT_OUTPUTLANG.addTranslation(
                     lang,
-                    THAUMCRAFT_LANG.getTranslation(lang).item(
-                            new Identifier(MOD_ID, genName),
+                    THAUMCRAFT_OUTPUTLANG.getTranslation(lang).item(
+                            new Identifier(MOD_ID, name()),
                             String.format(
                                     "§e%s %s %s",
-                                    THAUMCRAFT_LANGTRANS.getTranslation(
+                                    THAUMCRAFT_INPUTLANG.getTranslation(
                                             lang,
-                                            String.format("%s.%s.%s", "wand_cap", MOD_ID, capName)
+                                            String.format("%s.%s.%s", "wand_cap", MOD_ID, wandItem.getCap().getMaterialName())
                                     ),
-                                    THAUMCRAFT_LANGTRANS.getTranslation(
+                                    THAUMCRAFT_INPUTLANG.getTranslation(
                                             lang,
-                                            String.format("%s.%s.%s", "wand_rod", MOD_ID, rodName)
+                                            String.format("%s.%s.%s", "wand_rod", MOD_ID, wandItem.getRod().getMaterialName())
                                     ),
-                                    THAUMCRAFT_LANGTRANS.getTranslation(
+                                    THAUMCRAFT_INPUTLANG.getTranslation(
                                             lang,
-                                            String.format("%s.%s.%s", "wand_type", MOD_ID, type)
+                                            String.format("%s.%s.%s", "wand_type", MOD_ID, wandItem.getType())
                                     )
                             )
                     )
@@ -77,24 +81,22 @@ public class WandThaumcraftItem extends ThaumcraftItem {
 
         // model
         RESOURCE_PACK.addModel(
-                wandModel(rod, cap),
-                new Identifier("thaumcraft:item/" + genName)
+            wandModel(wandItem.getRod().getRegistryName(), wandItem.getCap().getRegistryName()),
+            new Identifier("thaumcraft:item/" + name())
         );
 
     }
 
-    @Override
     public void register() {
 
         if (color() == 0x000000)
-            setItem( Register.registerItem(genName, item()) );
+            setItem( Register.registerItem(name(), item()) );
         else
-            setItem( Register.registerItem(genName, item(), color()) );
+            setItem( Register.registerItem(name(), item(), color()) );
 
         setRegistered(true);
     }
 
-    @Override
     public void load() {
         model();
         register();

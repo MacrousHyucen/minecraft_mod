@@ -13,19 +13,9 @@ public abstract class ThaumcraftItem implements Loadable {
 
 
 
-    public boolean getRegistered() {
-        return hasRegistered;
-    }
-    public void setRegistered(boolean hasRegistered) {
-        this.hasRegistered = hasRegistered;
-    }
 
-    public Item getItem() {
-        return registeredItem;
-    }
-    public void setItem(Item registeredItem) {
-        this.registeredItem = registeredItem;
-    }
+
+
 
     public Item item() {
         return item;
@@ -35,6 +25,19 @@ public abstract class ThaumcraftItem implements Loadable {
     }
     public int color() {
         return color;
+    }
+
+    public Item getItem() {
+        return registeredItem;
+    }
+    public void setItem(Item registeredItem) {
+        this.registeredItem = registeredItem;
+    }
+    public boolean getRegistered() {
+        return hasRegistered;
+    }
+    public void setRegistered(boolean hasRegistered) {
+        this.hasRegistered = hasRegistered;
     }
 
 

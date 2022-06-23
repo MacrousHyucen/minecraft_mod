@@ -1,4 +1,4 @@
-package net.archasmiel.thaumcraft.item.wandcraft.variants;
+package net.archasmiel.thaumcraft.item.wandcraft;
 
 public interface VisCraft {
 

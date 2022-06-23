@@ -21,12 +21,10 @@ public class ShardThaumcraftItem extends ThaumcraftItem {
 
 
 
-    @Override
     public void model() {
         simpleItemModel("generated", name(), "shard");
     }
 
-    @Override
     public void register() {
         if (color() == 0x000000)
             setItem(Register.registerItem(name(), item()));
@@ -36,7 +34,6 @@ public class ShardThaumcraftItem extends ThaumcraftItem {
         setRegistered(true);
     }
 
-    @Override
     public void load() {
         model();
         register();

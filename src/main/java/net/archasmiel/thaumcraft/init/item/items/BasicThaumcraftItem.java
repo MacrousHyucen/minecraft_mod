@@ -20,12 +20,10 @@ public class BasicThaumcraftItem extends ThaumcraftItem {
 
 
 
-    @Override
     public void model() {
         simpleItemModel("generated", name(), name());
     }
 
-    @Override
     public void register() {
 
         if (color() == 0x000000)
@@ -36,7 +34,6 @@ public class BasicThaumcraftItem extends ThaumcraftItem {
         setRegistered(true);
     }
 
-    @Override
     public void load() {
         model();
         register();

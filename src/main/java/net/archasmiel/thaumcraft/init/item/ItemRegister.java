@@ -7,7 +7,7 @@ import net.archasmiel.thaumcraft.init.libs.RodMaterials;
 import net.archasmiel.thaumcraft.init.libs.ThaumcraftMaterial;
 import net.archasmiel.thaumcraft.init.tools.*;
 import net.archasmiel.thaumcraft.item.Thaumonomicon;
-import net.archasmiel.thaumcraft.item.wandcraft.Wand;
+import net.archasmiel.thaumcraft.item.wandcraft.variants.Wand;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.Item;
 import net.minecraft.item.ToolItem;
@@ -377,23 +377,19 @@ public class ItemRegister {
 
 
     public static final ThaumcraftItem WAND_ITEM1 = new WandThaumcraftItem(
-            new Wand(ONE_ITEM_SETTINGS, RodMaterials.WOOD, CapMaterials.IRON),
-            "wand_rod_wood", "wand_cap_iron", "wand"
+            new Wand(ONE_ITEM_SETTINGS, RodMaterials.WOOD, CapMaterials.IRON)
     );
 
     public static final ThaumcraftItem WAND_ITEM2 = new WandThaumcraftItem(
-            new Wand(ONE_ITEM_SETTINGS, RodMaterials.GREATWOOD, CapMaterials.GOLD),
-            "wand_rod_greatwood", "wand_cap_gold", "wand"
+            new Wand(ONE_ITEM_SETTINGS, RodMaterials.GREATWOOD, CapMaterials.GOLD)
     );
 
     public static final ThaumcraftItem WAND_ITEM3 = new WandThaumcraftItem(
-            new Wand(ONE_ITEM_SETTINGS, RodMaterials.SILVERWOOD, CapMaterials.THAUMIUM),
-            "wand_rod_silverwood", "wand_cap_thaumium", "wand"
+            new Wand(ONE_ITEM_SETTINGS, RodMaterials.SILVERWOOD, CapMaterials.THAUMIUM)
     );
 
     public static final ThaumcraftItem WAND_ITEM4 = new WandThaumcraftItem(
-            new Wand(ONE_ITEM_SETTINGS, RodMaterials.OBSIDIAN, CapMaterials.VOID),
-            "wand_rod_obsidian", "wand_cap_void", "wand"
+            new Wand(ONE_ITEM_SETTINGS, RodMaterials.OBSIDIAN, CapMaterials.VOID)
     );
 
 

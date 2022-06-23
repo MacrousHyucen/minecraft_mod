@@ -22,12 +22,11 @@ public class ToolThaumcraftItem extends ThaumcraftItem {
 
 
 
-    @Override
+
     public void model() {
         simpleItemModel("handheld", name(), name());
     }
 
-    @Override
     public void register() {
 
         if (color() == 0x000000)
@@ -38,7 +37,6 @@ public class ToolThaumcraftItem extends ThaumcraftItem {
         setRegistered(true);
     }
 
-    @Override
     public void load() {
         model();
         register();

@@ -26,6 +26,7 @@ public class Thaumonomicon extends Item {
 
         if (user.getWorld().isClient()) {
             MinecraftClient.getInstance().setScreenAndRender(new CottonClientScreen(new ThaumonomiconGui()));
+
             // testing sound
             MinecraftClient.getInstance()
             .getSoundManager().play(PositionedSoundInstance

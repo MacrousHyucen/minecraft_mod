@@ -1,9 +1,9 @@
 package net.archasmiel.thaumcraft;
 
-import net.archasmiel.thaumcraft.init.block.Functional;
-import net.archasmiel.thaumcraft.init.item.ItemRegister;
-import net.archasmiel.thaumcraft.lang.GenTranslations;
-import net.archasmiel.thaumcraft.lang.LangTranslations;
+import net.archasmiel.thaumcraft.lib.lang.GeneratedTranslations;
+import net.archasmiel.thaumcraft.lib.lang.LangTranslations;
+import net.archasmiel.thaumcraft.register.BlockRegister;
+import net.archasmiel.thaumcraft.register.ItemRegister;
 import net.devtech.arrp.api.RRPCallback;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.fabricmc.api.ModInitializer;
@@ -14,8 +14,6 @@ import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static net.archasmiel.thaumcraft.init.item.ItemRegister.THAUMONOMICON;
-
 
 public class Thaumcraft implements ModInitializer {
 	public static final String MOD_ID = "thaumcraft";
@@ -23,7 +21,7 @@ public class Thaumcraft implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 	public static final ItemGroup MOD_GROUP = FabricItemGroupBuilder.build(
 			new Identifier(MOD_ID, MOD_ID),
-			() -> new ItemStack(THAUMONOMICON.getItem())
+			() -> new ItemStack(ItemRegister.THAUMONOMICON.getItem())
 	);
 
 
@@ -33,7 +31,7 @@ public class Thaumcraft implements ModInitializer {
 	// Supported languages, which will be loaded to THAUMCRAFT_LANGTRANS
 	public static final String[] supportedLanguages = {"en_us", "ru_ru", "zh_cn"};
 	public static LangTranslations THAUMCRAFT_INPUTLANG = new LangTranslations(MOD_ID);
-	public static GenTranslations THAUMCRAFT_OUTPUTLANG = new GenTranslations(MOD_ID);
+	public static GeneratedTranslations THAUMCRAFT_OUTPUTLANG = new GeneratedTranslations(MOD_ID);
 
 
 	public static String[] primaryAspects = {"aer", "ignis", "aqua", "terra", "ordo", "perditio"};
@@ -45,7 +43,7 @@ public class Thaumcraft implements ModInitializer {
 		for (String i: supportedLanguages)
 			THAUMCRAFT_INPUTLANG.readLanguage(i);
 
-		Functional.register();
+		BlockRegister.register();
 		ItemRegister.register();
 
 		for (String i: supportedLanguages)

@@ -1,13 +1,13 @@
 package net.archasmiel.thaumcraft.item.wandcraft.variants;
 
-import net.archasmiel.thaumcraft.init.libs.CapMaterials;
-import net.archasmiel.thaumcraft.init.libs.RodMaterials;
+import net.archasmiel.thaumcraft.materials.CapMaterials;
+import net.archasmiel.thaumcraft.materials.RodMaterials;
 import net.archasmiel.thaumcraft.item.wandcraft.FociWear;
 import net.archasmiel.thaumcraft.item.wandcraft.VisCraft;
 import net.archasmiel.thaumcraft.item.wandcraft.WandAbstract;
-import net.archasmiel.thaumcraft.item.wandcraft.Weapon;
+import net.archasmiel.thaumcraft.item.wandcraft.WandWeapon;
 
-public class Staff extends WandAbstract implements VisCraft, Weapon, FociWear {
+public class Staff extends WandAbstract implements VisCraft, WandWeapon, FociWear {
 
     public Staff(Settings settings, CapMaterials cap, RodMaterials rod) {
         super(settings, rod, cap, 0.00f, 2.50f, "staff");

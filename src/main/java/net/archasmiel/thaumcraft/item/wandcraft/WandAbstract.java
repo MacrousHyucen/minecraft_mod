@@ -1,7 +1,7 @@
 package net.archasmiel.thaumcraft.item.wandcraft;
 
-import net.archasmiel.thaumcraft.init.libs.CapMaterials;
-import net.archasmiel.thaumcraft.init.libs.RodMaterials;
+import net.archasmiel.thaumcraft.materials.CapMaterials;
+import net.archasmiel.thaumcraft.materials.RodMaterials;
 import net.fabricmc.loader.impl.util.StringUtil;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;

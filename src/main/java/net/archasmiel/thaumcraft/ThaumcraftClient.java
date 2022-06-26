@@ -1,10 +1,13 @@
 package net.archasmiel.thaumcraft;
 
 import net.archasmiel.thaumcraft.register.BlockRegister;
+import net.archasmiel.thaumcraft.screen.ArcaneWorkbenchScreen;
+import net.archasmiel.thaumcraft.screen.ThaumcraftScreenHandlers;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.minecraft.client.render.RenderLayer;
 
 @Environment(EnvType.CLIENT)
@@ -17,6 +20,7 @@ public class ThaumcraftClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(BlockRegister.DECONSTRUCTION_TABLE.getBlock(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(BlockRegister.TABLE.getBlock(), RenderLayer.getCutout());
 
+        ScreenRegistry.register(ThaumcraftScreenHandlers.ARCANE_WORKBENCH_SCREEN_HANDLER, ArcaneWorkbenchScreen::new);
     }
 
 }

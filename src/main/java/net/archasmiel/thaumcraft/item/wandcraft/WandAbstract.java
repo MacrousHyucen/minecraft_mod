@@ -1,16 +1,25 @@
 package net.archasmiel.thaumcraft.item.wandcraft;
 
+import net.archasmiel.thaumcraft.block.advanced.Table;
 import net.archasmiel.thaumcraft.materials.CapMaterials;
 import net.archasmiel.thaumcraft.materials.RodMaterials;
+import net.archasmiel.thaumcraft.register.BlockRegister;
 import net.fabricmc.loader.impl.util.StringUtil;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -46,6 +55,8 @@ public abstract class WandAbstract extends Item {
     private RodMaterials rod;
     private String type;
 
+    private boolean fullAspects;
+
     private float discountMultiplier;
     private float capacityMultiplier;
     private float discount;
@@ -69,6 +80,26 @@ public abstract class WandAbstract extends Item {
         // info for capacity and info final values
         this.setCapacityMultiplier(capacityMultiplier);
         this.setDiscountMultiplier(1.00f - rawDiscountMultiplier);
+
+        this.fullAspects = false;
+    }
+
+    public WandAbstract(Settings settings, RodMaterials rod, CapMaterials caps,
+                        float rawDiscountMultiplier, float capacityMultiplier,
+                        String type, boolean fullAspects) {
+        super(settings);
+
+        this.setType(type);
+
+        // basic info for capacity and discount
+        this.setRod(rod);
+        this.setCaps(caps);
+
+        // info for capacity and info final values
+        this.setCapacityMultiplier(capacityMultiplier);
+        this.setDiscountMultiplier(1.00f - rawDiscountMultiplier);
+
+        this.fullAspects = fullAspects;
     }
 
 
@@ -122,9 +153,39 @@ public abstract class WandAbstract extends Item {
 
 
 
+    /*   WORLD INTERACTIONS   */
+    @Override
+    public ActionResult useOnBlock(ItemUsageContext context) {
+
+        if (!context.getWorld().isClient && context.getHand() == Hand.MAIN_HAND) {
+            if (context.getPlayer() != null){
+                Item usingItem = context.getPlayer().getStackInHand(Hand.MAIN_HAND).getItem();
+
+                if (usingItem instanceof WandAbstract){
+                    BlockState state = context.getWorld().getBlockState(context.getBlockPos());
+
+                    if (state.getBlock() instanceof Table) {
+                        context.getWorld().setBlockState(
+                                context.getBlockPos(),
+                                BlockRegister.ARCANE_WORKBENCH.getBlock().getDefaultState()
+                        );
+
+                        MinecraftClient.getInstance()
+                        .getSoundManager().play(PositionedSoundInstance
+                        .master(SoundEvents.BLOCK_WOOD_BREAK, 1.0F));
+                    }
+                }
+            }
+        }
+
+        return ActionResult.SUCCESS;
+    }
 
 
-    // nbt data
+
+
+
+    /*   NBT DATA   */
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         // nbt get&check
@@ -193,9 +254,11 @@ public abstract class WandAbstract extends Item {
     private NbtCompound checkWandNbt(NbtCompound nbt) {
         if (nbt == null)
             nbt = new NbtCompound();
+
         for (String i: primaryAspects)
             if (!nbt.contains(i))
-                nbt.putFloat(i, 0);
+                nbt.putFloat(i, fullAspects ? this.capacity : 0);
+
         return nbt;
     }
 

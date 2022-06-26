@@ -30,12 +30,12 @@ public class ItemRegister {
     );
 
     public static final ThaumcraftItem THAUMONOMICON_CHEAT = new BasicItem(
-            new ThaumonomiconItem(ONE_ITEM_SETTINGS),
+            new Item(ONE_ITEM_SETTINGS),
             "thaumonomicon_cheat"
     );
 
     public static final ThaumcraftItem CRIMSON_RITES = new BasicItem(
-            new ThaumonomiconItem(ONE_ITEM_SETTINGS),
+            new Item(ONE_ITEM_SETTINGS),
             "crimson_rites"
     );
 
@@ -380,19 +380,19 @@ public class ItemRegister {
 
 
     public static final ThaumcraftItem WAND_ITEM1 = new WandItem(
-            new Wand(ONE_ITEM_SETTINGS, RodMaterials.WOOD, CapMaterials.IRON)
+            new Wand(ONE_ITEM_SETTINGS, RodMaterials.WOOD, CapMaterials.IRON, true)
     );
 
     public static final ThaumcraftItem WAND_ITEM2 = new WandItem(
-            new Wand(ONE_ITEM_SETTINGS, RodMaterials.GREATWOOD, CapMaterials.GOLD)
+            new Wand(ONE_ITEM_SETTINGS, RodMaterials.GREATWOOD, CapMaterials.GOLD, true)
     );
 
     public static final ThaumcraftItem WAND_ITEM3 = new WandItem(
-            new Wand(ONE_ITEM_SETTINGS, RodMaterials.SILVERWOOD, CapMaterials.THAUMIUM)
+            new Wand(ONE_ITEM_SETTINGS, RodMaterials.SILVERWOOD, CapMaterials.THAUMIUM, true)
     );
 
     public static final ThaumcraftItem WAND_ITEM4 = new WandItem(
-            new Wand(ONE_ITEM_SETTINGS, RodMaterials.OBSIDIAN, CapMaterials.VOID)
+            new Wand(ONE_ITEM_SETTINGS, RodMaterials.OBSIDIAN, CapMaterials.VOID, true)
     );
 
 

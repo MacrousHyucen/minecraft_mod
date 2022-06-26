@@ -1,5 +1,6 @@
 package net.archasmiel.thaumcraft;
 
+import net.archasmiel.thaumcraft.block.entity.ThaumcraftBlockEntities;
 import net.archasmiel.thaumcraft.lib.lang.GeneratedTranslations;
 import net.archasmiel.thaumcraft.lib.lang.LangTranslations;
 import net.archasmiel.thaumcraft.register.BlockRegister;
@@ -37,15 +38,25 @@ public class Thaumcraft implements ModInitializer {
 	public static String[] primaryAspects = {"aer", "ignis", "aqua", "terra", "ordo", "perditio"};
 	public static String[] primaryAspectsColor = {"§e", "§c", "§b", "§a", "§f", "§8"};
 
+
+
+
+
+
+
 	@Override
 	public void onInitialize() {
 
+		// loading all translations from lang
 		for (String i: supportedLanguages)
 			THAUMCRAFT_INPUTLANG.readLanguage(i);
 
 		BlockRegister.register();
 		ItemRegister.register();
 
+		ThaumcraftBlockEntities.register();
+
+		// registering languages via arrp
 		for (String i: supportedLanguages)
 			THAUMCRAFT_OUTPUTLANG.registerLanguage(i);
 

@@ -62,7 +62,7 @@ public class WandDataGeneration {
                                 .setFirstperson_righthand( new JPosition().translation(0.0f, 1.0f, 0.0f).scale(0.6f, 0.6f, 0.6f) )
                                 .setFirstperson_lefthand ( new JPosition().translation(0.0f, 1.0f, 0.0f).scale(0.6f, 0.6f, 0.6f) )
                                 .setGround               ( new JPosition().scale(0.6f, 0.6f, 0.6f) )
-                                .setGui                  ( new JPosition().scale(0.8f, 0.8f, 0.8f).rotation(-30.0f, -30.0f, -45.0f) )
+                                .setGui                  ( new JPosition().scale(0.9f, 0.9f, 0.9f).rotation(38.25f, 29.52f, 123.42f) )
                                 .setHead                 ( new JPosition().translation(0.0f, 7.5f, -0.5f).rotation( 90.0f,   0.0f,  90.0f) )
                 );
     }

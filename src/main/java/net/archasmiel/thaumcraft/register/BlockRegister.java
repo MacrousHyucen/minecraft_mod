@@ -7,26 +7,27 @@ import net.archasmiel.thaumcraft.block.advanced.Table;
 import net.archasmiel.thaumcraft.block.basic.ThaumcraftBlock;
 import net.archasmiel.thaumcraft.block.basic.blocks.BasicRotatableBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
 
 public class BlockRegister {
 
     public static final ThaumcraftBlock TABLE = new BasicRotatableBlock(
             new Table(
                 FabricBlockSettings
-                .copyOf(Blocks.CRAFTING_TABLE)
-                .nonOpaque()
+                .of(Material.WOOD)
+                .strength(2.5F)
+                .sounds(BlockSoundGroup.WOOD)
             ),
             "table"
     );
 
-
-
     public static final ThaumcraftBlock ARCANE_WORKBENCH = new BasicRotatableBlock(
             new ArcaneWorkbench(
                 FabricBlockSettings
-                .copyOf(Blocks.CRAFTING_TABLE)
-                .nonOpaque()
+                .of(Material.WOOD)
+                .strength(2.5F)
+                .sounds(BlockSoundGroup.WOOD)
             ),
             "arcane_workbench"
     );
@@ -34,8 +35,9 @@ public class BlockRegister {
     public static final ThaumcraftBlock DECONSTRUCTION_TABLE = new BasicRotatableBlock(
             new DeconstructionTable(
                 FabricBlockSettings
-                .copyOf(Blocks.CRAFTING_TABLE)
-                .nonOpaque()
+                .of(Material.WOOD)
+                .strength(2.5F)
+                .sounds(BlockSoundGroup.WOOD)
             ),
             "deconstruction_table"
     );

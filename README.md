@@ -51,8 +51,8 @@
 
 
 ## ***WIP***
-- [ ] *Staff and scepter implementation like wand* **(Current Goal)**
-- [ ] *Arcane workbench GUI+wand as input in special slot* **(Next Goal)**
+- [ ] *Arcane workbench GUI+wand as input in special slot* **(Current Goal)**
+- [ ] *Staff and scepter implementation like wand* **(Next Goal)**
 - [ ] *Arcane workbench recipe type*
 - [ ] *Deconstruction table GUI+storage*
 - [ ] *Thaumonomicon GUI improvements (working tabs with moving icons, action on clicking, current page saving after closing)*

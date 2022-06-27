@@ -1,7 +1,8 @@
-package net.archasmiel.thaumcraft.block.advanced;
+package net.archasmiel.thaumcraft.block.advanced.blocks;
 
-import net.archasmiel.thaumcraft.block.entity.ArcaneWorkbenchBlockEntity;
-import net.archasmiel.thaumcraft.block.entity.ThaumcraftBlockEntities;
+import net.archasmiel.thaumcraft.block.advanced.RotatableEntityBlock;
+import net.archasmiel.thaumcraft.entity.arcane_workbench.ArcaneWorkbenchBlockEntity;
+import net.archasmiel.thaumcraft.entity.BlockEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -94,6 +95,6 @@ public class ArcaneWorkbench extends RotatableEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ThaumcraftBlockEntities.ARCANE_WORKBENCH, ArcaneWorkbenchBlockEntity::tick);
+        return checkType(type, BlockEntities.ARCANE_WORKBENCH, ArcaneWorkbenchBlockEntity::tick);
     }
 }

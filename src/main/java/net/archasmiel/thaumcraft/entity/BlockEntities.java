@@ -1,13 +1,14 @@
-package net.archasmiel.thaumcraft.block.entity;
+package net.archasmiel.thaumcraft.entity;
 
 import net.archasmiel.thaumcraft.Thaumcraft;
-import net.archasmiel.thaumcraft.register.BlockRegister;
+import net.archasmiel.thaumcraft.block.Blocks;
+import net.archasmiel.thaumcraft.entity.arcane_workbench.ArcaneWorkbenchBlockEntity;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-public class ThaumcraftBlockEntities {
+public class BlockEntities {
 
     public static BlockEntityType<ArcaneWorkbenchBlockEntity> ARCANE_WORKBENCH;
 
@@ -17,7 +18,7 @@ public class ThaumcraftBlockEntities {
             new Identifier(Thaumcraft.MOD_ID, "arcane_workbench"),
             FabricBlockEntityTypeBuilder.create(
                     ArcaneWorkbenchBlockEntity::new,
-                    BlockRegister.ARCANE_WORKBENCH.getBlock()
+                    Blocks.ARCANE_WORKBENCH.getBlock()
             ).build(null)
         );
     }

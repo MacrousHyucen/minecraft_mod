@@ -1,15 +1,15 @@
-package net.archasmiel.thaumcraft.block.entity;
+package net.archasmiel.thaumcraft.entity.arcane_workbench;
 
-import net.archasmiel.thaumcraft.block.inventory.ImplementedInventory;
-import net.archasmiel.thaumcraft.register.ItemRegister;
-import net.archasmiel.thaumcraft.screen.ArcaneWorkbenchScreenHandler;
+import net.archasmiel.thaumcraft.entity.BlockEntities;
+import net.archasmiel.thaumcraft.entity.abilities.inventory.ImplementedInventory;
+import net.archasmiel.thaumcraft.item.Items;
+import net.archasmiel.thaumcraft.screen.arcane_workbench.ArcaneWorkbenchScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
@@ -31,7 +31,7 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScre
 
 
     public ArcaneWorkbenchBlockEntity(BlockPos pos, BlockState state) {
-        super(ThaumcraftBlockEntities.ARCANE_WORKBENCH, pos, state);
+        super(BlockEntities.ARCANE_WORKBENCH, pos, state);
     }
 
 
@@ -81,15 +81,15 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScre
         entity.removeStack(2, 1);
 
         entity.setStack(RESULT_SLOT, new ItemStack(
-            ItemRegister.THAUMONOMICON.getItem(),
+            Items.THAUMONOMICON.getItem(),
             entity.getStack(RESULT_SLOT).getCount() + 1
         ));
     }
 
     private static boolean hasRecipe(ArcaneWorkbenchBlockEntity entity) {
-        boolean itemIn1Slot = entity.getStack(0).getItem() == Items.PAPER;
-        boolean itemIn2Slot = entity.getStack(1).getItem() == Items.PAPER;
-        boolean itemIn3Slot = entity.getStack(2).getItem() == Items.LEATHER;
+        boolean itemIn1Slot = entity.getStack(0).getItem() == net.minecraft.item.Items.PAPER;
+        boolean itemIn2Slot = entity.getStack(1).getItem() == net.minecraft.item.Items.PAPER;
+        boolean itemIn3Slot = entity.getStack(2).getItem() == net.minecraft.item.Items.LEATHER;
 
         return itemIn1Slot && itemIn2Slot && itemIn3Slot;
     }

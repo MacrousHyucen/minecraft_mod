@@ -1,8 +1,9 @@
-package net.archasmiel.thaumcraft.screen;
+package net.archasmiel.thaumcraft.screen.arcane_workbench;
 
-import net.archasmiel.thaumcraft.block.entity.ArcaneWorkbenchBlockEntity;
-import net.archasmiel.thaumcraft.screen.slot.ResultSlot;
-import net.archasmiel.thaumcraft.screen.slot.WandSlot;
+import net.archasmiel.thaumcraft.entity.arcane_workbench.ArcaneWorkbenchBlockEntity;
+import net.archasmiel.thaumcraft.screen.ScreenHandlers;
+import net.archasmiel.thaumcraft.screen.arcane_workbench.slot.ResultSlot;
+import net.archasmiel.thaumcraft.screen.arcane_workbench.slot.WandSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -20,7 +21,7 @@ public class ArcaneWorkbenchScreenHandler extends ScreenHandler {
     }
 
     public ArcaneWorkbenchScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory) {
-        super(ThaumcraftScreenHandlers.ARCANE_WORKBENCH_SCREEN_HANDLER, syncId);
+        super(ScreenHandlers.ARCANE_WORKBENCH_SCREEN_HANDLER, syncId);
         checkSize(inventory, ArcaneWorkbenchBlockEntity.GUI_SIZE);
         this.inventory = inventory;
         inventory.onOpen(playerInventory.player);

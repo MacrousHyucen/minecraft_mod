@@ -2,7 +2,7 @@
   "parent": "thaumcraft:journey/root",
   "display": {
     "icon": {
-      "item": "minecraft:feather"
+      "item": "thaumcraft:inkwell"
     },
     "title": {
       "translate": "advancements.journey.scribing_tools.title"

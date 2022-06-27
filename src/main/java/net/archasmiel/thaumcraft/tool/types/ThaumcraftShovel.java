@@ -1,14 +1,15 @@
-package net.archasmiel.thaumcraft.tools;
+package net.archasmiel.thaumcraft.tool.types;
 
+import net.archasmiel.thaumcraft.tool.Repairable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ShovelItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.world.World;
 
-public class ThaumcraftAxe extends AxeItem {
-    public ThaumcraftAxe(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
+public class ThaumcraftShovel extends ShovelItem {
+    public ThaumcraftShovel(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
         super(material, attackDamage, attackSpeed, settings);
     }
 

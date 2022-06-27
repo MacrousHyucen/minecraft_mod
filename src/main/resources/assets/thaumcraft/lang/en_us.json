@@ -8,12 +8,12 @@
   "gui.thaumcraft.golemancy_tab":  "Golemancy",
   "gui.thaumcraft.eldritch_tab": "Eldritch",
 
-  "advancements.journey.root.title": "§5Thaumcraft",
-  "advancements.journey.root.description": "Let's create magic stuff! But firstly craft a workbench)",
+  "advancements.journey.root.title": "§5Magical miracles",
+  "advancements.journey.root.description": "This will be an interesting journey!",
   "advancements.journey.paper_gathering.title": "Research...",
   "advancements.journey.paper_gathering.description": "... needs a lot of paper!",
   "advancements.journey.scribing_tools.title": "Hours of scribing",
-  "advancements.journey.scribing_tools.description": "Gather empty bottle, feather and inc sac",
+  "advancements.journey.scribing_tools.description": "Craft scribing tools from bottle, feather and inc sac.",
 
   "item.thaumcraft.thaumonomicon": "§6Thaumonomicon",
   "item.thaumcraft.thaumonomicon_cheat": "§6Thaumonomicon (cheat version)",

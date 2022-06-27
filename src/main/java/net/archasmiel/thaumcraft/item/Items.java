@@ -1,4 +1,4 @@
-package net.archasmiel.thaumcraft.register;
+package net.archasmiel.thaumcraft.item;
 
 import net.archasmiel.thaumcraft.Thaumcraft;
 import net.archasmiel.thaumcraft.item.basic.*;
@@ -9,14 +9,14 @@ import net.archasmiel.thaumcraft.item.basic.items.WandItem;
 import net.archasmiel.thaumcraft.materials.CapMaterials;
 import net.archasmiel.thaumcraft.materials.RodMaterials;
 import net.archasmiel.thaumcraft.materials.ToolMaterials;
-import net.archasmiel.thaumcraft.tools.*;
 import net.archasmiel.thaumcraft.item.books.ThaumonomiconItem;
 import net.archasmiel.thaumcraft.item.wandcraft.variants.Wand;
+import net.archasmiel.thaumcraft.tool.types.*;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.Item;
 
 
-public class ItemRegister {
+public class Items {
 
     private static final FabricItemSettings STANDARD_SETTINGS = new FabricItemSettings().group(Thaumcraft.MOD_GROUP);
     private static final FabricItemSettings ONE_ITEM_SETTINGS = STANDARD_SETTINGS.maxCount(1);

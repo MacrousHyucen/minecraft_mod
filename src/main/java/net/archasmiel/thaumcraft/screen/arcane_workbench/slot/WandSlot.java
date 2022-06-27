@@ -1,4 +1,4 @@
-package net.archasmiel.thaumcraft.screen.slot;
+package net.archasmiel.thaumcraft.screen.arcane_workbench.slot;
 
 import net.archasmiel.thaumcraft.item.wandcraft.abilities.VisCraft;
 import net.minecraft.inventory.Inventory;

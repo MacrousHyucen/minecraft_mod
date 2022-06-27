@@ -1,5 +1,6 @@
-package net.archasmiel.thaumcraft.block.advanced;
+package net.archasmiel.thaumcraft.block.advanced.blocks;
 
+import net.archasmiel.thaumcraft.block.advanced.RotatableBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;

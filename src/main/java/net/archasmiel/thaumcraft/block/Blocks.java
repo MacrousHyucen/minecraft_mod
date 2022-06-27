@@ -1,16 +1,16 @@
-package net.archasmiel.thaumcraft.register;
+package net.archasmiel.thaumcraft.block;
 
 import net.archasmiel.thaumcraft.Thaumcraft;
-import net.archasmiel.thaumcraft.block.advanced.ArcaneWorkbench;
-import net.archasmiel.thaumcraft.block.advanced.DeconstructionTable;
-import net.archasmiel.thaumcraft.block.advanced.Table;
+import net.archasmiel.thaumcraft.block.advanced.blocks.ArcaneWorkbench;
+import net.archasmiel.thaumcraft.block.advanced.blocks.DeconstructionTable;
+import net.archasmiel.thaumcraft.block.advanced.blocks.Table;
 import net.archasmiel.thaumcraft.block.basic.ThaumcraftBlock;
 import net.archasmiel.thaumcraft.block.basic.blocks.BasicRotatableBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
-public class BlockRegister {
+public class Blocks {
 
     public static final ThaumcraftBlock TABLE = new BasicRotatableBlock(
             new Table(

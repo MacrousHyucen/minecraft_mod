@@ -1,10 +1,10 @@
 package net.archasmiel.thaumcraft;
 
-import net.archasmiel.thaumcraft.block.entity.ThaumcraftBlockEntities;
+import net.archasmiel.thaumcraft.entity.BlockEntities;
 import net.archasmiel.thaumcraft.lib.lang.GeneratedTranslations;
 import net.archasmiel.thaumcraft.lib.lang.LangTranslations;
-import net.archasmiel.thaumcraft.register.BlockRegister;
-import net.archasmiel.thaumcraft.register.ItemRegister;
+import net.archasmiel.thaumcraft.block.Blocks;
+import net.archasmiel.thaumcraft.item.Items;
 import net.devtech.arrp.api.RRPCallback;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.fabricmc.api.ModInitializer;
@@ -22,7 +22,7 @@ public class Thaumcraft implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 	public static final ItemGroup MOD_GROUP = FabricItemGroupBuilder.build(
 			new Identifier(MOD_ID, MOD_ID),
-			() -> new ItemStack(ItemRegister.THAUMONOMICON.getItem())
+			() -> new ItemStack(Items.THAUMONOMICON.getItem())
 	);
 
 
@@ -51,10 +51,10 @@ public class Thaumcraft implements ModInitializer {
 		for (String i: supportedLanguages)
 			THAUMCRAFT_INPUTLANG.readLanguage(i);
 
-		BlockRegister.register();
-		ItemRegister.register();
+		Blocks.register();
+		Items.register();
 
-		ThaumcraftBlockEntities.register();
+		BlockEntities.register();
 
 		// registering languages via arrp
 		for (String i: supportedLanguages)

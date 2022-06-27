@@ -1,9 +1,9 @@
 package net.archasmiel.thaumcraft.item.wandcraft;
 
-import net.archasmiel.thaumcraft.block.advanced.Table;
+import net.archasmiel.thaumcraft.block.advanced.blocks.Table;
 import net.archasmiel.thaumcraft.materials.CapMaterials;
 import net.archasmiel.thaumcraft.materials.RodMaterials;
-import net.archasmiel.thaumcraft.register.BlockRegister;
+import net.archasmiel.thaumcraft.block.Blocks;
 import net.fabricmc.loader.impl.util.StringUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
@@ -167,12 +167,12 @@ public abstract class WandAbstract extends Item {
                     if (state.getBlock() instanceof Table) {
                         context.getWorld().setBlockState(
                                 context.getBlockPos(),
-                                BlockRegister.ARCANE_WORKBENCH.getBlock().getDefaultState()
+                                Blocks.ARCANE_WORKBENCH.getBlock().getDefaultState()
                         );
 
                         MinecraftClient.getInstance()
                         .getSoundManager().play(PositionedSoundInstance
-                        .master(SoundEvents.BLOCK_WOOD_BREAK, 1.0F));
+                        .master(SoundEvents.BLOCK_WOOD_BREAK, 3.0F));
                     }
                 }
             }

@@ -1,12 +1,13 @@
 package net.archasmiel.thaumcraft.screen;
 
 import net.archasmiel.thaumcraft.Thaumcraft;
+import net.archasmiel.thaumcraft.screen.arcane_workbench.ArcaneWorkbenchScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 
-public class ThaumcraftScreenHandlers {
+public class ScreenHandlers {
 
 
     public static ScreenHandlerType<ArcaneWorkbenchScreenHandler> ARCANE_WORKBENCH_SCREEN_HANDLER =

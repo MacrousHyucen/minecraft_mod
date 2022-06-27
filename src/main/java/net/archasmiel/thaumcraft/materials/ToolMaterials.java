@@ -5,8 +5,8 @@ import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
 
-import static net.archasmiel.thaumcraft.register.ItemRegister.THAUMIUM_INGOT;
-import static net.archasmiel.thaumcraft.register.ItemRegister.VOID_METAL_INGOT;
+import static net.archasmiel.thaumcraft.item.Items.THAUMIUM_INGOT;
+import static net.archasmiel.thaumcraft.item.Items.VOID_METAL_INGOT;
 
 
 public enum ToolMaterials implements ToolMaterial {

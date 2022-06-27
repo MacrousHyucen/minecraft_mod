@@ -2,13 +2,14 @@ package net.archasmiel.thaumcraft.entity.arcane_workbench;
 
 import net.archasmiel.thaumcraft.entity.BlockEntities;
 import net.archasmiel.thaumcraft.entity.abilities.inventory.ImplementedInventory;
-import net.archasmiel.thaumcraft.item.Items;
+import net.archasmiel.thaumcraft.recipe.ArcaneWorkbenchRecipe;
 import net.archasmiel.thaumcraft.screen.arcane_workbench.ArcaneWorkbenchScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.NamedScreenHandlerFactory;
@@ -20,7 +21,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
+
 public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory {
+
+    public static boolean crafted = false;
 
     public static final int GUI_SIZE = 11;
     public static final int RESULT_SLOT = 9;
@@ -67,34 +72,86 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScre
         Inventories.writeNbt(nbt, inventory);
     }
 
+    @Override
+    public void onOpen(PlayerEntity player) {
+        crafted = false;
+        ImplementedInventory.super.onOpen(player);
+    }
 
+    @Override
+    public void onClose(PlayerEntity player) {
+        crafted = false;
+        ImplementedInventory.super.onClose(player);
+    }
 
     public static void tick(World world, BlockPos pos, BlockState state, ArcaneWorkbenchBlockEntity entity) {
-        if (hasRecipe(entity) && hasNotReachedStackLimit(entity)) {
-            craftItem(entity);
+
+
+        if (crafted && entity.getStack(9).getCount() == 0) {
+            for (int i = 0 ; i < 9 ; i++) {
+                if (entity.getStack(i).getCount() > 1)
+                    entity.setStack(
+                            i,
+                            new ItemStack(
+                                    entity.getStack(i).getItem(),
+                                    entity.getStack(i).getCount()-1
+                            )
+                    );
+                else
+                    entity.setStack(i, ItemStack.EMPTY);
+
+                crafted = false;
+            }
         }
+
+        if (hasItems(entity)) {
+            Optional<ArcaneWorkbenchRecipe> optional = getRecipe(entity);
+            if (!crafted && optional.isPresent()){
+                crafted = true;
+
+                if (entity.getStack(9).getCount() == 0){
+
+                    entity.setStack(
+                        9,
+                        new ItemStack(
+                            optional.get().getOutput().getItem(),
+                            1
+                        )
+                    );
+                }
+
+            } else {
+                if (entity.getStack(9).getCount() > 0){
+                    entity.setStack(9, ItemStack.EMPTY);
+                }
+            }
+        }
+
+
+
     }
 
-    private static void craftItem(ArcaneWorkbenchBlockEntity entity){
-        entity.removeStack(0, 1);
-        entity.removeStack(1, 1);
-        entity.removeStack(2, 1);
+    private static Optional<ArcaneWorkbenchRecipe> getRecipe(ArcaneWorkbenchBlockEntity entity) {
+        if (entity.world != null){
+            World world = entity.world;
+            SimpleInventory inventory = new SimpleInventory(entity.inventory.size());
+            for (int i = 0 ; i < 9 ; i++) {
+                inventory.setStack(i, entity.getStack(i));
+            }
 
-        entity.setStack(RESULT_SLOT, new ItemStack(
-            Items.THAUMONOMICON.getItem(),
-            entity.getStack(RESULT_SLOT).getCount() + 1
-        ));
+            return world.getRecipeManager().getFirstMatch(ArcaneWorkbenchRecipe.Type.INSTANCE, inventory, world);
+        }
+        return Optional.empty();
     }
 
-    private static boolean hasRecipe(ArcaneWorkbenchBlockEntity entity) {
-        boolean itemIn1Slot = entity.getStack(0).getItem() == net.minecraft.item.Items.PAPER;
-        boolean itemIn2Slot = entity.getStack(1).getItem() == net.minecraft.item.Items.PAPER;
-        boolean itemIn3Slot = entity.getStack(2).getItem() == net.minecraft.item.Items.LEATHER;
-
-        return itemIn1Slot && itemIn2Slot && itemIn3Slot;
+    private static boolean hasItems(ArcaneWorkbenchBlockEntity entity) {
+        if (entity.world != null){
+            for (int i = 0 ; i < 9 ; i++) {
+                if (entity.getStack(i).getCount() != 0)
+                    return true;
+            }
+        }
+        return false;
     }
 
-    private static boolean hasNotReachedStackLimit(ArcaneWorkbenchBlockEntity entity) {
-        return entity.getStack(RESULT_SLOT).getCount() < entity.getStack(RESULT_SLOT).getMaxCount();
-    }
 }

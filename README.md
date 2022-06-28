@@ -43,7 +43,7 @@
 - [x] *Auto generating of wand models and lang (4 wand items)*
 - [x] *Wand NBT data and tooltip*
 - [x] *Arcane Workbench GUI + wand-item special slot + obtained by clicking wand on table*
-
+- [x] *Basic arcane workbench recipe type (needs improvement)*
 
 
 
@@ -52,9 +52,8 @@
 
 
 ## ***WIP***
-- [ ] *Arcane workbench recipe type* **(Current Goal)**
+- [ ] *Staff and scepter implementation like wand* **(Current Goal)**
 - [ ] *Deconstruction table GUI+storage* **(Next Goal)**
-- [ ] *Staff and scepter implementation like wand* 
 - [ ] *Thaumonomicon GUI improvements (working tabs with moving icons, action on clicking, current page saving after closing)*
 
 

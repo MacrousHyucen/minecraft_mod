@@ -1,0 +1,16 @@
+{
+  "type": "thaumcraft:arcane_workbench",
+  "pattern": [
+    "###",
+    "# #",
+    "   "
+  ],
+  "keys": {
+    "#": {
+      "item": "minecraft:iron_nugget"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:cap_iron"
+  }
+}

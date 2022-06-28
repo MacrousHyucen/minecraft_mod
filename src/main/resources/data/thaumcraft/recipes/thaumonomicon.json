@@ -1,35 +1,19 @@
 {
   "type": "thaumcraft:arcane_workbench",
-  "ingredients": [
-    {
+  "pattern": [
+    "lpp",
+    "ppp",
+    "ppp"
+  ],
+  "keys": {
+    "l": {
       "item": "minecraft:leather"
     },
-    {
-      "item": "minecraft:paper"
-    },
-    {
-      "item": "minecraft:paper"
-    },
-    {
-      "item": "minecraft:paper"
-    },
-    {
-      "item": "minecraft:paper"
-    },
-    {
-      "item": "minecraft:paper"
-    },
-    {
-      "item": "minecraft:paper"
-    },
-    {
-      "item": "minecraft:paper"
-    },
-    {
+    "p": {
       "item": "minecraft:paper"
     }
-  ],
-  "output": {
+  },
+  "result": {
     "item": "thaumcraft:thaumonomicon"
   }
 }

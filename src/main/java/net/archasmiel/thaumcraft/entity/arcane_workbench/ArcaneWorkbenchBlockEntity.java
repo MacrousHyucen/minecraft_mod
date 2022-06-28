@@ -25,8 +25,6 @@ import java.util.Optional;
 
 public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory {
 
-    public static boolean crafted = false;
-
     public static final int GUI_SIZE = 11;
     public static final int RESULT_SLOT = 9;
     private final DefaultedList<ItemStack> inventory =
@@ -72,66 +70,30 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScre
         Inventories.writeNbt(nbt, inventory);
     }
 
-    @Override
-    public void onOpen(PlayerEntity player) {
-        crafted = false;
-        ImplementedInventory.super.onOpen(player);
-    }
-
-    @Override
-    public void onClose(PlayerEntity player) {
-        crafted = false;
-        ImplementedInventory.super.onClose(player);
-    }
 
     public static void tick(World world, BlockPos pos, BlockState state, ArcaneWorkbenchBlockEntity entity) {
 
+        Optional<ArcaneWorkbenchRecipe> recipe;
+        // TODO     Add vanilla recipes
+        recipe = getArcaneRecipe(entity);
 
-        if (crafted && entity.getStack(9).getCount() == 0) {
-            for (int i = 0 ; i < 9 ; i++) {
-                if (entity.getStack(i).getCount() > 1)
-                    entity.setStack(
-                            i,
-                            new ItemStack(
-                                    entity.getStack(i).getItem(),
-                                    entity.getStack(i).getCount()-1
-                            )
-                    );
-                else
-                    entity.setStack(i, ItemStack.EMPTY);
 
-                crafted = false;
+        if (recipe.isPresent()) {
+            if (entity.getStack(RESULT_SLOT) != recipe.get().getOutput()) {
+                entity.setStack(RESULT_SLOT, recipe.get().getOutput());
+                markDirty(world, pos, state);
+            }
+        } else {
+            if (entity.getStack(RESULT_SLOT) != ItemStack.EMPTY) {
+                entity.setStack(RESULT_SLOT, ItemStack.EMPTY);
+                markDirty(world, pos, state);
             }
         }
-
-        if (hasItems(entity)) {
-            Optional<ArcaneWorkbenchRecipe> optional = getRecipe(entity);
-            if (!crafted && optional.isPresent()){
-                crafted = true;
-
-                if (entity.getStack(9).getCount() == 0){
-
-                    entity.setStack(
-                        9,
-                        new ItemStack(
-                            optional.get().getOutput().getItem(),
-                            1
-                        )
-                    );
-                }
-
-            } else {
-                if (entity.getStack(9).getCount() > 0){
-                    entity.setStack(9, ItemStack.EMPTY);
-                }
-            }
-        }
-
 
 
     }
 
-    private static Optional<ArcaneWorkbenchRecipe> getRecipe(ArcaneWorkbenchBlockEntity entity) {
+    private static Optional<ArcaneWorkbenchRecipe> getArcaneRecipe(ArcaneWorkbenchBlockEntity entity) {
         if (entity.world != null){
             World world = entity.world;
             SimpleInventory inventory = new SimpleInventory(entity.inventory.size());
@@ -142,16 +104,6 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScre
             return world.getRecipeManager().getFirstMatch(ArcaneWorkbenchRecipe.Type.INSTANCE, inventory, world);
         }
         return Optional.empty();
-    }
-
-    private static boolean hasItems(ArcaneWorkbenchBlockEntity entity) {
-        if (entity.world != null){
-            for (int i = 0 ; i < 9 ; i++) {
-                if (entity.getStack(i).getCount() != 0)
-                    return true;
-            }
-        }
-        return false;
     }
 
 }

@@ -1,35 +1,37 @@
 {
   "type": "thaumcraft:arcane_workbench",
-  "ingredients": [
-    {
+  "pattern": [
+    "123",
+    "g7g",
+    "456"
+  ],
+  "keys": {
+    "1": {
       "item": "thaumcraft:shard_air"
     },
-    {
+    "2": {
       "item": "thaumcraft:shard_fire"
     },
-    {
+    "3": {
       "item": "thaumcraft:shard_water"
     },
-    {
-      "item": "minecraft:gold_ingot"
-    },
-    {
-      "item": "thaumcraft:shard_balanced"
-    },
-    {
-      "item": "minecraft:gold_ingot"
-    },
-    {
+    "4": {
       "item": "thaumcraft:shard_earth"
     },
-    {
+    "5": {
       "item": "thaumcraft:shard_order"
     },
-    {
+    "6": {
       "item": "thaumcraft:shard_entropy"
+    },
+    "7": {
+      "item": "thaumcraft:shard_balanced"
+    },
+    "g": {
+      "item": "minecraft:gold_ingot"
     }
-  ],
-  "output": {
+  },
+  "result": {
     "item": "thaumcraft:primal_charm"
   }
 }

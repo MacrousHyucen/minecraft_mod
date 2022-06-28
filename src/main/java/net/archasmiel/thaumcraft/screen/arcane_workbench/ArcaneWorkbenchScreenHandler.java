@@ -11,6 +11,7 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.screen.slot.SlotActionType;
 
 public class ArcaneWorkbenchScreenHandler extends ScreenHandler {
 
@@ -26,23 +27,70 @@ public class ArcaneWorkbenchScreenHandler extends ScreenHandler {
         this.inventory = inventory;
         inventory.onOpen(playerInventory.player);
 
+        addGuiSlots();
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
-
-        // craft slots
-        for (int i = 0 ; i < 3 ; i++)
-            for (int j = 0 ; j < 3 ; j++)
-                this.addSlot(new Slot(inventory, i*3 + j, 40 + j*24, 40 + i*24));
-
-
-        // output slot
-        this.addSlot(new ResultSlot(inventory, 9, 160, 64));
-
-        // wand slot
-        this.addSlot(new WandSlot(inventory, 10, 160, 25));
-
-
     }
+
+
+
+
+
+
+
+    @Override
+    public void onSlotClick(int slotIndex, int button, SlotActionType actionType, PlayerEntity player) {
+        // checking if we're clicking slot 9 (output slot)
+        if (slotIndex == 9 && !inventory.getStack(9).isEmpty()){
+            // if we have QUICK_MOVE player gets 1 item immediately,
+            // and we must give all possible items to player CAN BE crafted except one
+            if (actionType == SlotActionType.QUICK_MOVE){
+                // invisible PICKUP action
+
+                // size of items player can craft
+                int maxCraft = getMaximumCraftSize();
+
+                // if we have items to craft > 0 we can give player
+                if (maxCraft > 0) {
+                    player.getInventory().insertStack(new ItemStack(inventory.getStack(9).getItem(), maxCraft-1));
+
+                    for (int i = 0 ; i < 9 ; i++){
+                        inventory.removeStack(i, maxCraft);
+                    }
+                }
+            }
+
+            if (actionType == SlotActionType.PICKUP) {
+                for (int i = 0; i < 9; i++) {
+                    inventory.removeStack(i, 1);
+                }
+            }
+        }
+
+        super.onSlotClick(slotIndex, button, actionType, player);
+    }
+
+    // maximum crafting size on-shift
+    private int getMaximumCraftSize() {
+        int j = 100000000;
+        if (inventory.getStack(9).isEmpty())
+            j = 0;
+        else
+            for (int i = 0 ; i < 9 ; i++){
+                // finds a maximum count of items player can craft pressing shift+lmb
+                if (inventory.getStack(i).getCount() > 0) {
+                    if (j > inventory.getStack(i).getCount()) {
+                        j = inventory.getStack(i).getCount();
+                    }
+                }
+
+                // restriction to item max count
+                j = Math.min(inventory.getStack(9).getItem().getMaxCount(), j);
+            }
+
+        return j;
+    }
+
 
 
 
@@ -60,7 +108,7 @@ public class ArcaneWorkbenchScreenHandler extends ScreenHandler {
 
         System.out.println(invSlot + ", " + slot.getStack().getItem().getName());
 
-        if (slot != null && slot.hasStack()) {
+        if (slot.hasStack()) {
             ItemStack originalStack = slot.getStack();
             newStack = originalStack.copy();
 
@@ -80,6 +128,20 @@ public class ArcaneWorkbenchScreenHandler extends ScreenHandler {
         }
 
         return newStack;
+    }
+
+    private void addGuiSlots() {
+        // craft slots
+        for (int i = 0 ; i < 3 ; i++)
+            for (int j = 0 ; j < 3 ; j++)
+                this.addSlot(new Slot(inventory, i*3 + j, 40 + j*24, 40 + i*24));
+
+
+        // output slot
+        this.addSlot(new ResultSlot(inventory, 9, 160, 64));
+
+        // wand slot
+        this.addSlot(new WandSlot(inventory, 10, 160, 25));
     }
 
     private void addPlayerInventory(PlayerInventory playerInventory) {

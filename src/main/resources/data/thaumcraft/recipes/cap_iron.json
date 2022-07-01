@@ -1,9 +1,8 @@
 {
-  "type": "thaumcraft:arcane_workbench",
+  "type": "thaumcraft:shaped",
   "pattern": [
     "###",
-    "# #",
-    "   "
+    "# #"
   ],
   "keys": {
     "#": {

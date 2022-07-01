@@ -7,32 +7,82 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
+import net.minecraft.util.Pair;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 import java.util.Map;
 
-public record ArcaneWorkbenchRecipe(Identifier id,
-                                    DefaultedList<Ingredient> inputs,
-                                    ItemStack output) implements Recipe<SimpleInventory> {
+public record ThaumcraftShapedRecipe(Identifier id,
+                                     DefaultedList<Ingredient> inputs,
+                                     ItemStack output,
+                                     Pair<Integer, Integer> recipeSizes) implements Recipe<SimpleInventory> {
 
 
     @Override
     public boolean matches(SimpleInventory inventory, World world) {
-        for (int i = 0; i < 9; i++) {
-            if (!inputs.get(i).test(inventory.getStack(i))) {
-                return false;
+        return checkRecipeInFlippedOffset(inventory) || checkRecipeInNormalOffset(inventory);
+    }
+
+    private boolean checkRecipeInFlippedOffset(SimpleInventory inventory) {
+
+        for (int i = 0; i <= (3 - recipeSizes.getLeft()); i++) {
+            for (int j = 2; j >= (recipeSizes.getRight() - 1); j--) {
+
+                boolean hasCraft = true;
+                int inputIndex = 0;
+                for (int k = 0; k < recipeSizes.getLeft(); k++) {
+                    for (int l = 0; l < recipeSizes.getRight(); l++) {
+
+                        int invIndex = (i + k) * recipeSizes.getRight() + (j - l);
+                        if (!inputs.get(inputIndex).test(inventory.getStack(invIndex))) {
+                            hasCraft = false;
+                        }
+                        inputIndex += 1;
+                    }
+                }
+                if (hasCraft)
+                    return true;
+
             }
         }
 
-        return true;
+        return false;
+    }
+
+    private boolean checkRecipeInNormalOffset(SimpleInventory inventory) {
+        // checking recipe in normal craft offset
+        for (int i = 0; i <= (3 - recipeSizes.getLeft()); i++) {
+            for (int j = 0; j <= (3 - recipeSizes.getRight()); j++) {
+
+                boolean hasCraft = true;
+                int inputIndex = 0;
+                for (int k = 0; k < recipeSizes.getLeft(); k++) {
+                    for (int l = 0; l < recipeSizes.getRight(); l++) {
+                        int invIndex = (i + k) * recipeSizes.getRight() + (j + l);
+
+                        if (!inputs.get(inputIndex).test(inventory.getStack(invIndex))) {
+                            hasCraft = false;
+                        }
+
+                        System.out.print(inventory.getStack(invIndex) + "  ");
+                        inputIndex += 1;
+                    }
+                }
+
+                System.out.println(hasCraft + " ");
+                if (hasCraft)
+                    return true;
+
+
+            }
+        }
+
+        return false;
     }
 
     @Override
@@ -48,6 +98,10 @@ public record ArcaneWorkbenchRecipe(Identifier id,
     @Override
     public ItemStack getOutput() {
         return output.copy();
+    }
+
+    public Pair<Integer, Integer> getRecipeSizes() {
+        return recipeSizes;
     }
 
     @Override
@@ -153,34 +207,53 @@ public record ArcaneWorkbenchRecipe(Identifier id,
         return ingredients;
     }
 
+    static Pair<Integer, Integer> getRecipeSizes(String[] pattern) {
+        Pair<Integer, Integer> sizes = new Pair<>(0, 0);
 
-    public static class Type implements RecipeType<ArcaneWorkbenchRecipe> {
+        sizes.setLeft(pattern.length);
+        if (pattern.length > 0)
+            sizes.setRight(pattern[0].length());
+        else
+            throw new JsonSyntaxException("Recipe size is 0");
+
+
+        if (sizes.getLeft() == 0 && sizes.getRight() == 0) {
+            throw new JsonSyntaxException("Recipe size is 0");
+        }
+        return sizes;
+    }
+
+
+    public static class Type implements RecipeType<ThaumcraftShapedRecipe> {
         private Type() {
         }
 
         public static final Type INSTANCE = new Type();
-        public static final String ID = "arcane_workbench";
+        public static final String ID = "shaped";
     }
 
 
-    public static class Serializer implements RecipeSerializer<ArcaneWorkbenchRecipe> {
+    public static class Serializer implements RecipeSerializer<ThaumcraftShapedRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final String ID = "arcane_workbench";
+        public static final String ID = "shaped";
 
 
         @Override
-        public ArcaneWorkbenchRecipe read(Identifier id, JsonObject json) {
+        public ThaumcraftShapedRecipe read(Identifier id, JsonObject json) {
 
             Map<String, Ingredient> keys = readSymbols(JsonHelper.getObject(json, "keys"));
             String[] pattern = readPattern(JsonHelper.getArray(json, "pattern"));
+            Pair<Integer, Integer> recipeSizes = getRecipeSizes(pattern);
+            System.out.println(recipeSizes.getLeft() + " " + recipeSizes.getRight());
             DefaultedList<Ingredient> inputs = readIngredients(pattern, keys);
             ItemStack output = outputFromJson(JsonHelper.getObject(json, "result"));
 
-            return new ArcaneWorkbenchRecipe(id, inputs, output);
+            return new ThaumcraftShapedRecipe(id, inputs, output, recipeSizes);
         }
 
         @Override
-        public ArcaneWorkbenchRecipe read(Identifier id, PacketByteBuf buf) {
+        public ThaumcraftShapedRecipe read(Identifier id, PacketByteBuf buf) {
+            Pair<Integer, Integer> recSizes = new Pair<>(buf.readInt(), buf.readInt());
             DefaultedList<Ingredient> inputs = DefaultedList.ofSize(buf.readInt(), Ingredient.EMPTY);
 
             for (int i = 0; i < inputs.size(); i++) {
@@ -188,11 +261,14 @@ public record ArcaneWorkbenchRecipe(Identifier id,
             }
 
             ItemStack output = buf.readItemStack();
-            return new ArcaneWorkbenchRecipe(id, inputs, output);
+            return new ThaumcraftShapedRecipe(id, inputs, output, recSizes);
         }
 
         @Override
-        public void write(PacketByteBuf buf, ArcaneWorkbenchRecipe recipe) {
+        public void write(PacketByteBuf buf, ThaumcraftShapedRecipe recipe) {
+            buf.writeInt(recipe.getRecipeSizes().getLeft());
+            buf.writeInt(recipe.getRecipeSizes().getRight());
+
             buf.writeInt(recipe.getIngredients().size());
 
             for (Ingredient ing : recipe.getIngredients()) {

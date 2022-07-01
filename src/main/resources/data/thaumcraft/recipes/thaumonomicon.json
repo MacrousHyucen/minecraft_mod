@@ -1,9 +1,7 @@
 {
-  "type": "thaumcraft:arcane_workbench",
+  "type": "thaumcraft:shaped",
   "pattern": [
-    "lpp",
-    "ppp",
-    "ppp"
+    "lpp"
   ],
   "keys": {
     "l": {

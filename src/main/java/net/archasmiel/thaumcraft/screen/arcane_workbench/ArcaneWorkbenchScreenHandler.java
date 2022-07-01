@@ -106,8 +106,6 @@ public class ArcaneWorkbenchScreenHandler extends ScreenHandler {
         ItemStack newStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(invSlot);
 
-        System.out.println(invSlot + ", " + slot.getStack().getItem().getName());
-
         if (slot.hasStack()) {
             ItemStack originalStack = slot.getStack();
             newStack = originalStack.copy();

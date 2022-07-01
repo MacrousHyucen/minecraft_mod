@@ -29,7 +29,4 @@ public abstract class RotatableEntityBlock extends BlockWithEntity implements Bl
         builder.add(FACING);
     }
 
-
-
-
 }

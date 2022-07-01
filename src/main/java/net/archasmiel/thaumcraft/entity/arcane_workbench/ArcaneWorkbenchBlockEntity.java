@@ -2,7 +2,7 @@ package net.archasmiel.thaumcraft.entity.arcane_workbench;
 
 import net.archasmiel.thaumcraft.entity.BlockEntities;
 import net.archasmiel.thaumcraft.entity.abilities.inventory.ImplementedInventory;
-import net.archasmiel.thaumcraft.recipe.ArcaneWorkbenchRecipe;
+import net.archasmiel.thaumcraft.recipe.ThaumcraftShapedRecipe;
 import net.archasmiel.thaumcraft.screen.arcane_workbench.ArcaneWorkbenchScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -72,15 +72,24 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScre
 
 
     public static void tick(World world, BlockPos pos, BlockState state, ArcaneWorkbenchBlockEntity entity) {
+        // optimization for empty inventories
+        if (hasItems(entity)){
+            Optional<ThaumcraftShapedRecipe> thaumcraftShapedRecipe = getThaumcraftShapedRecipe(entity);
+            // TODO     Add vanilla recipes
+            // checking for recipes
+            ItemStack output = ItemStack.EMPTY;
+            if (thaumcraftShapedRecipe.isPresent()) output = thaumcraftShapedRecipe.get().getOutput();
 
-        Optional<ArcaneWorkbenchRecipe> recipe;
-        // TODO     Add vanilla recipes
-        recipe = getArcaneRecipe(entity);
 
+            // if output from recipes is empty and result slot has items - making it empty
+            if (output == ItemStack.EMPTY && entity.getStack(RESULT_SLOT) != ItemStack.EMPTY) {
+                entity.setStack(RESULT_SLOT, ItemStack.EMPTY);
+                markDirty(world, pos, state);
+            }
 
-        if (recipe.isPresent()) {
-            if (entity.getStack(RESULT_SLOT) != recipe.get().getOutput()) {
-                entity.setStack(RESULT_SLOT, recipe.get().getOutput());
+            // if output from recipes has item and result slot is empty - copying it to slot
+            if (output != ItemStack.EMPTY && entity.getStack(RESULT_SLOT) != output) {
+                entity.setStack(RESULT_SLOT, output.copy());
                 markDirty(world, pos, state);
             }
         } else {
@@ -89,21 +98,52 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScre
                 markDirty(world, pos, state);
             }
         }
-
-
     }
 
-    private static Optional<ArcaneWorkbenchRecipe> getArcaneRecipe(ArcaneWorkbenchBlockEntity entity) {
+    private static boolean hasItems(ArcaneWorkbenchBlockEntity entity) {
+        for (int i = 0 ; i < 9 ; i++) {
+            if (entity.getStack(i) != ItemStack.EMPTY)
+                return true;
+        }
+        return false;
+    }
+
+    private static Optional<ThaumcraftShapedRecipe> getThaumcraftShapedRecipe(ArcaneWorkbenchBlockEntity entity) {
         if (entity.world != null){
-            World world = entity.world;
+
             SimpleInventory inventory = new SimpleInventory(entity.inventory.size());
             for (int i = 0 ; i < 9 ; i++) {
                 inventory.setStack(i, entity.getStack(i));
             }
 
-            return world.getRecipeManager().getFirstMatch(ArcaneWorkbenchRecipe.Type.INSTANCE, inventory, world);
+            return entity.world.getRecipeManager().getFirstMatch(
+                    ThaumcraftShapedRecipe.Type.INSTANCE,
+                    inventory,
+                    entity.world
+            );
         }
         return Optional.empty();
     }
+
+//    private static Optional<CraftingRecipe> getShapedRecipe(ArcaneWorkbenchBlockEntity entity) {
+//        if (entity.world != null){
+//
+//            SimpleInventory inventory = new SimpleInventory(entity.inventory.size());
+//            for (int i = 0 ; i < 9 ; i++) {
+//                inventory.setStack(i, entity.getStack(i));
+//            }
+//
+//            CraftingInventory inv = new CraftingInventory(new CraftingScreenHandler());
+//
+//            return entity.world.getRecipeManager().getFirstMatch(
+//                    RecipeType.CRAFTING,
+//                    entity.inventory,
+//                    entity.world
+//            );
+//        }
+//        return Optional.empty();
+//    }
+
+
 
 }

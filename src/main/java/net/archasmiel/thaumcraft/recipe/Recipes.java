@@ -6,19 +6,26 @@ import net.minecraft.util.registry.Registry;
 
 public class Recipes {
 
+    private static void registerVanillaRecipes() {
 
+    }
 
-    public static void register() {
+    private static void registerModRecipes() {
         Registry.register(
-            Registry.RECIPE_SERIALIZER,
-            new Identifier(Thaumcraft.MOD_ID, ArcaneWorkbenchRecipe.Serializer.ID),
-            ArcaneWorkbenchRecipe.Serializer.INSTANCE
+                Registry.RECIPE_SERIALIZER,
+                new Identifier(Thaumcraft.MOD_ID, ThaumcraftShapedRecipe.Serializer.ID),
+                ThaumcraftShapedRecipe.Serializer.INSTANCE
         );
         Registry.register(
                 Registry.RECIPE_TYPE,
-                new Identifier(Thaumcraft.MOD_ID, ArcaneWorkbenchRecipe.Type.ID),
-                ArcaneWorkbenchRecipe.Type.INSTANCE
+                new Identifier(Thaumcraft.MOD_ID, ThaumcraftShapedRecipe.Type.ID),
+                ThaumcraftShapedRecipe.Type.INSTANCE
         );
+    }
+
+    public static void register() {
+        registerVanillaRecipes();
+        registerModRecipes();
     }
 
 }

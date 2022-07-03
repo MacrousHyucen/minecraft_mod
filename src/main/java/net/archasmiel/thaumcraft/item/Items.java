@@ -18,8 +18,8 @@ import net.minecraft.item.Item;
 
 public class Items {
 
-    private static final FabricItemSettings STANDARD_SETTINGS = new FabricItemSettings().group(Thaumcraft.MOD_GROUP);
-    private static final FabricItemSettings ONE_ITEM_SETTINGS = new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1);
+    public static final FabricItemSettings STANDARD_SETTINGS = new FabricItemSettings().group(Thaumcraft.MOD_GROUP);
+    public static final FabricItemSettings ONE_ITEM_SETTINGS = new FabricItemSettings().group(Thaumcraft.MOD_GROUP).maxCount(1);
 
 
 

@@ -1,4 +1,4 @@
-package net.archasmiel.thaumcraft.entity.abilities.inventory;
+package net.archasmiel.thaumcraft.entity;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;

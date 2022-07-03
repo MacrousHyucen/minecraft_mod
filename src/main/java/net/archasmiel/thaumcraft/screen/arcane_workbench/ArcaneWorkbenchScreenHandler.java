@@ -1,6 +1,6 @@
 package net.archasmiel.thaumcraft.screen.arcane_workbench;
 
-import net.archasmiel.thaumcraft.entity.arcane_workbench.ArcaneWorkbenchBlockEntity;
+import net.archasmiel.thaumcraft.entity.ArcaneWorkbenchBlockEntity;
 import net.archasmiel.thaumcraft.screen.ScreenHandlers;
 import net.archasmiel.thaumcraft.screen.arcane_workbench.slot.ResultSlot;
 import net.archasmiel.thaumcraft.screen.arcane_workbench.slot.WandSlot;

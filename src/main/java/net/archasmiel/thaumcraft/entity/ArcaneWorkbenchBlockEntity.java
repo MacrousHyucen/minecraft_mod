@@ -1,17 +1,18 @@
-package net.archasmiel.thaumcraft.entity.arcane_workbench;
+package net.archasmiel.thaumcraft.entity;
 
-import net.archasmiel.thaumcraft.entity.BlockEntities;
-import net.archasmiel.thaumcraft.entity.abilities.inventory.ImplementedInventory;
 import net.archasmiel.thaumcraft.recipe.ThaumcraftShapedRecipe;
 import net.archasmiel.thaumcraft.screen.arcane_workbench.ArcaneWorkbenchScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.recipe.CraftingRecipe;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.LiteralText;
@@ -29,6 +30,9 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScre
     public static final int RESULT_SLOT = 9;
     private final DefaultedList<ItemStack> inventory =
             DefaultedList.ofSize(GUI_SIZE, ItemStack.EMPTY);
+
+    // important for vanilla crafting
+    private static ScreenHandler handler;
 
 
 
@@ -53,7 +57,8 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScre
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-        return new ArcaneWorkbenchScreenHandler(syncId, inv, this);
+        handler = new ArcaneWorkbenchScreenHandler(syncId, inv, this);
+        return handler;
     }
 
 
@@ -72,14 +77,12 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScre
 
 
     public static void tick(World world, BlockPos pos, BlockState state, ArcaneWorkbenchBlockEntity entity) {
+
         // optimization for empty inventories
         if (hasItems(entity)){
-            Optional<ThaumcraftShapedRecipe> thaumcraftShapedRecipe = getThaumcraftShapedRecipe(entity);
-            // TODO     Add vanilla recipes
-            // checking for recipes
-            ItemStack output = ItemStack.EMPTY;
-            if (thaumcraftShapedRecipe.isPresent()) output = thaumcraftShapedRecipe.get().getOutput();
 
+
+            ItemStack output = checkRecipes(entity);
 
             // if output from recipes is empty and result slot has items - making it empty
             if (output == ItemStack.EMPTY && entity.getStack(RESULT_SLOT) != ItemStack.EMPTY) {
@@ -93,6 +96,7 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScre
                 markDirty(world, pos, state);
             }
         } else {
+            // if no items in crafting station and result in slot, make it empty
             if (entity.getStack(RESULT_SLOT) != ItemStack.EMPTY) {
                 entity.setStack(RESULT_SLOT, ItemStack.EMPTY);
                 markDirty(world, pos, state);
@@ -107,6 +111,22 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScre
         }
         return false;
     }
+
+    private static ItemStack checkRecipes(ArcaneWorkbenchBlockEntity entity) {
+        Optional<ThaumcraftShapedRecipe> thaumcraftShapedRecipe = getThaumcraftShapedRecipe(entity);
+        Optional<CraftingRecipe> vanillaCraftRecipe = getVanillaCraftRecipe(entity);
+
+        // checking for recipes
+        if (vanillaCraftRecipe.isPresent()) return vanillaCraftRecipe.get().getOutput();
+        if (thaumcraftShapedRecipe.isPresent()) return thaumcraftShapedRecipe.get().getOutput();
+        else return ItemStack.EMPTY;
+    }
+
+
+
+
+
+
 
     private static Optional<ThaumcraftShapedRecipe> getThaumcraftShapedRecipe(ArcaneWorkbenchBlockEntity entity) {
         if (entity.world != null){
@@ -125,25 +145,27 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScre
         return Optional.empty();
     }
 
-//    private static Optional<CraftingRecipe> getShapedRecipe(ArcaneWorkbenchBlockEntity entity) {
-//        if (entity.world != null){
-//
-//            SimpleInventory inventory = new SimpleInventory(entity.inventory.size());
-//            for (int i = 0 ; i < 9 ; i++) {
-//                inventory.setStack(i, entity.getStack(i));
-//            }
-//
-//            CraftingInventory inv = new CraftingInventory(new CraftingScreenHandler());
-//
-//            return entity.world.getRecipeManager().getFirstMatch(
-//                    RecipeType.CRAFTING,
-//                    entity.inventory,
-//                    entity.world
-//            );
-//        }
-//        return Optional.empty();
-//    }
+    private static Optional<CraftingRecipe> getVanillaCraftRecipe(ArcaneWorkbenchBlockEntity entity) {
+        if (entity.world != null){
 
+            // handler must not be null
+            // it is not null when we firstly opened ScreenHandler
+            // so this if statement is solution
+            if (handler != null){
+                CraftingInventory inv = new CraftingInventory(handler, 3, 3);
+                for (int i = 0 ; i < 9 ; i++) {
+                    inv.setStack(i, entity.getStack(i));
+                }
 
+                return entity.world.getRecipeManager().getFirstMatch(
+                        RecipeType.CRAFTING,
+                        inv,
+                        entity.world
+                );
+            }
+
+        }
+        return Optional.empty();
+    }
 
 }

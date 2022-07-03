@@ -1,6 +1,6 @@
 package net.archasmiel.thaumcraft.item.wandcraft;
 
-import net.archasmiel.thaumcraft.block.advanced.blocks.Table;
+import net.archasmiel.thaumcraft.block.advanced.Table;
 import net.archasmiel.thaumcraft.materials.CapMaterials;
 import net.archasmiel.thaumcraft.materials.RodMaterials;
 import net.archasmiel.thaumcraft.block.Blocks;
@@ -55,7 +55,7 @@ public abstract class WandAbstract extends Item {
     private RodMaterials rod;
     private String type;
 
-    private boolean fullAspects;
+    private final boolean fullAspects;
 
     private float discountMultiplier;
     private float capacityMultiplier;
@@ -167,7 +167,7 @@ public abstract class WandAbstract extends Item {
                     if (state.getBlock() instanceof Table) {
                         context.getWorld().setBlockState(
                                 context.getBlockPos(),
-                                Blocks.ARCANE_WORKBENCH.getBlock().getDefaultState()
+                                Blocks.ARCANE_WORKBENCH.block().getDefaultState()
                         );
 
                         MinecraftClient.getInstance()

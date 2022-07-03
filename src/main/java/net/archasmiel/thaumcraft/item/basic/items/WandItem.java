@@ -3,6 +3,7 @@ package net.archasmiel.thaumcraft.item.basic.items;
 import net.archasmiel.thaumcraft.item.basic.ThaumcraftItem;
 import net.archasmiel.thaumcraft.item.wandcraft.WandAbstract;
 import net.archasmiel.thaumcraft.lib.generation.WandDataGeneration;
+import net.archasmiel.thaumcraft.lib.recipegen.WandRecipeGenerator;
 import net.archasmiel.thaumcraft.register.Register;
 import net.minecraft.util.Identifier;
 
@@ -84,6 +85,8 @@ public class WandItem extends ThaumcraftItem {
             WandDataGeneration.wandModel(wandItem.getRod().getRegistryName(), wandItem.getCap().getRegistryName()),
             new Identifier("thaumcraft:item/" + name())
         );
+
+        WandRecipeGenerator.wandRecipe(this);
 
     }
 

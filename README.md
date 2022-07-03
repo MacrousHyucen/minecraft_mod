@@ -34,16 +34,20 @@
 
 ## ***Working Stuff***
 - [x] *Custom ItemGroup for mod*
-- [x] *Basic Thaumonomicon GUI (explosion test sound)*
+
 - [x] *Blockbench models of table, arcane workbench and deconstruction table (and rotation ability)*
+- [x] *Arcane Workbench GUI + vanilla recipes + wand-item special slot + obtained by clicking wand on table*
+- [x] *Arcane workbench shaped recipe type (still needs vis data field)*
+
+- [x] *Basic Thaumonomicon GUI (explosion test sound)*
 - [x] *Some amount of original items (including all types of shards, wand+staff cores and caps)*
 - [x] *Working thaumium tool set*
 - [x] *Working void metal tool set (with self-repairing)*
+
 - [x] *English, Russian and Chinese translation files*
-- [x] *Auto generating of wand models and lang (4 wand items)*
+- [x] *Basic autogenerating wand models, recipes and lang (4 wand items)*
 - [x] *Wand NBT data and tooltip*
-- [x] *Arcane Workbench GUI + wand-item special slot + obtained by clicking wand on table*
-- [x] *Basic arcane workbench recipe type (needs improvement)*
+
 
 
 

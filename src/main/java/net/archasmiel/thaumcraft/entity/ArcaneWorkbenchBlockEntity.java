@@ -76,12 +76,13 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScre
     }
 
 
+
+
+
     public static void tick(World world, BlockPos pos, BlockState state, ArcaneWorkbenchBlockEntity entity) {
 
         // optimization for empty inventories
         if (hasItems(entity)){
-
-
             ItemStack output = checkRecipes(entity);
 
             // if output from recipes is empty and result slot has items - making it empty
@@ -149,8 +150,8 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScre
         if (entity.world != null){
 
             // handler must not be null
-            // it is not null when we firstly opened ScreenHandler
-            // so this if statement is solution
+            // it is null when we firstly load world ScreenHandler
+            // if statement is solution - waiting for first interaction with block
             if (handler != null){
                 CraftingInventory inv = new CraftingInventory(handler, 3, 3);
                 for (int i = 0 ; i < 9 ; i++) {

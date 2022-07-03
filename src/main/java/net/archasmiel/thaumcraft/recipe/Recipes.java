@@ -6,11 +6,8 @@ import net.minecraft.util.registry.Registry;
 
 public class Recipes {
 
-    private static void registerVanillaRecipes() {
 
-    }
-
-    private static void registerModRecipes() {
+    private static void registerRecipes() {
         Registry.register(
                 Registry.RECIPE_SERIALIZER,
                 new Identifier(Thaumcraft.MOD_ID, ThaumcraftShapedRecipe.Serializer.ID),
@@ -24,8 +21,7 @@ public class Recipes {
     }
 
     public static void register() {
-        registerVanillaRecipes();
-        registerModRecipes();
+        registerRecipes();
     }
 
 }

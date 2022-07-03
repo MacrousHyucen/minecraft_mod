@@ -69,16 +69,12 @@ public record ThaumcraftShapedRecipe(Identifier id,
                             hasCraft = false;
                         }
 
-                        System.out.print(inventory.getStack(invIndex) + "  ");
                         inputIndex += 1;
                     }
                 }
 
-                System.out.println(hasCraft + " ");
                 if (hasCraft)
                     return true;
-
-
             }
         }
 
@@ -174,14 +170,8 @@ public record ThaumcraftShapedRecipe(Identifier id,
     static String[] readPattern(JsonArray pattern) {
         String[] strings = new String[pattern.size()];
 
-
         for (int i = 0; i < strings.length; ++i) {
-            String string = JsonHelper.asString(pattern.get(i), "pattern[" + i + "]");
-            if (string.length() != 3) {
-                throw new JsonSyntaxException("Invalid pattern: incorrect pattern size - correct is 3x3");
-            }
-
-            strings[i] = string;
+            strings[i] = JsonHelper.asString(pattern.get(i), "pattern[" + i + "]");
         }
 
         return strings;

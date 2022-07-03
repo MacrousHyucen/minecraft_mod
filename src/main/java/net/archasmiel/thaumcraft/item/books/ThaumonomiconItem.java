@@ -24,13 +24,13 @@ public class ThaumonomiconItem extends Item {
     @Environment(EnvType.CLIENT)
     private void drawScreen(PlayerEntity user, Hand hand) {
 
-        if (user.getWorld().isClient()) {
+        if (user.getWorld().isClient() && hand == Hand.MAIN_HAND) {
             MinecraftClient.getInstance().setScreenAndRender(new CottonClientScreen(new ThaumonomiconGui()));
 
             // testing sound
             MinecraftClient.getInstance()
-            .getSoundManager().play(PositionedSoundInstance
-            .master(SoundEvents.ENTITY_LIGHTNING_BOLT_IMPACT, 1.0F));
+                .getSoundManager().play(PositionedSoundInstance
+                .master(SoundEvents.ENTITY_LIGHTNING_BOLT_IMPACT, 1.0F));
         }
 
     }

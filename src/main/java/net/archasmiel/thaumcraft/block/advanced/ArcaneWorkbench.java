@@ -77,26 +77,18 @@ public class ArcaneWorkbench extends ThaumcraftBlockWithEntity {
 
 
     /*  BLOCK SHAPE  */
-    private static final VoxelShape SHAPE_NS = Stream.of(
-            Block.createCuboidShape(2, 4, 6, 6, 12, 10),
-            Block.createCuboidShape(10, 4, 6, 14, 12, 10),
-            Block.createCuboidShape(0, 12, 0, 16, 16, 16),
-            Block.createCuboidShape(0, 0, 4, 16, 4, 12)
-    ).reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, BooleanBiFunction.OR)).get();
-
-    private static final VoxelShape SHAPE_EW = Stream.of(
-            Block.createCuboidShape(6, 4, 10, 10, 12, 14),
-            Block.createCuboidShape(6, 4, 2, 10, 12, 6),
-            Block.createCuboidShape(0, 12, 0, 16, 16, 16),
-            Block.createCuboidShape(4, 0, 0, 12, 4, 16)
+    private static final VoxelShape SHAPE_ALL = Stream.of(
+            Block.createCuboidShape(11, 4, 11, 15, 8, 15),
+            Block.createCuboidShape(1, 4, 1, 5, 8, 5),
+            Block.createCuboidShape(1, 4, 11, 5, 8, 15),
+            Block.createCuboidShape(11, 4, 1, 15, 8, 5),
+            Block.createCuboidShape(0, 8, 0, 16, 16, 16),
+            Block.createCuboidShape(0, 0, 0, 16, 4, 16)
     ).reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, BooleanBiFunction.OR)).get();
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return switch (state.get(FACING)) {
-            case EAST, WEST -> SHAPE_EW;
-            default -> SHAPE_NS;
-        };
+        return SHAPE_ALL;
     }
 
 

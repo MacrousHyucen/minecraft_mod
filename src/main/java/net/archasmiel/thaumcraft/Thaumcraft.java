@@ -1,6 +1,6 @@
 package net.archasmiel.thaumcraft;
 
-import net.archasmiel.thaumcraft.entity.BlockEntities;
+import net.archasmiel.thaumcraft.blockentity.BlockEntities;
 import net.archasmiel.thaumcraft.lib.lang.GeneratedTranslations;
 import net.archasmiel.thaumcraft.lib.lang.LangTranslations;
 import net.archasmiel.thaumcraft.block.Blocks;

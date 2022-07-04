@@ -1,8 +1,7 @@
 package net.archasmiel.thaumcraft.block.advanced;
 
 import net.archasmiel.thaumcraft.block.ThaumcraftBlockWithEntity;
-import net.archasmiel.thaumcraft.entity.ArcaneWorkbenchBlockEntity;
-import net.archasmiel.thaumcraft.entity.BlockEntities;
+import net.archasmiel.thaumcraft.blockentity.ArcaneWorkbenchBlockEntity;
 import net.archasmiel.thaumcraft.lib.generation.BlockDataGeneration;
 import net.archasmiel.thaumcraft.lib.generation.ItemDataGeneration;
 import net.archasmiel.thaumcraft.register.Register;
@@ -11,8 +10,6 @@ import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemPlacementContext;
@@ -97,6 +94,17 @@ public class ArcaneWorkbench extends ThaumcraftBlockWithEntity {
 
     /*  BLOCK ENTITY  */
     @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new ArcaneWorkbenchBlockEntity(pos, state);
+    }
+
+    @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if (state.getBlock() != newState.getBlock()){
             BlockEntity blockEntity = world.getBlockEntity(pos);
@@ -121,23 +129,6 @@ public class ArcaneWorkbench extends ThaumcraftBlockWithEntity {
         }
 
         return ActionResult.SUCCESS;
-    }
-
-    @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
-    }
-
-    @Nullable
-    @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new ArcaneWorkbenchBlockEntity(pos, state);
-    }
-
-    @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, BlockEntities.ARCANE_WORKBENCH, ArcaneWorkbenchBlockEntity::tick);
     }
 
 }

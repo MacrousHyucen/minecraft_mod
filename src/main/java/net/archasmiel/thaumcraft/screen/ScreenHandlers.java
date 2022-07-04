@@ -10,10 +10,10 @@ import net.minecraft.util.registry.Registry;
 public class ScreenHandlers {
 
     public static ScreenHandlerType<ArcaneWorkbenchScreenHandler> ARCANE_WORKBENCH_SCREEN_HANDLER =
-            Registry.register(
-                Registry.SCREEN_HANDLER,
-                new Identifier(Thaumcraft.MOD_ID, "arcane_workbench"),
-                new ScreenHandlerType<>(ArcaneWorkbenchScreenHandler::new)
-            );
+        Registry.register(
+            Registry.SCREEN_HANDLER,
+            new Identifier(Thaumcraft.MOD_ID, "arcane_workbench"),
+            new ScreenHandlerType<>(ArcaneWorkbenchScreenHandler::new)
+        );
 
 }

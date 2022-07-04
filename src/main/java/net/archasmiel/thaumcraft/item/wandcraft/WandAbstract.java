@@ -3,7 +3,7 @@ package net.archasmiel.thaumcraft.item.wandcraft;
 import net.archasmiel.thaumcraft.block.Blocks;
 import net.archasmiel.thaumcraft.block.advanced.ArcaneWorkbench;
 import net.archasmiel.thaumcraft.block.advanced.Table;
-import net.archasmiel.thaumcraft.entity.ArcaneWorkbenchBlockEntity;
+import net.archasmiel.thaumcraft.blockentity.ArcaneWorkbenchBlockEntity;
 import net.archasmiel.thaumcraft.item.wandcraft.abilities.VisCraft;
 import net.archasmiel.thaumcraft.materials.CapMaterials;
 import net.archasmiel.thaumcraft.materials.RodMaterials;

@@ -17,6 +17,10 @@ import net.minecraft.world.World;
 
 import java.util.Map;
 
+// TODO
+//  rewrite to craftinginventory match
+//  extend CraftingRecipe (and make 'vis' tag in json recipes)
+//  clean code
 public record ThaumcraftShapedRecipe(Identifier id,
                                      DefaultedList<Ingredient> inputs,
                                      ItemStack output,

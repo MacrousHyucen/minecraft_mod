@@ -1,94 +1,120 @@
 package net.archasmiel.thaumcraft.screen.arcane_workbench;
 
-import net.archasmiel.thaumcraft.entity.ArcaneWorkbenchBlockEntity;
+import net.archasmiel.thaumcraft.block.Blocks;
+import net.archasmiel.thaumcraft.blockentity.ArcaneWorkbenchBlockEntity;
 import net.archasmiel.thaumcraft.screen.ScreenHandlers;
+import net.archasmiel.thaumcraft.screen.arcane_workbench.inventory.CraftingWandInventory;
 import net.archasmiel.thaumcraft.screen.arcane_workbench.slot.ResultSlot;
 import net.archasmiel.thaumcraft.screen.arcane_workbench.slot.WandSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.CraftingResultInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.packet.s2c.play.ScreenHandlerSlotUpdateS2CPacket;
+import net.minecraft.recipe.CraftingRecipe;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeMatcher;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.book.RecipeBookCategory;
+import net.minecraft.screen.AbstractRecipeScreenHandler;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.screen.slot.SlotActionType;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.world.World;
 
-public class ArcaneWorkbenchScreenHandler extends ScreenHandler {
+import java.util.Optional;
 
-    private final Inventory inventory;
+public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<CraftingInventory> {
 
-    public ArcaneWorkbenchScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, new SimpleInventory(ArcaneWorkbenchBlockEntity.GUI_SIZE));
+    private final ArcaneWorkbenchBlockEntity entity;
+    private boolean isLoadingItems;
+
+    private final CraftingInventory input;
+    private final CraftingResultInventory result;
+    private final CraftingWandInventory wand;
+    private final ScreenHandlerContext context;
+    private final PlayerEntity player;
+
+    public ArcaneWorkbenchScreenHandler(int i, PlayerInventory inventory) {
+        this(i, inventory, ScreenHandlerContext.EMPTY, null);
     }
 
-    public ArcaneWorkbenchScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory) {
+    public ArcaneWorkbenchScreenHandler(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context, ArcaneWorkbenchBlockEntity entity) {
         super(ScreenHandlers.ARCANE_WORKBENCH_SCREEN_HANDLER, syncId);
-        checkSize(inventory, ArcaneWorkbenchBlockEntity.GUI_SIZE);
-        this.inventory = inventory;
-        inventory.onOpen(playerInventory.player);
+        this.entity = entity;
 
-        addGuiSlots();
-        addPlayerInventory(playerInventory);
-        addPlayerHotbar(playerInventory);
-    }
+        this.input = new CraftingInventory(this, 3, 3);
+        this.result = new CraftingResultInventory();
+        this.wand = new CraftingWandInventory(this);
 
-
+        this.context = context;
+        this.player = playerInventory.player;
 
 
 
 
 
-    @Override
-    public void onSlotClick(int slotIndex, int button, SlotActionType actionType, PlayerEntity player) {
-        // checking if we're clicking slot 9 (output slot)
-        if (slotIndex == 9 && !inventory.getStack(9).isEmpty()){
-            // if we have QUICK_MOVE player gets 1 item immediately,
-            // and we must give all possible items to player CAN BE crafted except one
-            if (actionType == SlotActionType.QUICK_MOVE){
-                // invisible PICKUP action
 
-                // size of items player can craft
-                int maxCraft = getMaximumCraftSize();
 
-                // if we have items to craft > 0 we can give player
-                if (maxCraft > 0) {
-                    player.getInventory().insertStack(new ItemStack(inventory.getStack(9).getItem(), inventory.getStack(9).getCount()*(maxCraft-1)));
+        // output slot
+        this.addSlot(new ResultSlot(playerInventory.player, this.input, this.result, 0, 160, 64));
 
-                    for (int i = 0 ; i < 9 ; i++){
-                        inventory.removeStack(i, maxCraft);
-                    }
-                }
-            }
+        // wand slot
+        this.addSlot(new WandSlot(this.wand, 0, 160, 25));
 
-            if (actionType == SlotActionType.PICKUP) {
-                for (int i = 0; i < 9; i++) {
-                    inventory.removeStack(i, 1);
-                }
+        /// craft slots
+        for (int i = 0 ; i < 3 ; i++)
+            for (int j = 0 ; j < 3 ; j++)
+                this.addSlot(new Slot(this.input, i*3 + j, 40 + j*24, 40 + i*24));
+
+
+
+
+
+        /// inventory
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 9; ++j) {
+                this.addSlot(new Slot(playerInventory, 9 + i*9 + j, 16 + 18*j, 151 + 18*i));
             }
         }
 
-        super.onSlotClick(slotIndex, button, actionType, player);
+
+
+        /// hotbar
+        for (int i = 0; i < 9; ++i) {
+            this.addSlot(new Slot(playerInventory, i, 16 + 18*i, 209));
+        }
+
+        readContainer();
+
     }
 
-    // maximum crafting size on-shift
-    private int getMaximumCraftSize() {
-        int j = 100000000;
-        if (inventory.getStack(9).isEmpty())
-            j = 0;
-        else
-            for (int i = 0 ; i < 9 ; i++){
-                // finds a maximum count of items player can craft pressing shift+lmb
-                if (inventory.getStack(i).getCount() > 0) {
-                    if (j > inventory.getStack(i).getCount()) {
-                        j = inventory.getStack(i).getCount();
-                    }
+    protected static void updateResult(ScreenHandler handler, World world, PlayerEntity player, CraftingInventory craftingInventory, CraftingResultInventory resultInventory, CraftingWandInventory wand) {
+        if (!world.isClient) {
+            ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) player;
+            ItemStack itemStack = ItemStack.EMPTY;
+            Optional<CraftingRecipe> optional = world.getServer().getRecipeManager().getFirstMatch(RecipeType.CRAFTING, craftingInventory, world);
+            if (optional.isPresent()) {
+                CraftingRecipe craftingRecipe = optional.get();
+                if (resultInventory.shouldCraftRecipe(world, serverPlayerEntity, craftingRecipe)) {
+                    itemStack = craftingRecipe.craft(craftingInventory);
                 }
-
-                // restriction to item max count
-                j = Math.min(inventory.getStack(9).getItem().getMaxCount(), j);
             }
 
-        return j;
+            resultInventory.setStack(0, itemStack);
+            handler.setPreviousTrackedSlot(0, itemStack);
+            serverPlayerEntity.networkHandler.sendPacket(new ScreenHandlerSlotUpdateS2CPacket(handler.syncId, handler.nextRevision(), 0, itemStack));
+        }
+    }
+
+    public void onContentChanged(Inventory inventory) {
+        if (!isLoadingItems) {
+            this.context.run((world, pos) -> updateResult(this, world, this.player, this.input, this.result, this.wand));
+            saveContainer();
+        }
     }
 
 
@@ -96,63 +122,124 @@ public class ArcaneWorkbenchScreenHandler extends ScreenHandler {
 
 
 
-    @Override
+    /* LOADING ITEMS FROM BLOCK ENTITY */
+    private void readContainer() {
+        isLoadingItems = true;
+        if (this.entity != null) {
+            for (int i = 0 ; i < 9 ; i++)
+                this.input.setStack(i, this.entity.getStack(i));
+            this.wand.setStack(0, this.entity.getStack(10));
+        }
+        isLoadingItems = false;
+        onContentChanged(this.input);
+    }
+
+    private void saveContainer() {
+        if (this.entity != null) {
+            for (int i = 0 ; i < 9 ; i++)
+                this.entity.setStack(i, this.input.getStack(i));
+            this.entity.setStack(10, this.wand.getStack(0));
+        }
+    }
+
+
+
+
+    public void populateRecipeFinder(RecipeMatcher finder) {
+        this.input.provideRecipeInputs(finder);
+    }
+
+    public void clearCraftingSlots() {
+        this.input.clear();
+        this.result.clear();
+    }
+
+    public boolean matches(Recipe<? super CraftingInventory> recipe) {
+        return recipe.matches(this.input, this.player.world);
+    }
+
+    public void close(PlayerEntity player) {
+        super.close(player);
+    }
+
     public boolean canUse(PlayerEntity player) {
-        return this.inventory.canPlayerUse(player);
+        return canUse(this.context, player, Blocks.ARCANE_WORKBENCH.block());
     }
 
-    @Override
-    public ItemStack transferSlot(PlayerEntity player, int invSlot) {
-        ItemStack newStack = ItemStack.EMPTY;
-        Slot slot = this.slots.get(invSlot);
-
+    public ItemStack transferSlot(PlayerEntity player, int index) {
+        ItemStack itemStack = ItemStack.EMPTY;
+        Slot slot = this.slots.get(index);
         if (slot.hasStack()) {
-            ItemStack originalStack = slot.getStack();
-            newStack = originalStack.copy();
+            ItemStack itemStack2 = slot.getStack();
+            itemStack = itemStack2.copy();
 
-            if (invSlot < this.inventory.size()) {
-                if (!this.insertItem(originalStack, this.inventory.size(), this.slots.size(), true)) {
+            // if transferred from result slot
+            if (index == 0) {
+                this.context.run((world, pos) -> itemStack2.getItem().onCraft(itemStack2, world, player));
+                if (!this.insertItem(itemStack2, 10, 46, true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.insertItem(originalStack, 0, this.inventory.size(), false)) {
+                slot.onQuickTransfer(itemStack2, itemStack);
+            // if transferred from inventory
+            } else if (index >= 11 && index < 47) {
+                if (!this.insertItem(itemStack2, 2, 11, false)) {
+                    if (index < 38) {
+                        if (!this.insertItem(itemStack2, 38, 47, false)) {
+                            return ItemStack.EMPTY;
+                        }
+                    } else if (!this.insertItem(itemStack2, 11, 38, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                }
+            // if transferred from crafting
+            } else if (!this.insertItem(itemStack2, 11, 47, false)) {
                 return ItemStack.EMPTY;
             }
 
-            if (originalStack.isEmpty()) {
+            if (itemStack2.isEmpty()) {
                 slot.setStack(ItemStack.EMPTY);
             } else {
                 slot.markDirty();
             }
-        }
 
-        return newStack;
-    }
+            if (itemStack2.getCount() == itemStack.getCount()) {
+                return ItemStack.EMPTY;
+            }
 
-    private void addGuiSlots() {
-        // craft slots
-        for (int i = 0 ; i < 3 ; i++)
-            for (int j = 0 ; j < 3 ; j++)
-                this.addSlot(new Slot(inventory, i*3 + j, 40 + j*24, 40 + i*24));
-
-
-        // output slot
-        this.addSlot(new ResultSlot(inventory, 9, 160, 64));
-
-        // wand slot
-        this.addSlot(new WandSlot(inventory, 10, 160, 25));
-    }
-
-    private void addPlayerInventory(PlayerInventory playerInventory) {
-        for (int i = 0; i < 3; ++i) {
-            for (int l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, 9 + i*9 + l, 16 + 18*l, 151 + 18*i));
+            slot.onTakeItem(player, itemStack2);
+            if (index == 0) {
+                player.dropItem(itemStack2, false);
             }
         }
+
+        return itemStack;
     }
 
-    private void addPlayerHotbar(PlayerInventory playerInventory) {
-        for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 16 + 18*i, 209));
-        }
+    public boolean canInsertIntoSlot(ItemStack stack, Slot slot) {
+        return slot.inventory != this.result && super.canInsertIntoSlot(stack, slot);
+    }
+
+    public int getCraftingResultSlotIndex() {
+        return 0;
+    }
+
+    public int getCraftingWidth() {
+        return this.input.getWidth();
+    }
+
+    public int getCraftingHeight() {
+        return this.input.getHeight();
+    }
+
+    public int getCraftingSlotCount() {
+        return 11;
+    }
+
+    public RecipeBookCategory getCategory() {
+        return RecipeBookCategory.CRAFTING;
+    }
+
+    public boolean canInsertIntoSlot(int index) {
+        return index != this.getCraftingResultSlotIndex();
     }
 }

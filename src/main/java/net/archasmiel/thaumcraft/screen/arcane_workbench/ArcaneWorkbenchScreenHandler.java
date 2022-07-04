@@ -52,7 +52,7 @@ public class ArcaneWorkbenchScreenHandler extends ScreenHandler {
 
                 // if we have items to craft > 0 we can give player
                 if (maxCraft > 0) {
-                    player.getInventory().insertStack(new ItemStack(inventory.getStack(9).getItem(), maxCraft-1));
+                    player.getInventory().insertStack(new ItemStack(inventory.getStack(9).getItem(), inventory.getStack(9).getCount()*(maxCraft-1)));
 
                     for (int i = 0 ; i < 9 ; i++){
                         inventory.removeStack(i, maxCraft);

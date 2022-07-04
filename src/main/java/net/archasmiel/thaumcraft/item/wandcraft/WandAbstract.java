@@ -1,15 +1,20 @@
 package net.archasmiel.thaumcraft.item.wandcraft;
 
+import net.archasmiel.thaumcraft.block.Blocks;
+import net.archasmiel.thaumcraft.block.advanced.ArcaneWorkbench;
 import net.archasmiel.thaumcraft.block.advanced.Table;
+import net.archasmiel.thaumcraft.entity.ArcaneWorkbenchBlockEntity;
+import net.archasmiel.thaumcraft.item.wandcraft.abilities.VisCraft;
 import net.archasmiel.thaumcraft.materials.CapMaterials;
 import net.archasmiel.thaumcraft.materials.RodMaterials;
-import net.archasmiel.thaumcraft.block.Blocks;
 import net.fabricmc.loader.impl.util.StringUtil;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
@@ -166,13 +171,38 @@ public abstract class WandAbstract extends Item {
 
                     if (state.getBlock() instanceof Table) {
                         context.getWorld().setBlockState(
-                                context.getBlockPos(),
-                                Blocks.ARCANE_WORKBENCH.block().getDefaultState()
+                            context.getBlockPos(),
+                            Blocks.ARCANE_WORKBENCH.block().getDefaultState()
                         );
 
                         MinecraftClient.getInstance()
                         .getSoundManager().play(PositionedSoundInstance
-                        .master(SoundEvents.BLOCK_WOOD_BREAK, 3.0F));
+                        .master(SoundEvents.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR, 2.0F, 0.3F));
+
+                        if (usingItem instanceof VisCraft && Screen.hasShiftDown()) {
+                            BlockEntity entity = context.getWorld().getBlockEntity(context.getBlockPos());
+                            if (entity instanceof ArcaneWorkbenchBlockEntity arcane) {
+                                PlayerInventory inv = context.getPlayer().getInventory();
+                                arcane.setStack(10, inv.removeStack(inv.selectedSlot));
+                            }
+                        }
+                    }
+
+                    if (state.getBlock() instanceof ArcaneWorkbench) {
+                        if (usingItem instanceof VisCraft && Screen.hasShiftDown()) {
+                            BlockEntity entity = context.getWorld().getBlockEntity(context.getBlockPos());
+                            if (entity instanceof ArcaneWorkbenchBlockEntity arcane) {
+                                if (arcane.getStack(10) == ItemStack.EMPTY) {
+                                    PlayerInventory inv = context.getPlayer().getInventory();
+                                    arcane.setStack(10, inv.removeStack(inv.selectedSlot));
+
+                                    MinecraftClient.getInstance()
+                                    .getSoundManager().play(PositionedSoundInstance
+                                    .master(SoundEvents.BLOCK_BARREL_CLOSE, 2.0F, 0.5F));
+
+                                }
+                            }
+                        }
                     }
                 }
             }

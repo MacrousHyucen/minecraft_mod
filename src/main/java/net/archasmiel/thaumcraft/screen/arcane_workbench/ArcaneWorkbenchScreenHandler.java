@@ -98,11 +98,6 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
         }
     }
 
-    @Override
-    public boolean onButtonClick(PlayerEntity player, int id) {
-        return super.onButtonClick(player, id);
-    }
-
     protected static void updateResult(ScreenHandler handler, World world, PlayerEntity player, CraftingInventory input, CraftingResultInventory result, CraftingWandInventory wand) {
         if (!world.isClient) {
             ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) player;

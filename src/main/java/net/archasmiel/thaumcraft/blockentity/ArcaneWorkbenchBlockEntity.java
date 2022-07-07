@@ -78,7 +78,6 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScre
 
 
 
-
     @Override
     public Text getDisplayName() {
         return new LiteralText("");
@@ -87,9 +86,8 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScre
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-        context = ScreenHandlerContext.create(world, pos);
         return new ArcaneWorkbenchScreenHandler(
-            syncId, inv, context, this
+            syncId, inv, ScreenHandlerContext.create(world, pos), this
         );
     }
 

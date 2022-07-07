@@ -51,8 +51,9 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScre
 
     @Override
     public void readNbt(NbtCompound nbt) {
-        Inventories.readNbt(nbt, inventory);
         super.readNbt(nbt);
+        inventory.clear();
+        Inventories.readNbt(nbt, inventory);
     }
 
     @Override
@@ -71,7 +72,9 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScre
 
     @Override
     public NbtCompound toInitialChunkDataNbt() {
-        return createNbt();
+        NbtCompound nbtCompound = new NbtCompound();
+        Inventories.writeNbt(nbtCompound, inventory, true);
+        return nbtCompound;
     }
 
 

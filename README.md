@@ -1,9 +1,6 @@
 
 
 ## ***Info & Contacts***
-###  **Who am I?**<br>
-  Hello, dear visitor, my name is Archasmiel, its not my real name btw. <br>
-  I have 5 years of programming expirience. Actually I started coding minecraft mods 1 year ago.<br><br>
   
 ###  **What's this project?**<br>
   This project is my fun-made rewrite of Thaumcraft 4 (based on latest 1.7.10 mod version).<br><br>

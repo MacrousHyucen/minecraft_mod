@@ -2,6 +2,7 @@ package net.archasmiel.thaumcraft.block.advanced;
 
 import net.archasmiel.thaumcraft.block.ThaumcraftBlockWithEntity;
 import net.archasmiel.thaumcraft.blockentity.ArcaneWorkbenchBlockEntity;
+import net.archasmiel.thaumcraft.item.wandcraft.abilities.VisCraft;
 import net.archasmiel.thaumcraft.lib.generation.BlockDataGeneration;
 import net.archasmiel.thaumcraft.lib.generation.ItemDataGeneration;
 import net.archasmiel.thaumcraft.register.Register;
@@ -10,10 +11,14 @@ import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
@@ -112,23 +117,56 @@ public class ArcaneWorkbench extends ThaumcraftBlockWithEntity {
                 ItemScatterer.spawn(world, pos, (Inventory) blockEntity);
                 world.updateComparators(pos, this);
             }
-
             super.onStateReplaced(state, world, pos, newState, moved);
         }
     }
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        // arcane workbench GUI onUse
-        if (!world.isClient) {
-            NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
 
-            if (screenHandlerFactory != null){
-                player.openHandledScreen(screenHandlerFactory);
+        // get wand from workench by shifting+rmb on it
+        if (Screen.hasShiftDown()) {
+            if (world.getBlockEntity(pos) instanceof ArcaneWorkbenchBlockEntity entity && hand == Hand.MAIN_HAND) {
+                if (!entity.getStack(10).isEmpty()) {
+                    if (entity.getStack(10).getItem() instanceof VisCraft){
+                        if (player.getStackInHand(Hand.MAIN_HAND) == ItemStack.EMPTY) {
+
+                            BlockState aState = entity.getWorld().getBlockState(entity.getPos());
+
+                            player.getInventory().setStack(player.getInventory().selectedSlot, entity.getStack(10));
+                            entity.setStack(10, ItemStack.EMPTY);
+                            entity.markDirty();
+
+                            world.playSound(
+                                    null,
+                                    pos,
+                                    SoundEvents.BLOCK_BARREL_OPEN,
+                                    SoundCategory.BLOCKS,
+                                    0.5f,
+                                    2.0f
+                            );
+
+
+                            BlockState bState = entity.getWorld().getBlockState(entity.getPos());
+                            entity.getWorld().updateListeners(entity.getPos(), aState, bState, Block.NOTIFY_ALL);
+
+                        }
+                    }
+                }
             }
+        } else {
+            // arcane workbench GUI onUse
+            if (!world.isClient) {
+                NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
+
+                if (screenHandlerFactory != null){
+                    player.openHandledScreen(screenHandlerFactory);
+                }
+
+            }
+
         }
 
         return ActionResult.SUCCESS;
     }
-
 }

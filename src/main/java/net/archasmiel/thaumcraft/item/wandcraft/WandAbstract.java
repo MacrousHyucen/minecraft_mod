@@ -8,17 +8,17 @@ import net.archasmiel.thaumcraft.item.wandcraft.abilities.VisCraft;
 import net.archasmiel.thaumcraft.materials.CapMaterials;
 import net.archasmiel.thaumcraft.materials.RodMaterials;
 import net.fabricmc.loader.impl.util.StringUtil;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
@@ -175,15 +175,26 @@ public abstract class WandAbstract extends Item {
                             Blocks.ARCANE_WORKBENCH.block().getDefaultState()
                         );
 
-                        MinecraftClient.getInstance()
-                        .getSoundManager().play(PositionedSoundInstance
-                        .master(SoundEvents.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR, 2.0F, 0.3F));
+                        context.getWorld().playSound(
+                            null,
+                            context.getBlockPos(),
+                            SoundEvents.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR,
+                            SoundCategory.BLOCKS,
+                            0.3f,
+                            2.0f
+                        );
 
                         if (usingItem instanceof VisCraft && Screen.hasShiftDown()) {
                             BlockEntity entity = context.getWorld().getBlockEntity(context.getBlockPos());
                             if (entity instanceof ArcaneWorkbenchBlockEntity arcane) {
+                                BlockState aState = entity.getWorld().getBlockState(entity.getPos());
+
                                 PlayerInventory inv = context.getPlayer().getInventory();
                                 arcane.setStack(10, inv.removeStack(inv.selectedSlot));
+                                arcane.markDirty();
+
+                                BlockState bState = entity.getWorld().getBlockState(entity.getPos());
+                                entity.getWorld().updateListeners(entity.getPos(), aState, bState, Block.NOTIFY_LISTENERS);
                             }
                         }
                     }
@@ -193,13 +204,23 @@ public abstract class WandAbstract extends Item {
                             BlockEntity entity = context.getWorld().getBlockEntity(context.getBlockPos());
                             if (entity instanceof ArcaneWorkbenchBlockEntity arcane) {
                                 if (arcane.getStack(10) == ItemStack.EMPTY) {
+                                    BlockState aState = entity.getWorld().getBlockState(entity.getPos());
+
                                     PlayerInventory inv = context.getPlayer().getInventory();
                                     arcane.setStack(10, inv.removeStack(inv.selectedSlot));
+                                    arcane.markDirty();
 
-                                    MinecraftClient.getInstance()
-                                    .getSoundManager().play(PositionedSoundInstance
-                                    .master(SoundEvents.BLOCK_BARREL_CLOSE, 2.0F, 0.5F));
+                                    context.getWorld().playSound(
+                                            null,
+                                            context.getBlockPos(),
+                                            SoundEvents.BLOCK_BARREL_CLOSE,
+                                            SoundCategory.BLOCKS,
+                                            0.5f,
+                                            2.0f
+                                    );
 
+                                    BlockState bState = entity.getWorld().getBlockState(entity.getPos());
+                                    entity.getWorld().updateListeners(entity.getPos(), aState, bState, Block.NOTIFY_ALL);
                                 }
                             }
                         }
@@ -241,40 +262,40 @@ public abstract class WandAbstract extends Item {
             // all aspects information (6 lines)
             for (int i = 0 ; i < primaryAspects.length ; i++)
                 tooltip.add(
-                        new LiteralText("")
-                                .append(String.format(
-                                        " %s%s §f× %s, ",
-                                        primaryAspectsColor[i],
-                                        StringUtil.capitalize(primaryAspects[i]),
-                                        uncutFloat(visData.get(primaryAspects[i]))
-                                ))
-                                .append("§f(" + getStringDiscount(this.getDiscount()) + "%")
-                                .append(new TranslatableText("gui.thaumcraft.vis_cost"))
-                                .append(")")
+                    new LiteralText("")
+                        .append(String.format(
+                                " %s%s §f× %s, ",
+                                primaryAspectsColor[i],
+                                StringUtil.capitalize(primaryAspects[i]),
+                                uncutFloat(visData.get(primaryAspects[i]))
+                        ))
+                        .append("§f(" + getStringDiscount(this.getDiscount()) + "%")
+                        .append(new TranslatableText("gui.thaumcraft.vis_cost"))
+                        .append(")")
                 );
         } else {
             // capacity and vis discount information
             tooltip.add(
-                    new LiteralText("")
-                            .append(new TranslatableText("gui.thaumcraft.wand_capacity").append(this.getCapacity() + " ").formatted(GOLD))
-                            .append("§f(" + getStringDiscount(this.getDiscount()) + "%")
-                            .append(new TranslatableText("gui.thaumcraft.vis_cost"))
-                            .append(")")
+                new LiteralText("")
+                    .append(new TranslatableText("gui.thaumcraft.wand_capacity").append(this.getCapacity() + " ").formatted(GOLD))
+                    .append("§f(" + getStringDiscount(this.getDiscount()) + "%")
+                    .append(new TranslatableText("gui.thaumcraft.vis_cost"))
+                    .append(")")
             );
 
             // one-line information about vis
             tooltip.add(
-                    Text.of(
-                            String.format(
-                                    "%s%s §f§l╎ %s%s §f§l╎ %s%s §f§l╎ %s%s §f§l╎ %s%s §f§l╎ %s%s",
-                                    primaryAspectsColor[0], cutFloat(visData.get(primaryAspects[0])),
-                                    primaryAspectsColor[1], cutFloat(visData.get(primaryAspects[1])),
-                                    primaryAspectsColor[2], cutFloat(visData.get(primaryAspects[2])),
-                                    primaryAspectsColor[3], cutFloat(visData.get(primaryAspects[3])),
-                                    primaryAspectsColor[4], cutFloat(visData.get(primaryAspects[4])),
-                                    primaryAspectsColor[5], cutFloat(visData.get(primaryAspects[5]))
-                            )
+                Text.of(
+                    String.format(
+                        "%s%s §f§l╎ %s%s §f§l╎ %s%s §f§l╎ %s%s §f§l╎ %s%s §f§l╎ %s%s",
+                        primaryAspectsColor[0], cutFloat(visData.get(primaryAspects[0])),
+                        primaryAspectsColor[1], cutFloat(visData.get(primaryAspects[1])),
+                        primaryAspectsColor[2], cutFloat(visData.get(primaryAspects[2])),
+                        primaryAspectsColor[3], cutFloat(visData.get(primaryAspects[3])),
+                        primaryAspectsColor[4], cutFloat(visData.get(primaryAspects[4])),
+                        primaryAspectsColor[5], cutFloat(visData.get(primaryAspects[5]))
                     )
+                )
             );
         }
 

@@ -6,6 +6,8 @@ import net.archasmiel.thaumcraft.screen.ScreenHandlers;
 import net.archasmiel.thaumcraft.screen.arcane_workbench.inventory.CraftingWandInventory;
 import net.archasmiel.thaumcraft.screen.arcane_workbench.slot.ResultSlot;
 import net.archasmiel.thaumcraft.screen.arcane_workbench.slot.WandSlot;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftingInventory;
@@ -30,7 +32,7 @@ import java.util.Optional;
 public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<CraftingInventory> {
 
     private final ArcaneWorkbenchBlockEntity entity;
-    private boolean isLoadingItems;
+    private boolean isReading;
 
     private final CraftingInventory input;
     private final CraftingResultInventory result;
@@ -52,8 +54,6 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 
         this.context = context;
         this.player = playerInventory.player;
-
-
 
 
 
@@ -88,60 +88,96 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
             this.addSlot(new Slot(playerInventory, i, 16 + 18*i, 209));
         }
 
-        readContainer();
-
     }
 
-    protected static void updateResult(ScreenHandler handler, World world, PlayerEntity player, CraftingInventory craftingInventory, CraftingResultInventory resultInventory, CraftingWandInventory wand) {
-        if (!world.isClient) {
-            ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) player;
-            ItemStack itemStack = ItemStack.EMPTY;
-            Optional<CraftingRecipe> optional = world.getServer().getRecipeManager().getFirstMatch(RecipeType.CRAFTING, craftingInventory, world);
-            if (optional.isPresent()) {
-                CraftingRecipe craftingRecipe = optional.get();
-                if (resultInventory.shouldCraftRecipe(world, serverPlayerEntity, craftingRecipe)) {
-                    itemStack = craftingRecipe.craft(craftingInventory);
-                }
-            }
-
-            resultInventory.setStack(0, itemStack);
-            handler.setPreviousTrackedSlot(0, itemStack);
-            serverPlayerEntity.networkHandler.sendPacket(new ScreenHandlerSlotUpdateS2CPacket(handler.syncId, handler.nextRevision(), 0, itemStack));
-        }
-    }
-
+    /* LOADING ITEMS FROM BLOCK ENTITY */
     public void onContentChanged(Inventory inventory) {
-        if (!isLoadingItems) {
+        if (!isReading) {
             this.context.run((world, pos) -> updateResult(this, world, this.player, this.input, this.result, this.wand));
             saveContainer();
         }
     }
 
-
-
-
-
-
-    /* LOADING ITEMS FROM BLOCK ENTITY */
-    private void readContainer() {
-        isLoadingItems = true;
-        if (this.entity != null) {
-            for (int i = 0 ; i < 9 ; i++)
-                this.input.setStack(i, this.entity.getStack(i));
-            this.wand.setStack(0, this.entity.getStack(10));
-        }
-        isLoadingItems = false;
-        onContentChanged(this.input);
+    @Override
+    public boolean onButtonClick(PlayerEntity player, int id) {
+        return super.onButtonClick(player, id);
     }
 
-    private void saveContainer() {
-        if (this.entity != null) {
-            for (int i = 0 ; i < 9 ; i++)
-                this.entity.setStack(i, this.input.getStack(i));
-            this.entity.setStack(10, this.wand.getStack(0));
+    protected static void updateResult(ScreenHandler handler, World world, PlayerEntity player, CraftingInventory input, CraftingResultInventory result, CraftingWandInventory wand) {
+        if (!world.isClient) {
+            ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) player;
+            ItemStack itemStack = ItemStack.EMPTY;
+            Optional<CraftingRecipe> optional = world.getServer().getRecipeManager().getFirstMatch(RecipeType.CRAFTING, input, world);
+
+            if (optional.isPresent()) {
+                CraftingRecipe craftingRecipe = optional.get();
+                if (result.shouldCraftRecipe(world, serverPlayerEntity, craftingRecipe)) {
+                    itemStack = craftingRecipe.craft(input);
+                }
+            }
+
+            result.setStack(0, itemStack);
+            handler.setPreviousTrackedSlot(0, itemStack);
+            serverPlayerEntity.networkHandler.sendPacket(new ScreenHandlerSlotUpdateS2CPacket(handler.syncId, handler.nextRevision(), 0, itemStack));
         }
     }
 
+    @Override
+    public void sendContentUpdates() {
+        readContainer();
+        super.sendContentUpdates();
+    }
+
+    protected void readContainer() {
+        isReading = true;
+        if (entity != null) {
+            BlockState aState = player.getWorld().getBlockState(entity.getPos());
+
+            for (int i = 0; i < 9; i++)
+                input.setStack(i, entity.getStack(i));
+            wand.setStack(0, entity.getStack(10));
+            input.markDirty();
+            wand.markDirty();
+
+            BlockState bState = player.getWorld().getBlockState(entity.getPos());
+            player.getWorld().updateListeners(entity.getPos(), aState, bState, Block.NOTIFY_ALL);
+
+        }
+        isReading = false;
+        onContentChanged(input);
+    }
+
+    protected void saveContainer() {
+        if (entity != null) {
+            BlockState aState = player.getWorld().getBlockState(entity.getPos());
+
+            for (int i = 0; i < 9; i++) {
+                entity.setStack(i, input.getStack(i));
+            }
+            entity.setStack(10, wand.getStack(0));
+            entity.markDirty();
+
+            BlockState bState = player.getWorld().getBlockState(entity.getPos());
+            player.getWorld().updateListeners(entity.getPos(), aState, bState, Block.NOTIFY_ALL);
+        }
+
+
+
+//        if (entity != null) {
+//            PacketByteBuf data = PacketByteBufs.create();
+//            data.writeBlockPos(entity.getPos());
+//
+//            for (int i = 0 ; i < 9 ; i++) {
+//                data.writeItemStack(input.getStack(i));
+//            }
+//            data.writeItemStack(wand.getStack(0));
+//
+//            data.writeIdentifier(new Identifier(Thaumcraft.MOD_ID, "arcane_workbench"));
+//            data.writeString("change_inventory");
+//
+//            ClientPlayNetworking.send(SET_BLOCK_PACKET, data);
+//        }
+    }
 
 
 
@@ -163,7 +199,7 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
     }
 
     public boolean canUse(PlayerEntity player) {
-        return canUse(this.context, player, Blocks.ARCANE_WORKBENCH.block());
+        return canUse(this.context, player, Blocks.ARCANE_WORKBENCH);
     }
 
     public ItemStack transferSlot(PlayerEntity player, int index) {

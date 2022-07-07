@@ -27,6 +27,8 @@ public class Thaumcraft implements ModInitializer {
 	);
 
 
+	public static final Identifier SET_BLOCK_PACKET = new Identifier(MOD_ID, "arcane_workbench_data");
+
 
 	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create("thaumcraft:resources");
 

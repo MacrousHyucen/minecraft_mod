@@ -2,12 +2,14 @@ package net.archasmiel.thaumcraft.recipe;
 
 import com.google.common.collect.Maps;
 import com.google.gson.*;
-import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.*;
+import net.minecraft.recipe.CraftingRecipe;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.Pair;
@@ -24,15 +26,18 @@ import java.util.Map;
 public record ThaumcraftShapedRecipe(Identifier id,
                                      DefaultedList<Ingredient> inputs,
                                      ItemStack output,
-                                     Pair<Integer, Integer> recipeSizes) implements Recipe<SimpleInventory> {
+                                     Pair<Integer, Integer> recipeSizes) implements CraftingRecipe {
 
+    public ItemStack craft(CraftingInventory craftingInventory) {
+        return this.getOutput().copy();
+    }
 
     @Override
-    public boolean matches(SimpleInventory inventory, World world) {
+    public boolean matches(CraftingInventory inventory, World world) {
         return checkRecipeInFlippedOffset(inventory) || checkRecipeInNormalOffset(inventory);
     }
 
-    private boolean checkRecipeInFlippedOffset(SimpleInventory inventory) {
+    private boolean checkRecipeInFlippedOffset(CraftingInventory inventory) {
 
         for (int i = 0; i <= (3 - recipeSizes.getLeft()); i++) {
             for (int j = 2; j >= (recipeSizes.getRight() - 1); j--) {
@@ -58,7 +63,7 @@ public record ThaumcraftShapedRecipe(Identifier id,
         return false;
     }
 
-    private boolean checkRecipeInNormalOffset(SimpleInventory inventory) {
+    private boolean checkRecipeInNormalOffset(CraftingInventory inventory) {
         // checking recipe in normal craft offset
         for (int i = 0; i <= (3 - recipeSizes.getLeft()); i++) {
             for (int j = 0; j <= (3 - recipeSizes.getRight()); j++) {
@@ -85,12 +90,6 @@ public record ThaumcraftShapedRecipe(Identifier id,
         return false;
     }
 
-    @Override
-    public ItemStack craft(SimpleInventory inventory) {
-        return output;
-    }
-
-    @Override
     public boolean fits(int width, int height) {
         return true;
     }
@@ -111,13 +110,15 @@ public record ThaumcraftShapedRecipe(Identifier id,
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return Serializer.INSTANCE;
+        return new Serializer();
     }
 
-    @Override
-    public RecipeType<?> getType() {
-        return Type.INSTANCE;
-    }
+//    Already has this method
+//
+//    @Override
+//    public RecipeType<?> getType() {
+//        return RecipeType.CRAFTING;
+//    }
 
 
     // get keys from json object
@@ -218,18 +219,14 @@ public record ThaumcraftShapedRecipe(Identifier id,
     }
 
 
-    public static class Type implements RecipeType<ThaumcraftShapedRecipe> {
-        private Type() {
-        }
 
-        public static final Type INSTANCE = new Type();
-        public static final String ID = "shaped";
-    }
+
+
 
 
     public static class Serializer implements RecipeSerializer<ThaumcraftShapedRecipe> {
-        public static final Serializer INSTANCE = new Serializer();
-        public static final String ID = "shaped";
+        public Serializer() {
+        }
 
 
         @Override

@@ -9,6 +9,9 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.Packet;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
@@ -20,8 +23,12 @@ import org.jetbrains.annotations.Nullable;
 
 public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory {
 
+
+
     public static final int SIZE = 11;
     private final DefaultedList<ItemStack> inventory;
+
+    private ScreenHandlerContext context;
 
 
 
@@ -34,12 +41,11 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScre
 
 
 
-
-
     @Override
     public DefaultedList<ItemStack> getItems() {
         return inventory;
     }
+
 
 
 
@@ -57,6 +63,20 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScre
 
 
 
+    @Nullable
+    @Override
+    public Packet<ClientPlayPacketListener> toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this);
+    }
+
+    @Override
+    public NbtCompound toInitialChunkDataNbt() {
+        return createNbt();
+    }
+
+
+
+
 
 
     @Override
@@ -67,8 +87,10 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScre
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+        context = ScreenHandlerContext.create(world, pos);
         return new ArcaneWorkbenchScreenHandler(
-            syncId, inv, ScreenHandlerContext.create(world, pos), this
+            syncId, inv, context, this
         );
     }
+
 }

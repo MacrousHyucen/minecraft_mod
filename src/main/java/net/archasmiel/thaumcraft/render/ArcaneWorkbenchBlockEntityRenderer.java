@@ -4,34 +4,25 @@ import net.archasmiel.thaumcraft.blockentity.ArcaneWorkbenchBlockEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.Vec3f;
 
 @Environment(EnvType.CLIENT)
 public class ArcaneWorkbenchBlockEntityRenderer implements BlockEntityRenderer<ArcaneWorkbenchBlockEntity> {
 
-    final float itemSizeMul = 0.15f;
-    final float itemCoordMul = 1/itemSizeMul;
-
     public ArcaneWorkbenchBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
     }
 
     @Override
     public void render(ArcaneWorkbenchBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-
-
-//        System.out.print("[");
-//        for (int i = 0 ; i < 9 ; i++)
-//            System.out.print(entity.getStack(i) + " ");
-//        System.out.print("] ");
-//        System.out.print(entity.getStack(10));
-//        System.out.println();
         renderWand(entity, tickDelta, matrices, vertexConsumers, light, overlay);
         renderCraftingInventory(entity, tickDelta, matrices, vertexConsumers, light, overlay);
     }
@@ -47,43 +38,51 @@ public class ArcaneWorkbenchBlockEntityRenderer implements BlockEntityRenderer<A
 
     private void renderCraftingInventory(ArcaneWorkbenchBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         for (int i = 0 ; i < 9 ; i++) {
-            if (entity.getStack(i).getCount() > 0){
+            ItemStack item = entity.getStack(i);
+            if (item.getCount() > 0){
+
                 // presets for rendering
-                ModelTransformation.Mode mode = ModelTransformation.Mode.GUI;
-                float sizeMul = itemSizeMul, coordMul = 1/sizeMul, delta = 0.0f;
-                if (entity.getStack(i).getItem() instanceof BlockItem){
+                float maxHeight = 8.0f;
+                if (item.getMaxCount() == 1) maxHeight = 0;
+                else if (item.getMaxCount() <= 16)  maxHeight *= 0.5f;
+
+                float percentItem = item.getCount() * maxHeight / item.getMaxCount();
+
+                ModelTransformation.Mode mode;
+                float delta;
+                float sizeXZmul, sizeYmul;
+                float coordXZmul, coordYmul;
+                float coordY;
+
+                boolean isBlock = item.getName().toString().contains("block");
+                boolean fromThaumcraft = item.getName().toString().contains("thaumcraft");
+
+                if (isBlock){
                     mode = ModelTransformation.Mode.GROUND;
-                    sizeMul = 0.4f;
-                    coordMul = 1/sizeMul;
-                    delta = 1.2f/16;
+                    sizeXZmul = fromThaumcraft ? 0.3f : 0.35f;
+                    coordXZmul = 1/sizeXZmul;
+                    sizeYmul = sizeXZmul;
+                    coordYmul = coordXZmul;
+                    coordY = fromThaumcraft ? 1.06f : 1.05f;
+                    delta = fromThaumcraft ? 0 : 0.075f;
+                } else {
+                    mode = ModelTransformation.Mode.GUI;
+                    sizeXZmul = 0.15f;
+                    coordXZmul = 1/sizeXZmul;
+                    sizeYmul = sizeXZmul * (percentItem + 1f);
+                    coordYmul = 1/sizeYmul;
+                    coordY = 1.01f + 0.00458715f*percentItem;
+                    delta = 0;
                 }
 
                 matrices.push();
-                matrices.scale(sizeMul, sizeMul, sizeMul);
+                matrices.scale(sizeXZmul, sizeYmul, sizeXZmul);
                 Pair<Float, Float> coords = getCoords(i, delta);
-                matrices.translate(coordMul*coords.getLeft(), coordMul*1.01, coordMul*coords.getRight());
+                matrices.translate(coordXZmul*coords.getLeft(), coordY*coordYmul, coordXZmul*coords.getRight());
                 matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(-90));
-                MinecraftClient.getInstance().getItemRenderer().renderItem(entity.getStack(i), mode, light, overlay, matrices, vertexConsumers, i);
+                int lightAbove = WorldRenderer.getLightmapCoordinates(entity.getWorld(), entity.getPos().up());
+                MinecraftClient.getInstance().getItemRenderer().renderItem(item, mode, lightAbove, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, 0);
                 matrices.pop();
-                // if we not rendering block and have multiple items
-                if (!(entity.getStack(i).getItem() instanceof BlockItem) && entity.getStack(i).getMaxCount() > 1) {
-                    if (entity.getStack(i).getCount() > 1) {
-                        matrices.push();
-                        matrices.scale(itemSizeMul, itemSizeMul, itemSizeMul);
-                        matrices.translate(itemCoordMul*coords.getLeft(), itemCoordMul*1.02, itemCoordMul*coords.getRight());
-                        matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(-90));
-                        MinecraftClient.getInstance().getItemRenderer().renderItem(entity.getStack(i), mode, light, overlay, matrices, vertexConsumers, i);
-                        matrices.pop();
-                    }
-                    if (entity.getStack(i).getCount() == entity.getStack(i).getMaxCount()) {
-                        matrices.push();
-                        matrices.scale(itemSizeMul, itemSizeMul, itemSizeMul);
-                        matrices.translate(itemCoordMul*coords.getLeft(), itemCoordMul*1.03, itemCoordMul*coords.getRight());
-                        matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(-90));
-                        MinecraftClient.getInstance().getItemRenderer().renderItem(entity.getStack(i), mode, light, overlay, matrices, vertexConsumers, i);
-                        matrices.pop();
-                    }
-                }
 
             }
         }

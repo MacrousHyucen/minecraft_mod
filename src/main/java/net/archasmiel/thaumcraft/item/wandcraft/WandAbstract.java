@@ -4,6 +4,7 @@ import net.archasmiel.thaumcraft.block.Blocks;
 import net.archasmiel.thaumcraft.block.advanced.ArcaneWorkbench;
 import net.archasmiel.thaumcraft.block.advanced.Table;
 import net.archasmiel.thaumcraft.blockentity.ArcaneWorkbenchBlockEntity;
+import net.archasmiel.thaumcraft.item.basic.ThaumcraftItem;
 import net.archasmiel.thaumcraft.item.wandcraft.abilities.VisCraft;
 import net.archasmiel.thaumcraft.materials.CapMaterials;
 import net.archasmiel.thaumcraft.materials.RodMaterials;
@@ -35,7 +36,7 @@ import static net.archasmiel.thaumcraft.Thaumcraft.primaryAspects;
 import static net.archasmiel.thaumcraft.Thaumcraft.primaryAspectsColor;
 import static net.minecraft.util.Formatting.GOLD;
 
-public abstract class WandAbstract extends Item {
+public abstract class WandAbstract extends ThaumcraftItem {
     /*
             Set multiplier always as:
             10% aspect margin     ->   -0.10f to multiplier constructor/setter,
@@ -60,8 +61,6 @@ public abstract class WandAbstract extends Item {
     private RodMaterials rod;
     private String type;
 
-    private final boolean fullAspects;
-
     private float discountMultiplier;
     private float capacityMultiplier;
     private float discount;
@@ -71,10 +70,10 @@ public abstract class WandAbstract extends Item {
 
 
 
-    public WandAbstract(Settings settings, RodMaterials rod, CapMaterials caps,
+    public WandAbstract(Settings settings, String name, RodMaterials rod, CapMaterials caps,
                         float rawDiscountMultiplier, float capacityMultiplier,
                         String type) {
-        super(settings);
+        super(settings, name);
 
         this.setType(type);
 
@@ -85,26 +84,6 @@ public abstract class WandAbstract extends Item {
         // info for capacity and info final values
         this.setCapacityMultiplier(capacityMultiplier);
         this.setDiscountMultiplier(1.00f - rawDiscountMultiplier);
-
-        this.fullAspects = false;
-    }
-
-    public WandAbstract(Settings settings, RodMaterials rod, CapMaterials caps,
-                        float rawDiscountMultiplier, float capacityMultiplier,
-                        String type, boolean fullAspects) {
-        super(settings);
-
-        this.setType(type);
-
-        // basic info for capacity and discount
-        this.setRod(rod);
-        this.setCaps(caps);
-
-        // info for capacity and info final values
-        this.setCapacityMultiplier(capacityMultiplier);
-        this.setDiscountMultiplier(1.00f - rawDiscountMultiplier);
-
-        this.fullAspects = fullAspects;
     }
 
 
@@ -308,7 +287,7 @@ public abstract class WandAbstract extends Item {
 
         for (String i: primaryAspects)
             if (!nbt.contains(i))
-                nbt.putFloat(i, fullAspects ? this.capacity : 0);
+                nbt.putFloat(i, 0);
 
         return nbt;
     }

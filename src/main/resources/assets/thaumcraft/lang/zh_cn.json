@@ -1,5 +1,6 @@
 {
-  "itemGroup.thaumcraft.thaumcraft": "§5神秘时代4：重置",
+  "itemGroup.thaumcraft.general": "§5神秘时代4：重置",
+  "itemGroup.thaumcraft.generated": "§5神秘时代4：重置 (神秘学)",
 
   "gui.thaumcraft.basics_tab":  "基础学",
   "gui.thaumcraft.thaumaturgy_tab": "神秘学",

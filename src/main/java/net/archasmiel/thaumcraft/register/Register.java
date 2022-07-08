@@ -11,7 +11,7 @@ import net.minecraft.util.registry.Registry;
 
 public class Register {
 
-    // Registering pure item (with coloring)
+    // Registering item
     public static Item registerItem(String name, Item item) {
         return Registry.register(
                 Registry.ITEM,
@@ -26,15 +26,19 @@ public class Register {
                 new Identifier(Thaumcraft.MOD_ID, name),
                 item
         );
-        ColorProviderRegistry.ITEM.register(
-                (stack, tintIndex) -> color, result
-        );
-
+        registerItemColor(color, result);
         return result;
     }
 
 
-    // Registering pure block (with coloring)
+
+
+
+
+
+
+
+    // Registering block
     public static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);
 
@@ -52,20 +56,23 @@ public class Register {
                 new Identifier(Thaumcraft.MOD_ID, name),
                 block
         );
-        ColorProviderRegistry.BLOCK.register(
-                (state, view, pos, tintIndex) -> color, block
-        );
-
+        registerBlockColor(color, result);
         return result;
     }
 
 
-    // Registering item related on block (with coloring)
+
+
+
+
+
+
+    // Registering item related on block
     public static void registerBlockItem(String name, Block block) {
         Registry.register(
                 Registry.ITEM,
                 new Identifier(Thaumcraft.MOD_ID, "block/" + name),
-                new BlockItem(block, new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
+                new BlockItem(block, new FabricItemSettings().group(Thaumcraft.MOD_GROUP_GENERAL))
         );
     }
 
@@ -73,9 +80,26 @@ public class Register {
         Item result = Registry.register(
                 Registry.ITEM,
                 new Identifier(Thaumcraft.MOD_ID, "block/" + name),
-                new BlockItem(block, new FabricItemSettings().group(Thaumcraft.MOD_GROUP))
+                new BlockItem(block, new FabricItemSettings().group(Thaumcraft.MOD_GROUP_GENERAL))
         );
-        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> color, result);
+        registerItemColor(color, result);
+    }
+
+
+
+
+
+
+    private static void registerItemColor(int color, Item item){
+        ColorProviderRegistry.ITEM.register(
+                (stack, tintIndex) -> color, item
+        );
+    }
+
+    private static void registerBlockColor(int color, Block block){
+        ColorProviderRegistry.BLOCK.register(
+                (state, view, pos, tintIndex) -> color, block
+        );
     }
 
 }

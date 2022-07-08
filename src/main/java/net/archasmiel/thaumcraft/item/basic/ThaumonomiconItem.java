@@ -1,25 +1,51 @@
-package net.archasmiel.thaumcraft.item.books;
+package net.archasmiel.thaumcraft.item.basic;
 
 import io.github.cottonmc.cotton.gui.client.CottonClientScreen;
 import net.archasmiel.thaumcraft.gui.thaumonomicon.ThaumonomiconGui;
+import net.archasmiel.thaumcraft.lib.generation.ItemDataGeneration;
+import net.archasmiel.thaumcraft.register.Register;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
-public class ThaumonomiconItem extends Item {
+public class ThaumonomiconItem extends ThaumcraftItem {
 
 
-    public ThaumonomiconItem(Settings settings) {
-        super(settings);
+    public ThaumonomiconItem(Settings settings, String name) {
+        super(settings, name);
+        load();
     }
+
+
+
+
+
+
+
+    @Override
+    public void model() {
+        ItemDataGeneration.simpleItemModel("generated", name(), name());
+    }
+
+    @Override
+    public void register() {
+        setItem(Register.registerItem(name(), this));
+    }
+
+
+
+
+
+
+
+
 
     @Environment(EnvType.CLIENT)
     private void drawScreen(PlayerEntity user, Hand hand) {

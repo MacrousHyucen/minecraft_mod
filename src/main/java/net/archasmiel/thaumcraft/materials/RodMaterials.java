@@ -46,4 +46,14 @@ public enum RodMaterials implements RodMaterial {
         return visCapacity;
     }
 
+    @Override
+    public boolean canBeUsedByWand() {
+        return this != PRIMAL;
+    }
+
+    @Override
+    public boolean isStick() {
+        return this == WOOD;
+    }
+
 }

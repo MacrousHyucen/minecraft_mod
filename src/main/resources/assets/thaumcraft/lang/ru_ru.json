@@ -1,5 +1,6 @@
 {
-  "itemGroup.thaumcraft.thaumcraft": "§5Таумкрафт",
+  "itemGroup.thaumcraft.general": "§5Таумкрафт",
+  "itemGroup.thaumcraft.generated": "§5Таумкрафт (Тауматургия)",
 
   "gui.thaumcraft.basics_tab":  "Базовые знания",
   "gui.thaumcraft.thaumaturgy_tab": "Тауматургия",

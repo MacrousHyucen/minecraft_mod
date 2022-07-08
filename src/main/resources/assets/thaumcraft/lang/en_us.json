@@ -1,5 +1,6 @@
 {
-  "itemGroup.thaumcraft.thaumcraft": "§5Thaumcraft",
+  "itemGroup.thaumcraft.general": "§5Thaumcraft",
+  "itemGroup.thaumcraft.generated": "§5Thaumcraft (Thaumaturgy)",
 
   "gui.thaumcraft.basics_tab":  "Basics",
   "gui.thaumcraft.thaumaturgy_tab": "Thaumaturgy",

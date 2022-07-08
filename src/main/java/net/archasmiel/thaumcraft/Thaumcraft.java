@@ -1,10 +1,10 @@
 package net.archasmiel.thaumcraft;
 
+import net.archasmiel.thaumcraft.block.Blocks;
 import net.archasmiel.thaumcraft.blockentity.BlockEntities;
+import net.archasmiel.thaumcraft.item.Items;
 import net.archasmiel.thaumcraft.lib.lang.GeneratedTranslations;
 import net.archasmiel.thaumcraft.lib.lang.LangTranslations;
-import net.archasmiel.thaumcraft.block.Blocks;
-import net.archasmiel.thaumcraft.item.Items;
 import net.archasmiel.thaumcraft.recipe.Recipes;
 import net.devtech.arrp.api.RRPCallback;
 import net.devtech.arrp.api.RuntimeResourcePack;
@@ -21,13 +21,17 @@ public class Thaumcraft implements ModInitializer {
 	public static final String MOD_ID = "thaumcraft";
 	public static final String MOD_NAME = "Thaumcraft";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
-	public static final ItemGroup MOD_GROUP = FabricItemGroupBuilder.build(
-			new Identifier(MOD_ID, MOD_ID),
-			() -> new ItemStack(Items.THAUMONOMICON.getItem())
-	);
+
+	// groups
+	public static ItemGroup MOD_GROUP_GENERAL = FabricItemGroupBuilder
+			.create(new Identifier(MOD_ID, "general"))
+			.icon(() -> new ItemStack(Items.THAUMONOMICON.item())).build();
+
+	public static ItemGroup MOD_GROUP_GENERATED = FabricItemGroupBuilder
+			.create(new Identifier(MOD_ID, "generated"))
+			.icon(() -> new ItemStack(Blocks.ARCANE_WORKBENCH.block())).build();
 
 
-	public static final Identifier SET_BLOCK_PACKET = new Identifier(MOD_ID, "arcane_workbench_data");
 
 
 	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create("thaumcraft:resources");
@@ -64,7 +68,7 @@ public class Thaumcraft implements ModInitializer {
 		for (String i: supportedLanguages)
 			THAUMCRAFT_OUTPUTLANG.registerLanguage(i);
 
-		RRPCallback.BEFORE_VANILLA.register(a -> a.add(RESOURCE_PACK));
+		RRPCallback.AFTER_VANILLA.register(a -> a.add(RESOURCE_PACK));
 
 	}
 }

@@ -8,4 +8,7 @@ public interface RodMaterial {
     String getMaterialName();
     int getVisCapacity();
 
+    boolean canBeUsedByWand();
+    boolean isStick();
+
 }

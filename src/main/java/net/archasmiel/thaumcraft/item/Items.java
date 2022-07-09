@@ -6,6 +6,7 @@ import net.archasmiel.thaumcraft.item.basic.ShardItem;
 import net.archasmiel.thaumcraft.item.basic.ThaumcraftItem;
 import net.archasmiel.thaumcraft.item.basic.ThaumonomiconItem;
 import net.archasmiel.thaumcraft.item.tool.*;
+import net.archasmiel.thaumcraft.item.wandcraft.variants.Scepter;
 import net.archasmiel.thaumcraft.item.wandcraft.variants.Wand;
 import net.archasmiel.thaumcraft.materials.CapMaterials;
 import net.archasmiel.thaumcraft.materials.RodMaterials;
@@ -273,6 +274,13 @@ public class Items {
             for (CapMaterials cap: CapMaterials.values()){
                 new Wand(NOTAB_ONE_ITEM_SETTINGS, rod, cap);
             }
+        }
+
+        for (RodMaterials rod: RodMaterials.values()){
+            if (rod.canBeUsedByWand())
+                for (CapMaterials cap: CapMaterials.values()){
+                    new Scepter(NOTAB_ONE_ITEM_SETTINGS, rod, cap);
+                }
         }
 
         Thaumcraft.LOGGER.info("Loaded full wands");

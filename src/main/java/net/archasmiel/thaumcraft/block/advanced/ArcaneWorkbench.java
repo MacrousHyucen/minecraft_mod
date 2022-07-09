@@ -111,20 +111,20 @@ public class ArcaneWorkbench extends ThaumcraftBlockWithEntity {
 
     @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        if (state.getBlock() != newState.getBlock()){
-            BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof ArcaneWorkbenchBlockEntity){
-                ItemScatterer.spawn(world, pos, (Inventory) blockEntity);
-                world.updateComparators(pos, this);
-            }
-            super.onStateReplaced(state, world, pos, newState, moved);
+        if (state.getBlock() == newState.getBlock()) return;
+
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof ArcaneWorkbenchBlockEntity){
+            ItemScatterer.spawn(world, pos, (Inventory) blockEntity);
+            world.updateComparators(pos, this);
         }
+        super.onStateReplaced(state, world, pos, newState, moved);
     }
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 
-        // get wand from workench by shifting+rmb on it
+        // get wand from workbench by shifting+rmb on it
         if (Screen.hasShiftDown()) {
             if (world.getBlockEntity(pos) instanceof ArcaneWorkbenchBlockEntity entity && hand == Hand.MAIN_HAND) {
                 if (!entity.getStack(10).isEmpty()) {
@@ -158,13 +158,10 @@ public class ArcaneWorkbench extends ThaumcraftBlockWithEntity {
             // arcane workbench GUI onUse
             if (!world.isClient) {
                 NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
-
                 if (screenHandlerFactory != null){
                     player.openHandledScreen(screenHandlerFactory);
                 }
-
             }
-
         }
 
         return ActionResult.SUCCESS;

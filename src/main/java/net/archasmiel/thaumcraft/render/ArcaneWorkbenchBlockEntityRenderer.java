@@ -59,12 +59,12 @@ public class ArcaneWorkbenchBlockEntityRenderer implements BlockEntityRenderer<A
 
                 if (isBlock){
                     mode = ModelTransformation.Mode.GROUND;
-                    sizeXZmul = fromThaumcraft ? 0.3f : 0.35f;
+                    sizeXZmul = fromThaumcraft ? 0.3f : 0.5f;
                     coordXZmul = 1/sizeXZmul;
                     sizeYmul = sizeXZmul;
                     coordYmul = coordXZmul;
                     coordY = fromThaumcraft ? 1.06f : 1.05f;
-                    delta = fromThaumcraft ? 0 : 0.075f;
+                    delta = fromThaumcraft ? 0 : 0.095f;
                 } else {
                     mode = ModelTransformation.Mode.GUI;
                     sizeXZmul = 0.15f;
@@ -79,7 +79,7 @@ public class ArcaneWorkbenchBlockEntityRenderer implements BlockEntityRenderer<A
                 matrices.scale(sizeXZmul, sizeYmul, sizeXZmul);
                 Pair<Float, Float> coords = getCoords(i, delta);
                 matrices.translate(coordXZmul*coords.getLeft(), coordY*coordYmul, coordXZmul*coords.getRight());
-                matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(-90));
+                matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(-90.0f));
                 int lightAbove = WorldRenderer.getLightmapCoordinates(entity.getWorld(), entity.getPos().up());
                 MinecraftClient.getInstance().getItemRenderer().renderItem(item, mode, lightAbove, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, 0);
                 matrices.pop();

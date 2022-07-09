@@ -61,17 +61,14 @@ public abstract class WandAbstract extends ThaumcraftItem {
     private RodMaterials rod;
     private String type;
 
-    private float discountMultiplier;
     private float capacityMultiplier;
     private float discount;
     private int capacity;
-
-
-
+    private float wandDiscount;
 
 
     public WandAbstract(Settings settings, String name, RodMaterials rod, CapMaterials caps,
-                        float rawDiscountMultiplier, float capacityMultiplier,
+                        float wandDiscount, float capacityMultiplier,
                         String type) {
         super(settings, name);
 
@@ -83,7 +80,8 @@ public abstract class WandAbstract extends ThaumcraftItem {
 
         // info for capacity and info final values
         this.setCapacityMultiplier(capacityMultiplier);
-        this.setDiscountMultiplier(1.00f - rawDiscountMultiplier);
+        this.wandDiscount = wandDiscount;
+        this.setDiscount(wandDiscount);
     }
 
 
@@ -102,12 +100,15 @@ public abstract class WandAbstract extends ThaumcraftItem {
         this.rod = rod;
     }
 
-    public float getDiscountMultiplier() {
-        return 1 - discountMultiplier;
+    public float getDiscount() {
+        return discount;
     }
-    public void setDiscountMultiplier(float discountMultiplier) {
-        this.discountMultiplier = discountMultiplier;
-        this.discount = 1.00f - this.cap.getVisDiscount() - this.discountMultiplier;
+
+    public void setDiscount(float wandDiscount) {
+        this.discount = 1.00f - this.cap.getVisDiscount() - this.wandDiscount;
+    }
+    public void setWandDiscount(float wandDiscount) {
+        this.wandDiscount = wandDiscount;
     }
 
     public float getCapacityMultiplier() {
@@ -118,9 +119,6 @@ public abstract class WandAbstract extends ThaumcraftItem {
         this.capacity = (int) (this.rod.getVisCapacity() * this.capacityMultiplier);
     }
 
-    public float getDiscount() {
-        return discount;
-    }
     public int getCapacity() {
         return capacity;
     }
@@ -293,7 +291,7 @@ public abstract class WandAbstract extends ThaumcraftItem {
     }
 
     private String getStringDiscount(float discount) {
-        return Integer.toString((int) ((1 + discount) * 100));
+        return Integer.toString((int) (discount * 100));
     }
 
     private String cutFloat(float num) {

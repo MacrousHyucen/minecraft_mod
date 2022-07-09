@@ -9,7 +9,7 @@ import net.archasmiel.thaumcraft.register.Register;
 
 public class Staff extends WandAbstract implements WandWeapon, FociWear {
 
-    public Staff(Settings settings, CapMaterials cap, RodMaterials rod) {
+    public Staff(Settings settings, RodMaterials rod, CapMaterials cap) {
         super(
             settings,
             String.format("%s_%s_%s", "staff", rod.getMaterialName(), cap.getMaterialName()),

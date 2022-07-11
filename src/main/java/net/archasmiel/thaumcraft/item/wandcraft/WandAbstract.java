@@ -116,7 +116,7 @@ public abstract class WandAbstract extends ThaumcraftItem {
     }
     public void setCapacityMultiplier(float capacityMultiplier) {
         this.capacityMultiplier = capacityMultiplier;
-        this.capacity = (int) (this.rod.getVisCapacity() * this.capacityMultiplier);
+        this.capacity = (int) (this.rod.getCapacity() * this.capacityMultiplier);
     }
 
     public int getCapacity() {

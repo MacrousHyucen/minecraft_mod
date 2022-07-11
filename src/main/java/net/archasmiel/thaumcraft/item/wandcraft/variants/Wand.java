@@ -3,8 +3,8 @@ package net.archasmiel.thaumcraft.item.wandcraft.variants;
 import net.archasmiel.thaumcraft.item.wandcraft.abilities.FociWear;
 import net.archasmiel.thaumcraft.item.wandcraft.abilities.VisCraft;
 import net.archasmiel.thaumcraft.item.wandcraft.WandAbstract;
-import net.archasmiel.thaumcraft.lib.generation.WandDataGeneration;
-import net.archasmiel.thaumcraft.lib.recipegen.WandRecipeGenerator;
+import net.archasmiel.thaumcraft.lib.generation.WandcraftDataGenerator;
+import net.archasmiel.thaumcraft.lib.recipegen.WandcraftRecipeGenerator;
 import net.archasmiel.thaumcraft.materials.CapMaterials;
 import net.archasmiel.thaumcraft.materials.RodMaterials;
 import net.archasmiel.thaumcraft.register.Register;
@@ -56,38 +56,16 @@ public class Wand extends WandAbstract implements VisCraft, FociWear {
     @Override
     public void model() {
         // lang translation
-        for (String lang: supportedLanguages) {
-            THAUMCRAFT_OUTPUTLANG.addTranslation(
-                lang,
-                THAUMCRAFT_OUTPUTLANG.getTranslation(lang).item(
-                    new Identifier(MOD_ID, name()),
-                    String.format(
-                        "§e%s %s %s",
-                        THAUMCRAFT_INPUTLANG.getTranslation(
-                                lang,
-                                String.format("%s.%s.%s", "wand_cap", MOD_ID, this.getCap().getMaterialName())
-                        ),
-                        THAUMCRAFT_INPUTLANG.getTranslation(
-                                lang,
-                                String.format("%s.%s.%s", "wand_rod", MOD_ID, this.getRod().getMaterialName())
-                        ),
-                        THAUMCRAFT_INPUTLANG.getTranslation(
-                                lang,
-                                String.format("%s.%s.%s", "wand_type", MOD_ID, this.getType())
-                        )
-                    )
-                )
-            );
-        }
+        WandcraftDataGenerator.wandcraftName(this);
 
         // model
         RESOURCE_PACK.addModel(
-                WandDataGeneration.wandModel(getRod().getRegistryName(), getCap().getRegistryName()),
+                WandcraftDataGenerator.wandModel(getRod().getRegistryName(), getCap().getRegistryName()),
                 new Identifier("thaumcraft:item/" + name())
         );
 
         // recipe
-        WandRecipeGenerator.wandRecipe(this);
+        WandcraftRecipeGenerator.wandRecipe(this);
     }
 
     @Override

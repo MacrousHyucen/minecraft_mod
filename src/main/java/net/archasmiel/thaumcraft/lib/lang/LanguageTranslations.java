@@ -17,7 +17,7 @@ import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.regex.Pattern;
 
-public class LangTranslations {
+public class LanguageTranslations {
 
     private final String modID;
     private final HashMap<String, Language> languages = new HashMap<>();
@@ -27,7 +27,7 @@ public class LangTranslations {
 
 
 
-    public LangTranslations(String modID) {
+    public LanguageTranslations(String modID) {
         this.modID = modID;
     }
 

@@ -1,8 +1,8 @@
 package net.archasmiel.thaumcraft.block.advanced;
 
 import net.archasmiel.thaumcraft.block.ThaumcraftBlock;
-import net.archasmiel.thaumcraft.lib.generation.BlockDataGeneration;
-import net.archasmiel.thaumcraft.lib.generation.ItemDataGeneration;
+import net.archasmiel.thaumcraft.lib.generation.BlockDataGenerator;
+import net.archasmiel.thaumcraft.lib.generation.ItemDataGenerator;
 import net.archasmiel.thaumcraft.register.Register;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -49,9 +49,9 @@ public class DeconstructionTable extends ThaumcraftBlock {
 
     /*  LOADING  */
     public void model() {
-        ItemDataGeneration.simpleItemBlockModel(name());
-        BlockDataGeneration.simpleRotatableBlockState(name());
-        BlockDataGeneration.simpleBlockLootTable(name());
+        ItemDataGenerator.simpleItemBlockModel(name());
+        BlockDataGenerator.simpleRotatableBlockState(name());
+        BlockDataGenerator.simpleBlockLootTable(name());
     }
 
     public void register() {

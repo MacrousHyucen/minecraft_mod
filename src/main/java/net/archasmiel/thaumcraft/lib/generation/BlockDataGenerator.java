@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 
 import static net.archasmiel.thaumcraft.Thaumcraft.RESOURCE_PACK;
 
-public class BlockDataGeneration {
+public class BlockDataGenerator {
 
     // Models
     public static void simpleBlockModel(String blockName) {

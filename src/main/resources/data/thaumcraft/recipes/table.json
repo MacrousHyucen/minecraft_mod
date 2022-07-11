@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "sss",
+    "p p"
+  ],
+  "key": {
+    "s": {
+      "tag": "minecraft:slabs"
+    },
+    "p": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:block/table"
+  }
+}

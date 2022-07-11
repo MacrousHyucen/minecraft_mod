@@ -6,7 +6,7 @@ import net.minecraft.util.Identifier;
 
 import static net.archasmiel.thaumcraft.Thaumcraft.RESOURCE_PACK;
 
-public class ItemDataGeneration {
+public class ItemDataGenerator {
 
     public static void simpleItemModel(String type, String modelName, String textureName) {
         RESOURCE_PACK.addModel(

@@ -7,6 +7,7 @@ import net.archasmiel.thaumcraft.item.basic.ThaumcraftItem;
 import net.archasmiel.thaumcraft.item.basic.ThaumonomiconItem;
 import net.archasmiel.thaumcraft.item.tool.*;
 import net.archasmiel.thaumcraft.item.wandcraft.variants.Scepter;
+import net.archasmiel.thaumcraft.item.wandcraft.variants.Staff;
 import net.archasmiel.thaumcraft.item.wandcraft.variants.Wand;
 import net.archasmiel.thaumcraft.materials.CapMaterials;
 import net.archasmiel.thaumcraft.materials.RodMaterials;
@@ -129,30 +130,6 @@ public class Items {
 
 
 
-
-
-
-
-
-    public static void register() {
-        loadBooks();
-        loadMaterials();
-        loadMiscellaneous();
-
-        loadCaps();
-        loadRods();
-
-        loadTools();
-        loadFullWands();
-    }
-
-
-
-
-
-
-
-
     public static void loadBooks() {
         THAUMONOMICON = new ThaumonomiconItem(ONE_ITEM_SETTINGS, "thaumonomicon");
         THAUMONOMICON_CHEAT = new BasicItem(ONE_ITEM_SETTINGS, "thaumonomicon_cheat");
@@ -227,24 +204,25 @@ public class Items {
     }
 
     public static void loadRods() {
-        STAFF_ROD_BLAZE = new BasicItem(ONE_ITEM_SETTINGS, "staff_rod_blaze");
-        STAFF_ROD_BONE = new BasicItem(ONE_ITEM_SETTINGS, "staff_rod_bone");
-        STAFF_ROD_GREATWOOD = new BasicItem(ONE_ITEM_SETTINGS, "staff_rod_greatwood");
-        STAFF_ROD_ICE = new BasicItem(ONE_ITEM_SETTINGS, "staff_rod_ice");
-        STAFF_ROD_OBSIDIAN = new BasicItem(ONE_ITEM_SETTINGS, "staff_rod_obsidian");
-        STAFF_ROD_QUARTZ = new BasicItem(ONE_ITEM_SETTINGS, "staff_rod_quartz");
-        STAFF_ROD_REED = new BasicItem(ONE_ITEM_SETTINGS, "staff_rod_reed");
-        STAFF_ROD_SILVERWOOD = new BasicItem(ONE_ITEM_SETTINGS, "staff_rod_silverwood");
-        STAFF_ROD_PRIMAL = new BasicItem(ONE_ITEM_SETTINGS, "staff_rod_primal");
+        WAND_ROD_GREATWOOD = new BasicItem(STANDARD_SETTINGS, "wand_rod_greatwood");
+        WAND_ROD_SILVERWOOD = new BasicItem(STANDARD_SETTINGS, "wand_rod_silverwood");
+        WAND_ROD_REED = new BasicItem(STANDARD_SETTINGS, "wand_rod_reed");
+        WAND_ROD_BLAZE = new BasicItem(STANDARD_SETTINGS, "wand_rod_blaze");
+        WAND_ROD_ICE = new BasicItem(STANDARD_SETTINGS, "wand_rod_ice");
+        WAND_ROD_OBSIDIAN = new BasicItem(STANDARD_SETTINGS, "wand_rod_obsidian");
+        WAND_ROD_QUARTZ = new BasicItem(STANDARD_SETTINGS, "wand_rod_quartz");
+        WAND_ROD_BONE = new BasicItem(STANDARD_SETTINGS, "wand_rod_bone");
 
-        WAND_ROD_BLAZE = new BasicItem(ONE_ITEM_SETTINGS, "wand_rod_blaze");
-        WAND_ROD_BONE = new BasicItem(ONE_ITEM_SETTINGS, "wand_rod_bone");
-        WAND_ROD_GREATWOOD = new BasicItem(ONE_ITEM_SETTINGS, "wand_rod_greatwood");
-        WAND_ROD_ICE = new BasicItem(ONE_ITEM_SETTINGS, "wand_rod_ice");
-        WAND_ROD_OBSIDIAN = new BasicItem(ONE_ITEM_SETTINGS, "wand_rod_obsidian");
-        WAND_ROD_QUARTZ = new BasicItem(ONE_ITEM_SETTINGS, "wand_rod_quartz");
-        WAND_ROD_REED = new BasicItem(ONE_ITEM_SETTINGS, "wand_rod_reed");
-        WAND_ROD_SILVERWOOD = new BasicItem(ONE_ITEM_SETTINGS, "wand_rod_silverwood");
+        STAFF_ROD_GREATWOOD = new BasicItem(STANDARD_SETTINGS, "staff_rod_greatwood");
+        STAFF_ROD_SILVERWOOD = new BasicItem(STANDARD_SETTINGS, "staff_rod_silverwood");
+        STAFF_ROD_REED = new BasicItem(STANDARD_SETTINGS, "staff_rod_reed");
+        STAFF_ROD_BLAZE = new BasicItem(STANDARD_SETTINGS, "staff_rod_blaze");
+        STAFF_ROD_ICE = new BasicItem(STANDARD_SETTINGS, "staff_rod_ice");
+        STAFF_ROD_OBSIDIAN = new BasicItem(STANDARD_SETTINGS, "staff_rod_obsidian");
+        STAFF_ROD_QUARTZ = new BasicItem(STANDARD_SETTINGS, "staff_rod_quartz");
+        STAFF_ROD_BONE = new BasicItem(STANDARD_SETTINGS, "staff_rod_bone");
+        STAFF_ROD_PRIMAL = new BasicItem(STANDARD_SETTINGS, "staff_rod_primal");
+
 
         Thaumcraft.LOGGER.info("Loaded rods");
     }
@@ -270,21 +248,46 @@ public class Items {
         // generates full capacity wands via appendStacksMethod
         // also registers wands in system
         for (RodMaterials rod: RodMaterials.values()){
-            if (rod.canBeUsedByWand())
+            if (!rod.isPrimal())
             for (CapMaterials cap: CapMaterials.values()){
                 new Wand(NOTAB_ONE_ITEM_SETTINGS, rod, cap);
             }
         }
 
         for (RodMaterials rod: RodMaterials.values()){
-            if (rod.canBeUsedByWand())
-                for (CapMaterials cap: CapMaterials.values()){
-                    new Scepter(NOTAB_ONE_ITEM_SETTINGS, rod, cap);
-                }
+            if (!rod.isPrimal())
+            for (CapMaterials cap: CapMaterials.values()){
+                new Scepter(NOTAB_ONE_ITEM_SETTINGS, rod, cap);
+            }
         }
 
-        Thaumcraft.LOGGER.info("Loaded full wands");
+        for (RodMaterials rod: RodMaterials.values()){
+            // there is no wooden staff core
+            if (!rod.isStick())
+            for (CapMaterials cap: CapMaterials.values()){
+                new Staff(NOTAB_ONE_ITEM_SETTINGS, rod, cap);
+            }
+        }
+
+        Thaumcraft.LOGGER.info("Loaded full wandcraft items");
     }
 
 
+
+
+
+
+
+
+    public static void register() {
+        loadBooks();
+        loadMaterials();
+        loadMiscellaneous();
+
+        loadCaps();
+        loadRods();
+
+        loadTools();
+        loadFullWands();
+    }
 }

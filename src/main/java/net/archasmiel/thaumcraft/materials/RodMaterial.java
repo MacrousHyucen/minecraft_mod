@@ -6,9 +6,9 @@ public interface RodMaterial {
 
     String getRegistryName();
     String getMaterialName();
-    int getVisCapacity();
+    int getCapacity();
 
-    boolean canBeUsedByWand();
     boolean isStick();
+    boolean isPrimal();
 
 }

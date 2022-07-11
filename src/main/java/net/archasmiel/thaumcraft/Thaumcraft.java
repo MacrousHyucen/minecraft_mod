@@ -4,7 +4,7 @@ import net.archasmiel.thaumcraft.block.Blocks;
 import net.archasmiel.thaumcraft.blockentity.BlockEntities;
 import net.archasmiel.thaumcraft.item.Items;
 import net.archasmiel.thaumcraft.lib.lang.GeneratedTranslations;
-import net.archasmiel.thaumcraft.lib.lang.LangTranslations;
+import net.archasmiel.thaumcraft.lib.lang.LanguageTranslations;
 import net.archasmiel.thaumcraft.recipe.Recipes;
 import net.devtech.arrp.api.RRPCallback;
 import net.devtech.arrp.api.RuntimeResourcePack;
@@ -38,7 +38,7 @@ public class Thaumcraft implements ModInitializer {
 
 	// Supported languages, which will be loaded to THAUMCRAFT_LANGTRANS
 	public static final String[] supportedLanguages = {"en_us", "ru_ru", "zh_cn"};
-	public static LangTranslations THAUMCRAFT_INPUTLANG = new LangTranslations(MOD_ID);
+	public static LanguageTranslations THAUMCRAFT_INPUTLANG = new LanguageTranslations(MOD_ID);
 	public static GeneratedTranslations THAUMCRAFT_OUTPUTLANG = new GeneratedTranslations(MOD_ID);
 
 

@@ -3,8 +3,8 @@ package net.archasmiel.thaumcraft;
 import net.archasmiel.thaumcraft.block.Blocks;
 import net.archasmiel.thaumcraft.blockentity.BlockEntities;
 import net.archasmiel.thaumcraft.item.Items;
-import net.archasmiel.thaumcraft.lib.lang.GeneratedTranslations;
-import net.archasmiel.thaumcraft.lib.lang.LanguageTranslations;
+import net.archasmiel.thaumcraft.generation.lang.GeneratedTranslations;
+import net.archasmiel.thaumcraft.generation.lang.LanguageTranslations;
 import net.archasmiel.thaumcraft.recipe.Recipes;
 import net.devtech.arrp.api.RRPCallback;
 import net.devtech.arrp.api.RuntimeResourcePack;
@@ -25,11 +25,11 @@ public class Thaumcraft implements ModInitializer {
 	// groups
 	public static ItemGroup MOD_GROUP_GENERAL = FabricItemGroupBuilder
 			.create(new Identifier(MOD_ID, "general"))
-			.icon(() -> new ItemStack(Items.THAUMONOMICON.item())).build();
+			.icon(() -> new ItemStack(Items.THAUMONOMICON)).build();
 
 	public static ItemGroup MOD_GROUP_GENERATED = FabricItemGroupBuilder
 			.create(new Identifier(MOD_ID, "generated"))
-			.icon(() -> new ItemStack(Blocks.ARCANE_WORKBENCH.block())).build();
+			.icon(() -> new ItemStack(Blocks.ARCANE_WORKBENCH)).build();
 
 
 

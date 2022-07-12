@@ -1,6 +1,7 @@
 package net.archasmiel.thaumcraft.item.basic;
 
-import net.archasmiel.thaumcraft.lib.generation.ItemDataGenerator;
+import net.archasmiel.thaumcraft.Thaumcraft;
+import net.archasmiel.thaumcraft.generation.ThaumcraftRegistry;
 import net.archasmiel.thaumcraft.register.Register;
 
 
@@ -21,7 +22,7 @@ public class BasicItem extends ThaumcraftItem {
 
     @Override
     public void model() {
-        ItemDataGenerator.simpleItemModel("generated", name(), name());
+        ThaumcraftRegistry.simpleItemModel(Thaumcraft.MOD_ID, "generated", name(), name());
     }
 
     @Override

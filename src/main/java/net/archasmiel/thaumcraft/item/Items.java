@@ -1,9 +1,9 @@
 package net.archasmiel.thaumcraft.item;
 
 import net.archasmiel.thaumcraft.Thaumcraft;
+import net.archasmiel.thaumcraft.generation.WandcraftGeneration;
 import net.archasmiel.thaumcraft.item.basic.BasicItem;
 import net.archasmiel.thaumcraft.item.basic.ShardItem;
-import net.archasmiel.thaumcraft.item.basic.ThaumcraftItem;
 import net.archasmiel.thaumcraft.item.basic.ThaumonomiconItem;
 import net.archasmiel.thaumcraft.item.tool.*;
 import net.archasmiel.thaumcraft.item.wandcraft.variants.Scepter;
@@ -13,6 +13,17 @@ import net.archasmiel.thaumcraft.materials.CapMaterials;
 import net.archasmiel.thaumcraft.materials.RodMaterials;
 import net.archasmiel.thaumcraft.materials.ToolMaterials;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.collection.DefaultedList;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static net.archasmiel.thaumcraft.Thaumcraft.MOD_GROUP_GENERATED;
+import static net.archasmiel.thaumcraft.Thaumcraft.primaryAspects;
 
 
 public class Items {
@@ -26,104 +37,109 @@ public class Items {
 
 
     // books
-    public static ThaumcraftItem THAUMONOMICON;
-    public static ThaumcraftItem THAUMONOMICON_CHEAT;
-    public static ThaumcraftItem CRIMSON_RITES;
+    public static Item THAUMONOMICON;
+    public static Item THAUMONOMICON_CHEAT;
+    public static Item CRIMSON_RITES;
 
 
 
     // caps
-    public static ThaumcraftItem CAP_COPPER;
-    public static ThaumcraftItem CAP_SILVER_INERT;
-    public static ThaumcraftItem CAP_SILVER;
-    public static ThaumcraftItem CAP_IRON;
-    public static ThaumcraftItem CAP_GOLD;
-    public static ThaumcraftItem CAP_THAUMIUM_INERT;
-    public static ThaumcraftItem CAP_THAUMIUM;
-    public static ThaumcraftItem CAP_VOID_INERT;
-    public static ThaumcraftItem CAP_VOID;
+    public static Item CAP_COPPER;
+    public static Item CAP_SILVER_INERT;
+    public static Item CAP_SILVER;
+    public static Item CAP_IRON;
+    public static Item CAP_GOLD;
+    public static Item CAP_THAUMIUM_INERT;
+    public static Item CAP_THAUMIUM;
+    public static Item CAP_VOID_INERT;
+    public static Item CAP_VOID;
 
 
     
     // rods
-    public static ThaumcraftItem STAFF_ROD_BLAZE;
-    public static ThaumcraftItem STAFF_ROD_BONE;
-    public static ThaumcraftItem STAFF_ROD_GREATWOOD;
-    public static ThaumcraftItem STAFF_ROD_ICE;
-    public static ThaumcraftItem STAFF_ROD_OBSIDIAN;
-    public static ThaumcraftItem STAFF_ROD_QUARTZ;
-    public static ThaumcraftItem STAFF_ROD_REED;
-    public static ThaumcraftItem STAFF_ROD_SILVERWOOD;
-    public static ThaumcraftItem STAFF_ROD_PRIMAL;
+    public static Item STAFF_ROD_BLAZE;
+    public static Item STAFF_ROD_BONE;
+    public static Item STAFF_ROD_GREATWOOD;
+    public static Item STAFF_ROD_ICE;
+    public static Item STAFF_ROD_OBSIDIAN;
+    public static Item STAFF_ROD_QUARTZ;
+    public static Item STAFF_ROD_REED;
+    public static Item STAFF_ROD_SILVERWOOD;
+    public static Item STAFF_ROD_PRIMAL;
 
-    public static ThaumcraftItem WAND_ROD_BLAZE;
-    public static ThaumcraftItem WAND_ROD_BONE;
-    public static ThaumcraftItem WAND_ROD_GREATWOOD;
-    public static ThaumcraftItem WAND_ROD_ICE;
-    public static ThaumcraftItem WAND_ROD_OBSIDIAN;
-    public static ThaumcraftItem WAND_ROD_QUARTZ;
-    public static ThaumcraftItem WAND_ROD_REED;
-    public static ThaumcraftItem WAND_ROD_SILVERWOOD;
+    public static Item WAND_ROD_BLAZE;
+    public static Item WAND_ROD_BONE;
+    public static Item WAND_ROD_GREATWOOD;
+    public static Item WAND_ROD_ICE;
+    public static Item WAND_ROD_OBSIDIAN;
+    public static Item WAND_ROD_QUARTZ;
+    public static Item WAND_ROD_REED;
+    public static Item WAND_ROD_SILVERWOOD;
 
     
     
     // materials
-    public static ThaumcraftItem NITOR;
-    public static ThaumcraftItem ALUMENTUM;
-    public static ThaumcraftItem TALLOW;
-    public static ThaumcraftItem FILTER;
+    public static Item NITOR;
+    public static Item ALUMENTUM;
+    public static Item TALLOW;
+    public static Item FILTER;
 
-    public static ThaumcraftItem PRIMAL_CHARM;
-    public static ThaumcraftItem SALIS_MUNDUS;
+    public static Item PRIMAL_CHARM;
+    public static Item SALIS_MUNDUS;
     
-    public static ThaumcraftItem CLOTH;
-    public static ThaumcraftItem KNOWLEDGE_FRAGMENT;
-    public static ThaumcraftItem MIRROR_GLASS;
+    public static Item CLOTH;
+    public static Item KNOWLEDGE_FRAGMENT;
+    public static Item MIRROR_GLASS;
     
-    public static ThaumcraftItem TAINT_SLIME;
-    public static ThaumcraftItem TAINT_TENDRIL;
+    public static Item TAINT_SLIME;
+    public static Item TAINT_TENDRIL;
     
-    public static ThaumcraftItem AIR_SHARD;
-    public static ThaumcraftItem FIRE_SHARD;
-    public static ThaumcraftItem WATER_SHARD;
-    public static ThaumcraftItem EARTH_SHARD;
-    public static ThaumcraftItem ORDER_SHARD;
-    public static ThaumcraftItem ENTROPY_SHARD;
-    public static ThaumcraftItem BALANCED_SHARD;
+    public static Item AIR_SHARD;
+    public static Item FIRE_SHARD;
+    public static Item WATER_SHARD;
+    public static Item EARTH_SHARD;
+    public static Item ORDER_SHARD;
+    public static Item ENTROPY_SHARD;
+    public static Item BALANCED_SHARD;
     
-    public static ThaumcraftItem AMBER;
-    public static ThaumcraftItem VOID_SEED;
-    public static ThaumcraftItem THAUMIUM_INGOT;
-    public static ThaumcraftItem THAUMIUM_NUGGET;
-    public static ThaumcraftItem VOID_METAL_INGOT;
-    public static ThaumcraftItem VOID_METAL_NUGGET;
-    public static ThaumcraftItem QUICKSILVER;
-    public static ThaumcraftItem QUICKSILVER_DROP;
+    public static Item AMBER;
+    public static Item VOID_SEED;
+    public static Item THAUMIUM_INGOT;
+    public static Item THAUMIUM_NUGGET;
+    public static Item VOID_METAL_INGOT;
+    public static Item VOID_METAL_NUGGET;
+    public static Item QUICKSILVER;
+    public static Item QUICKSILVER_DROP;
 
     
     
     // miscellaneous
-    public static ThaumcraftItem INKWELL;
-    public static ThaumcraftItem LABEL;
-    public static ThaumcraftItem BOTTLE_TAINT;
-    public static ThaumcraftItem COIN;
+    public static Item INKWELL;
+    public static Item LABEL;
+    public static Item BOTTLE_TAINT;
+    public static Item COIN;
 
 
 
     // tools
-    public static ThaumcraftSwordItem THAUMIUM_SWORD;
-    public static ThaumcraftPickaxeItem THAUMIUM_PICKAXE;
-    public static ThaumcraftAxeItem THAUMIUM_AXE;
-    public static ThaumcraftShovelItem THAUMIUM_SHOVEL;
-    public static ThaumcraftHoeItem THAUMIUM_HOE;
+    public static Item THAUMIUM_SWORD;
+    public static Item THAUMIUM_PICKAXE;
+    public static Item THAUMIUM_AXE;
+    public static Item THAUMIUM_SHOVEL;
+    public static Item THAUMIUM_HOE;
 
-    public static ThaumcraftSwordItem VOIDMETAL_SWORD;
-    public static ThaumcraftPickaxeItem VOIDMETAL_PICKAXE;
-    public static ThaumcraftAxeItem VOIDMETAL_AXE;
-    public static ThaumcraftShovelItem VOIDMETAL_SHOVEL;
-    public static ThaumcraftHoeItem VOIDMETAL_HOE;
+    public static Item VOIDMETAL_SWORD;
+    public static Item VOIDMETAL_PICKAXE;
+    public static Item VOIDMETAL_AXE;
+    public static Item VOIDMETAL_SHOVEL;
+    public static Item VOIDMETAL_HOE;
 
 
+
+    // wandcraft
+    public static Map<String, Item> WANDS = new HashMap<>();
+    public static Map<String, Item> SCEPTERS = new HashMap<>();
+    public static Map<String, Item> STAFFS = new HashMap<>();
 
 
 
@@ -131,128 +147,180 @@ public class Items {
 
 
     public static void loadBooks() {
-        THAUMONOMICON = new ThaumonomiconItem(ONE_ITEM_SETTINGS, "thaumonomicon");
-        THAUMONOMICON_CHEAT = new BasicItem(ONE_ITEM_SETTINGS, "thaumonomicon_cheat");
-        CRIMSON_RITES = new BasicItem(ONE_ITEM_SETTINGS, "crimson_rites");
+        THAUMONOMICON = new ThaumonomiconItem(ONE_ITEM_SETTINGS, "thaumonomicon").item();
+        THAUMONOMICON_CHEAT = new BasicItem(ONE_ITEM_SETTINGS, "thaumonomicon_cheat").item();
+        CRIMSON_RITES = new BasicItem(ONE_ITEM_SETTINGS, "crimson_rites").item();
     }
 
     public static void loadMaterials() {
-        NITOR = new BasicItem(STANDARD_SETTINGS, "nitor");
-        ALUMENTUM = new BasicItem(STANDARD_SETTINGS, "alumentum");
-        TALLOW = new BasicItem(STANDARD_SETTINGS, "tallow");
-        FILTER = new BasicItem(STANDARD_SETTINGS, "filter");
+        NITOR = new BasicItem(STANDARD_SETTINGS, "nitor").item();
+        ALUMENTUM = new BasicItem(STANDARD_SETTINGS, "alumentum").item();
+        TALLOW = new BasicItem(STANDARD_SETTINGS, "tallow").item();
+        FILTER = new BasicItem(STANDARD_SETTINGS, "filter").item();
 
 
-        PRIMAL_CHARM = new BasicItem(ONE_ITEM_SETTINGS, "primal_charm");
-        SALIS_MUNDUS = new BasicItem(STANDARD_SETTINGS, "salis_mundus");
+        PRIMAL_CHARM = new BasicItem(ONE_ITEM_SETTINGS, "primal_charm").item();
+        SALIS_MUNDUS = new BasicItem(STANDARD_SETTINGS, "salis_mundus").item();
 
 
-        CLOTH = new BasicItem(STANDARD_SETTINGS, "cloth");
-        KNOWLEDGE_FRAGMENT = new BasicItem(STANDARD_SETTINGS, "knowledge_fragment");
-        MIRROR_GLASS = new BasicItem(STANDARD_SETTINGS, "mirror_glass");
+        CLOTH = new BasicItem(STANDARD_SETTINGS, "cloth").item();
+        KNOWLEDGE_FRAGMENT = new BasicItem(STANDARD_SETTINGS, "knowledge_fragment").item();
+        MIRROR_GLASS = new BasicItem(STANDARD_SETTINGS, "mirror_glass").item();
 
 
-        TAINT_SLIME = new BasicItem(STANDARD_SETTINGS, "taint_slime");
-        TAINT_TENDRIL = new BasicItem(STANDARD_SETTINGS, "taint_tendril");
+        TAINT_SLIME = new BasicItem(STANDARD_SETTINGS, "taint_slime").item();
+        TAINT_TENDRIL = new BasicItem(STANDARD_SETTINGS, "taint_tendril").item();
 
 
-        AIR_SHARD = new ShardItem(STANDARD_SETTINGS, "shard_air", 0xffff7e);
-        FIRE_SHARD = new ShardItem(STANDARD_SETTINGS, "shard_fire", 0xff3c01);
-        WATER_SHARD = new ShardItem(STANDARD_SETTINGS, "shard_water", 0x0090ff);
-        EARTH_SHARD = new ShardItem(STANDARD_SETTINGS, "shard_earth", 0x00a000);
-        ORDER_SHARD = new ShardItem(STANDARD_SETTINGS, "shard_order", 0xeeccff);
-        ENTROPY_SHARD = new ShardItem(STANDARD_SETTINGS, "shard_entropy", 0x555577);
-        BALANCED_SHARD = new BasicItem(STANDARD_SETTINGS, "shard_balanced");
+        AIR_SHARD = new ShardItem(STANDARD_SETTINGS, "shard_air", 0xffff7e).item();
+        FIRE_SHARD = new ShardItem(STANDARD_SETTINGS, "shard_fire", 0xff3c01).item();
+        WATER_SHARD = new ShardItem(STANDARD_SETTINGS, "shard_water", 0x0090ff).item();
+        EARTH_SHARD = new ShardItem(STANDARD_SETTINGS, "shard_earth", 0x00a000).item();
+        ORDER_SHARD = new ShardItem(STANDARD_SETTINGS, "shard_order", 0xeeccff).item();
+        ENTROPY_SHARD = new ShardItem(STANDARD_SETTINGS, "shard_entropy", 0x555577).item();
+        BALANCED_SHARD = new BasicItem(STANDARD_SETTINGS, "shard_balanced").item();
 
 
-        AMBER = new BasicItem(STANDARD_SETTINGS, "amber");
-        VOID_SEED = new BasicItem(STANDARD_SETTINGS, "void_seed");
+        AMBER = new BasicItem(STANDARD_SETTINGS, "amber").item();
+        VOID_SEED = new BasicItem(STANDARD_SETTINGS, "void_seed").item();
 
-        THAUMIUM_INGOT = new BasicItem(STANDARD_SETTINGS, "ingot_thaumium");
-        THAUMIUM_NUGGET = new BasicItem(STANDARD_SETTINGS, "nugget_thaumium");
-        VOID_METAL_INGOT = new BasicItem(STANDARD_SETTINGS, "ingot_void_metal");
-        VOID_METAL_NUGGET = new BasicItem(STANDARD_SETTINGS, "nugget_void_metal");
-        QUICKSILVER = new BasicItem(STANDARD_SETTINGS, "ingot_quicksilver");
-        QUICKSILVER_DROP = new BasicItem(STANDARD_SETTINGS, "nugget_quicksilver");
+        THAUMIUM_INGOT = new BasicItem(STANDARD_SETTINGS, "ingot_thaumium").item();
+        THAUMIUM_NUGGET = new BasicItem(STANDARD_SETTINGS, "nugget_thaumium").item();
+        VOID_METAL_INGOT = new BasicItem(STANDARD_SETTINGS, "ingot_void_metal").item();
+        VOID_METAL_NUGGET = new BasicItem(STANDARD_SETTINGS, "nugget_void_metal").item();
+        QUICKSILVER = new BasicItem(STANDARD_SETTINGS, "ingot_quicksilver").item();
+        QUICKSILVER_DROP = new BasicItem(STANDARD_SETTINGS, "nugget_quicksilver").item();
     }
 
     public static void loadMiscellaneous() {
-        INKWELL = new BasicItem(ONE_ITEM_SETTINGS, "inkwell");
-        LABEL = new BasicItem(STANDARD_SETTINGS, "label");
-        BOTTLE_TAINT = new BasicItem(STANDARD_SETTINGS, "bottle_taint");
-        COIN = new BasicItem(STANDARD_SETTINGS, "coin");
+        INKWELL = new BasicItem(ONE_ITEM_SETTINGS, "inkwell").item();
+        LABEL = new BasicItem(STANDARD_SETTINGS, "label").item();
+        BOTTLE_TAINT = new BasicItem(STANDARD_SETTINGS, "bottle_taint").item();
+        COIN = new BasicItem(STANDARD_SETTINGS, "coin").item();
     }
 
     public static void loadCaps() {
-        CAP_COPPER = new BasicItem(STANDARD_SETTINGS, "cap_copper");
-        CAP_SILVER_INERT = new BasicItem(STANDARD_SETTINGS, "cap_silver_inert");
-        CAP_SILVER = new BasicItem(STANDARD_SETTINGS, "cap_silver");
-        CAP_IRON = new BasicItem(STANDARD_SETTINGS, "cap_iron");
-        CAP_GOLD = new BasicItem(STANDARD_SETTINGS, "cap_gold");
-        CAP_THAUMIUM_INERT = new BasicItem(STANDARD_SETTINGS, "cap_thaumium_inert");
-        CAP_THAUMIUM = new BasicItem(STANDARD_SETTINGS, "cap_thaumium");
-        CAP_VOID_INERT = new BasicItem(STANDARD_SETTINGS, "cap_void_inert");
-        CAP_VOID = new BasicItem(STANDARD_SETTINGS, "cap_void");
+        CAP_COPPER = new BasicItem(STANDARD_SETTINGS, "cap_copper").item();
+        CAP_SILVER_INERT = new BasicItem(STANDARD_SETTINGS, "cap_silver_inert").item();
+        CAP_SILVER = new BasicItem(STANDARD_SETTINGS, "cap_silver").item();
+        CAP_IRON = new BasicItem(STANDARD_SETTINGS, "cap_iron").item();
+        CAP_GOLD = new BasicItem(STANDARD_SETTINGS, "cap_gold").item();
+        CAP_THAUMIUM_INERT = new BasicItem(STANDARD_SETTINGS, "cap_thaumium_inert").item();
+        CAP_THAUMIUM = new BasicItem(STANDARD_SETTINGS, "cap_thaumium").item();
+        CAP_VOID_INERT = new BasicItem(STANDARD_SETTINGS, "cap_void_inert").item();
+        CAP_VOID = new BasicItem(STANDARD_SETTINGS, "cap_void").item();
     }
 
     public static void loadRods() {
-        WAND_ROD_GREATWOOD = new BasicItem(STANDARD_SETTINGS, "wand_rod_greatwood");
-        WAND_ROD_SILVERWOOD = new BasicItem(STANDARD_SETTINGS, "wand_rod_silverwood");
-        WAND_ROD_REED = new BasicItem(STANDARD_SETTINGS, "wand_rod_reed");
-        WAND_ROD_BLAZE = new BasicItem(STANDARD_SETTINGS, "wand_rod_blaze");
-        WAND_ROD_ICE = new BasicItem(STANDARD_SETTINGS, "wand_rod_ice");
-        WAND_ROD_OBSIDIAN = new BasicItem(STANDARD_SETTINGS, "wand_rod_obsidian");
-        WAND_ROD_QUARTZ = new BasicItem(STANDARD_SETTINGS, "wand_rod_quartz");
-        WAND_ROD_BONE = new BasicItem(STANDARD_SETTINGS, "wand_rod_bone");
+        WAND_ROD_GREATWOOD = new BasicItem(STANDARD_SETTINGS, "wand_rod_greatwood").item();
+        WAND_ROD_SILVERWOOD = new BasicItem(STANDARD_SETTINGS, "wand_rod_silverwood").item();
+        WAND_ROD_REED = new BasicItem(STANDARD_SETTINGS, "wand_rod_reed").item();
+        WAND_ROD_BLAZE = new BasicItem(STANDARD_SETTINGS, "wand_rod_blaze").item();
+        WAND_ROD_ICE = new BasicItem(STANDARD_SETTINGS, "wand_rod_ice").item();
+        WAND_ROD_OBSIDIAN = new BasicItem(STANDARD_SETTINGS, "wand_rod_obsidian").item();
+        WAND_ROD_QUARTZ = new BasicItem(STANDARD_SETTINGS, "wand_rod_quartz").item();
+        WAND_ROD_BONE = new BasicItem(STANDARD_SETTINGS, "wand_rod_bone").item();
 
-        STAFF_ROD_GREATWOOD = new BasicItem(STANDARD_SETTINGS, "staff_rod_greatwood");
-        STAFF_ROD_SILVERWOOD = new BasicItem(STANDARD_SETTINGS, "staff_rod_silverwood");
-        STAFF_ROD_REED = new BasicItem(STANDARD_SETTINGS, "staff_rod_reed");
-        STAFF_ROD_BLAZE = new BasicItem(STANDARD_SETTINGS, "staff_rod_blaze");
-        STAFF_ROD_ICE = new BasicItem(STANDARD_SETTINGS, "staff_rod_ice");
-        STAFF_ROD_OBSIDIAN = new BasicItem(STANDARD_SETTINGS, "staff_rod_obsidian");
-        STAFF_ROD_QUARTZ = new BasicItem(STANDARD_SETTINGS, "staff_rod_quartz");
-        STAFF_ROD_BONE = new BasicItem(STANDARD_SETTINGS, "staff_rod_bone");
-        STAFF_ROD_PRIMAL = new BasicItem(STANDARD_SETTINGS, "staff_rod_primal");
+        STAFF_ROD_GREATWOOD = new BasicItem(STANDARD_SETTINGS, "staff_rod_greatwood").item();
+        STAFF_ROD_SILVERWOOD = new BasicItem(STANDARD_SETTINGS, "staff_rod_silverwood").item();
+        STAFF_ROD_REED = new BasicItem(STANDARD_SETTINGS, "staff_rod_reed").item();
+        STAFF_ROD_BLAZE = new BasicItem(STANDARD_SETTINGS, "staff_rod_blaze").item();
+        STAFF_ROD_ICE = new BasicItem(STANDARD_SETTINGS, "staff_rod_ice").item();
+        STAFF_ROD_OBSIDIAN = new BasicItem(STANDARD_SETTINGS, "staff_rod_obsidian").item();
+        STAFF_ROD_QUARTZ = new BasicItem(STANDARD_SETTINGS, "staff_rod_quartz").item();
+        STAFF_ROD_BONE = new BasicItem(STANDARD_SETTINGS, "staff_rod_bone").item();
+        STAFF_ROD_PRIMAL = new BasicItem(STANDARD_SETTINGS, "staff_rod_primal").item();
     }
 
     public static void loadTools() {
-        THAUMIUM_SWORD = new ThaumcraftSwordItem(ToolMaterials.THAUMIUMIUM, 3, -2.4F, ONE_ITEM_SETTINGS, "thaumium_sword");
-        THAUMIUM_PICKAXE = new ThaumcraftPickaxeItem(ToolMaterials.THAUMIUMIUM, 1, -2.8F, ONE_ITEM_SETTINGS, "thaumium_pickaxe");
-        THAUMIUM_AXE = new ThaumcraftAxeItem(ToolMaterials.THAUMIUMIUM, 5.0F, -3.0F, ONE_ITEM_SETTINGS, "thaumium_axe");
-        THAUMIUM_SHOVEL = new ThaumcraftShovelItem(ToolMaterials.THAUMIUMIUM, 1.5F, -3.0F, ONE_ITEM_SETTINGS, "thaumium_shovel");
-        THAUMIUM_HOE = new ThaumcraftHoeItem(ToolMaterials.THAUMIUMIUM, -3, 0.0F, ONE_ITEM_SETTINGS, "thaumium_hoe");
+        THAUMIUM_SWORD = new ThaumcraftSwordItem(ToolMaterials.THAUMIUM, 3, -2.4F, ONE_ITEM_SETTINGS, "thaumium_sword").item();
+        THAUMIUM_PICKAXE = new ThaumcraftPickaxeItem(ToolMaterials.THAUMIUM, 1, -2.8F, ONE_ITEM_SETTINGS, "thaumium_pickaxe").item();
+        THAUMIUM_AXE = new ThaumcraftAxeItem(ToolMaterials.THAUMIUM, 5.0F, -3.0F, ONE_ITEM_SETTINGS, "thaumium_axe").item();
+        THAUMIUM_SHOVEL = new ThaumcraftShovelItem(ToolMaterials.THAUMIUM, 1.5F, -3.0F, ONE_ITEM_SETTINGS, "thaumium_shovel").item();
+        THAUMIUM_HOE = new ThaumcraftHoeItem(ToolMaterials.THAUMIUM, -3, 0.0F, ONE_ITEM_SETTINGS, "thaumium_hoe").item();
 
-        VOIDMETAL_SWORD = new ThaumcraftSwordItem(ToolMaterials.VOID, 3, -2.4F, ONE_ITEM_SETTINGS, "voidmetal_sword");
-        VOIDMETAL_PICKAXE = new ThaumcraftPickaxeItem(ToolMaterials.VOID, 1, -2.8F, ONE_ITEM_SETTINGS, "voidmetal_pickaxe");
-        VOIDMETAL_AXE = new ThaumcraftAxeItem(ToolMaterials.VOID, 5.0F, -3.0F, ONE_ITEM_SETTINGS, "voidmetal_axe");
-        VOIDMETAL_SHOVEL = new ThaumcraftShovelItem(ToolMaterials.VOID, 1.5F, -3.0F, ONE_ITEM_SETTINGS, "voidmetal_shovel");
-        VOIDMETAL_HOE = new ThaumcraftHoeItem(ToolMaterials.VOID, -3, 0.0F, ONE_ITEM_SETTINGS, "voidmetal_hoe");
+        VOIDMETAL_SWORD = new ThaumcraftSwordItem(ToolMaterials.VOID, 3, -2.4F, ONE_ITEM_SETTINGS, "voidmetal_sword").item();
+        VOIDMETAL_PICKAXE = new ThaumcraftPickaxeItem(ToolMaterials.VOID, 1, -2.8F, ONE_ITEM_SETTINGS, "voidmetal_pickaxe").item();
+        VOIDMETAL_AXE = new ThaumcraftAxeItem(ToolMaterials.VOID, 5.0F, -3.0F, ONE_ITEM_SETTINGS, "voidmetal_axe").item();
+        VOIDMETAL_SHOVEL = new ThaumcraftShovelItem(ToolMaterials.VOID, 1.5F, -3.0F, ONE_ITEM_SETTINGS, "voidmetal_shovel").item();
+        VOIDMETAL_HOE = new ThaumcraftHoeItem(ToolMaterials.VOID, -3, 0.0F, ONE_ITEM_SETTINGS, "voidmetal_hoe").item();
     }
 
-    public static void loadFullWands() {
-
-        // generates full capacity wands via appendStacksMethod
+    public static void loadWands() {
+        // generates full capacity wandcraft items via appendStacksMethod in second tab
         // also registers wands in system
+        // registered items put in Map
+
+
         for (RodMaterials rod: RodMaterials.values()){
+            // there is no primal wand rod
             if (!rod.isPrimal())
             for (CapMaterials cap: CapMaterials.values()){
-                new Wand(NOTAB_ONE_ITEM_SETTINGS, rod, cap);
+                Wand wand = new Wand(NOTAB_ONE_ITEM_SETTINGS, rod, cap) {
+                    @Override
+                    public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
+                        if (group == MOD_GROUP_GENERATED) {
+                            ItemStack staff = new ItemStack(this, 1);
+                            NbtCompound nbt = staff.getNbt() != null ? staff.getNbt() : new NbtCompound();
+                            for (String i: primaryAspects) {
+                                nbt.putFloat(i, this.getCapacity());
+                            }
+                            staff.setNbt(nbt);
+                            stacks.add(staff);
+                        }
+                    }
+                };
+
+                WANDS.put(wand.name(), wand.item());
+                WandcraftGeneration.generateWandData(wand);
             }
         }
 
         for (RodMaterials rod: RodMaterials.values()){
+            // there is no primal wand rod
             if (!rod.isPrimal())
             for (CapMaterials cap: CapMaterials.values()){
-                new Scepter(NOTAB_ONE_ITEM_SETTINGS, rod, cap);
+                Scepter scepter = new Scepter(NOTAB_ONE_ITEM_SETTINGS, rod, cap) {
+                    @Override
+                    public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
+                        if (group == MOD_GROUP_GENERATED) {
+                            ItemStack staff = new ItemStack(this, 1);
+                            NbtCompound nbt = staff.getNbt() != null ? staff.getNbt() : new NbtCompound();
+                            for (String i: primaryAspects) {
+                                nbt.putFloat(i, this.getCapacity());
+                            }
+                            staff.setNbt(nbt);
+                            stacks.add(staff);
+                        }
+                    }
+                };
+
+                SCEPTERS.put(scepter.name(), scepter.item());
+                WandcraftGeneration.generateScepterData(scepter);
             }
         }
 
         for (RodMaterials rod: RodMaterials.values()){
-            // there is no wooden staff core
+            // there is no wood staff core
             if (!rod.isStick())
             for (CapMaterials cap: CapMaterials.values()){
-                new Staff(NOTAB_ONE_ITEM_SETTINGS, rod, cap);
+                Staff staff = new Staff(NOTAB_ONE_ITEM_SETTINGS, rod, cap){
+                    @Override
+                    public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
+                        if (group == MOD_GROUP_GENERATED) {
+                            ItemStack staff = new ItemStack(this, 1);
+                            NbtCompound nbt = staff.getNbt() != null ? staff.getNbt() : new NbtCompound();
+                            for (String i: primaryAspects) {
+                                nbt.putFloat(i, this.getCapacity());
+                            }
+                            staff.setNbt(nbt);
+                            stacks.add(staff);
+                        }
+                    }
+                };
+
+                STAFFS.put(staff.name(), staff.item());
+                WandcraftGeneration.generateStaffData(staff);
             }
         }
     }
@@ -273,7 +341,7 @@ public class Items {
         loadRods();
 
         loadTools();
-        loadFullWands();
+        loadWands();
 
         Thaumcraft.LOGGER.info("Loaded items");
     }

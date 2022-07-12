@@ -1,7 +1,8 @@
 package net.archasmiel.thaumcraft.item.tool;
 
+import net.archasmiel.thaumcraft.Thaumcraft;
+import net.archasmiel.thaumcraft.generation.ThaumcraftRegistry;
 import net.archasmiel.thaumcraft.item.tool.abilities.Repairable;
-import net.archasmiel.thaumcraft.lib.generation.ItemDataGenerator;
 import net.archasmiel.thaumcraft.register.Register;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -48,7 +49,7 @@ public class ThaumcraftPickaxeItem extends PickaxeItem {
 
 
     public void model() {
-        ItemDataGenerator.simpleItemModel("handheld", name, name);
+        ThaumcraftRegistry.simpleItemModel(Thaumcraft.MOD_ID, "handheld", name, name);
     }
     public void register() {
         setItem(Register.registerItem(name(), this));

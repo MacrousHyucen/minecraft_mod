@@ -147,10 +147,11 @@ public abstract class WandAbstract extends ThaumcraftItem {
                 if (usingItem instanceof WandAbstract){
                     BlockState state = context.getWorld().getBlockState(context.getBlockPos());
 
+                    // changing table to arcane workbench
                     if (state.getBlock() instanceof Table) {
                         context.getWorld().setBlockState(
                             context.getBlockPos(),
-                            Blocks.ARCANE_WORKBENCH.block().getPlacementState(new ItemPlacementContext(context))
+                            Blocks.ARCANE_WORKBENCH.getPlacementState(new ItemPlacementContext(context))
                         );
 
                         context.getWorld().playSound(
@@ -177,6 +178,7 @@ public abstract class WandAbstract extends ThaumcraftItem {
                         }
                     }
 
+                    // puts wand to arcane workbench
                     if (state.getBlock() instanceof ArcaneWorkbench) {
                         if (usingItem instanceof VisCraft && Screen.hasShiftDown()) {
                             BlockEntity entity = context.getWorld().getBlockEntity(context.getBlockPos());
@@ -234,7 +236,8 @@ public abstract class WandAbstract extends ThaumcraftItem {
             // only capacity tooltip
             tooltip.add(
                     new LiteralText("")
-                            .append(new TranslatableText("gui.thaumcraft.wand_capacity").append(this.getCapacity() + " ").formatted(GOLD))
+                    .append(new TranslatableText("gui.thaumcraft.wand_capacity")
+                    .append(this.getCapacity() + " ").formatted(GOLD))
             );
 
             // all aspects information (6 lines)

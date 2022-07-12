@@ -1,8 +1,9 @@
 package net.archasmiel.thaumcraft.item.basic;
 
 import io.github.cottonmc.cotton.gui.client.CottonClientScreen;
-import net.archasmiel.thaumcraft.gui.thaumonomicon.ThaumonomiconGui;
-import net.archasmiel.thaumcraft.lib.generation.ItemDataGenerator;
+import net.archasmiel.thaumcraft.Thaumcraft;
+import net.archasmiel.thaumcraft.generation.ThaumcraftRegistry;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.ThaumonomiconGui;
 import net.archasmiel.thaumcraft.register.Register;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -31,7 +32,7 @@ public class ThaumonomiconItem extends ThaumcraftItem {
 
     @Override
     public void model() {
-        ItemDataGenerator.simpleItemModel("generated", name(), name());
+        ThaumcraftRegistry.simpleItemModel(Thaumcraft.MOD_ID, "generated", name(), name());
     }
 
     @Override

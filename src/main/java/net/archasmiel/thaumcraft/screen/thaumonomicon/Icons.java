@@ -1,4 +1,4 @@
-package net.archasmiel.thaumcraft.gui.thaumonomicon;
+package net.archasmiel.thaumcraft.screen.thaumonomicon;
 
 import io.github.cottonmc.cotton.gui.widget.data.Texture;
 import net.archasmiel.thaumcraft.Thaumcraft;

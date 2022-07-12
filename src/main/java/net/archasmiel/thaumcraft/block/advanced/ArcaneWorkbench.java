@@ -1,10 +1,10 @@
 package net.archasmiel.thaumcraft.block.advanced;
 
+import net.archasmiel.thaumcraft.Thaumcraft;
 import net.archasmiel.thaumcraft.block.ThaumcraftBlockWithEntity;
 import net.archasmiel.thaumcraft.blockentity.ArcaneWorkbenchBlockEntity;
+import net.archasmiel.thaumcraft.generation.ThaumcraftRegistry;
 import net.archasmiel.thaumcraft.item.wandcraft.abilities.VisCraft;
-import net.archasmiel.thaumcraft.lib.generation.BlockDataGenerator;
-import net.archasmiel.thaumcraft.lib.generation.ItemDataGenerator;
 import net.archasmiel.thaumcraft.register.Register;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -13,7 +13,9 @@ import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
@@ -74,9 +76,9 @@ public class ArcaneWorkbench extends ThaumcraftBlockWithEntity {
 
     /*  LOADING  */
     public void model() {
-        ItemDataGenerator.simpleItemBlockModel(name());
-        BlockDataGenerator.simpleRotatableBlockState(name());
-        BlockDataGenerator.simpleBlockLootTable(name());
+        ThaumcraftRegistry.simpleBlockItemModel(Thaumcraft.MOD_ID, name());
+        ThaumcraftRegistry.horizontalRotatableBlockState(Thaumcraft.MOD_ID, name());
+        ThaumcraftRegistry.simpleBlockLootTable(Thaumcraft.MOD_ID, name());
     }
 
     public void register() {
@@ -132,36 +134,29 @@ public class ArcaneWorkbench extends ThaumcraftBlockWithEntity {
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 
-        // get wand from workbench by shifting+rmb on it
+
         if (Screen.hasShiftDown()) {
+            // pull wand from workbench by shifting+rmb on it
             if (world.getBlockEntity(pos) instanceof ArcaneWorkbenchBlockEntity entity && hand == Hand.MAIN_HAND) {
-                if (!entity.getStack(10).isEmpty()) {
-                    if (entity.getStack(10).getItem() instanceof VisCraft){
-                        if (player.getStackInHand(Hand.MAIN_HAND) == ItemStack.EMPTY) {
 
-                            BlockState aState = entity.getWorld().getBlockState(entity.getPos());
+                PlayerInventory inventory = player.getInventory();
 
-                            player.getInventory().setStack(player.getInventory().selectedSlot, entity.getStack(10));
-                            entity.setStack(10, ItemStack.EMPTY);
-                            entity.markDirty();
+                if (entity.getStack(10).getCount() > 0) {
+                    System.out.println("TRIED TO GET WAND");
+                    if (inventory.getStack(inventory.selectedSlot) != ItemStack.EMPTY) return ActionResult.SUCCESS;
+                    BlockState aState = world.getBlockState(pos);
 
-                            world.playSound(
-                                    null,
-                                    pos,
-                                    SoundEvents.BLOCK_BARREL_OPEN,
-                                    SoundCategory.BLOCKS,
-                                    0.5f,
-                                    2.0f
-                            );
+                    inventory.setStack(inventory.selectedSlot, entity.removeStack(10));
+                    entity.markDirty();
 
+                    world.playSound(null, pos, SoundEvents.BLOCK_BARREL_OPEN, SoundCategory.BLOCKS, 0.5f, 2.0f);
 
-                            BlockState bState = entity.getWorld().getBlockState(entity.getPos());
-                            entity.getWorld().updateListeners(entity.getPos(), aState, bState, Block.NOTIFY_ALL);
-
-                        }
-                    }
+                    BlockState bState = world.getBlockState(pos);
+                    world.updateListeners(pos, aState, bState, Block.NOTIFY_ALL);
                 }
+
             }
+
         } else {
             // arcane workbench GUI onUse
             if (!world.isClient) {

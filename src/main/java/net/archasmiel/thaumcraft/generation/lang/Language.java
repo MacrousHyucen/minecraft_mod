@@ -1,4 +1,4 @@
-package net.archasmiel.thaumcraft.lib.lang;
+package net.archasmiel.thaumcraft.generation.lang;
 
 import java.util.HashMap;
 

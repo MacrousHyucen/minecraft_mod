@@ -1,12 +1,12 @@
-package net.archasmiel.thaumcraft.gui.thaumonomicon;
+package net.archasmiel.thaumcraft.screen.thaumonomicon;
 
 import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static net.archasmiel.thaumcraft.gui.thaumonomicon.Icons.*;
-import static net.archasmiel.thaumcraft.gui.thaumonomicon.Icons.rt_basics;
+import static net.archasmiel.thaumcraft.screen.thaumonomicon.Icons.*;
+import static net.archasmiel.thaumcraft.screen.thaumonomicon.Icons.rt_basics;
 
 public class ThaumonomiconGui extends LightweightGuiDescription {
 

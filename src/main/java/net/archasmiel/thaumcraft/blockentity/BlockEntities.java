@@ -17,7 +17,7 @@ public class BlockEntities {
             new Identifier(Thaumcraft.MOD_ID, "arcane_workbench"),
             FabricBlockEntityTypeBuilder.create(
                 ArcaneWorkbenchBlockEntity::new,
-                Blocks.ARCANE_WORKBENCH.block()
+                Blocks.ARCANE_WORKBENCH
             ).build(null)
         );
     }

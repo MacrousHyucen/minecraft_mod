@@ -1,4 +1,4 @@
-package net.archasmiel.thaumcraft.gui.thaumonomicon;
+package net.archasmiel.thaumcraft.screen.thaumonomicon;
 
 import io.github.cottonmc.cotton.gui.client.BackgroundPainter;
 import io.github.cottonmc.cotton.gui.widget.WPanel;

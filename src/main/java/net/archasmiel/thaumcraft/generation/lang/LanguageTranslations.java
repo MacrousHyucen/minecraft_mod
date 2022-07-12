@@ -1,4 +1,4 @@
-package net.archasmiel.thaumcraft.lib.lang;
+package net.archasmiel.thaumcraft.generation.lang;
 
 
 import com.google.common.collect.ImmutableMap;

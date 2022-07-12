@@ -1,20 +1,10 @@
 package net.archasmiel.thaumcraft.item.wandcraft.variants;
 
-import net.archasmiel.thaumcraft.item.wandcraft.abilities.VisCraft;
 import net.archasmiel.thaumcraft.item.wandcraft.WandAbstract;
-import net.archasmiel.thaumcraft.lib.generation.WandcraftDataGenerator;
-import net.archasmiel.thaumcraft.lib.recipegen.WandcraftRecipeGenerator;
+import net.archasmiel.thaumcraft.item.wandcraft.abilities.VisCraft;
 import net.archasmiel.thaumcraft.materials.CapMaterials;
 import net.archasmiel.thaumcraft.materials.RodMaterials;
 import net.archasmiel.thaumcraft.register.Register;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
-
-import static net.archasmiel.thaumcraft.Thaumcraft.*;
-import static net.archasmiel.thaumcraft.Thaumcraft.RESOURCE_PACK;
 
 public class Scepter extends WandAbstract implements VisCraft{
 
@@ -33,34 +23,10 @@ public class Scepter extends WandAbstract implements VisCraft{
 
 
 
-    @Override
-    public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
-        if (group == MOD_GROUP_GENERATED) {
-            ItemStack scepter = new ItemStack(this, 1);
-            NbtCompound nbt = scepter.getNbt() != null ? scepter.getNbt() : new NbtCompound();
-            for (String i: primaryAspects) {
-                nbt.putFloat(i, this.getCapacity());
-            }
-            scepter.setNbt(nbt);
-            stacks.add(scepter);
-        }
-    }
-
 
 
     @Override
     public void model() {
-        // lang translation
-        WandcraftDataGenerator.wandcraftName(this);
-
-        // model
-        RESOURCE_PACK.addModel(
-                WandcraftDataGenerator.scepterModel(getRod().getRegistryName(), getCap().getRegistryName()),
-                new Identifier("thaumcraft:item/" + name())
-        );
-
-        // recipe
-        WandcraftRecipeGenerator.scepterRecipe(this);
     }
 
     @Override

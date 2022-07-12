@@ -1,8 +1,8 @@
 package net.archasmiel.thaumcraft.block.advanced;
 
+import net.archasmiel.thaumcraft.Thaumcraft;
 import net.archasmiel.thaumcraft.block.ThaumcraftBlock;
-import net.archasmiel.thaumcraft.lib.generation.BlockDataGenerator;
-import net.archasmiel.thaumcraft.lib.generation.ItemDataGenerator;
+import net.archasmiel.thaumcraft.generation.ThaumcraftRegistry;
 import net.archasmiel.thaumcraft.register.Register;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -63,9 +63,9 @@ public class Table extends ThaumcraftBlock {
 
     /*  LOADING  */
     public void model() {
-        ItemDataGenerator.simpleItemBlockModel(name());
-        BlockDataGenerator.simpleRotatableBlockState(name());
-        BlockDataGenerator.simpleBlockLootTable(name());
+        ThaumcraftRegistry.simpleBlockItemModel(Thaumcraft.MOD_ID, name());
+        ThaumcraftRegistry.horizontalRotatableBlockState(Thaumcraft.MOD_ID, name());
+        ThaumcraftRegistry.simpleBlockLootTable(Thaumcraft.MOD_ID, name());
     }
 
     public void register() {

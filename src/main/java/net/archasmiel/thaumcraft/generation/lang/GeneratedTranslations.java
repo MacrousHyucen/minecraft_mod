@@ -1,4 +1,4 @@
-package net.archasmiel.thaumcraft.lib.lang;
+package net.archasmiel.thaumcraft.generation.lang;
 
 import net.archasmiel.thaumcraft.Thaumcraft;
 import net.devtech.arrp.json.lang.JLang;
@@ -35,7 +35,7 @@ public class GeneratedTranslations {
 
     public void registerLanguage(String lang) {
         RESOURCE_PACK.addLang(new Identifier(modID, lang), translations.get(lang));
-        Thaumcraft.LOGGER.info("Registered lang data for " + lang);
+        Thaumcraft.LOGGER.info("Registered " + modID + " lang data for " + lang);
     }
 
 }

@@ -39,8 +39,8 @@
 - [x] *Working thaumium tool set*
 - [x] *Working void metal tool set (with self-repairing)*
 - [x] *English, Russian and Chinese translation files*
-- [x] *Basic autogenerating wand models, recipes and lang (4 wand items)*
-- [x] *Wand NBT data and tooltip*
+- [x] *Basic autogenerating of wand, staff and scepter - models, recipes and lang (full tab with items)*
+- [x] *Wand, staff and scepter NBT data and tooltip*
 
 
 
@@ -50,9 +50,8 @@
 
 
 ## ***WIP***
-- [ ] *Staff and scepter implementation like wand* **(Current Goal)**
-- [ ] *Deconstruction table GUI+storage* **(Next Goal)**
-- [ ] *Thaumonomicon GUI improvements (working tabs with moving icons, action on clicking, current page saving after closing)*
+- [ ] *Deconstruction table GUI+storage* **(Current Goal)**
+- [ ] *Thaumonomicon GUI improvements (working tabs with moving icons, action on clicking, current page saving after closing)* **(Next Goal)**
 
 
 

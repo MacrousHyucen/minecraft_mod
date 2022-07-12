@@ -45,8 +45,8 @@ public class WandcraftDataGenerator {
                 .element(
                         // top cap
                         new JElement()
-                                .from(6.5f, 14.0f, 6.5f)
-                                .to  (9.5f, 16.0f, 9.5f)
+                                .from(6.75f, 14.0f, 6.75f)
+                                .to  (9.25f, 16.0f, 9.25f)
                                 .faces(
                                         new JFaces()
                                                 .north( new JFace("1").uv(2.0f, 3.5f, 4.0f, 4.5f) )
@@ -73,8 +73,8 @@ public class WandcraftDataGenerator {
 
                         // bot cap
                         new JElement()
-                                .from(6.5f, 0.0f, 6.5f)
-                                .to  (9.5f, 2.0f, 9.5f)
+                                .from(6.75f, 0.0f, 6.75f)
+                                .to  (9.25f, 2.0f, 9.25f)
                                 .faces(
                                         new JFaces()
                                                 .north( new JFace("1").uv(0.0f, 1.0f, 2.0f, 2.0f) )
@@ -113,8 +113,8 @@ public class WandcraftDataGenerator {
                 .element(
                         // top cap
                         new JElement()
-                                .from(6.25f, 19.0f, 6.25f)
-                                .to  (9.75f, 22.0f, 9.75f)
+                                .from(6.5f, 19.0f, 6.5f)
+                                .to  (9.5f, 22.0f, 9.5f)
                                 .faces(
                                         new JFaces()
                                                 .north( new JFace("1").uv(2.0f, 3.5f, 4.0f, 4.5f) )
@@ -127,8 +127,8 @@ public class WandcraftDataGenerator {
 
                         // mid cap
                         new JElement()
-                                .from(6.5f, 14.0f, 6.5f)
-                                .to  (9.5f, 16.0f, 9.5f)
+                                .from(6.75f, 14.0f, 6.75f)
+                                .to  (9.25f, 16.0f, 9.25f)
                                 .faces(
                                         new JFaces()
                                                 .north( new JFace("1").uv(2.0f, 3.5f, 4.0f, 4.5f) )
@@ -155,8 +155,8 @@ public class WandcraftDataGenerator {
 
                         // bot cap
                         new JElement()
-                                .from(6.5f, 0.0f, 6.5f)
-                                .to  (9.5f, 2.0f, 9.5f)
+                                .from(6.75f, 0.0f, 6.75f)
+                                .to  (9.25f, 2.0f, 9.25f)
                                 .faces(
                                         new JFaces()
                                                 .north( new JFace("1").uv(0.0f, 1.0f, 2.0f, 2.0f) )
@@ -193,8 +193,8 @@ public class WandcraftDataGenerator {
                 .element(
                         // top cap
                         new JElement()
-                                .from(6.5f, 23.0f, 6.5f)
-                                .to  (9.5f, 25.0f, 9.5f)
+                                .from(6.75f, 23.0f, 6.75f)
+                                .to  (9.25f, 25.0f, 9.25f)
                                 .faces(
                                         new JFaces()
                                                 .north( new JFace("1").uv(2.0f, 3.5f, 4.0f, 4.5f) )
@@ -221,8 +221,8 @@ public class WandcraftDataGenerator {
 
                         // bot cap
                         new JElement()
-                                .from(6.5f, -9.0f, 6.5f)
-                                .to  (9.5f, -7.0f, 9.5f)
+                                .from(6.75f, -9.0f, 6.75f)
+                                .to  (9.25f, -7.0f, 9.25f)
                                 .faces(
                                         new JFaces()
                                                 .north( new JFace("1").uv(0.0f, 1.0f, 2.0f, 2.0f) )

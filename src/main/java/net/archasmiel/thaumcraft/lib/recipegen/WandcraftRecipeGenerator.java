@@ -63,7 +63,6 @@ public class WandcraftRecipeGenerator {
         if (item != null) {
             String rod = Thaumcraft.MOD_ID + ":staff_" + item.getRod().getRegistryName();
             String cap = Thaumcraft.MOD_ID + ":" + item.getCap().getRegistryName();
-            System.out.println(rod + " " + cap);
 
             // registering staff core recipe
             // primal staff core only crafted on infusion

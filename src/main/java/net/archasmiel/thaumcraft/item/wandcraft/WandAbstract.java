@@ -16,6 +16,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
@@ -149,7 +150,7 @@ public abstract class WandAbstract extends ThaumcraftItem {
                     if (state.getBlock() instanceof Table) {
                         context.getWorld().setBlockState(
                             context.getBlockPos(),
-                            Blocks.ARCANE_WORKBENCH.block().getDefaultState()
+                            Blocks.ARCANE_WORKBENCH.block().getPlacementState(new ItemPlacementContext(context))
                         );
 
                         context.getWorld().playSound(

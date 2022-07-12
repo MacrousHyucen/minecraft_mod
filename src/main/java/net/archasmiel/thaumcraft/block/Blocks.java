@@ -27,7 +27,7 @@ public class Blocks {
 
     public static void register() {
         loadBlocks();
-        Thaumcraft.LOGGER.info("Loading blocks");
+        Thaumcraft.LOGGER.info("Loaded blocks");
     }
 
 

@@ -134,8 +134,6 @@ public class Items {
         THAUMONOMICON = new ThaumonomiconItem(ONE_ITEM_SETTINGS, "thaumonomicon");
         THAUMONOMICON_CHEAT = new BasicItem(ONE_ITEM_SETTINGS, "thaumonomicon_cheat");
         CRIMSON_RITES = new BasicItem(ONE_ITEM_SETTINGS, "crimson_rites");
-
-        Thaumcraft.LOGGER.info("Loaded books");
     }
 
     public static void loadMaterials() {
@@ -176,8 +174,6 @@ public class Items {
         VOID_METAL_NUGGET = new BasicItem(STANDARD_SETTINGS, "nugget_void_metal");
         QUICKSILVER = new BasicItem(STANDARD_SETTINGS, "ingot_quicksilver");
         QUICKSILVER_DROP = new BasicItem(STANDARD_SETTINGS, "nugget_quicksilver");
-
-        Thaumcraft.LOGGER.info("Loaded materials");
     }
 
     public static void loadMiscellaneous() {
@@ -185,8 +181,6 @@ public class Items {
         LABEL = new BasicItem(STANDARD_SETTINGS, "label");
         BOTTLE_TAINT = new BasicItem(STANDARD_SETTINGS, "bottle_taint");
         COIN = new BasicItem(STANDARD_SETTINGS, "coin");
-
-        Thaumcraft.LOGGER.info("Loaded miscellaneous");
     }
 
     public static void loadCaps() {
@@ -199,8 +193,6 @@ public class Items {
         CAP_THAUMIUM = new BasicItem(STANDARD_SETTINGS, "cap_thaumium");
         CAP_VOID_INERT = new BasicItem(STANDARD_SETTINGS, "cap_void_inert");
         CAP_VOID = new BasicItem(STANDARD_SETTINGS, "cap_void");
-
-        Thaumcraft.LOGGER.info("Loaded caps");
     }
 
     public static void loadRods() {
@@ -222,9 +214,6 @@ public class Items {
         STAFF_ROD_QUARTZ = new BasicItem(STANDARD_SETTINGS, "staff_rod_quartz");
         STAFF_ROD_BONE = new BasicItem(STANDARD_SETTINGS, "staff_rod_bone");
         STAFF_ROD_PRIMAL = new BasicItem(STANDARD_SETTINGS, "staff_rod_primal");
-
-
-        Thaumcraft.LOGGER.info("Loaded rods");
     }
 
     public static void loadTools() {
@@ -239,8 +228,6 @@ public class Items {
         VOIDMETAL_AXE = new ThaumcraftAxeItem(ToolMaterials.VOID, 5.0F, -3.0F, ONE_ITEM_SETTINGS, "voidmetal_axe");
         VOIDMETAL_SHOVEL = new ThaumcraftShovelItem(ToolMaterials.VOID, 1.5F, -3.0F, ONE_ITEM_SETTINGS, "voidmetal_shovel");
         VOIDMETAL_HOE = new ThaumcraftHoeItem(ToolMaterials.VOID, -3, 0.0F, ONE_ITEM_SETTINGS, "voidmetal_hoe");
-
-        Thaumcraft.LOGGER.info("Loaded tools");
     }
 
     public static void loadFullWands() {
@@ -268,8 +255,6 @@ public class Items {
                 new Staff(NOTAB_ONE_ITEM_SETTINGS, rod, cap);
             }
         }
-
-        Thaumcraft.LOGGER.info("Loaded full wandcraft items");
     }
 
 
@@ -289,5 +274,7 @@ public class Items {
 
         loadTools();
         loadFullWands();
+
+        Thaumcraft.LOGGER.info("Loaded items");
     }
 }

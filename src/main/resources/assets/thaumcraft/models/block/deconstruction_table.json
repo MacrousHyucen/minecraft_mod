@@ -107,16 +107,9 @@
 		},
 		"head": {
 			"translation": [0, 11, 0]
-		}
-	},
-	"groups": [
-		{
-			"name": "bench_middle",
-			"origin": [8, 8, 8],
-			"color": 0,
-			"children": [0, 1, 2, 3]
 		},
-		4,
-		5
-	]
+		"fixed": {
+			"scale": [0.5, 0.5, 0.5]
+		}
+	}
 }

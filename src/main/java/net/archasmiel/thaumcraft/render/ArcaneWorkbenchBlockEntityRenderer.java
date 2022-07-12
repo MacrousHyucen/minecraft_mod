@@ -4,15 +4,15 @@ import net.archasmiel.thaumcraft.blockentity.ArcaneWorkbenchBlockEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.Pair;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3f;
 
 @Environment(EnvType.CLIENT)
@@ -28,80 +28,95 @@ public class ArcaneWorkbenchBlockEntityRenderer implements BlockEntityRenderer<A
     }
 
     private void renderWand(ArcaneWorkbenchBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        matrices.push();
-        matrices.translate(0.8, 1.05, 0.2);
-        matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(-90));
-        matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(45));
-        MinecraftClient.getInstance().getItemRenderer().renderItem(entity.getStack(10), ModelTransformation.Mode.GROUND, light, overlay, matrices, vertexConsumers, 0);
-        matrices.pop();
+
+
+        if (entity.getWorld() != null && entity.getWorld().getBlockEntity(entity.getPos()) != null) {
+            Pair<Float, Float> coord;       // coordinates for different directions
+            float angle1, angle2;           // x and z rotating angles
+
+            Direction facing = entity.getWorld().getBlockState(entity.getPos()).get(Properties.HORIZONTAL_FACING);
+
+            switch (facing) {
+                case NORTH -> {
+                    coord = new Pair<>(0.2f, 0.8f);
+                    angle1 = 90;
+                    angle2 = -45;
+                }
+                case EAST -> {
+                    coord = new Pair<>(0.2f, 0.2f);
+                    angle1 = 90;
+                    angle2 = 45;
+                }
+                case SOUTH -> {
+                    coord = new Pair<>(0.8f, 0.2f);
+                    angle1 = -90;
+                    angle2 = 45;
+                }
+                case WEST -> {
+                    coord = new Pair<>(0.8f, 0.8f);
+                    angle1 = -90;
+                    angle2 = -45;
+                }
+                default -> throw new IllegalStateException("Wrong arcane workbench facing.");
+            }
+
+            matrices.push();
+            matrices.translate(coord.getLeft(), 1.05, coord.getRight());
+            matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(angle1));
+            matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(angle2));
+            MinecraftClient.getInstance().getItemRenderer().renderItem(entity.getStack(10), ModelTransformation.Mode.GROUND, light, overlay, matrices, vertexConsumers, 0);
+            matrices.pop();
+        }
     }
 
     private void renderCraftingInventory(ArcaneWorkbenchBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         for (int i = 0 ; i < 9 ; i++) {
             ItemStack item = entity.getStack(i);
             if (item.getCount() > 0){
-
-                // presets for rendering
-                float maxHeight = 8.0f;
-                if (item.getMaxCount() == 1) maxHeight = 0;
-                else if (item.getMaxCount() <= 16)  maxHeight *= 0.5f;
-
-                float percentItem = item.getCount() * maxHeight / item.getMaxCount();
-
-                ModelTransformation.Mode mode;
-                float delta;
-                float sizeXZmul, sizeYmul;
-                float coordXZmul, coordYmul;
-                float coordY;
-
-                boolean isBlock = item.getName().toString().contains("block");
-                boolean fromThaumcraft = item.getName().toString().contains("thaumcraft");
-
-                if (isBlock){
-                    mode = ModelTransformation.Mode.GROUND;
-                    sizeXZmul = fromThaumcraft ? 0.3f : 0.5f;
-                    coordXZmul = 1/sizeXZmul;
-                    sizeYmul = sizeXZmul;
-                    coordYmul = coordXZmul;
-                    coordY = fromThaumcraft ? 1.06f : 1.05f;
-                    delta = fromThaumcraft ? 0 : 0.095f;
-                } else {
-                    mode = ModelTransformation.Mode.GUI;
-                    sizeXZmul = 0.15f;
-                    coordXZmul = 1/sizeXZmul;
-                    sizeYmul = sizeXZmul * (percentItem + 1f);
-                    coordYmul = 1/sizeYmul;
-                    coordY = 1.01f + 0.00458715f*percentItem;
-                    delta = 0;
-                }
-
                 matrices.push();
-                matrices.scale(sizeXZmul, sizeYmul, sizeXZmul);
-                Pair<Float, Float> coords = getCoords(i, delta);
-                matrices.translate(coordXZmul*coords.getLeft(), coordY*coordYmul, coordXZmul*coords.getRight());
-                matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(-90.0f));
-                int lightAbove = WorldRenderer.getLightmapCoordinates(entity.getWorld(), entity.getPos().up());
-                MinecraftClient.getInstance().getItemRenderer().renderItem(item, mode, lightAbove, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, 0);
+                setCoordinates(entity, matrices, i);
+                setScale(matrices, item);
+                MinecraftClient.getInstance().getItemRenderer().renderItem(item, ModelTransformation.Mode.FIXED, light, overlay, matrices, vertexConsumers, 0);
                 matrices.pop();
-
             }
         }
     }
 
-    private Pair<Float, Float> getCoords(int slotnum, float delta) {
-        float flo1 = 5.0f/16, flo2 = 8.0f/16, flo3 = 11.0f/16;
-        return switch (slotnum) {
-            case 0 -> new Pair<>(flo1, flo1+delta);
-            case 1 -> new Pair<>(flo2, flo1+delta);
-            case 2 -> new Pair<>(flo3, flo1+delta);
-            case 3 -> new Pair<>(flo1, flo2+delta);
-            case 4 -> new Pair<>(flo2, flo2+delta);
-            case 5 -> new Pair<>(flo3, flo2+delta);
-            case 6 -> new Pair<>(flo1, flo3+delta);
-            case 7 -> new Pair<>(flo2, flo3+delta);
-            case 8 -> new Pair<>(flo3, flo3+delta);
-            default -> throw new IllegalStateException("Unexpected value slot number: " + slotnum);
-        };
+    private void setCoordinates(ArcaneWorkbenchBlockEntity entity, MatrixStack matrices, int slot) {
+        if (entity.getWorld() != null && entity.getWorld().getBlockEntity(entity.getPos()) != null) {
+            Pair<Float, Float> coord;
+            Vec3f rotVectorY = new Vec3f(0f, 0f, 1f);    // vector for model rotation around z axis
+            float angle;                                 // angle for model rotation around z axis
+
+            Direction facing = entity.getWorld().getBlockState(entity.getPos()).get(Properties.HORIZONTAL_FACING);
+            switch (facing) {
+                case NORTH -> {
+                    angle = 0f;
+                    coord = new Pair<>(0.875f - 0.1875f*((slot % 3) + 1), 0.875f - 0.1875f*((slot / 3) + 1));
+                }
+                case EAST -> {
+                    angle = 90f;
+                    coord = new Pair<>(0.125f + 0.1875f*((slot / 3) + 1), 0.875f - 0.1875f*((slot % 3) + 1));
+                }
+                case SOUTH -> {
+                    angle = 180f;
+                    coord = new Pair<>(0.125f + 0.1875f*((slot % 3) + 1), 0.125f + 0.1875f*((slot / 3) + 1));
+                }
+                case WEST -> {
+                    angle = 270f;
+                    coord = new Pair<>(0.875f - 0.1875f*((slot / 3) + 1), 0.125f + 0.1875f*((slot % 3) + 1));
+                }
+                default -> throw new IllegalStateException("Wrong arcane workbench facing.");
+            }
+            matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(90.0f));    // rotating model around X axis (for item correct models)
+            matrices.translate(coord.getLeft(), coord.getRight(), -1);          // translating item to its slot on table
+            matrices.multiply(rotVectorY.getDegreesQuaternion(angle));          // rotating model around z axis
+        }
+    }
+
+    private void setScale(MatrixStack matrices, ItemStack item) {
+        float scale = item.getName().toString().contains("block") ? 0.225f : 0.15f;
+        matrices.scale(scale, scale, scale);
     }
 
 

@@ -11,9 +11,9 @@ import net.archasmiel.thaumcraft.materials.RodMaterials;
 import net.fabricmc.loader.impl.util.StringUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
@@ -26,7 +26,7 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -58,31 +58,32 @@ public abstract class WandAbstract extends ThaumcraftItem {
 
 
 
-    private CapMaterials cap;
-    private RodMaterials rod;
-    private String type;
+    private final CapMaterials cap;
+    private final RodMaterials rod;
+    private final String type;
 
-    private float capacityMultiplier;
-    private float discount;
-    private int capacity;
-    private float wandDiscount;
+    private final float capacityMultiplier;
+    private final int capacity;
+
+    private final float wandDiscount;
+    private final float discount;
 
 
-    public WandAbstract(Settings settings, String name, RodMaterials rod, CapMaterials caps,
+    public WandAbstract(Settings settings, String name, RodMaterials rod, CapMaterials cap,
                         float wandDiscount, float capacityMultiplier,
                         String type) {
         super(settings, name);
 
-        this.setType(type);
+        // basic info for rod and cap
+        this.rod = rod;
+        this.cap = cap;
+        this.type = type;
 
-        // basic info for capacity and discount
-        this.setRod(rod);
-        this.setCaps(caps);
-
-        // info for capacity and info final values
-        this.setCapacityMultiplier(capacityMultiplier);
+        // info for capacity and vis discount
+        this.capacityMultiplier = capacityMultiplier;
+        this.capacity = (int) (this.rod.getCapacity() * capacityMultiplier);
         this.wandDiscount = wandDiscount;
-        this.setDiscount(wandDiscount);
+        this.discount = 1.00f - this.cap.getVisDiscount() - this.wandDiscount;
     }
 
 
@@ -90,46 +91,27 @@ public abstract class WandAbstract extends ThaumcraftItem {
     public CapMaterials getCap() {
         return cap;
     }
-    public void setCaps(CapMaterials cap) {
-        this.cap = cap;
-    }
-
     public RodMaterials getRod() {
         return rod;
     }
-    public void setRod(RodMaterials rod) {
-        this.rod = rod;
+    public String getType() {
+        return type;
     }
 
     public float getDiscount() {
         return discount;
     }
-
-    public void setDiscount(float wandDiscount) {
-        this.discount = 1.00f - this.cap.getVisDiscount() - this.wandDiscount;
-    }
-    public void setWandDiscount(float wandDiscount) {
-        this.wandDiscount = wandDiscount;
-    }
-
-    public float getCapacityMultiplier() {
-        return capacityMultiplier;
-    }
-    public void setCapacityMultiplier(float capacityMultiplier) {
-        this.capacityMultiplier = capacityMultiplier;
-        this.capacity = (int) (this.rod.getCapacity() * this.capacityMultiplier);
-    }
-
     public int getCapacity() {
         return capacity;
     }
+    public float getCapacityMultiplier() {
+        return capacityMultiplier;
+    }
+    public float getWandDiscount() {
+        return wandDiscount;
+    }
 
-    public String getType() {
-        return type;
-    }
-    public void setType(String type) {
-        this.type = type;
-    }
+
 
 
 
@@ -139,78 +121,58 @@ public abstract class WandAbstract extends ThaumcraftItem {
     /*   WORLD INTERACTIONS   */
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
+        PlayerEntity player = context.getPlayer();
+        World world = context.getWorld();
+        BlockPos pos = context.getBlockPos();
+        if (!world.isClient && player != null) {
+            ItemStack stack = player.getMainHandStack();
 
-        if (!context.getWorld().isClient && context.getHand() == Hand.MAIN_HAND) {
-            if (context.getPlayer() != null){
-                Item usingItem = context.getPlayer().getStackInHand(Hand.MAIN_HAND).getItem();
-
-                if (usingItem instanceof WandAbstract){
-                    BlockState state = context.getWorld().getBlockState(context.getBlockPos());
-
-                    // changing table to arcane workbench
-                    if (state.getBlock() instanceof Table) {
-                        context.getWorld().setBlockState(
-                            context.getBlockPos(),
-                            Blocks.ARCANE_WORKBENCH.getPlacementState(new ItemPlacementContext(context))
-                        );
-
-                        context.getWorld().playSound(
-                            null,
-                            context.getBlockPos(),
-                            SoundEvents.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR,
-                            SoundCategory.BLOCKS,
-                            0.3f,
-                            2.0f
-                        );
-
-                        if (usingItem instanceof VisCraft && Screen.hasShiftDown()) {
-                            BlockEntity entity = context.getWorld().getBlockEntity(context.getBlockPos());
-                            if (entity instanceof ArcaneWorkbenchBlockEntity arcane) {
-                                BlockState aState = entity.getWorld().getBlockState(entity.getPos());
-
-                                PlayerInventory inv = context.getPlayer().getInventory();
-                                arcane.setStack(10, inv.removeStack(inv.selectedSlot));
-                                arcane.markDirty();
-
-                                BlockState bState = entity.getWorld().getBlockState(entity.getPos());
-                                entity.getWorld().updateListeners(entity.getPos(), aState, bState, Block.NOTIFY_LISTENERS);
-                            }
-                        }
-                    }
-
-                    // puts wand to arcane workbench
-                    if (state.getBlock() instanceof ArcaneWorkbench) {
-                        if (usingItem instanceof VisCraft && Screen.hasShiftDown()) {
-                            BlockEntity entity = context.getWorld().getBlockEntity(context.getBlockPos());
-                            if (entity instanceof ArcaneWorkbenchBlockEntity arcane) {
-                                if (arcane.getStack(10) == ItemStack.EMPTY) {
-                                    BlockState aState = entity.getWorld().getBlockState(entity.getPos());
-
-                                    PlayerInventory inv = context.getPlayer().getInventory();
-                                    arcane.setStack(10, inv.removeStack(inv.selectedSlot));
-                                    arcane.markDirty();
-
-                                    context.getWorld().playSound(
-                                            null,
-                                            context.getBlockPos(),
-                                            SoundEvents.BLOCK_BARREL_CLOSE,
-                                            SoundCategory.BLOCKS,
-                                            0.5f,
-                                            2.0f
-                                    );
-
-                                    BlockState bState = entity.getWorld().getBlockState(entity.getPos());
-                                    entity.getWorld().updateListeners(entity.getPos(), aState, bState, Block.NOTIFY_ALL);
-                                }
-                            }
-                        }
-                    }
-                }
+            BlockState state = world.getBlockState(pos);
+            if (state.getBlock() instanceof Table) {
+                changeTableToWorkbench(world, pos, new ItemPlacementContext(context));
+                putWandToWorkbench(stack.getItem(), world, pos, player);
+            }
+            if (state.getBlock() instanceof ArcaneWorkbench) {
+                putWandToWorkbench(stack.getItem(), world, pos, player);
+                // get item from workbench in workbench class
             }
         }
 
         return ActionResult.SUCCESS;
     }
+
+    // puts wand to arcane workbench if slot is empty
+    private void putWandToWorkbench(Item usingItem, World world, BlockPos pos, PlayerEntity player) {
+
+        if (usingItem instanceof VisCraft) {
+            if (world.getBlockEntity(pos) instanceof ArcaneWorkbenchBlockEntity arcane && arcane.getStack(10).isEmpty()) {
+                PlayerInventory inventory = player.getInventory();
+                if (inventory.getStack(inventory.selectedSlot).isEmpty()) return;
+
+                arcane.setStack(10, inventory.removeStack(inventory.selectedSlot));
+                arcane.markDirty();
+
+                world.playSound(
+                        null, pos,
+                        SoundEvents.BLOCK_BARREL_CLOSE, SoundCategory.BLOCKS,
+                        0.5f, 2.0f
+                );
+
+                world.updateListeners(pos, world.getBlockState(pos), world.getBlockState(pos), Block.NOTIFY_LISTENERS);
+            }
+        }
+    }
+
+    // changing table to arcane workbench
+    private void changeTableToWorkbench(World world, BlockPos pos, ItemPlacementContext context) {
+        world.setBlockState(pos, Blocks.ARCANE_WORKBENCH.getPlacementState(context));
+        world.playSound(null, pos, SoundEvents.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR, SoundCategory.BLOCKS, 0.3f, 2.0f);
+    }
+
+
+
+
+
 
 
 
@@ -284,8 +246,7 @@ public abstract class WandAbstract extends ThaumcraftItem {
     }
 
     private NbtCompound checkWandNbt(NbtCompound nbt) {
-        if (nbt == null)
-            nbt = new NbtCompound();
+        if (nbt == null) nbt = new NbtCompound();
 
         for (String i: primaryAspects)
             if (!nbt.contains(i))

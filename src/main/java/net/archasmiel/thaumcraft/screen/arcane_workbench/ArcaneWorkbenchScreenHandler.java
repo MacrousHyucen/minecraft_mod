@@ -123,7 +123,7 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
         super.sendContentUpdates();
     }
 
-    protected void readContainer() {
+    private void readContainer() {
         isReading = true;
         if (entity != null) {
             BlockState aState = player.getWorld().getBlockState(entity.getPos());
@@ -142,7 +142,7 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
         onContentChanged(input);
     }
 
-    protected void saveContainer() {
+    private void saveContainer() {
         if (entity != null) {
             BlockState aState = player.getWorld().getBlockState(entity.getPos());
 
@@ -155,23 +155,6 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
             BlockState bState = player.getWorld().getBlockState(entity.getPos());
             player.getWorld().updateListeners(entity.getPos(), aState, bState, Block.NOTIFY_ALL);
         }
-
-
-
-//        if (entity != null) {
-//            PacketByteBuf data = PacketByteBufs.create();
-//            data.writeBlockPos(entity.getPos());
-//
-//            for (int i = 0 ; i < 9 ; i++) {
-//                data.writeItemStack(input.getStack(i));
-//            }
-//            data.writeItemStack(wand.getStack(0));
-//
-//            data.writeIdentifier(new Identifier(Thaumcraft.MOD_ID, "arcane_workbench"));
-//            data.writeString("change_inventory");
-//
-//            ClientPlayNetworking.send(SET_BLOCK_PACKET, data);
-//        }
     }
 
 

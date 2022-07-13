@@ -4,7 +4,6 @@ import net.archasmiel.thaumcraft.Thaumcraft;
 import net.archasmiel.thaumcraft.block.ThaumcraftBlockWithEntity;
 import net.archasmiel.thaumcraft.blockentity.ArcaneWorkbenchBlockEntity;
 import net.archasmiel.thaumcraft.generation.ThaumcraftRegistry;
-import net.archasmiel.thaumcraft.item.wandcraft.abilities.VisCraft;
 import net.archasmiel.thaumcraft.register.Register;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -15,9 +14,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -134,39 +131,39 @@ public class ArcaneWorkbench extends ThaumcraftBlockWithEntity {
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 
-
-        if (Screen.hasShiftDown()) {
-            // pull wand from workbench by shifting+rmb on it
-            if (world.getBlockEntity(pos) instanceof ArcaneWorkbenchBlockEntity entity && hand == Hand.MAIN_HAND) {
-
-                PlayerInventory inventory = player.getInventory();
-
-                if (entity.getStack(10).getCount() > 0) {
-                    System.out.println("TRIED TO GET WAND");
-                    if (inventory.getStack(inventory.selectedSlot) != ItemStack.EMPTY) return ActionResult.SUCCESS;
-                    BlockState aState = world.getBlockState(pos);
-
-                    inventory.setStack(inventory.selectedSlot, entity.removeStack(10));
-                    entity.markDirty();
-
-                    world.playSound(null, pos, SoundEvents.BLOCK_BARREL_OPEN, SoundCategory.BLOCKS, 0.5f, 2.0f);
-
-                    BlockState bState = world.getBlockState(pos);
-                    world.updateListeners(pos, aState, bState, Block.NOTIFY_ALL);
-                }
-
-            }
-
-        } else {
-            // arcane workbench GUI onUse
-            if (!world.isClient) {
-                NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
-                if (screenHandlerFactory != null){
-                    player.openHandledScreen(screenHandlerFactory);
-                }
-            }
+        if (!Screen.hasShiftDown()) {
+            openScreen(world, player, state, pos);
+            return ActionResult.SUCCESS;
         }
 
+        getWandFromWorkbench(world, pos, player);
         return ActionResult.SUCCESS;
+    }
+
+    // gets wand from arcane workbench if wand slot is not empty
+    private void getWandFromWorkbench(World world, BlockPos pos, PlayerEntity player) {
+
+        if (world.getBlockEntity(pos) instanceof ArcaneWorkbenchBlockEntity arcane && !arcane.getStack(10).isEmpty()) {
+            PlayerInventory inventory = player.getInventory();
+            if (!inventory.getStack(inventory.selectedSlot).isEmpty()) return;
+
+            inventory.setStack(inventory.selectedSlot, arcane.removeStack(10));
+            arcane.markDirty();
+
+            world.playSound(null, pos, SoundEvents.BLOCK_BARREL_OPEN, SoundCategory.BLOCKS, 0.5f, 2.0f);
+
+            world.updateListeners(pos, world.getBlockState(pos), world.getBlockState(pos), Block.NOTIFY_LISTENERS);
+        }
+
+    }
+
+    // arcane workbench GUI open
+    private void openScreen(World world, PlayerEntity player, BlockState state, BlockPos pos) {
+        if (!world.isClient) {
+            NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
+            if (screenHandlerFactory != null){
+                player.openHandledScreen(screenHandlerFactory);
+            }
+        }
     }
 }

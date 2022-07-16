@@ -27,7 +27,7 @@ public class BasicItem extends ThaumcraftItem {
 
     @Override
     public void register() {
-        setItem(color() == 0x000000 ? Register.registerItem(name(), this) : Register.registerItem(name(), this, color()));
+        setItem(Register.registerItem(name(), this));
     }
 
 }

@@ -20,16 +20,6 @@ public class Register {
         );
     }
 
-    public static Item registerItem(String name, Item item, int color) {
-        Item result = Registry.register(
-                Registry.ITEM,
-                new Identifier(Thaumcraft.MOD_ID, name),
-                item
-        );
-        registerItemColor(color, result);
-        return result;
-    }
-
 
 
 
@@ -49,18 +39,6 @@ public class Register {
         );
     }
 
-    public static Block registerBlock(String name, Block block, int color) {
-        registerBlockItem(name, block, color);
-        Block result = Registry.register(
-                Registry.BLOCK,
-                new Identifier(Thaumcraft.MOD_ID, name),
-                block
-        );
-        registerBlockColor(color, result);
-        return result;
-    }
-
-
 
 
 
@@ -73,32 +51,6 @@ public class Register {
                 Registry.ITEM,
                 new Identifier(Thaumcraft.MOD_ID, "block/" + name),
                 new BlockItem(block, new FabricItemSettings().group(Thaumcraft.MOD_GROUP_GENERAL))
-        );
-    }
-
-    public static void registerBlockItem(String name, Block block, int color) {
-        Item result = Registry.register(
-                Registry.ITEM,
-                new Identifier(Thaumcraft.MOD_ID, "block/" + name),
-                new BlockItem(block, new FabricItemSettings().group(Thaumcraft.MOD_GROUP_GENERAL))
-        );
-        registerItemColor(color, result);
-    }
-
-
-
-
-
-
-    private static void registerItemColor(int color, Item item){
-        ColorProviderRegistry.ITEM.register(
-                (stack, tintIndex) -> color, item
-        );
-    }
-
-    private static void registerBlockColor(int color, Block block){
-        ColorProviderRegistry.BLOCK.register(
-                (state, view, pos, tintIndex) -> color, block
         );
     }
 

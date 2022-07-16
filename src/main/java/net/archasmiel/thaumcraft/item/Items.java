@@ -3,7 +3,6 @@ package net.archasmiel.thaumcraft.item;
 import net.archasmiel.thaumcraft.Thaumcraft;
 import net.archasmiel.thaumcraft.generation.WandcraftGeneration;
 import net.archasmiel.thaumcraft.item.basic.BasicItem;
-import net.archasmiel.thaumcraft.item.basic.ShardItem;
 import net.archasmiel.thaumcraft.item.basic.ThaumonomiconItem;
 import net.archasmiel.thaumcraft.item.tool.*;
 import net.archasmiel.thaumcraft.item.wandcraft.variants.Scepter;
@@ -172,12 +171,12 @@ public class Items {
         TAINT_TENDRIL = new BasicItem(STANDARD_SETTINGS, "taint_tendril").item();
 
 
-        AIR_SHARD = new ShardItem(STANDARD_SETTINGS, "shard_air", 0xffff7e).item();
-        FIRE_SHARD = new ShardItem(STANDARD_SETTINGS, "shard_fire", 0xff3c01).item();
-        WATER_SHARD = new ShardItem(STANDARD_SETTINGS, "shard_water", 0x0090ff).item();
-        EARTH_SHARD = new ShardItem(STANDARD_SETTINGS, "shard_earth", 0x00a000).item();
-        ORDER_SHARD = new ShardItem(STANDARD_SETTINGS, "shard_order", 0xeeccff).item();
-        ENTROPY_SHARD = new ShardItem(STANDARD_SETTINGS, "shard_entropy", 0x555577).item();
+        AIR_SHARD = new BasicItem(STANDARD_SETTINGS, "shard_air").item();
+        FIRE_SHARD = new BasicItem(STANDARD_SETTINGS, "shard_fire").item();
+        WATER_SHARD = new BasicItem(STANDARD_SETTINGS, "shard_water").item();
+        EARTH_SHARD = new BasicItem(STANDARD_SETTINGS, "shard_earth").item();
+        ORDER_SHARD = new BasicItem(STANDARD_SETTINGS, "shard_order").item();
+        ENTROPY_SHARD = new BasicItem(STANDARD_SETTINGS, "shard_entropy").item();
         BALANCED_SHARD = new BasicItem(STANDARD_SETTINGS, "shard_balanced").item();
 
 

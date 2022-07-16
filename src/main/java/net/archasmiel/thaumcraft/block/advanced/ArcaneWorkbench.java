@@ -10,7 +10,6 @@ import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -131,12 +130,11 @@ public class ArcaneWorkbench extends ThaumcraftBlockWithEntity {
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 
-        if (!Screen.hasShiftDown()) {
+        if (!player.isSneaking()) {
             openScreen(world, player, state, pos);
-            return ActionResult.SUCCESS;
+        } else {
+            getWandFromWorkbench(world, pos, player);
         }
-
-        getWandFromWorkbench(world, pos, player);
         return ActionResult.SUCCESS;
     }
 
@@ -159,7 +157,7 @@ public class ArcaneWorkbench extends ThaumcraftBlockWithEntity {
 
     // arcane workbench GUI open
     private void openScreen(World world, PlayerEntity player, BlockState state, BlockPos pos) {
-        if (!world.isClient) {
+        if (!world.isClient()) {
             NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
             if (screenHandlerFactory != null){
                 player.openHandledScreen(screenHandlerFactory);

@@ -25,7 +25,7 @@ public record ThaumcraftShapedRecipe(Identifier id,
                                      Pair<Integer, Integer> recipeSizes) implements CraftingRecipe {
 
     public ItemStack craft(CraftingInventory craftingInventory) {
-        return this.getOutput().copy();
+        return output.copy();
     }
 
     @Override
@@ -228,10 +228,9 @@ public record ThaumcraftShapedRecipe(Identifier id,
         @Override
         public ThaumcraftShapedRecipe read(Identifier id, JsonObject json) {
 
-            Map<String, Ingredient> keys = readSymbols(JsonHelper.getObject(json, "keys"));
+            Map<String, Ingredient> keys = readSymbols(JsonHelper.getObject(json, "key"));
             String[] pattern = readPattern(JsonHelper.getArray(json, "pattern"));
             Pair<Integer, Integer> recipeSizes = getRecipeSizes(pattern);
-            System.out.println(recipeSizes.getLeft() + " " + recipeSizes.getRight());
             DefaultedList<Ingredient> inputs = readIngredients(pattern, keys);
             ItemStack output = outputFromJson(JsonHelper.getObject(json, "result"));
 
@@ -240,11 +239,11 @@ public record ThaumcraftShapedRecipe(Identifier id,
 
         @Override
         public ThaumcraftShapedRecipe read(Identifier id, PacketByteBuf buf) {
-            Pair<Integer, Integer> recSizes = new Pair<>(buf.readInt(), buf.readInt());
-            DefaultedList<Ingredient> inputs = DefaultedList.ofSize(buf.readInt(), Ingredient.EMPTY);
+            Pair<Integer, Integer> recSizes = new Pair<>(buf.readVarInt(), buf.readVarInt());
+            DefaultedList<Ingredient> inputs = DefaultedList.ofSize(buf.readVarInt(), Ingredient.EMPTY);
 
-            for (int i = 0; i < inputs.size(); i++) {
-                inputs.set(i, Ingredient.fromPacket(buf));
+            for (int k = 0; k < inputs.size(); k++) {
+                inputs.set(k, Ingredient.fromPacket(buf));
             }
 
             ItemStack output = buf.readItemStack();
@@ -253,15 +252,15 @@ public record ThaumcraftShapedRecipe(Identifier id,
 
         @Override
         public void write(PacketByteBuf buf, ThaumcraftShapedRecipe recipe) {
-            buf.writeInt(recipe.getRecipeSizes().getLeft());
-            buf.writeInt(recipe.getRecipeSizes().getRight());
+            buf.writeVarInt(recipe.getRecipeSizes().getLeft());
+            buf.writeVarInt(recipe.getRecipeSizes().getRight());
 
-            buf.writeInt(recipe.getIngredients().size());
+            buf.writeVarInt(recipe.getIngredients().size());
 
             for (Ingredient ing : recipe.getIngredients()) {
                 ing.write(buf);
             }
-            buf.writeItemStack(recipe.getOutput());
+            buf.writeItemStack(recipe.output);
         }
     }
 

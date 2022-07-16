@@ -6,6 +6,7 @@ import net.archasmiel.thaumcraft.item.Items;
 import net.archasmiel.thaumcraft.generation.lang.GeneratedTranslations;
 import net.archasmiel.thaumcraft.generation.lang.LanguageTranslations;
 import net.archasmiel.thaumcraft.recipe.Recipes;
+import net.archasmiel.thaumcraft.screen.ScreenHandlers;
 import net.devtech.arrp.api.RRPCallback;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.fabricmc.api.ModInitializer;
@@ -62,13 +63,14 @@ public class Thaumcraft implements ModInitializer {
 		Items.register();
 
 		BlockEntities.register();
+		ScreenHandlers.register();
 		Recipes.register();
 
 		// registering languages via arrp
 		for (String i: supportedLanguages)
 			THAUMCRAFT_OUTPUTLANG.registerLanguage(i);
 
-		RRPCallback.AFTER_VANILLA.register(a -> a.add(RESOURCE_PACK));
+		RRPCallback.BEFORE_VANILLA.register(a -> a.add(RESOURCE_PACK));
 
 	}
 }

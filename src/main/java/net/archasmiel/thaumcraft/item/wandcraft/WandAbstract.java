@@ -124,7 +124,10 @@ public abstract class WandAbstract extends ThaumcraftItem {
         PlayerEntity player = context.getPlayer();
         World world = context.getWorld();
         BlockPos pos = context.getBlockPos();
-        if (!world.isClient && player != null) {
+
+        if (world.isClient) return ActionResult.SUCCESS;
+
+        if (player != null) {
             ItemStack stack = player.getMainHandStack();
 
             BlockState state = world.getBlockState(pos);

@@ -18,7 +18,6 @@ public class ThaumcraftClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-
         BlockRenderLayerMap.INSTANCE.putBlock(Blocks.ARCANE_WORKBENCH, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(Blocks.DECONSTRUCTION_TABLE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(Blocks.TABLE, RenderLayer.getCutout());

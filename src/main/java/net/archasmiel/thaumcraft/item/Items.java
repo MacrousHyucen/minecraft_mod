@@ -1,10 +1,10 @@
 package net.archasmiel.thaumcraft.item;
 
 import net.archasmiel.thaumcraft.Thaumcraft;
-import net.archasmiel.thaumcraft.generation.WandcraftGeneration;
 import net.archasmiel.thaumcraft.item.basic.BasicItem;
 import net.archasmiel.thaumcraft.item.basic.ThaumonomiconItem;
 import net.archasmiel.thaumcraft.item.tool.*;
+import net.archasmiel.thaumcraft.item.wandcraft.WandAbstract;
 import net.archasmiel.thaumcraft.item.wandcraft.variants.Scepter;
 import net.archasmiel.thaumcraft.item.wandcraft.variants.Staff;
 import net.archasmiel.thaumcraft.item.wandcraft.variants.Wand;
@@ -23,6 +23,7 @@ import java.util.Map;
 
 import static net.archasmiel.thaumcraft.Thaumcraft.MOD_GROUP_GENERATED;
 import static net.archasmiel.thaumcraft.Thaumcraft.primaryAspects;
+import static net.archasmiel.thaumcraft.generation.WandcraftGeneration.*;
 
 
 public class Items {
@@ -246,10 +247,10 @@ public class Items {
     }
 
     public static void loadWands() {
+
         // generates full capacity wandcraft items via appendStacksMethod in second tab
         // also registers wands in system
         // registered items put in Map
-
 
         for (RodMaterials rod: RodMaterials.values()){
             // there is no primal wand rod
@@ -258,20 +259,12 @@ public class Items {
                 Wand wand = new Wand(NOTAB_ONE_ITEM_SETTINGS, rod, cap) {
                     @Override
                     public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
-                        if (group == MOD_GROUP_GENERATED) {
-                            ItemStack staff = new ItemStack(this, 1);
-                            NbtCompound nbt = staff.getNbt() != null ? staff.getNbt() : new NbtCompound();
-                            for (String i: primaryAspects) {
-                                nbt.putFloat(i, this.getCapacity());
-                            }
-                            staff.setNbt(nbt);
-                            stacks.add(staff);
-                        }
+                        registerWandNbt(group, stacks, this);
                     }
                 };
 
+                generateWandData(wand);
                 WANDS.put(wand.name(), wand.item());
-                WandcraftGeneration.generateWandData(wand);
             }
         }
 
@@ -282,20 +275,12 @@ public class Items {
                 Scepter scepter = new Scepter(NOTAB_ONE_ITEM_SETTINGS, rod, cap) {
                     @Override
                     public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
-                        if (group == MOD_GROUP_GENERATED) {
-                            ItemStack staff = new ItemStack(this, 1);
-                            NbtCompound nbt = staff.getNbt() != null ? staff.getNbt() : new NbtCompound();
-                            for (String i: primaryAspects) {
-                                nbt.putFloat(i, this.getCapacity());
-                            }
-                            staff.setNbt(nbt);
-                            stacks.add(staff);
-                        }
+                        registerWandNbt(group, stacks, this);
                     }
                 };
 
-                SCEPTERS.put(scepter.name(), scepter.item());
-                WandcraftGeneration.generateScepterData(scepter);
+                generateScepterData(scepter);
+                SCEPTERS.put("thaumcraft:" + scepter.name(), scepter.item());
             }
         }
 
@@ -306,21 +291,25 @@ public class Items {
                 Staff staff = new Staff(NOTAB_ONE_ITEM_SETTINGS, rod, cap){
                     @Override
                     public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
-                        if (group == MOD_GROUP_GENERATED) {
-                            ItemStack staff = new ItemStack(this, 1);
-                            NbtCompound nbt = staff.getNbt() != null ? staff.getNbt() : new NbtCompound();
-                            for (String i: primaryAspects) {
-                                nbt.putFloat(i, this.getCapacity());
-                            }
-                            staff.setNbt(nbt);
-                            stacks.add(staff);
-                        }
+                        registerWandNbt(group, stacks, this);
                     }
                 };
 
-                STAFFS.put(staff.name(), staff.item());
-                WandcraftGeneration.generateStaffData(staff);
+                generateStaffData(staff);
+                STAFFS.put("thaumcraft:" + staff.name(), staff.item());
             }
+        }
+    }
+
+    private static void registerWandNbt(ItemGroup group, DefaultedList<ItemStack> stacks, WandAbstract item) {
+        if (group == MOD_GROUP_GENERATED) {
+            ItemStack stack = new ItemStack(item, 1);
+            NbtCompound nbt = stack.getNbt() != null ? stack.getNbt() : new NbtCompound();
+            for (String i: primaryAspects) {
+                nbt.putFloat(i, item.getCapacity());
+            }
+            stack.setNbt(nbt);
+            stacks.add(stack);
         }
     }
 

@@ -10,6 +10,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.Pair;
@@ -20,70 +21,53 @@ import net.minecraft.world.World;
 import java.util.Map;
 
 public record ThaumcraftShapedRecipe(Identifier id,
-                                     DefaultedList<Ingredient> inputs,
+                                     DefaultedList<Ingredient> input,
                                      ItemStack output,
                                      Pair<Integer, Integer> recipeSizes) implements CraftingRecipe {
 
+    @Override
     public ItemStack craft(CraftingInventory craftingInventory) {
-        return output.copy();
+        return this.getOutput().copy();
     }
 
     @Override
-    public boolean matches(CraftingInventory inventory, World world) {
-        return checkRecipeInFlippedOffset(inventory) || checkRecipeInNormalOffset(inventory);
-    }
-
-    private boolean checkRecipeInFlippedOffset(CraftingInventory inventory) {
-
-        for (int i = 0; i <= (3 - recipeSizes.getLeft()); i++) {
-            for (int j = 2; j >= (recipeSizes.getRight() - 1); j--) {
-
-                boolean hasCraft = true;
-                int inputIndex = 0;
-                for (int k = 0; k < recipeSizes.getLeft(); k++) {
-                    for (int l = 0; l < recipeSizes.getRight(); l++) {
-
-                        int invIndex = (i + k) * recipeSizes.getRight() + (j - l);
-                        if (!inputs.get(inputIndex).test(inventory.getStack(invIndex))) {
-                            hasCraft = false;
-                        }
-                        inputIndex += 1;
-                    }
-                }
-                if (hasCraft)
+    public boolean matches(CraftingInventory craftingInventory, World world) {
+        for(int i = 0; i <= craftingInventory.getWidth() - recipeSizes.getLeft(); ++i) {
+            for(int j = 0; j <= craftingInventory.getHeight() - recipeSizes.getRight(); ++j) {
+                if (this.matchesPattern(craftingInventory, i, j, true)) {
                     return true;
+                }
 
+                if (this.matchesPattern(craftingInventory, i, j, false)) {
+                    return true;
+                }
             }
         }
 
         return false;
     }
 
-    private boolean checkRecipeInNormalOffset(CraftingInventory inventory) {
-        // checking recipe in normal craft offset
-        for (int i = 0; i <= (3 - recipeSizes.getLeft()); i++) {
-            for (int j = 0; j <= (3 - recipeSizes.getRight()); j++) {
-
-                boolean hasCraft = true;
-                int inputIndex = 0;
-                for (int k = 0; k < recipeSizes.getLeft(); k++) {
-                    for (int l = 0; l < recipeSizes.getRight(); l++) {
-                        int invIndex = (i + k) * recipeSizes.getRight() + (j + l);
-
-                        if (!inputs.get(inputIndex).test(inventory.getStack(invIndex))) {
-                            hasCraft = false;
-                        }
-
-                        inputIndex += 1;
+    private boolean matchesPattern(CraftingInventory inv, int offsetX, int offsetY, boolean flipped) {
+        for(int i = 0; i < inv.getWidth(); ++i) {
+            for(int j = 0; j < inv.getHeight(); ++j) {
+                int k = i - offsetX;
+                int l = j - offsetY;
+                Ingredient ingredient = Ingredient.EMPTY;
+                if (k >= 0 && l >= 0 && k < recipeSizes.getLeft() && l < recipeSizes.getRight()) {
+                    if (flipped) {
+                        ingredient = this.input.get(recipeSizes.getLeft() - k - 1 + l * recipeSizes.getLeft());
+                    } else {
+                        ingredient = this.input.get(k + l * recipeSizes.getLeft());
                     }
                 }
 
-                if (hasCraft)
-                    return true;
+                if (!ingredient.test(inv.getStack(i + j * inv.getWidth()))) {
+                    return false;
+                }
             }
         }
 
-        return false;
+        return true;
     }
 
     public boolean fits(int width, int height) {
@@ -106,15 +90,17 @@ public record ThaumcraftShapedRecipe(Identifier id,
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return new Serializer();
+        return Serializer.INSTANCE;
     }
 
-//    Already has this method
-//
-//    @Override
-//    public RecipeType<?> getType() {
-//        return RecipeType.CRAFTING;
-//    }
+    @Override
+    public RecipeType<?> getType() {
+        return RecipeType.CRAFTING;
+    }
+
+
+
+
 
 
     // get keys from json object
@@ -201,9 +187,9 @@ public record ThaumcraftShapedRecipe(Identifier id,
     static Pair<Integer, Integer> getRecipeSizes(String[] pattern) {
         Pair<Integer, Integer> sizes = new Pair<>(0, 0);
 
-        sizes.setLeft(pattern.length);
+        sizes.setRight(pattern.length);
         if (pattern.length > 0)
-            sizes.setRight(pattern[0].length());
+            sizes.setLeft(pattern[0].length());
         else
             throw new JsonSyntaxException("Recipe size is 0");
 
@@ -218,11 +204,9 @@ public record ThaumcraftShapedRecipe(Identifier id,
 
 
 
-
-
     public static class Serializer implements RecipeSerializer<ThaumcraftShapedRecipe> {
-        public Serializer() {
-        }
+        public static final Serializer INSTANCE = new Serializer();
+        public static final String ID = "arcane_shaped";
 
 
         @Override

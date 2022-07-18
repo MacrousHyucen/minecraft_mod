@@ -3,8 +3,8 @@ package net.archasmiel.thaumcraft.item.basic;
 import io.github.cottonmc.cotton.gui.client.CottonClientScreen;
 import net.archasmiel.thaumcraft.Thaumcraft;
 import net.archasmiel.thaumcraft.generation.ThaumcraftRegistry;
-import net.archasmiel.thaumcraft.screen.thaumonomicon.ThaumonomiconGui;
 import net.archasmiel.thaumcraft.register.Register;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.ThaumonomiconGui;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -47,25 +47,21 @@ public class ThaumonomiconItem extends ThaumcraftItem {
 
 
 
-
     @Environment(EnvType.CLIENT)
-    private void drawScreen(PlayerEntity user, Hand hand) {
-
-        if (user.getWorld().isClient() && hand == Hand.MAIN_HAND) {
-            MinecraftClient.getInstance().setScreenAndRender(new CottonClientScreen(new ThaumonomiconGui()));
-
-            // testing sound
-            MinecraftClient.getInstance()
-                .getSoundManager().play(PositionedSoundInstance
-                .master(SoundEvents.ENTITY_LIGHTNING_BOLT_IMPACT, 1.0F));
-        }
-
+    private void drawScreen() {
+        MinecraftClient.getInstance().setScreenAndRender(new CottonClientScreen(new ThaumonomiconGui()));
+        MinecraftClient.getInstance().getSoundManager().play(
+            PositionedSoundInstance.master(
+                SoundEvents.ENTITY_LIGHTNING_BOLT_IMPACT, 1.0F
+            )
+        );
     }
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        drawScreen(user, hand);
-        return super.use(world, user, hand);
+        if (world.isClient() && hand == Hand.MAIN_HAND) drawScreen();
+
+        return TypedActionResult.success(user.getStackInHand(hand));
     }
 
 

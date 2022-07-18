@@ -1,0 +1,17 @@
+{
+  "type": "thaumcraft:arcane_shaped",
+  "pattern": [
+    "lpp"
+  ],
+  "key": {
+    "l": {
+      "item": "minecraft:leather"
+    },
+    "p": {
+      "item": "minecraft:paper"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:thaumonomicon"
+  }
+}

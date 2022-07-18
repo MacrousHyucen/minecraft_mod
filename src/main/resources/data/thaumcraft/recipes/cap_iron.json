@@ -1,0 +1,15 @@
+{
+  "type": "thaumcraft:arcane_shaped",
+  "pattern": [
+    "###",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:iron_nugget"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:cap_iron"
+  }
+}

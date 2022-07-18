@@ -9,12 +9,13 @@
     "Archasmiel"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/Archasmiel"
+    "homepage": "https://github.com/Archasmiel/fabric_thaumcraft-rewrited",
+    "sources": "https://github.com/Archasmiel/fabric_thaumcraft-rewrited",
+    "issues": "https://github.com/Archasmiel/fabric_thaumcraft-rewrited/issues"
   },
 
   "license": "MIT",
-  "icon": "assets/icon.png",
+  "icon": "icon.png",
 
   "environment": "*",
   "entrypoints": {

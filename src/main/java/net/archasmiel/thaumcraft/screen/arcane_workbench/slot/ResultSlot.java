@@ -56,6 +56,9 @@ public class ResultSlot extends Slot {
 
     public void onTakeItem(PlayerEntity player, ItemStack stack) {
         this.onCrafted(stack);
+
+        if (player.world.isClient) return;
+
         DefaultedList<ItemStack> defaultedList = player.world.getRecipeManager().getRemainingStacks(RecipeType.CRAFTING, this.input, player.world);
 
         for(int i = 0; i < defaultedList.size(); ++i) {

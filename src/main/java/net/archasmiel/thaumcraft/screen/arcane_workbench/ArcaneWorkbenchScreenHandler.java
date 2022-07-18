@@ -15,10 +15,7 @@ import net.minecraft.inventory.CraftingResultInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.s2c.play.ScreenHandlerSlotUpdateS2CPacket;
-import net.minecraft.recipe.CraftingRecipe;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeMatcher;
-import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeBookCategory;
 import net.minecraft.screen.AbstractRecipeScreenHandler;
 import net.minecraft.screen.ScreenHandler;
@@ -102,13 +99,14 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
         if (!world.isClient) {
             ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) player;
             ItemStack itemStack = ItemStack.EMPTY;
-            Optional<CraftingRecipe> optional = world.getServer().getRecipeManager().getFirstMatch(RecipeType.CRAFTING, input, world);
+
+            if (world.getServer() == null) return;
+            RecipeManager manager = world.getServer().getRecipeManager();
+
+            Optional<CraftingRecipe> optional = manager.getFirstMatch(RecipeType.CRAFTING, input, world);
 
             if (optional.isPresent()) {
-                CraftingRecipe craftingRecipe = optional.get();
-                if (result.shouldCraftRecipe(world, serverPlayerEntity, craftingRecipe)) {
-                    itemStack = craftingRecipe.craft(input);
-                }
+                itemStack = optional.get().craft(input);
             }
 
             result.setStack(0, itemStack);

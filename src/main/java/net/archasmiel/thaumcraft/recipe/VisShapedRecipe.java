@@ -20,10 +20,10 @@ import net.minecraft.world.World;
 
 import java.util.Map;
 
-public record ThaumcraftShapedRecipe(Identifier id,
-                                     DefaultedList<Ingredient> input,
-                                     ItemStack output,
-                                     Pair<Integer, Integer> recipeSizes) implements CraftingRecipe {
+public record VisShapedRecipe(Identifier id,
+                              DefaultedList<Ingredient> input,
+                              ItemStack output,
+                              Pair<Integer, Integer> recipeSizes) implements CraftingRecipe {
 
     @Override
     public ItemStack craft(CraftingInventory craftingInventory) {
@@ -32,6 +32,9 @@ public record ThaumcraftShapedRecipe(Identifier id,
 
     @Override
     public boolean matches(CraftingInventory craftingInventory, World world) {
+
+        if (world.isClient) return false;
+
         for(int i = 0; i <= craftingInventory.getWidth() - recipeSizes.getLeft(); ++i) {
             for(int j = 0; j <= craftingInventory.getHeight() - recipeSizes.getRight(); ++j) {
                 if (this.matchesPattern(craftingInventory, i, j, true)) {
@@ -204,13 +207,13 @@ public record ThaumcraftShapedRecipe(Identifier id,
 
 
 
-    public static class Serializer implements RecipeSerializer<ThaumcraftShapedRecipe> {
+    public static class Serializer implements RecipeSerializer<VisShapedRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final String ID = "arcane_shaped";
+        public static final String ID = "vis_shaped";
 
 
         @Override
-        public ThaumcraftShapedRecipe read(Identifier id, JsonObject json) {
+        public VisShapedRecipe read(Identifier id, JsonObject json) {
 
             Map<String, Ingredient> keys = readSymbols(JsonHelper.getObject(json, "key"));
             String[] pattern = readPattern(JsonHelper.getArray(json, "pattern"));
@@ -218,11 +221,11 @@ public record ThaumcraftShapedRecipe(Identifier id,
             DefaultedList<Ingredient> inputs = readIngredients(pattern, keys);
             ItemStack output = outputFromJson(JsonHelper.getObject(json, "result"));
 
-            return new ThaumcraftShapedRecipe(id, inputs, output, recipeSizes);
+            return new VisShapedRecipe(id, inputs, output, recipeSizes);
         }
 
         @Override
-        public ThaumcraftShapedRecipe read(Identifier id, PacketByteBuf buf) {
+        public VisShapedRecipe read(Identifier id, PacketByteBuf buf) {
             Pair<Integer, Integer> recSizes = new Pair<>(buf.readVarInt(), buf.readVarInt());
             DefaultedList<Ingredient> inputs = DefaultedList.ofSize(buf.readVarInt(), Ingredient.EMPTY);
 
@@ -231,11 +234,11 @@ public record ThaumcraftShapedRecipe(Identifier id,
             }
 
             ItemStack output = buf.readItemStack();
-            return new ThaumcraftShapedRecipe(id, inputs, output, recSizes);
+            return new VisShapedRecipe(id, inputs, output, recSizes);
         }
 
         @Override
-        public void write(PacketByteBuf buf, ThaumcraftShapedRecipe recipe) {
+        public void write(PacketByteBuf buf, VisShapedRecipe recipe) {
             buf.writeVarInt(recipe.getRecipeSizes().getLeft());
             buf.writeVarInt(recipe.getRecipeSizes().getRight());
 

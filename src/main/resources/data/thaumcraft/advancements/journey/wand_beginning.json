@@ -1,28 +1,28 @@
 {
+  "parent": "thaumcraft:journey/iron_cap",
   "display": {
     "icon": {
-      "item": "thaumcraft:thaumonomicon"
+      "item": "thaumcraft:wand_wood_iron"
     },
     "title": {
-      "translate": "advancements.journey.root.title"
+      "translate": "advancements.journey.wand_beginning.title"
     },
     "description": {
-      "translate": "advancements.journey.root.description"
+      "translate": "advancements.journey.wand_beginning.description"
     },
-    "frame": "task",
+    "frame": "normal",
     "show_toast": true,
     "announce_to_chat": true,
-    "hidden": false,
-    "background": "thaumcraft:textures/gui/thaumonomicon/researchback.png"
+    "hidden": false
   },
   "criteria": {
-    "crafting_table": {
+    "complete": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:crafting_table"
+              "thaumcraft:wand_wood_iron"
             ]
           }
         ]
@@ -31,7 +31,7 @@
   },
   "requirements": [
     [
-      "crafting_table"
+      "complete"
     ]
   ]
 }

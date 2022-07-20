@@ -23,9 +23,7 @@
         "items": [
           {
             "items": [
-              "minecraft:ink_sac",
-              "minecraft:glass_bottle",
-              "minecraft:feather"
+              "thaumcraft:inkwell"
             ]
           }
         ]

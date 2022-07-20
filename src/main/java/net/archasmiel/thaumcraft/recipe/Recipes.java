@@ -8,13 +8,13 @@ import net.minecraft.util.registry.Registry;
 
 public class Recipes {
 
-    public static RecipeSerializer<ThaumcraftShapedRecipe> thaumcraftShapedRecipeSerializer;
+    public static RecipeSerializer<VisShapedRecipe> thaumcraftShapedRecipeSerializer;
 
     public static void register() {
         thaumcraftShapedRecipeSerializer = Registry.register(
             Registry.RECIPE_SERIALIZER,
-            new Identifier(Thaumcraft.MOD_ID, ThaumcraftShapedRecipe.Serializer.ID),
-            ThaumcraftShapedRecipe.Serializer.INSTANCE
+            new Identifier(Thaumcraft.MOD_ID, VisShapedRecipe.Serializer.ID),
+            VisShapedRecipe.Serializer.INSTANCE
         );
 
     }

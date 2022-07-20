@@ -50,8 +50,10 @@
 
 
 ## ***WIP***
-- [ ] *Deconstruction table GUI+storage* **(Current Goal)**
-- [ ] *Thaumonomicon GUI improvements (working tabs with moving icons, action on clicking, current page saving after closing)* **(Next Goal)**
+- [ ] *Recipes with vis usage in arcane workbench* **(Current Goal)**
+- [ ] *Shapeless vis recipe in arcane workbench* **(Next Goal)**
+- [ ] *Deconstruction table GUI+storage* 
+- [ ] *Thaumonomicon GUI improvements (working tabs with moving icons, action on clicking, current page saving after closing)* 
 
 
 

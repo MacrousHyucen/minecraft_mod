@@ -1,7 +1,7 @@
 {
   "itemGroup.thaumcraft.general": "§5神秘时代4：重置",
   "itemGroup.thaumcraft.generated": "§5神秘时代4：重置 (神秘学)",
-
+    
   "gui.thaumcraft.basics_tab":  "基础学",
   "gui.thaumcraft.thaumaturgy_tab": "神秘学",
   "gui.thaumcraft.alchemy_tab":  "炼金术",
@@ -11,9 +11,9 @@
 
   "advancements.journey.root.title": "§5神秘时代",
   "advancements.journey.root.description": "让我们来制作一把法杖！但先要做一个工作台",
-  "advancements.journey.paper_gathering.title": "研究...",
-  "advancements.journey.paper_gathering.description": "...需要大量的纸",
-  "advancements.journey.scribing_tools.title": "作划时间...",
+  "advancements.journey.paper_gathering.title": "研究……",
+  "advancements.journey.paper_gathering.description": "……需要大量的纸",
+  "advancements.journey.scribing_tools.title": "作划时间……",
   "advancements.journey.scribing_tools.description": "来整点空瓶子，用羽毛和墨囊就好",
   "advancements.journey.iron_cap.title": "物美价廉",
   "advancements.journey.iron_cap.description": "合成一个基础的铁杖端",
@@ -110,28 +110,28 @@
 
 
 
-  "wand_type.thaumcraft.wand": "Wand",
-  "wand_type.thaumcraft.scepter": "Scepter",
-  "wand_type.thaumcraft.staff": "Staff",
+  "wand_type.thaumcraft.wand": "法杖",
+  "wand_type.thaumcraft.scepter": "杖柄",
+  "wand_type.thaumcraft.staff": "杖芯",
 
-  "wand_cap.thaumcraft.copper": "Copper capped",
-  "wand_cap.thaumcraft.silver": "Silver capped",
-  "wand_cap.thaumcraft.iron": "Iron capped",
-  "wand_cap.thaumcraft.gold": "Gold capped",
-  "wand_cap.thaumcraft.thaumium": "Thaumium capped",
-  "wand_cap.thaumcraft.void": "Void capped",
+  "wand_cap.thaumcraft.copper": "铜杖端",
+  "wand_cap.thaumcraft.silver": "银杖端",
+  "wand_cap.thaumcraft.iron": "铁杖端",
+  "wand_cap.thaumcraft.gold": "金杖端",
+  "wand_cap.thaumcraft.thaumium": "神秘杖端",
+  "wand_cap.thaumcraft.void": "虚空金属杖端",
 
-  "wand_rod.thaumcraft.wood": "Wood",
-  "wand_rod.thaumcraft.blaze": "Blazing",
-  "wand_rod.thaumcraft.bone": "Bone",
-  "wand_rod.thaumcraft.greatwood": "Greatwood",
-  "wand_rod.thaumcraft.ice": "Icy",
-  "wand_rod.thaumcraft.obsidian": "Obsidian",
-  "wand_rod.thaumcraft.quartz": "Quartz",
-  "wand_rod.thaumcraft.reed": "Reed",
-  "wand_rod.thaumcraft.silverwood": "Silverwood",
-  "wand_rod.thaumcraft.primal": "Primal",
+  "wand_rod.thaumcraft.wood": "木",
+  "wand_rod.thaumcraft.blaze": "烈焰",
+  "wand_rod.thaumcraft.bone": "骨",
+  "wand_rod.thaumcraft.greatwood": "宏伟之木",
+  "wand_rod.thaumcraft.ice": "冰",
+  "wand_rod.thaumcraft.obsidian": "黑曜石",
+  "wand_rod.thaumcraft.quartz": "石英",
+  "wand_rod.thaumcraft.reed": "甘蔗",
+  "wand_rod.thaumcraft.silverwood": "银树",
+  "wand_rod.thaumcraft.primal": "原始",
 
-  "gui.thaumcraft.wand_capacity": "Capacity ",
-  "gui.thaumcraft.vis_cost": " vis cost"
+  "gui.thaumcraft.wand_capacity": "容量 ",
+  "gui.thaumcraft.vis_cost": " Vis消耗"
 }

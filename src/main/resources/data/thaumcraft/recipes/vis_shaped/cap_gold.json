@@ -1,0 +1,20 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    "aaa",
+    "a a"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:gold_nugget"
+    }
+  },
+  "vis": {
+    "aer": 3,
+    "ignis": 3,
+    "ordo": 3
+  },
+  "result": {
+    "item": "thaumcraft:cap_gold"
+  }
+}

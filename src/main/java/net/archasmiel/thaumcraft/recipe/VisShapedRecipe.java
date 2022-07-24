@@ -20,7 +20,6 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -72,7 +71,6 @@ public record VisShapedRecipe(Identifier id,
         WandAbstract currentWand = (WandAbstract) wand.getItem();
 
         NbtCompound wandVisData = wand.getNbt();
-        System.out.println(wandVisData);
         if (wandVisData != null) {
             for (Map.Entry<String, Float> entry: vis.entrySet()) {
                 String key = entry.getKey();
@@ -260,7 +258,7 @@ public record VisShapedRecipe(Identifier id,
 
 
     public static class Type implements RecipeType<VisShapedRecipe> {
-
+        private Type() { }
         public static final Type INSTANCE = new Type();
         public static final String ID = "vis_shaped";
 
@@ -294,9 +292,13 @@ public record VisShapedRecipe(Identifier id,
                 inputs.set(k, Ingredient.fromPacket(buf));
             }
 
-            Map<String, Float> vis = new HashMap<>();
-            for (int k = 0; k < buf.readVarInt(); k++) {
-                vis.put(buf.readString(), buf.readFloat());
+            Map<String, Float> vis = Maps.newHashMap();
+            int visSize = buf.readVarInt();
+            for (int k = 0; k < visSize; k++) {
+                // must be in separate lines; server can't handle if not making new variable
+                String key = buf.readString();
+                Float value = buf.readFloat();
+                vis.put(key, value);
             }
 
             ItemStack output = buf.readItemStack();

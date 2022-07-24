@@ -7,6 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.RecipeUnlocker;
 import net.minecraft.screen.slot.Slot;
@@ -67,7 +68,8 @@ public class ResultSlot extends Slot {
         this.onCrafted(stack);
 
         DefaultedList<ItemStack> defaultedList = DefaultedList.ofSize(9, ItemStack.EMPTY);
-        if (player.world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, this.input, player.world).isPresent()){
+        Optional<CraftingRecipe> optional = player.world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, this.input, player.world);
+        if (optional.isPresent()){
             defaultedList = player.world.getRecipeManager().getRemainingStacks(RecipeType.CRAFTING, this.input, player.world);
         }
 

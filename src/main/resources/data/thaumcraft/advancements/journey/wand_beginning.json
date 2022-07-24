@@ -10,7 +10,7 @@
     "description": {
       "translate": "advancements.journey.wand_beginning.description"
     },
-    "frame": "normal",
+    "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false

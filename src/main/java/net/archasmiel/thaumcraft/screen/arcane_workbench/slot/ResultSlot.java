@@ -1,5 +1,8 @@
 package net.archasmiel.thaumcraft.screen.arcane_workbench.slot;
 
+import net.archasmiel.thaumcraft.blockentity.inventory.ImplementedInventory;
+import net.archasmiel.thaumcraft.recipe.VisShapedRecipe;
+import net.archasmiel.thaumcraft.screen.arcane_workbench.inventory.CraftingWandInventory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventory;
@@ -9,16 +12,22 @@ import net.minecraft.recipe.RecipeUnlocker;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.collection.DefaultedList;
 
+import java.util.Optional;
+
+import static net.archasmiel.thaumcraft.recipe.Recipes.VIS_SHAPED_RECIPE_TYPE;
+
 public class ResultSlot extends Slot {
 
     private final CraftingInventory input;
+    private final CraftingWandInventory wand;
     private final PlayerEntity player;
     private int amount;
 
-    public ResultSlot(PlayerEntity player, CraftingInventory input, Inventory inventory, int index, int x, int y) {
+    public ResultSlot(PlayerEntity player, CraftingInventory input, CraftingWandInventory wand, Inventory inventory, int index, int x, int y) {
         super(inventory, index, x, y);
         this.player = player;
         this.input = input;
+        this.wand = wand;
     }
 
     public boolean canInsert(ItemStack stack) {
@@ -57,7 +66,29 @@ public class ResultSlot extends Slot {
     public void onTakeItem(PlayerEntity player, ItemStack stack) {
         this.onCrafted(stack);
 
-        DefaultedList<ItemStack> defaultedList = player.world.getRecipeManager().getRemainingStacks(RecipeType.CRAFTING, this.input, player.world);
+        DefaultedList<ItemStack> defaultedList = DefaultedList.ofSize(9, ItemStack.EMPTY);
+        if (player.world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, this.input, player.world).isPresent()){
+            defaultedList = player.world.getRecipeManager().getRemainingStacks(RecipeType.CRAFTING, this.input, player.world);
+        }
+
+        DefaultedList<ItemStack> inv = DefaultedList.ofSize(11, ItemStack.EMPTY);
+        for (int i = 0 ; i < 9 ; i++) inv.set(i, input.getStack(i));
+        inv.set(9, this.getStack());
+        inv.set(10, wand.getStack(0));
+        ImplementedInventory inventory = () -> inv;
+
+        Optional<VisShapedRecipe> optionalVis = player.world.getRecipeManager().getFirstMatch(VIS_SHAPED_RECIPE_TYPE, inventory, player.world);
+        if (optionalVis.isPresent()) {
+            DefaultedList<ItemStack> defaultedVisList = player.world.getRecipeManager().getRemainingStacks(VIS_SHAPED_RECIPE_TYPE, inventory, player.world);
+
+            optionalVis.get().visCraft(inventory);
+
+            defaultedList = DefaultedList.ofSize(9, ItemStack.EMPTY);
+            for (int i = 0 ; i < 9 ; i++) {
+                defaultedList.set(i, defaultedVisList.get(i));
+            }
+        }
+
 
         for(int i = 0; i < defaultedList.size(); ++i) {
             ItemStack itemStack = this.input.getStack(i);

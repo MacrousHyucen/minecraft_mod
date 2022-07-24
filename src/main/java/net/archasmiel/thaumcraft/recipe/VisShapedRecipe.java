@@ -2,13 +2,15 @@ package net.archasmiel.thaumcraft.recipe;
 
 import com.google.common.collect.Maps;
 import com.google.gson.*;
-import net.minecraft.inventory.CraftingInventory;
+import net.archasmiel.thaumcraft.blockentity.inventory.ImplementedInventory;
+import net.archasmiel.thaumcraft.item.wandcraft.WandAbstract;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
@@ -18,30 +20,40 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public record VisShapedRecipe(Identifier id,
                               DefaultedList<Ingredient> input,
+                              Map<String, Float> vis,
                               ItemStack output,
-                              Pair<Integer, Integer> recipeSizes) implements CraftingRecipe {
+                              Pair<Integer, Integer> recipeSizes) implements Recipe<ImplementedInventory> {
 
     @Override
-    public ItemStack craft(CraftingInventory craftingInventory) {
-        return this.getOutput().copy();
-    }
-
-    @Override
-    public boolean matches(CraftingInventory craftingInventory, World world) {
-
+    public boolean matches(ImplementedInventory inventory, World world) {
         if (world.isClient) return false;
 
-        for(int i = 0; i <= craftingInventory.getWidth() - recipeSizes.getLeft(); ++i) {
-            for(int j = 0; j <= craftingInventory.getHeight() - recipeSizes.getRight(); ++j) {
-                if (this.matchesPattern(craftingInventory, i, j, true)) {
+        ItemStack wand = inventory.getStack(10);
+        if (wand == ItemStack.EMPTY) return false;
+        if (!(wand.getItem() instanceof WandAbstract wandCurrent)) return false;
+
+        NbtCompound wandVisData;
+        if ((wandVisData = wand.getNbt()) != null) {
+            for (Map.Entry<String, Float> entry: vis.entrySet()) {
+                if ((entry.getValue() * wandCurrent.getDiscount()) > wandVisData.getFloat(entry.getKey())){
+                    return false;
+                }
+            }
+        }
+
+        for(int i = 0; i <= 3 - recipeSizes.getLeft(); ++i) {
+            for(int j = 0; j <= 3 - recipeSizes.getRight(); ++j) {
+                if (this.matchesPattern(inventory, i, j, true)) {
                     return true;
                 }
 
-                if (this.matchesPattern(craftingInventory, i, j, false)) {
+                if (this.matchesPattern(inventory, i, j, false)) {
                     return true;
                 }
             }
@@ -50,9 +62,28 @@ public record VisShapedRecipe(Identifier id,
         return false;
     }
 
-    private boolean matchesPattern(CraftingInventory inv, int offsetX, int offsetY, boolean flipped) {
-        for(int i = 0; i < inv.getWidth(); ++i) {
-            for(int j = 0; j < inv.getHeight(); ++j) {
+    @Override
+    public ItemStack craft(ImplementedInventory inventory) {
+        return this.getOutput().copy();
+    }
+
+    public void visCraft(ImplementedInventory inventory) {
+        ItemStack wand = inventory.getStack(10);
+        WandAbstract currentWand = (WandAbstract) wand.getItem();
+
+        NbtCompound wandVisData = wand.getNbt();
+        System.out.println(wandVisData);
+        if (wandVisData != null) {
+            for (Map.Entry<String, Float> entry: vis.entrySet()) {
+                String key = entry.getKey();
+                wandVisData.putFloat(key, wandVisData.getFloat(key) - entry.getValue() * currentWand.getDiscount());
+            }
+        }
+    }
+
+    private boolean matchesPattern(ImplementedInventory inv, int offsetX, int offsetY, boolean flipped) {
+        for(int i = 0; i < 3; ++i) {
+            for(int j = 0; j < 3; ++j) {
                 int k = i - offsetX;
                 int l = j - offsetY;
                 Ingredient ingredient = Ingredient.EMPTY;
@@ -64,7 +95,7 @@ public record VisShapedRecipe(Identifier id,
                     }
                 }
 
-                if (!ingredient.test(inv.getStack(i + j * inv.getWidth()))) {
+                if (!ingredient.test(inv.getStack(i + j * 3))) {
                     return false;
                 }
             }
@@ -86,6 +117,10 @@ public record VisShapedRecipe(Identifier id,
         return recipeSizes;
     }
 
+    public Map<String, Float> getRecipeVis() {
+        return vis;
+    }
+
     @Override
     public Identifier getId() {
         return id;
@@ -98,7 +133,7 @@ public record VisShapedRecipe(Identifier id,
 
     @Override
     public RecipeType<?> getType() {
-        return RecipeType.CRAFTING;
+        return Type.INSTANCE;
     }
 
 
@@ -203,8 +238,33 @@ public record VisShapedRecipe(Identifier id,
         return sizes;
     }
 
+    static Map<String, Float> readVis(JsonObject json) {
+        Map<String, Float> vis = Maps.newHashMap();
+
+        for (Map.Entry<String, JsonElement> stringJsonElementEntry : json.entrySet()) {
+            String key = stringJsonElementEntry.getKey();
+            float value = stringJsonElementEntry.getValue().getAsFloat();
+            if (Objects.equals(key, "aer") || Objects.equals(key, "ignis") || Objects.equals(key, "aqua") ||
+                Objects.equals(key, "terra") || Objects.equals(key, "ordo") || Objects.equals(key, "perditio")){
+                if (value > 0) vis.put(key, value);
+            } else {
+                throw new JsonSyntaxException("Vis name doesn't belong to {'aer', 'ignis', 'aqua', 'terra', 'ordo', 'perditio'}");
+            }
+        }
+
+        return vis;
+    }
 
 
+
+
+
+    public static class Type implements RecipeType<VisShapedRecipe> {
+
+        public static final Type INSTANCE = new Type();
+        public static final String ID = "vis_shaped";
+
+    }
 
 
     public static class Serializer implements RecipeSerializer<VisShapedRecipe> {
@@ -220,21 +280,27 @@ public record VisShapedRecipe(Identifier id,
             Pair<Integer, Integer> recipeSizes = getRecipeSizes(pattern);
             DefaultedList<Ingredient> inputs = readIngredients(pattern, keys);
             ItemStack output = outputFromJson(JsonHelper.getObject(json, "result"));
+            Map<String, Float> vis = readVis(JsonHelper.getObject(json, "vis"));
 
-            return new VisShapedRecipe(id, inputs, output, recipeSizes);
+            return new VisShapedRecipe(id, inputs, vis, output, recipeSizes);
         }
 
         @Override
         public VisShapedRecipe read(Identifier id, PacketByteBuf buf) {
             Pair<Integer, Integer> recSizes = new Pair<>(buf.readVarInt(), buf.readVarInt());
-            DefaultedList<Ingredient> inputs = DefaultedList.ofSize(buf.readVarInt(), Ingredient.EMPTY);
 
+            DefaultedList<Ingredient> inputs = DefaultedList.ofSize(buf.readVarInt(), Ingredient.EMPTY);
             for (int k = 0; k < inputs.size(); k++) {
                 inputs.set(k, Ingredient.fromPacket(buf));
             }
 
+            Map<String, Float> vis = new HashMap<>();
+            for (int k = 0; k < buf.readVarInt(); k++) {
+                vis.put(buf.readString(), buf.readFloat());
+            }
+
             ItemStack output = buf.readItemStack();
-            return new VisShapedRecipe(id, inputs, output, recSizes);
+            return new VisShapedRecipe(id, inputs, vis, output, recSizes);
         }
 
         @Override
@@ -243,10 +309,16 @@ public record VisShapedRecipe(Identifier id,
             buf.writeVarInt(recipe.getRecipeSizes().getRight());
 
             buf.writeVarInt(recipe.getIngredients().size());
-
             for (Ingredient ing : recipe.getIngredients()) {
                 ing.write(buf);
             }
+
+            buf.writeVarInt(recipe.getRecipeVis().size());
+            for (Map.Entry<String, Float> entry: recipe.getRecipeVis().entrySet()) {
+                buf.writeString(entry.getKey());
+                buf.writeFloat(entry.getValue());
+            }
+
             buf.writeItemStack(recipe.output);
         }
     }

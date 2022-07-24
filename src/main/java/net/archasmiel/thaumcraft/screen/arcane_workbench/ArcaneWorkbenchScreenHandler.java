@@ -2,6 +2,9 @@ package net.archasmiel.thaumcraft.screen.arcane_workbench;
 
 import net.archasmiel.thaumcraft.block.Blocks;
 import net.archasmiel.thaumcraft.blockentity.ArcaneWorkbenchBlockEntity;
+import net.archasmiel.thaumcraft.blockentity.inventory.ImplementedInventory;
+import net.archasmiel.thaumcraft.recipe.Recipes;
+import net.archasmiel.thaumcraft.recipe.VisShapedRecipe;
 import net.archasmiel.thaumcraft.screen.ScreenHandlers;
 import net.archasmiel.thaumcraft.screen.arcane_workbench.inventory.CraftingWandInventory;
 import net.archasmiel.thaumcraft.screen.arcane_workbench.slot.ResultSlot;
@@ -22,6 +25,7 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
 import java.util.Optional;
@@ -57,7 +61,7 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 
 
         // output slot
-        this.addSlot(new ResultSlot(playerInventory.player, this.input, this.result, 0, 160, 64));
+        this.addSlot(new ResultSlot(playerInventory.player, this.input, this.wand, this.result, 0, 160, 64));
 
         // wand slot
         this.addSlot(new WandSlot(this.wand, 0, 160, 25));
@@ -103,9 +107,18 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
             if (world.getServer() == null) return;
             RecipeManager manager = world.getServer().getRecipeManager();
 
-            Optional<CraftingRecipe> optional = manager.getFirstMatch(RecipeType.CRAFTING, input, world);
+            DefaultedList<ItemStack> inv = DefaultedList.ofSize(11, ItemStack.EMPTY);
+            for (int i = 0 ; i < 9 ; i++) inv.set(i, input.getStack(i));
+            inv.set(9, result.getStack(0));
+            inv.set(10, wand.getStack(0));
+            ImplementedInventory inventory = () -> inv;
 
-            if (optional.isPresent()) {
+            Optional<CraftingRecipe> optional = manager.getFirstMatch(RecipeType.CRAFTING, input, world);
+            Optional<VisShapedRecipe> optionalVis = manager.getFirstMatch(Recipes.VIS_SHAPED_RECIPE_TYPE, inventory, world);
+
+            if (optionalVis.isPresent()){
+                itemStack = optionalVis.get().craft(inventory);
+            } else if (optional.isPresent()) {
                 itemStack = optional.get().craft(input);
             }
 

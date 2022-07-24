@@ -24,16 +24,21 @@ public class CraftingWandInventory implements Inventory {
     }
 
     public boolean isEmpty() {
-        Iterator var1 = this.stacks.iterator();
+        Iterator<ItemStack> var1 = this.stacks.iterator();
 
         ItemStack itemStack;
-        do {
+        if (!var1.hasNext()) {
+            return true;
+        }
+
+        itemStack = var1.next();
+        while (itemStack.isEmpty()) {
             if (!var1.hasNext()) {
                 return true;
             }
 
-            itemStack = (ItemStack)var1.next();
-        } while(itemStack.isEmpty());
+            itemStack = var1.next();
+        }
 
         return false;
     }

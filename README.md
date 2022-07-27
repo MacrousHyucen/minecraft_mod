@@ -5,6 +5,10 @@
 ###  **What's this project?**<br>
   This project is my fun-made rewrite of Thaumcraft 4 (based on latest 1.7.10 mod version).<br><br>
   
+###  **Youtube Showcases**<br>
+  You can find them on my channel.<br>
+  https://www.youtube.com/channel/UCxPTj6mxnN6Ij2uXxbE_e6g<br><br>
+  
 ###  **Version and mod loader used?**<br>
   **Project currently using Fabric 1.18.2.** <br>
   Not planning transfer mod to 1.19 in near time (unstable APIs). <br><br>
@@ -14,7 +18,8 @@
   3. ARRP (Advanced Runtime Resource Packs) [Link](https://github.com/Devan-Kerman/ARRP/)
   
 ###  **What about license?**<br>
-  I do not own all original images, ideas and etc. All license rights for Thaumcraft mod are on author - Azanor.<br>
+  I do not own all original images, ideas and etc.<br>
+  All license rights for Thaumcraft mod are on author - Azanor.<br>
   [**Azanor GitHub**](https://github.com/Azanor)<br>
   [**Azanor Repos**](https://github.com/Azanor?tab=repositories)<br><br>
   

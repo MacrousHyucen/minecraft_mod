@@ -14,7 +14,7 @@ public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHa
 
     private static final Identifier BACK =
             new Identifier(Thaumcraft.MOD_ID, "textures/gui/background.png");
-    private static final Identifier TEXTURE =
+    private static final Identifier BACKGROUND =
             new Identifier(Thaumcraft.MOD_ID, "textures/gui/arcane_workbench.png");
     private static final int sizeX = 200, sizeY = 240;
 
@@ -33,7 +33,7 @@ public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHa
         RenderSystem.setShaderTexture(0, BACK);
         drawTexture(matrices, 0, 0, 0, 0, width, height);
 
-        RenderSystem.setShaderTexture(0, TEXTURE);
+        RenderSystem.setShaderTexture(0, BACKGROUND);
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
         drawTexture(matrices, x, y, 0, 0, backgroundWidth, backgroundHeight);

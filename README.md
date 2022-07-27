@@ -33,7 +33,7 @@
 - [x] *Custom ItemGroup for mod*
 - [x] *Blockbench models of table, arcane workbench and deconstruction table (and rotation ability)*
 - [x] *Arcane Workbench GUI + vanilla recipes + wand-item special slot + obtained by clicking wand on table + checked server-side stability*
-- [x] *Arcane workbench VisShaped recipe type*
+- [x] *Arcane Workbench VisShaped and VisShapeless recipe types*
 - [x] *Basic Thaumonomicon GUI (explosion test sound)*
 - [x] *Some amount of original items (including all types of shards, wand+staff cores and caps)*
 - [x] *Working thaumium tool set*
@@ -50,9 +50,8 @@
 
 
 ## ***WIP***
-- [ ] *Shapeless vis recipe in arcane workbench* **(Current Goal)**
-- [ ] *Deconstruction table GUI* **(Next Goal)**
-- [ ] *Thaumonomicon GUI improvements (tabs with icons, actions on clicking, current page saving after closing, player research data)* 
+- [ ] *Deconstruction table GUI* **(Current Goal)** 
+- [ ] *Thaumonomicon GUI improvements (tabs with icons, actions on clicking, current page saving after closing, player research data)* **(Next Goal)**
 - [ ] *Basic vis nodes, wand charge animation and vis capacity interface*
 - [ ] *OBJ model loading - Alchemical Furnace • Arcane Alembic*
 

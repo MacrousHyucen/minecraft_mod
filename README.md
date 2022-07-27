@@ -50,8 +50,9 @@
 
 
 ## ***WIP***
-- [ ] *Deconstruction table GUI* **(Current Goal)** 
-- [ ] *Thaumonomicon GUI improvements (tabs with icons, actions on clicking, current page saving after closing, player research data)* **(Next Goal)**
+- [ ] *Vis visualization in arcane workbench* **(Current Goal)** 
+- [ ] *Deconstruction table GUI* **(Next Goal)**
+- [ ] *Thaumonomicon GUI improvements (tabs with icons, actions on clicking, current page saving after closing, player research data)* 
 - [ ] *Basic vis nodes, wand charge animation and vis capacity interface*
 - [ ] *OBJ model loading - Alchemical Furnace • Arcane Alembic*
 

@@ -36,9 +36,7 @@ public class ThaumonomiconGui extends LightweightGuiDescription {
         research.setSize(researchX, researchY);
         setRootPanel(root);
 
-        for (ResearchTab tab: tabs)
-            tab.setActive(false);
-        tabs.get(0).setActive(true);
+
         root.setTabs(tabs);
         root.setResearchPanel(research, tabSize, 0);
     }
@@ -50,11 +48,11 @@ public class ThaumonomiconGui extends LightweightGuiDescription {
     }
 
     public static void setTabs(List<ResearchTab> origTabs) {
-        ThaumonomiconGui.tabs = origTabs;
+        tabs = origTabs;
     }
 
     public static void addTab(ResearchTab tab) {
-        ThaumonomiconGui.tabs.add(tab);
+        tabs.add(tab);
     }
 
 }

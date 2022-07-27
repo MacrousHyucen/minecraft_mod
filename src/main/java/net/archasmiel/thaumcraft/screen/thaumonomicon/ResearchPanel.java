@@ -36,18 +36,18 @@ public class ResearchPanel extends WWidget {
     @Environment(EnvType.CLIENT)
     @Override
     public InputResult onMouseDrag(int x, int y, int button, double deltaX, double deltaY) {
-        if (button == 0) update(-deltaX, -deltaY);
+        if (button == 0) update(deltaX, deltaY);
         return InputResult.PROCESSED;
     }
 
 
 
     private void update(double deltaX, double deltaY) {
-        textureX += deltaX;
+        textureX -= deltaX;
         if (textureX < 0) textureX = 0;
         if (textureX > sizeX) textureX = sizeX;
 
-        textureY += deltaY;
+        textureY -= deltaY;
         if (textureY < 0) textureY = 0;
         if (textureY > sizeY) textureY = sizeY;
     }

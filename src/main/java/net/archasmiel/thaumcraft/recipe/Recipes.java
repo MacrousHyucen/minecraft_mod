@@ -12,6 +12,9 @@ public class Recipes {
     public static RecipeSerializer<VisShapedRecipe> VIS_SHAPED_RECIPE_SERIALIZER;
     public static RecipeType<VisShapedRecipe> VIS_SHAPED_RECIPE_TYPE;
 
+    public static RecipeSerializer<VisShapelessRecipe> VIS_SHAPELESS_RECIPE_SERIALIZER;
+    public static RecipeType<VisShapelessRecipe> VIS_SHAPELESS_RECIPE_TYPE;
+
     public static void register() {
 
         VIS_SHAPED_RECIPE_SERIALIZER = Registry.register(
@@ -24,6 +27,20 @@ public class Recipes {
                 Registry.RECIPE_TYPE,
                 new Identifier(Thaumcraft.MOD_ID, VisShapedRecipe.Type.ID),
                 VisShapedRecipe.Type.INSTANCE
+        );
+
+
+
+        VIS_SHAPELESS_RECIPE_SERIALIZER = Registry.register(
+                Registry.RECIPE_SERIALIZER,
+                new Identifier(Thaumcraft.MOD_ID, VisShapelessRecipe.Serializer.ID),
+                VisShapelessRecipe.Serializer.INSTANCE
+        );
+
+        VIS_SHAPELESS_RECIPE_TYPE = Registry.register(
+                Registry.RECIPE_TYPE,
+                new Identifier(Thaumcraft.MOD_ID, VisShapelessRecipe.Type.ID),
+                VisShapelessRecipe.Type.INSTANCE
         );
 
     }

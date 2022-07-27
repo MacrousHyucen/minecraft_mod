@@ -5,6 +5,7 @@ import net.archasmiel.thaumcraft.blockentity.ArcaneWorkbenchBlockEntity;
 import net.archasmiel.thaumcraft.blockentity.inventory.ImplementedInventory;
 import net.archasmiel.thaumcraft.recipe.Recipes;
 import net.archasmiel.thaumcraft.recipe.VisShapedRecipe;
+import net.archasmiel.thaumcraft.recipe.VisShapelessRecipe;
 import net.archasmiel.thaumcraft.screen.ScreenHandlers;
 import net.archasmiel.thaumcraft.screen.arcane_workbench.inventory.CraftingWandInventory;
 import net.archasmiel.thaumcraft.screen.arcane_workbench.slot.ResultSlot;
@@ -107,19 +108,25 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
             if (world.getServer() == null) return;
             RecipeManager manager = world.getServer().getRecipeManager();
 
-            DefaultedList<ItemStack> inv = DefaultedList.ofSize(11, ItemStack.EMPTY);
-            for (int i = 0 ; i < 9 ; i++) inv.set(i, input.getStack(i));
-            inv.set(9, result.getStack(0));
-            inv.set(10, wand.getStack(0));
+            DefaultedList<ItemStack> inv = DefaultedList.ofSize(10, ItemStack.EMPTY);
+            for (int i = 0 ; i < 9 ; i++)
+                inv.set(i, input.getStack(i));
+            inv.set(9, wand.getStack(0));
             ImplementedInventory inventory = () -> inv;
 
             Optional<CraftingRecipe> optional = manager.getFirstMatch(RecipeType.CRAFTING, input, world);
-            Optional<VisShapedRecipe> optionalVis = manager.getFirstMatch(Recipes.VIS_SHAPED_RECIPE_TYPE, inventory, world);
-
-            if (optionalVis.isPresent()){
-                itemStack = optionalVis.get().craft(inventory);
-            } else if (optional.isPresent()) {
+            if (optional.isPresent()) {
                 itemStack = optional.get().craft(input);
+            }
+
+            Optional<VisShapedRecipe> optionalVisShaped = manager.getFirstMatch(Recipes.VIS_SHAPED_RECIPE_TYPE, inventory, world);
+            if (optionalVisShaped.isPresent()){
+                itemStack = optionalVisShaped.get().craft(inventory);
+            }
+
+            Optional<VisShapelessRecipe> optionalVisShapeless = manager.getFirstMatch(Recipes.VIS_SHAPELESS_RECIPE_TYPE, inventory, world);
+            if (optionalVisShapeless.isPresent()){
+                itemStack = optionalVisShapeless.get().craft(inventory);
             }
 
             result.setStack(0, itemStack);

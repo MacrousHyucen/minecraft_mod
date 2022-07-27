@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "thaumcraft:vis_shapeless",
   "ingredients": [
     {
       "item": "minecraft:leather"
@@ -11,6 +11,14 @@
       "item": "minecraft:paper"
     }
   ],
+  "vis": {
+    "aer": 5,
+    "ignis": 5,
+    "aqua": 5,
+    "terra": 5,
+    "ordo": 5,
+    "perditio": 5
+  },
   "result": {
     "item": "thaumcraft:thaumonomicon"
   }

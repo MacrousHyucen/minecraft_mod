@@ -33,18 +33,7 @@ public record VisShapedRecipe(Identifier id,
     public boolean matches(ImplementedInventory inventory, World world) {
         if (world.isClient) return false;
 
-        ItemStack wand = inventory.getStack(10);
-        if (wand == ItemStack.EMPTY) return false;
-        if (!(wand.getItem() instanceof WandAbstract wandCurrent)) return false;
-
-        NbtCompound wandVisData;
-        if ((wandVisData = wand.getNbt()) != null) {
-            for (Map.Entry<String, Float> entry: vis.entrySet()) {
-                if ((entry.getValue() * wandCurrent.getDiscount()) > wandVisData.getFloat(entry.getKey())){
-                    return false;
-                }
-            }
-        }
+        if (!checkVis(inventory)) return false;
 
         for(int i = 0; i <= 3 - recipeSizes.getLeft(); ++i) {
             for(int j = 0; j <= 3 - recipeSizes.getRight(); ++j) {
@@ -67,7 +56,7 @@ public record VisShapedRecipe(Identifier id,
     }
 
     public void visCraft(ImplementedInventory inventory) {
-        ItemStack wand = inventory.getStack(10);
+        ItemStack wand = inventory.getStack(9);
         WandAbstract currentWand = (WandAbstract) wand.getItem();
 
         NbtCompound wandVisData = wand.getNbt();
@@ -77,6 +66,23 @@ public record VisShapedRecipe(Identifier id,
                 wandVisData.putFloat(key, wandVisData.getFloat(key) - entry.getValue() * currentWand.getDiscount());
             }
         }
+    }
+
+    public boolean checkVis(ImplementedInventory inventory) {
+        ItemStack wand = inventory.getStack(9);
+        if (wand == ItemStack.EMPTY) return false;
+        if (!(wand.getItem() instanceof WandAbstract wandCurrent)) return false;
+
+        NbtCompound wandVisData;
+        if ((wandVisData = wand.getNbt()) != null) {
+            for (Map.Entry<String, Float> entry: vis.entrySet()) {
+                if ((entry.getValue() * wandCurrent.getDiscount()) > wandVisData.getFloat(entry.getKey())){
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     private boolean matchesPattern(ImplementedInventory inv, int offsetX, int offsetY, boolean flipped) {
@@ -285,7 +291,8 @@ public record VisShapedRecipe(Identifier id,
 
         @Override
         public VisShapedRecipe read(Identifier id, PacketByteBuf buf) {
-            Pair<Integer, Integer> recSizes = new Pair<>(buf.readVarInt(), buf.readVarInt());
+            Integer width = buf.readVarInt(), height = buf.readVarInt();
+            Pair<Integer, Integer> recSizes = new Pair<>(width, height);
 
             DefaultedList<Ingredient> inputs = DefaultedList.ofSize(buf.readVarInt(), Ingredient.EMPTY);
             for (int k = 0; k < inputs.size(); k++) {

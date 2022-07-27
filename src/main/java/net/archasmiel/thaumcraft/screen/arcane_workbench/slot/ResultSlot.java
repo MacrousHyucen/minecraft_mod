@@ -2,12 +2,14 @@ package net.archasmiel.thaumcraft.screen.arcane_workbench.slot;
 
 import net.archasmiel.thaumcraft.blockentity.inventory.ImplementedInventory;
 import net.archasmiel.thaumcraft.recipe.VisShapedRecipe;
+import net.archasmiel.thaumcraft.recipe.VisShapelessRecipe;
 import net.archasmiel.thaumcraft.screen.arcane_workbench.inventory.CraftingWandInventory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.CraftingRecipe;
+import net.minecraft.recipe.RecipeManager;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.RecipeUnlocker;
 import net.minecraft.screen.slot.Slot;
@@ -16,6 +18,7 @@ import net.minecraft.util.collection.DefaultedList;
 import java.util.Optional;
 
 import static net.archasmiel.thaumcraft.recipe.Recipes.VIS_SHAPED_RECIPE_TYPE;
+import static net.archasmiel.thaumcraft.recipe.Recipes.VIS_SHAPELESS_RECIPE_TYPE;
 
 public class ResultSlot extends Slot {
 
@@ -67,23 +70,32 @@ public class ResultSlot extends Slot {
     public void onTakeItem(PlayerEntity player, ItemStack stack) {
         this.onCrafted(stack);
 
+        ImplementedInventory inventory = getVisInventory();
+        RecipeManager manager = player.world.getRecipeManager();
+
         DefaultedList<ItemStack> defaultedList = DefaultedList.ofSize(9, ItemStack.EMPTY);
-        Optional<CraftingRecipe> optional = player.world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, this.input, player.world);
+        Optional<CraftingRecipe> optional = manager.getFirstMatch(RecipeType.CRAFTING, this.input, player.world);
         if (optional.isPresent()){
-            defaultedList = player.world.getRecipeManager().getRemainingStacks(RecipeType.CRAFTING, this.input, player.world);
+            defaultedList = manager.getRemainingStacks(RecipeType.CRAFTING, this.input, player.world);
         }
 
-        DefaultedList<ItemStack> inv = DefaultedList.ofSize(11, ItemStack.EMPTY);
-        for (int i = 0 ; i < 9 ; i++) inv.set(i, input.getStack(i));
-        inv.set(9, this.getStack());
-        inv.set(10, wand.getStack(0));
-        ImplementedInventory inventory = () -> inv;
+        Optional<VisShapedRecipe> optionalVisShaped = manager.getFirstMatch(VIS_SHAPED_RECIPE_TYPE, inventory, player.world);
+        if (optionalVisShaped.isPresent()) {
+            DefaultedList<ItemStack> defaultedVisList = manager.getRemainingStacks(VIS_SHAPED_RECIPE_TYPE, inventory, player.world);
 
-        Optional<VisShapedRecipe> optionalVis = player.world.getRecipeManager().getFirstMatch(VIS_SHAPED_RECIPE_TYPE, inventory, player.world);
-        if (optionalVis.isPresent()) {
-            DefaultedList<ItemStack> defaultedVisList = player.world.getRecipeManager().getRemainingStacks(VIS_SHAPED_RECIPE_TYPE, inventory, player.world);
+            optionalVisShaped.get().visCraft(inventory);
 
-            optionalVis.get().visCraft(inventory);
+            defaultedList = DefaultedList.ofSize(9, ItemStack.EMPTY);
+            for (int i = 0 ; i < 9 ; i++) {
+                defaultedList.set(i, defaultedVisList.get(i));
+            }
+        }
+
+        Optional<VisShapelessRecipe> optionalVisShapeless = manager.getFirstMatch(VIS_SHAPELESS_RECIPE_TYPE, inventory, player.world);
+        if (optionalVisShapeless.isPresent()) {
+            DefaultedList<ItemStack> defaultedVisList = manager.getRemainingStacks(VIS_SHAPELESS_RECIPE_TYPE, inventory, player.world);
+
+            optionalVisShapeless.get().visCraft(inventory);
 
             defaultedList = DefaultedList.ofSize(9, ItemStack.EMPTY);
             for (int i = 0 ; i < 9 ; i++) {
@@ -112,6 +124,14 @@ public class ResultSlot extends Slot {
             }
         }
 
+    }
+
+    private ImplementedInventory getVisInventory() {
+        DefaultedList<ItemStack> inv = DefaultedList.ofSize(10, ItemStack.EMPTY);
+        for (int i = 0 ; i < 9 ; i++)
+            inv.set(i, input.getStack(i));
+        inv.set(9, wand.getStack(0));
+        return () -> inv;
     }
 
 }

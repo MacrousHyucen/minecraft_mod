@@ -291,8 +291,7 @@ public record VisShapedRecipe(Identifier id,
 
         @Override
         public VisShapedRecipe read(Identifier id, PacketByteBuf buf) {
-            Integer width = buf.readVarInt(), height = buf.readVarInt();
-            Pair<Integer, Integer> recSizes = new Pair<>(width, height);
+            Pair<Integer, Integer> recSizes = new Pair<>(buf.readVarInt(), buf.readVarInt());
 
             DefaultedList<Ingredient> inputs = DefaultedList.ofSize(buf.readVarInt(), Ingredient.EMPTY);
             for (int k = 0; k < inputs.size(); k++) {

@@ -158,7 +158,6 @@ public record VisShapelessRecipe(Identifier id,
 
         @Override
         public VisShapelessRecipe read(Identifier id, JsonObject json) {
-
             DefaultedList<Ingredient> input = getIngredients(JsonHelper.getArray(json, "ingredients"));
             Map<String, Float> vis = readVis(JsonHelper.getObject(json, "vis"));
             if (input.isEmpty()) {
@@ -173,8 +172,7 @@ public record VisShapelessRecipe(Identifier id,
 
         @Override
         public VisShapelessRecipe read(Identifier id, PacketByteBuf buf) {
-            int size = buf.readVarInt();
-            DefaultedList<Ingredient> inputs = DefaultedList.ofSize(size, Ingredient.EMPTY);
+            DefaultedList<Ingredient> inputs = DefaultedList.ofSize(buf.readVarInt(), Ingredient.EMPTY);
             for (int k = 0; k < inputs.size(); k++) {
                 inputs.set(k, Ingredient.fromPacket(buf));
             }
@@ -195,7 +193,7 @@ public record VisShapelessRecipe(Identifier id,
         @Override
         public void write(PacketByteBuf buf, VisShapelessRecipe recipe) {
             buf.writeVarInt(recipe.getIngredients().size());
-            for (Ingredient ing : recipe.input) {
+            for (Ingredient ing : recipe.getIngredients()) {
                 ing.write(buf);
             }
 

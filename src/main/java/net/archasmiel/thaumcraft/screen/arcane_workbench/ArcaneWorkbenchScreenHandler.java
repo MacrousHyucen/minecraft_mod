@@ -4,9 +4,7 @@ import net.archasmiel.thaumcraft.block.Blocks;
 import net.archasmiel.thaumcraft.blockentity.ArcaneWorkbenchBlockEntity;
 import net.archasmiel.thaumcraft.blockentity.inventory.ImplementedInventory;
 import net.archasmiel.thaumcraft.item.wandcraft.abilities.VisCraft;
-import net.archasmiel.thaumcraft.recipe.Recipes;
-import net.archasmiel.thaumcraft.recipe.VisShapedRecipe;
-import net.archasmiel.thaumcraft.recipe.VisShapelessRecipe;
+import net.archasmiel.thaumcraft.recipe.VisCraftingRecipe;
 import net.archasmiel.thaumcraft.screen.ScreenHandlers;
 import net.archasmiel.thaumcraft.screen.arcane_workbench.inventory.CraftingWandInventory;
 import net.archasmiel.thaumcraft.screen.arcane_workbench.slot.ResultSlot;
@@ -20,7 +18,10 @@ import net.minecraft.inventory.CraftingResultInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.s2c.play.ScreenHandlerSlotUpdateS2CPacket;
-import net.minecraft.recipe.*;
+import net.minecraft.recipe.CraftingRecipe;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeManager;
+import net.minecraft.recipe.RecipeMatcher;
 import net.minecraft.recipe.book.RecipeBookCategory;
 import net.minecraft.screen.AbstractRecipeScreenHandler;
 import net.minecraft.screen.ScreenHandler;
@@ -31,6 +32,9 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
 import java.util.Optional;
+
+import static net.archasmiel.thaumcraft.recipe.Recipes.VIS_RECIPE_TYPE;
+import static net.minecraft.recipe.RecipeType.CRAFTING;
 
 public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<CraftingInventory> {
 
@@ -137,19 +141,13 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
             inv.set(9, wand.getStack(0));
             ImplementedInventory inventory = () -> inv;
 
-            Optional<CraftingRecipe> optional = manager.getFirstMatch(RecipeType.CRAFTING, input, world);
+            Optional<CraftingRecipe> optional = manager.getFirstMatch(CRAFTING, input, world);
+            Optional<VisCraftingRecipe> optionalVisShaped = manager.getFirstMatch(VIS_RECIPE_TYPE, inventory, world);
+
             if (optional.isPresent()) {
                 itemStack = optional.get().craft(input);
-            }
-
-            Optional<VisShapedRecipe> optionalVisShaped = manager.getFirstMatch(Recipes.VIS_SHAPED_RECIPE_TYPE, inventory, world);
-            if (optionalVisShaped.isPresent()){
+            } else if (optionalVisShaped.isPresent()){
                 itemStack = optionalVisShaped.get().craft(inventory);
-            }
-
-            Optional<VisShapelessRecipe> optionalVisShapeless = manager.getFirstMatch(Recipes.VIS_SHAPELESS_RECIPE_TYPE, inventory, world);
-            if (optionalVisShapeless.isPresent()){
-                itemStack = optionalVisShapeless.get().craft(inventory);
             }
 
             result.setStack(0, itemStack);
@@ -250,12 +248,13 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 
             // if transferred from inventory slot
             } else if (index >= INVENTORY_INDEX_A && index < HOTBAR_INDEX_B) {
+
                 // inserting VisCraft item from inventory to slot
-                if (itemStack2.getItem() instanceof VisCraft)
-                    if (!this.insertItem(itemStack2, WAND_INDEX, WAND_INDEX+1, false)) {
+                if (itemStack2.getItem() instanceof VisCraft) {
+                    if (!this.insertItem(itemStack2, WAND_INDEX, WAND_INDEX + 1, false)) {
                         return ItemStack.EMPTY;
                     }
-                else {
+                } else {
                     if (!this.insertItem(itemStack2, CRAFTING_INDEX_A, CRAFTING_INDEX_B, false)) {
                         if (index < HOTBAR_INDEX_A) {
                             if (!this.insertItem(itemStack2, HOTBAR_INDEX_A, HOTBAR_INDEX_B, false)) {

@@ -7,19 +7,21 @@ import net.archasmiel.thaumcraft.item.wandcraft.WandAbstract;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.*;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+
+import static net.archasmiel.thaumcraft.recipe.Recipes.VIS_SHAPELESS_RECIPE_SERIALIZER;
 
 public record VisShapelessRecipe(Identifier id,
                                  DefaultedList<Ingredient> input,
                                  Map<String, Float> vis,
-                                 ItemStack output) implements Recipe<ImplementedInventory> {
+                                 ItemStack output) implements VisCraftingRecipe {
 
     @Override
     public boolean matches(ImplementedInventory inventory, World world) {
@@ -27,18 +29,29 @@ public record VisShapelessRecipe(Identifier id,
 
         if (!checkVis(inventory)) return false;
 
-        RecipeMatcher recipeMatcher = new RecipeMatcher();
-        int i = 0;
+        DefaultedList<Boolean> occupiedSlot = DefaultedList.ofSize(9, false);
+        List<Integer> usedSlots = new ArrayList<>();
 
-        for(int j = 0; j < 9; ++j) {
-            ItemStack itemStack = inventory.getStack(j);
-            if (!itemStack.isEmpty()) {
-                ++i;
-                recipeMatcher.addInput(itemStack, 1);
+        for (Ingredient i: input) {
+            for (int j = 0 ; j < 9 ; j++) {
+                if (!occupiedSlot.get(j))
+                if (i.test(inventory.getStack(j))) {
+                    usedSlots.add(j);
+                    occupiedSlot.set(j, true);
+                    break;
+                }
             }
         }
 
-        return i == this.input.size() && recipeMatcher.match(this, null);
+        if (usedSlots.size() != input.size()) return false;
+
+        for (int i = 0 ; i < 9 ; i++) {
+            int finalI = i;
+            boolean notUsedSlot = usedSlots.stream().noneMatch(e -> e == finalI);
+            if (notUsedSlot && !inventory.getStack(finalI).isEmpty()) return false;
+        }
+
+        return true;
     }
 
     @Override
@@ -96,13 +109,9 @@ public record VisShapelessRecipe(Identifier id,
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return Serializer.INSTANCE;
+        return VIS_SHAPELESS_RECIPE_SERIALIZER;
     }
 
-    @Override
-    public RecipeType<?> getType() {
-        return Type.INSTANCE;
-    }
 
 
 
@@ -132,16 +141,9 @@ public record VisShapelessRecipe(Identifier id,
 
 
 
-    public static class Type implements RecipeType<VisShapelessRecipe> {
-        private Type() { }
-        public static final Type INSTANCE = new Type();
-        public static final String ID = "vis_shapeless";
 
-    }
 
     public static class Serializer implements RecipeSerializer<VisShapelessRecipe> {
-        public static final Serializer INSTANCE = new Serializer();
-        public static final String ID = "vis_shapeless";
 
         private static DefaultedList<Ingredient> getIngredients(JsonArray json) {
             DefaultedList<Ingredient> defaultedList = DefaultedList.of();

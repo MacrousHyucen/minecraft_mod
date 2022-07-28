@@ -12,9 +12,7 @@ import net.minecraft.util.Identifier;
 
 public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHandler> {
 
-    private static final Identifier BACK =
-            new Identifier(Thaumcraft.MOD_ID, "textures/gui/background.png");
-    private static final Identifier BACKGROUND =
+    private static final Identifier GUI_TEXTURE =
             new Identifier(Thaumcraft.MOD_ID, "textures/gui/arcane_workbench.png");
     private static final int sizeX = 200, sizeY = 240;
 
@@ -28,15 +26,22 @@ public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHa
     }
 
     @Override
-    protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, BACK);
-        drawTexture(matrices, 0, 0, 0, 0, width, height);
+    protected void handledScreenTick() {
 
-        RenderSystem.setShaderTexture(0, BACKGROUND);
+    }
+
+    @Override
+    protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
+        RenderSystem.enableBlend();
+
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, GUI_TEXTURE);
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
         drawTexture(matrices, x, y, 0, 0, backgroundWidth, backgroundHeight);
+
+        RenderSystem.disableBlend();
     }
 
     @Override
@@ -46,6 +51,7 @@ public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHa
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+        renderBackground(matrices);
         super.render(matrices, mouseX, mouseY, delta);
         drawMouseoverTooltip(matrices, mouseX, mouseY);
     }

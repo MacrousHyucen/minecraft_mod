@@ -10,9 +10,7 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.Pair;
@@ -23,11 +21,13 @@ import net.minecraft.world.World;
 import java.util.Map;
 import java.util.Objects;
 
+import static net.archasmiel.thaumcraft.recipe.Recipes.VIS_SHAPED_RECIPE_SERIALIZER;
+
 public record VisShapedRecipe(Identifier id,
                               DefaultedList<Ingredient> input,
                               Map<String, Float> vis,
                               ItemStack output,
-                              Pair<Integer, Integer> recipeSizes) implements Recipe<ImplementedInventory> {
+                              Pair<Integer, Integer> recipeSizes) implements VisCraftingRecipe {
 
     @Override
     public boolean matches(ImplementedInventory inventory, World world) {
@@ -132,13 +132,9 @@ public record VisShapedRecipe(Identifier id,
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return Serializer.INSTANCE;
+        return VIS_SHAPED_RECIPE_SERIALIZER;
     }
 
-    @Override
-    public RecipeType<?> getType() {
-        return Type.INSTANCE;
-    }
 
 
 
@@ -263,18 +259,9 @@ public record VisShapedRecipe(Identifier id,
 
 
 
-    public static class Type implements RecipeType<VisShapedRecipe> {
-        private Type() { }
-        public static final Type INSTANCE = new Type();
-        public static final String ID = "vis_shaped";
-
-    }
 
 
     public static class Serializer implements RecipeSerializer<VisShapedRecipe> {
-        public static final Serializer INSTANCE = new Serializer();
-        public static final String ID = "vis_shaped";
-
 
         @Override
         public VisShapedRecipe read(Identifier id, JsonObject json) {

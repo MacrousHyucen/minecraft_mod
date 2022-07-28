@@ -1,8 +1,7 @@
 package net.archasmiel.thaumcraft.screen.arcane_workbench.slot;
 
 import net.archasmiel.thaumcraft.blockentity.inventory.ImplementedInventory;
-import net.archasmiel.thaumcraft.recipe.VisShapedRecipe;
-import net.archasmiel.thaumcraft.recipe.VisShapelessRecipe;
+import net.archasmiel.thaumcraft.recipe.VisCraftingRecipe;
 import net.archasmiel.thaumcraft.screen.arcane_workbench.inventory.CraftingWandInventory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
@@ -14,11 +13,10 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.RecipeUnlocker;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.collection.DefaultedList;
-
 import java.util.Optional;
 
-import static net.archasmiel.thaumcraft.recipe.Recipes.VIS_SHAPED_RECIPE_TYPE;
-import static net.archasmiel.thaumcraft.recipe.Recipes.VIS_SHAPELESS_RECIPE_TYPE;
+import static net.archasmiel.thaumcraft.recipe.Recipes.VIS_RECIPE_TYPE;
+
 
 public class ResultSlot extends Slot {
 
@@ -70,39 +68,7 @@ public class ResultSlot extends Slot {
     public void onTakeItem(PlayerEntity player, ItemStack stack) {
         this.onCrafted(stack);
 
-        ImplementedInventory inventory = getVisInventory();
-        RecipeManager manager = player.world.getRecipeManager();
-
-        DefaultedList<ItemStack> defaultedList = DefaultedList.ofSize(9, ItemStack.EMPTY);
-        Optional<CraftingRecipe> optional = manager.getFirstMatch(RecipeType.CRAFTING, this.input, player.world);
-        if (optional.isPresent()){
-            defaultedList = manager.getRemainingStacks(RecipeType.CRAFTING, this.input, player.world);
-        }
-
-        Optional<VisShapedRecipe> optionalVisShaped = manager.getFirstMatch(VIS_SHAPED_RECIPE_TYPE, inventory, player.world);
-        if (optionalVisShaped.isPresent()) {
-            DefaultedList<ItemStack> defaultedVisList = manager.getRemainingStacks(VIS_SHAPED_RECIPE_TYPE, inventory, player.world);
-
-            optionalVisShaped.get().visCraft(inventory);
-
-            defaultedList = DefaultedList.ofSize(9, ItemStack.EMPTY);
-            for (int i = 0 ; i < 9 ; i++) {
-                defaultedList.set(i, defaultedVisList.get(i));
-            }
-        }
-
-        Optional<VisShapelessRecipe> optionalVisShapeless = manager.getFirstMatch(VIS_SHAPELESS_RECIPE_TYPE, inventory, player.world);
-        if (optionalVisShapeless.isPresent()) {
-            DefaultedList<ItemStack> defaultedVisList = manager.getRemainingStacks(VIS_SHAPELESS_RECIPE_TYPE, inventory, player.world);
-
-            optionalVisShapeless.get().visCraft(inventory);
-
-            defaultedList = DefaultedList.ofSize(9, ItemStack.EMPTY);
-            for (int i = 0 ; i < 9 ; i++) {
-                defaultedList.set(i, defaultedVisList.get(i));
-            }
-        }
-
+        DefaultedList<ItemStack> defaultedList = checkRecipes(player.world.getRecipeManager());
 
         for(int i = 0; i < defaultedList.size(); ++i) {
             ItemStack itemStack = this.input.getStack(i);
@@ -132,6 +98,27 @@ public class ResultSlot extends Slot {
             inv.set(i, input.getStack(i));
         inv.set(9, wand.getStack(0));
         return () -> inv;
+    }
+
+    private DefaultedList<ItemStack> checkRecipes(RecipeManager manager) {
+        DefaultedList<ItemStack> defaultedList = DefaultedList.ofSize(9, ItemStack.EMPTY);
+        ImplementedInventory inventory = getVisInventory();
+
+        Optional<CraftingRecipe> optional = manager.getFirstMatch(RecipeType.CRAFTING, this.input, player.world);
+        Optional<VisCraftingRecipe> optionalVisShaped = manager.getFirstMatch(VIS_RECIPE_TYPE, inventory, player.world);
+
+        if (optional.isPresent()){
+            defaultedList = manager.getRemainingStacks(RecipeType.CRAFTING, this.input, player.world);
+        } else if (optionalVisShaped.isPresent()) {
+            DefaultedList<ItemStack> defaultedVisList = manager.getRemainingStacks(VIS_RECIPE_TYPE, inventory, player.world);
+
+            for (int i = 0 ; i < 9 ; i++)
+                defaultedList.set(i, defaultedVisList.get(i));
+
+            optionalVisShaped.get().visCraft(inventory);
+        }
+
+        return defaultedList;
     }
 
 }

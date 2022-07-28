@@ -1,0 +1,27 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    "  c",
+    " r ",
+    "c  "
+  ],
+  "key": {
+    "c": {
+      "item": "thaumcraft:cap_silver"
+    },
+    "r": {
+      "item": "thaumcraft:staff_rod_primal"
+    }
+  },
+  "vis": {
+    "aer": 140,
+    "ignis": 140,
+    "aqua": 140,
+    "terra": 140,
+    "ordo": 140,
+    "perditio": 140
+  },
+  "result": {
+    "item": "thaumcraft:staff_primal_silver"
+  }
+}

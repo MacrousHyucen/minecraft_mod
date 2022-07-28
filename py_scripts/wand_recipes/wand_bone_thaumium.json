@@ -1,0 +1,27 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    "  c",
+    " r ",
+    "c  "
+  ],
+  "key": {
+    "c": {
+      "item": "thaumcraft:cap_thaumium"
+    },
+    "r": {
+      "item": "thaumcraft:wand_rod_bone"
+    }
+  },
+  "vis": {
+    "aer": 42,
+    "ignis": 42,
+    "aqua": 42,
+    "terra": 42,
+    "ordo": 42,
+    "perditio": 42
+  },
+  "result": {
+    "item": "thaumcraft:wand_bone_thaumium"
+  }
+}

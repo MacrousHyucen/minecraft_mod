@@ -1,0 +1,27 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    "  c",
+    " r ",
+    "c  "
+  ],
+  "key": {
+    "c": {
+      "item": "thaumcraft:cap_thaumium"
+    },
+    "r": {
+      "item": "thaumcraft:staff_rod_primal"
+    }
+  },
+  "vis": {
+    "aer": 144,
+    "ignis": 144,
+    "aqua": 144,
+    "terra": 144,
+    "ordo": 144,
+    "perditio": 144
+  },
+  "result": {
+    "item": "thaumcraft:staff_primal_thaumium"
+  }
+}

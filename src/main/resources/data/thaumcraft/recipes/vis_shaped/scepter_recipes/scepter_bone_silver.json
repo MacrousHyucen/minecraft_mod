@@ -1,0 +1,30 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    " cp",
+    " rc",
+    "c  "
+  ],
+  "key": {
+    "p": {
+      "item": "thaumcraft:primal_charm"
+    },
+    "c": {
+      "item": "thaumcraft:cap_silver"
+    },
+    "r": {
+      "item": "thaumcraft:wand_rod_bone"
+    }
+  },
+  "vis": {
+    "aer": 64,
+    "ignis": 64,
+    "aqua": 64,
+    "terra": 64,
+    "ordo": 64,
+    "perditio": 64
+  },
+  "result": {
+    "item": "thaumcraft:scepter_bone_silver"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    "  c",
+    " r ",
+    "c  "
+  ],
+  "key": {
+    "c": {
+      "item": "thaumcraft:cap_void"
+    },
+    "r": {
+      "item": "thaumcraft:wand_rod_obsidian"
+    }
+  },
+  "vis": {
+    "aer": 44,
+    "ignis": 44,
+    "aqua": 44,
+    "terra": 44,
+    "ordo": 44,
+    "perditio": 44
+  },
+  "result": {
+    "item": "thaumcraft:wand_obsidian_void"
+  }
+}

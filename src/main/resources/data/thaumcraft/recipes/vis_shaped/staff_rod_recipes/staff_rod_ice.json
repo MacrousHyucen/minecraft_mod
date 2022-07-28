@@ -1,0 +1,27 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    "  p",
+    " r ",
+    "r  "
+  ],
+  "key": {
+    "p": {
+      "item": "thaumcraft:primal_charm"
+    },
+    "r": {
+      "item": "thaumcraft:wand_rod_ice"
+    }
+  },
+  "vis": {
+    "aer": 45,
+    "ignis": 45,
+    "aqua": 45,
+    "terra": 45,
+    "ordo": 45,
+    "perditio": 45
+  },
+  "result": {
+    "item": "thaumcraft:staff_rod_ice"
+  }
+}

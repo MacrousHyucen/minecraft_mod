@@ -1,0 +1,27 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    "  c",
+    " r ",
+    "c  "
+  ],
+  "key": {
+    "c": {
+      "item": "thaumcraft:cap_iron"
+    },
+    "r": {
+      "item": "thaumcraft:staff_rod_bone"
+    }
+  },
+  "vis": {
+    "aer": 62,
+    "ignis": 62,
+    "aqua": 62,
+    "terra": 62,
+    "ordo": 62,
+    "perditio": 62
+  },
+  "result": {
+    "item": "thaumcraft:staff_bone_iron"
+  }
+}

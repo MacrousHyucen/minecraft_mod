@@ -1,0 +1,30 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    " cp",
+    " rc",
+    "c  "
+  ],
+  "key": {
+    "p": {
+      "item": "thaumcraft:primal_charm"
+    },
+    "c": {
+      "item": "thaumcraft:cap_silver"
+    },
+    "r": {
+      "item": "thaumcraft:wand_rod_silverwood"
+    }
+  },
+  "vis": {
+    "aer": 89,
+    "ignis": 89,
+    "aqua": 89,
+    "terra": 89,
+    "ordo": 89,
+    "perditio": 89
+  },
+  "result": {
+    "item": "thaumcraft:scepter_silverwood_silver"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    "  c",
+    " r ",
+    "c  "
+  ],
+  "key": {
+    "c": {
+      "item": "thaumcraft:cap_void"
+    },
+    "r": {
+      "item": "thaumcraft:staff_rod_ice"
+    }
+  },
+  "vis": {
+    "aer": 68,
+    "ignis": 68,
+    "aqua": 68,
+    "terra": 68,
+    "ordo": 68,
+    "perditio": 68
+  },
+  "result": {
+    "item": "thaumcraft:staff_ice_void"
+  }
+}

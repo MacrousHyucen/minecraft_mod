@@ -1,0 +1,27 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    "  c",
+    " r ",
+    "c  "
+  ],
+  "key": {
+    "c": {
+      "item": "thaumcraft:cap_copper"
+    },
+    "r": {
+      "item": "thaumcraft:staff_rod_primal"
+    }
+  },
+  "vis": {
+    "aer": 137,
+    "ignis": 137,
+    "aqua": 137,
+    "terra": 137,
+    "ordo": 137,
+    "perditio": 137
+  },
+  "result": {
+    "item": "thaumcraft:staff_primal_copper"
+  }
+}

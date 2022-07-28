@@ -1,0 +1,27 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    "  c",
+    " r ",
+    "c  "
+  ],
+  "key": {
+    "c": {
+      "item": "thaumcraft:cap_iron"
+    },
+    "r": {
+      "item": "thaumcraft:wand_rod_quartz"
+    }
+  },
+  "vis": {
+    "aer": 40,
+    "ignis": 40,
+    "aqua": 40,
+    "terra": 40,
+    "ordo": 40,
+    "perditio": 40
+  },
+  "result": {
+    "item": "thaumcraft:wand_quartz_iron"
+  }
+}

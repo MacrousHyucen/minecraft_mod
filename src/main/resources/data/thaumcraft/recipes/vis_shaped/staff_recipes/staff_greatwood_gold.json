@@ -1,0 +1,27 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    "  c",
+    " r ",
+    "c  "
+  ],
+  "key": {
+    "c": {
+      "item": "thaumcraft:cap_gold"
+    },
+    "r": {
+      "item": "thaumcraft:staff_rod_greatwood"
+    }
+  },
+  "vis": {
+    "aer": 37,
+    "ignis": 37,
+    "aqua": 37,
+    "terra": 37,
+    "ordo": 37,
+    "perditio": 37
+  },
+  "result": {
+    "item": "thaumcraft:staff_greatwood_gold"
+  }
+}

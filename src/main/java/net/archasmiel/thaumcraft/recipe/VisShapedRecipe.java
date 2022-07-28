@@ -33,7 +33,9 @@ public record VisShapedRecipe(Identifier id,
     public boolean matches(ImplementedInventory inventory, World world) {
         if (world.isClient) return false;
 
-        if (!checkVis(inventory)) return false;
+        if (vis.size() > 0) {
+            if (!checkVis(inventory)) return false;
+        }
 
         for(int i = 0; i <= 3 - recipeSizes.getLeft(); ++i) {
             for(int j = 0; j <= 3 - recipeSizes.getRight(); ++j) {

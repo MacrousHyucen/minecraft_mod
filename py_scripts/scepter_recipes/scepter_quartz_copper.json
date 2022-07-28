@@ -1,0 +1,30 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    " cp",
+    " rc",
+    "c  "
+  ],
+  "key": {
+    "p": {
+      "item": "thaumcraft:primal_charm"
+    },
+    "c": {
+      "item": "thaumcraft:cap_copper"
+    },
+    "r": {
+      "item": "thaumcraft:wand_rod_quartz"
+    }
+  },
+  "vis": {
+    "aer": 62,
+    "ignis": 62,
+    "aqua": 62,
+    "terra": 62,
+    "ordo": 62,
+    "perditio": 62
+  },
+  "result": {
+    "item": "thaumcraft:scepter_quartz_copper"
+  }
+}

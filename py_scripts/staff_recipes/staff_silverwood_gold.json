@@ -1,0 +1,27 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    "  c",
+    " r ",
+    "c  "
+  ],
+  "key": {
+    "c": {
+      "item": "thaumcraft:cap_gold"
+    },
+    "r": {
+      "item": "thaumcraft:staff_rod_silverwood"
+    }
+  },
+  "vis": {
+    "aer": 87,
+    "ignis": 87,
+    "aqua": 87,
+    "terra": 87,
+    "ordo": 87,
+    "perditio": 87
+  },
+  "result": {
+    "item": "thaumcraft:staff_silverwood_gold"
+  }
+}

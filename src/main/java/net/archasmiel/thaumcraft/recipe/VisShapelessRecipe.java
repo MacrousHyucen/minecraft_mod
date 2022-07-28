@@ -27,7 +27,9 @@ public record VisShapelessRecipe(Identifier id,
     public boolean matches(ImplementedInventory inventory, World world) {
         if (world.isClient) return false;
 
-        if (!checkVis(inventory)) return false;
+        if (vis.size() > 0) {
+            if (!checkVis(inventory)) return false;
+        }
 
         DefaultedList<Boolean> occupiedSlot = DefaultedList.ofSize(9, false);
         List<Integer> usedSlots = new ArrayList<>();

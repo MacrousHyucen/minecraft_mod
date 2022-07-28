@@ -1,0 +1,30 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    " cp",
+    " rc",
+    "c  "
+  ],
+  "key": {
+    "p": {
+      "item": "thaumcraft:primal_charm"
+    },
+    "c": {
+      "item": "thaumcraft:cap_silver"
+    },
+    "r": {
+      "item": "minecraft:stick"
+    }
+  },
+  "vis": {
+    "aer": 12,
+    "ignis": 12,
+    "aqua": 12,
+    "terra": 12,
+    "ordo": 12,
+    "perditio": 12
+  },
+  "result": {
+    "item": "thaumcraft:scepter_wood_silver"
+  }
+}

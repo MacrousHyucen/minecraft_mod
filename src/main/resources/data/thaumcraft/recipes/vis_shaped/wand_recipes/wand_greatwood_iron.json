@@ -1,0 +1,27 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    "  c",
+    " r ",
+    "c  "
+  ],
+  "key": {
+    "c": {
+      "item": "thaumcraft:cap_iron"
+    },
+    "r": {
+      "item": "thaumcraft:wand_rod_greatwood"
+    }
+  },
+  "vis": {
+    "aer": 20,
+    "ignis": 20,
+    "aqua": 20,
+    "terra": 20,
+    "ordo": 20,
+    "perditio": 20
+  },
+  "result": {
+    "item": "thaumcraft:wand_greatwood_iron"
+  }
+}

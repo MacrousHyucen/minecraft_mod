@@ -1,0 +1,27 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    "  c",
+    " r ",
+    "c  "
+  ],
+  "key": {
+    "c": {
+      "item": "thaumcraft:cap_thaumium"
+    },
+    "r": {
+      "item": "thaumcraft:staff_rod_quartz"
+    }
+  },
+  "vis": {
+    "aer": 65,
+    "ignis": 65,
+    "aqua": 65,
+    "terra": 65,
+    "ordo": 65,
+    "perditio": 65
+  },
+  "result": {
+    "item": "thaumcraft:staff_quartz_thaumium"
+  }
+}

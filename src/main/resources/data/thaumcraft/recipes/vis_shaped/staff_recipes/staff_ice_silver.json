@@ -1,0 +1,27 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    "  c",
+    " r ",
+    "c  "
+  ],
+  "key": {
+    "c": {
+      "item": "thaumcraft:cap_silver"
+    },
+    "r": {
+      "item": "thaumcraft:staff_rod_ice"
+    }
+  },
+  "vis": {
+    "aer": 64,
+    "ignis": 64,
+    "aqua": 64,
+    "terra": 64,
+    "ordo": 64,
+    "perditio": 64
+  },
+  "result": {
+    "item": "thaumcraft:staff_ice_silver"
+  }
+}

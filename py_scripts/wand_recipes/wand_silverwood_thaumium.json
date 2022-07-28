@@ -1,0 +1,27 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    "  c",
+    " r ",
+    "c  "
+  ],
+  "key": {
+    "c": {
+      "item": "thaumcraft:cap_thaumium"
+    },
+    "r": {
+      "item": "thaumcraft:wand_rod_silverwood"
+    }
+  },
+  "vis": {
+    "aer": 63,
+    "ignis": 63,
+    "aqua": 63,
+    "terra": 63,
+    "ordo": 63,
+    "perditio": 63
+  },
+  "result": {
+    "item": "thaumcraft:wand_silverwood_thaumium"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    " cp",
+    " rc",
+    "c  "
+  ],
+  "key": {
+    "p": {
+      "item": "thaumcraft:primal_charm"
+    },
+    "c": {
+      "item": "thaumcraft:cap_thaumium"
+    },
+    "r": {
+      "item": "thaumcraft:wand_rod_greatwood"
+    }
+  },
+  "vis": {
+    "aer": 39,
+    "ignis": 39,
+    "aqua": 39,
+    "terra": 39,
+    "ordo": 39,
+    "perditio": 39
+  },
+  "result": {
+    "item": "thaumcraft:scepter_greatwood_thaumium"
+  }
+}

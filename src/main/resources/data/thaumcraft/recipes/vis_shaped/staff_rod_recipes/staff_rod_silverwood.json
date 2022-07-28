@@ -1,0 +1,27 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    "  p",
+    " r ",
+    "r  "
+  ],
+  "key": {
+    "p": {
+      "item": "thaumcraft:primal_charm"
+    },
+    "r": {
+      "item": "thaumcraft:wand_rod_silverwood"
+    }
+  },
+  "vis": {
+    "aer": 60,
+    "ignis": 60,
+    "aqua": 60,
+    "terra": 60,
+    "ordo": 60,
+    "perditio": 60
+  },
+  "result": {
+    "item": "thaumcraft:staff_rod_silverwood"
+  }
+}

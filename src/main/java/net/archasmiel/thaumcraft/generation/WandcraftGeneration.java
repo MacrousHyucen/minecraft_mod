@@ -9,7 +9,6 @@ import net.minecraft.util.Identifier;
 import static net.archasmiel.thaumcraft.Thaumcraft.*;
 import static net.archasmiel.thaumcraft.generation.ThaumcraftRegistry.wandcraftModel;
 import static net.archasmiel.thaumcraft.generation.ThaumcraftRegistry.wandcraftName;
-import static net.archasmiel.thaumcraft.generation.wandcraft.WandcraftRecipeGenerator.*;
 
 public class WandcraftGeneration {
 
@@ -28,8 +27,6 @@ public class WandcraftGeneration {
                 new Identifier("thaumcraft:item/" + item.name())
         );
 
-        // recipe
-        wandRecipe(Thaumcraft.MOD_ID, item);
     }
 
     public static void generateScepterData(Scepter item) {
@@ -47,8 +44,6 @@ public class WandcraftGeneration {
                 new Identifier("thaumcraft:item/" + item.name())
         );
 
-        // recipe
-        scepterRecipe(Thaumcraft.MOD_ID, item);
     }
 
     public static void generateStaffData(Staff staff) {
@@ -65,10 +60,6 @@ public class WandcraftGeneration {
                 ),
                 new Identifier("thaumcraft:item/" + staff.name())
         );
-
-        // recipe
-        staffCoreRecipe(Thaumcraft.MOD_ID, staff);
-        staffRecipe(Thaumcraft.MOD_ID, staff);
     }
 
 }

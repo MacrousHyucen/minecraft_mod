@@ -1,0 +1,30 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    " cp",
+    " rc",
+    "c  "
+  ],
+  "key": {
+    "p": {
+      "item": "thaumcraft:primal_charm"
+    },
+    "c": {
+      "item": "thaumcraft:cap_void"
+    },
+    "r": {
+      "item": "thaumcraft:wand_rod_ice"
+    }
+  },
+  "vis": {
+    "aer": 68,
+    "ignis": 68,
+    "aqua": 68,
+    "terra": 68,
+    "ordo": 68,
+    "perditio": 68
+  },
+  "result": {
+    "item": "thaumcraft:scepter_ice_void"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    "  c",
+    " r ",
+    "c  "
+  ],
+  "key": {
+    "c": {
+      "item": "thaumcraft:cap_void"
+    },
+    "r": {
+      "item": "thaumcraft:staff_rod_greatwood"
+    }
+  },
+  "vis": {
+    "aer": 41,
+    "ignis": 41,
+    "aqua": 41,
+    "terra": 41,
+    "ordo": 41,
+    "perditio": 41
+  },
+  "result": {
+    "item": "thaumcraft:staff_greatwood_void"
+  }
+}

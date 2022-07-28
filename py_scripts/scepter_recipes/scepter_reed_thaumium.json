@@ -1,0 +1,30 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    " cp",
+    " rc",
+    "c  "
+  ],
+  "key": {
+    "p": {
+      "item": "thaumcraft:primal_charm"
+    },
+    "c": {
+      "item": "thaumcraft:cap_thaumium"
+    },
+    "r": {
+      "item": "thaumcraft:wand_rod_reed"
+    }
+  },
+  "vis": {
+    "aer": 65,
+    "ignis": 65,
+    "aqua": 65,
+    "terra": 65,
+    "ordo": 65,
+    "perditio": 65
+  },
+  "result": {
+    "item": "thaumcraft:scepter_reed_thaumium"
+  }
+}

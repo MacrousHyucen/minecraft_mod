@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "thaumcraft:ingot_void_metal"
+    }
+  ],
+  "result": {
+    "item": "thaumcraft:nugget_void_metal",
+    "count": 9
+  }
+}

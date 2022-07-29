@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "thaumcraft:nugget_quicksilver"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:ingot_quicksilver"
+  }
+}

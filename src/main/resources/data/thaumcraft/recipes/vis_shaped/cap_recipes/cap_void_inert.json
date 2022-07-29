@@ -1,0 +1,21 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    "aaa",
+    "a a"
+  ],
+  "key": {
+    "a": {
+      "item": "thaumcraft:nugget_void_metal"
+    }
+  },
+  "vis": {
+    "aer": 18,
+    "ignis": 18,
+    "ordo": 27,
+    "perditio": 27
+  },
+  "result": {
+    "item": "thaumcraft:cap_void_inert"
+  }
+}

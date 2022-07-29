@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "thaumcraft:ingot_quicksilver"
+    }
+  ],
+  "result": {
+    "item": "thaumcraft:nugget_quicksilver",
+    "count": 9
+  }
+}

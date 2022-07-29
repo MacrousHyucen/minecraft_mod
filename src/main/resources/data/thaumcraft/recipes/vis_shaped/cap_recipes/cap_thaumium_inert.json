@@ -1,0 +1,20 @@
+{
+  "type": "thaumcraft:vis_shaped",
+  "pattern": [
+    "aaa",
+    "a a"
+  ],
+  "key": {
+    "a": {
+      "item": "thaumcraft:nugget_thaumium"
+    }
+  },
+  "vis": {
+    "aer": 6,
+    "ignis": 6,
+    "ordo": 6
+  },
+  "result": {
+    "item": "thaumcraft:cap_thaumium_inert"
+  }
+}

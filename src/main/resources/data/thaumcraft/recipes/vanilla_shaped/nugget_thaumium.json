@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "thaumcraft:nugget_thaumium"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:ingot_thaumium"
+  }
+}

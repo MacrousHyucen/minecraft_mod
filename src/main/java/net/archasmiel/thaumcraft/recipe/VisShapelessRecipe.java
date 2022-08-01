@@ -56,6 +56,32 @@ public record VisShapelessRecipe(Identifier id,
         return true;
     }
 
+    public boolean matchesItems(ImplementedInventory inventory, World world) {
+        DefaultedList<Boolean> occupiedSlot = DefaultedList.ofSize(9, false);
+        List<Integer> usedSlots = new ArrayList<>();
+
+        for (Ingredient i: input) {
+            for (int j = 0 ; j < 9 ; j++) {
+                if (!occupiedSlot.get(j))
+                    if (i.test(inventory.getStack(j))) {
+                        usedSlots.add(j);
+                        occupiedSlot.set(j, true);
+                        break;
+                    }
+            }
+        }
+
+        if (usedSlots.size() != input.size()) return false;
+
+        for (int i = 0 ; i < 9 ; i++) {
+            int finalI = i;
+            boolean notUsedSlot = usedSlots.stream().noneMatch(e -> e == finalI);
+            if (notUsedSlot && !inventory.getStack(finalI).isEmpty()) return false;
+        }
+
+        return true;
+    }
+
     @Override
     public ItemStack craft(ImplementedInventory inventory) {
         return this.getOutput().copy();

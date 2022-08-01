@@ -1,4 +1,4 @@
-package net.archasmiel.thaumcraft.materials;
+package net.archasmiel.thaumcraft.materials.tools;
 
 
 import net.minecraft.item.ToolMaterial;

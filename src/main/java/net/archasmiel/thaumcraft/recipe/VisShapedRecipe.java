@@ -52,6 +52,23 @@ public record VisShapedRecipe(Identifier id,
         return false;
     }
 
+    public boolean matchesItems(ImplementedInventory inventory, World world) {
+
+        for(int i = 0; i <= 3 - recipeSizes.getLeft(); ++i) {
+            for(int j = 0; j <= 3 - recipeSizes.getRight(); ++j) {
+                if (this.matchesPattern(inventory, i, j, true)) {
+                    return true;
+                }
+
+                if (this.matchesPattern(inventory, i, j, false)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     @Override
     public ItemStack craft(ImplementedInventory inventory) {
         return this.getOutput().copy();

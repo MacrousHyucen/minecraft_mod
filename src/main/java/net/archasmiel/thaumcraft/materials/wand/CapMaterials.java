@@ -1,4 +1,4 @@
-package net.archasmiel.thaumcraft.materials;
+package net.archasmiel.thaumcraft.materials.wand;
 
 
 /*

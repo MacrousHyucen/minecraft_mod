@@ -6,8 +6,8 @@ import net.archasmiel.thaumcraft.block.advanced.Table;
 import net.archasmiel.thaumcraft.blockentity.ArcaneWorkbenchBlockEntity;
 import net.archasmiel.thaumcraft.item.basic.ThaumcraftItem;
 import net.archasmiel.thaumcraft.item.wandcraft.abilities.VisCraft;
-import net.archasmiel.thaumcraft.materials.CapMaterials;
-import net.archasmiel.thaumcraft.materials.RodMaterials;
+import net.archasmiel.thaumcraft.materials.wand.CapMaterials;
+import net.archasmiel.thaumcraft.materials.wand.RodMaterials;
 import net.fabricmc.loader.impl.util.StringUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -259,15 +259,15 @@ public abstract class WandAbstract extends ThaumcraftItem {
     }
 
     private String getStringDiscount(float discount) {
-        return Integer.toString((int) (discount * 100));
+        return String.format("%.0f", discount * 100);
     }
 
     private String cutFloat(float num) {
-        return String.valueOf((int) num);
+        return String.format("%.0f", num);
     }
 
     private String uncutFloat(float num) {
-        return String.valueOf(num);
+        return String.format("%.2f", num);
     }
 
 }

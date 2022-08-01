@@ -2,9 +2,9 @@ package net.archasmiel.thaumcraft;
 
 import net.archasmiel.thaumcraft.block.Blocks;
 import net.archasmiel.thaumcraft.blockentity.BlockEntities;
-import net.archasmiel.thaumcraft.item.Items;
 import net.archasmiel.thaumcraft.generation.lang.GeneratedTranslations;
 import net.archasmiel.thaumcraft.generation.lang.LanguageTranslations;
+import net.archasmiel.thaumcraft.item.Items;
 import net.archasmiel.thaumcraft.recipe.Recipes;
 import net.archasmiel.thaumcraft.screen.ScreenHandlers;
 import net.devtech.arrp.api.RRPCallback;

@@ -48,6 +48,7 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
     private final int HOTBAR_INDEX_B;
 
     private final ArcaneWorkbenchBlockEntity entity;
+    static ArcaneWorkbenchBlockEntity lockedEntity;
     private boolean isReading;
 
     private final CraftingInventory input;
@@ -66,6 +67,11 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 
     public ArcaneWorkbenchScreenHandler(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context, ArcaneWorkbenchBlockEntity entity) {
         super(ScreenHandlers.ARCANE_WORKBENCH_SCREEN_HANDLER, syncId);
+
+        if (entity != null) {
+            lockedEntity = entity;
+        }
+
         this.entity = entity;
 
         this.input = new CraftingInventory(this, 3, 3);

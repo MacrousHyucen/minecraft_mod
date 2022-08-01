@@ -1,6 +1,6 @@
 package net.archasmiel.thaumcraft.item.tool.abilities;
 
-import net.archasmiel.thaumcraft.materials.ToolMaterials;
+import net.archasmiel.thaumcraft.materials.tools.ToolMaterials;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
 import net.minecraft.nbt.NbtCompound;

@@ -6,7 +6,7 @@
   This project is my fun-made rewrite of Thaumcraft 4 (based on latest 1.7.10 mod version).<br><br>
   
 ###  **Youtube Showcases**<br>
-  You can find them on my channel.<br>
+  You can find them on my channel:<br>
   https://www.youtube.com/channel/UCxPTj6mxnN6Ij2uXxbE_e6g<br><br>
   
 ###  **Version and mod loader used?**<br>
@@ -37,8 +37,8 @@
 ## ***Working Stuff***
 - [x] *Custom ItemGroup for mod*
 - [x] *Blockbench models of table, arcane workbench and deconstruction table (and rotation ability)*
-- [x] *Arcane Workbench GUI + vanilla recipes + wand-item special slot + obtained by clicking wand on table + checked server-side stability*
-- [x] *Arcane Workbench VisShaped and VisShapeless recipe types*
+- [x] *Arcane Workbench GUI + wand special slot + obtained by clicking wand on table + server stability + vis visualization*
+- [x] *Arcane Workbench VisShaped and VisShapeless recipe types + vanilla recipes*
 - [x] *Basic Thaumonomicon GUI (explosion test sound)*
 - [x] *Some amount of original items (including all types of shards, wand+staff cores and caps)*
 - [x] *Working thaumium tool set*
@@ -55,11 +55,10 @@
 
 
 ## ***WIP***
-- [ ] *Vis visualization in arcane workbench* **(Current Goal)** 
-- [ ] *Deconstruction table GUI* **(Next Goal)**
-- [ ] *Thaumonomicon GUI improvements (tabs with icons, actions on clicking, current page saving after closing, player research data)* 
-- [ ] *Basic vis nodes, wand charge animation and vis capacity interface*
+- [ ] *Deconstruction table GUI* **(Current Goal)** 
+- [ ] *Thaumonomicon GUI improvements (tabs with icons, actions on clicking, current page saving after closing, player research data)* **(Next Goal)**
 - [ ] *OBJ model loading - Alchemical Furnace • Arcane Alembic*
+- [ ] *Basic vis nodes, wand charge animation and vis capacity interface*
 
 
 

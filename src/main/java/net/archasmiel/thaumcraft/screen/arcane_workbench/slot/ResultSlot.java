@@ -96,7 +96,6 @@ public class ResultSlot extends Slot {
         DefaultedList<ItemStack> inv = DefaultedList.ofSize(10, ItemStack.EMPTY);
         for (int i = 0 ; i < 9 ; i++)
             inv.set(i, input.getStack(i));
-        inv.set(9, wand.getStack(0));
         return () -> inv;
     }
 
@@ -105,17 +104,19 @@ public class ResultSlot extends Slot {
         ImplementedInventory inventory = getVisInventory();
 
         Optional<CraftingRecipe> optional = manager.getFirstMatch(RecipeType.CRAFTING, this.input, player.world);
-        Optional<VisCraftingRecipe> optionalVisShaped = manager.getFirstMatch(VIS_RECIPE_TYPE, inventory, player.world);
+        Optional<VisCraftingRecipe> optionalVis = manager.getFirstMatch(VIS_RECIPE_TYPE, inventory, player.world);
 
         if (optional.isPresent()){
             defaultedList = manager.getRemainingStacks(RecipeType.CRAFTING, this.input, player.world);
-        } else if (optionalVisShaped.isPresent()) {
+        }
+        else
+        if (optionalVis.isPresent() && optionalVis.get().checkVis(wand.getStack(0))) {
             DefaultedList<ItemStack> defaultedVisList = manager.getRemainingStacks(VIS_RECIPE_TYPE, inventory, player.world);
 
             for (int i = 0 ; i < 9 ; i++)
                 defaultedList.set(i, defaultedVisList.get(i));
 
-            optionalVisShaped.get().visCraft(inventory);
+            optionalVis.get().visCraft(wand.getStack(0));
         }
 
         return defaultedList;

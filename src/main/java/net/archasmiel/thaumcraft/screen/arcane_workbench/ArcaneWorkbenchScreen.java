@@ -1,30 +1,28 @@
 package net.archasmiel.thaumcraft.screen.arcane_workbench;
 
+import com.google.common.collect.Maps;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.archasmiel.thaumcraft.Thaumcraft;
 import net.archasmiel.thaumcraft.item.wandcraft.WandAbstract;
 import net.archasmiel.thaumcraft.materials.aspect.AspectCollection;
 import net.archasmiel.thaumcraft.materials.aspect.ColorCollection;
-import net.archasmiel.thaumcraft.recipe.VisCraftingRecipe;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.recipe.Recipe;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.world.World;
 
 import java.util.Map;
 
-import static net.archasmiel.thaumcraft.screen.arcane_workbench.ArcaneWorkbenchScreenHandler.lockedEntity;
-
 public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHandler> {
+
+    public static Map<String, Float> curRecipeVis = Maps.newHashMap();
+    public static final float animationTimeMillis = 1000f;
+    public static final float animationTimeHalfMillis = animationTimeMillis / 2;
 
     private static final Identifier BACK_TEXTURE =
             new Identifier(Thaumcraft.MOD_ID, "textures/aspects/_back.png");
@@ -61,81 +59,61 @@ public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHa
     }
 
     @Override
-    protected void handledScreenTick() {
-
-    }
-
-    @Override
     protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
         RenderSystem.enableBlend();
-
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, GUI_TEXTURE);
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
         drawTexture(matrices, x, y, 0, 0, backgroundWidth, backgroundHeight);
-
-
-        DefaultedList<ItemStack> items = DefaultedList.of();
-        for (int i = 0; i < 9; i++) {
-            items.add(lockedEntity.getStack(i));
-        }
-        items.add(lockedEntity.getStack(10));
-
-        World world = lockedEntity.getWorld();
-
-        if (world != null) {
-            VisCraftingRecipe res = null;
-            for (Recipe<?> i: world.getRecipeManager().values()) {
-                if (i instanceof VisCraftingRecipe j && j.matchesItems(() -> items, world)) {
-                    res = j;
-                }
-            }
-
-            if (res != null) {
-                drawRecipeVis(matrices, res, lockedEntity.getStack(10));
-            }
-        }
-
-
+        drawRecipeVis(matrices, handler.slots.get(1).getStack());
     }
 
-    private void drawRecipeVis(MatrixStack matrices, VisCraftingRecipe visRecipe, ItemStack wand) {
+    private void drawRecipeVis(MatrixStack matrices, ItemStack wand) {
         NbtCompound nbt = null;
         AspectCollection aspect;
         ColorCollection color;
 
         double discount = 1.0f;
-        if (!wand.isEmpty()){
-            nbt = wand.getNbt();
-            discount = ((WandAbstract) wand.getItem()).getDiscount();
-        }
-
         NbtCompound nbtNull = new NbtCompound();
         for (String i: Thaumcraft.primaryAspects) {
             nbtNull.putFloat(i, 0);
         }
+
+        if (!wand.isEmpty()){
+            nbt = wand.getNbt();
+            discount = ((WandAbstract) wand.getItem()).getDiscount();
+        }
         if (nbt == null) nbt = nbtNull;
 
-        for (Map.Entry<String, Float> entry : visRecipe.getRecipeVis().entrySet()) {
+        for (Map.Entry<String, Float> entry : curRecipeVis.entrySet()) {
             aspect = getAspectCoordinates(entry.getKey());
             color = aspect.getColor();
 
             float transp = 1.0f;
             if (entry.getValue() * discount > nbt.getFloat(entry.getKey()))
-                transp = Math.abs(System.currentTimeMillis() % 1000 - 500) / 500.0f;
+                transp = Math.abs(System.currentTimeMillis() % animationTimeMillis - animationTimeHalfMillis) / animationTimeHalfMillis;
 
+            // drawing aspect icon on position
             RenderSystem.enableBlend();
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderColor(color.getR(), color.getG(), color.getB(), transp);
             RenderSystem.setShaderTexture(0, aspect.getId());
             drawTexture(matrices, aspect.getX(), aspect.getY(), 0, 0, iconSize, iconSize, iconSize, iconSize);
-            // TODO draw text value
+
+            // blend disable for text correct rendering
             RenderSystem.disableBlend();
             matrices.push();
             matrices.scale(0.5F, 0.5F, 0.5F);
-            drawCenteredTextWithShadow(matrices, MinecraftClient.getInstance().textRenderer, new LiteralText(String.format("%.2f", entry.getValue() * discount)).asOrderedText(), 2*(aspect.getX()+8), 2*(aspect.getY()+18), 0xffffff);
+            drawCenteredTextWithShadow(
+                    matrices,
+                    textRenderer,
+                    new LiteralText(String.format("%.2f", entry.getValue() * discount)).asOrderedText(),
+                    2*(aspect.getX()+8),
+                    2*(aspect.getY()+18),
+                    0xffffff
+            );
             matrices.pop();
         }
     }

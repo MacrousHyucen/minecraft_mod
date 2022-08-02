@@ -5,6 +5,8 @@ import net.archasmiel.thaumcraft.blockentity.BlockEntities;
 import net.archasmiel.thaumcraft.generation.lang.GeneratedTranslations;
 import net.archasmiel.thaumcraft.generation.lang.LanguageTranslations;
 import net.archasmiel.thaumcraft.item.Items;
+import net.archasmiel.thaumcraft.networking.PacketIDs;
+import net.archasmiel.thaumcraft.networking.PacketsC2S;
 import net.archasmiel.thaumcraft.recipe.Recipes;
 import net.archasmiel.thaumcraft.screen.ScreenHandlers;
 import net.devtech.arrp.api.RRPCallback;
@@ -65,6 +67,9 @@ public class Thaumcraft implements ModInitializer {
 		BlockEntities.register();
 		ScreenHandlers.register();
 		Recipes.register();
+
+		PacketIDs.register();
+		PacketsC2S.register();
 
 		// registering languages via arrp
 		for (String i: supportedLanguages)

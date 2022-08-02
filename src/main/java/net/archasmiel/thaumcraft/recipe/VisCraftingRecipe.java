@@ -1,9 +1,9 @@
 package net.archasmiel.thaumcraft.recipe;
 
 import net.archasmiel.thaumcraft.blockentity.inventory.ImplementedInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeType;
-import net.minecraft.world.World;
 
 import java.util.Map;
 
@@ -12,7 +12,7 @@ public interface VisCraftingRecipe extends Recipe<ImplementedInventory> {
         return Recipes.VIS_RECIPE_TYPE;
     }
 
-    void visCraft(ImplementedInventory inv);
+    void visCraft(ItemStack wand);
     Map<String, Float> getRecipeVis();
-    boolean matchesItems(ImplementedInventory inventory, World world);
+    boolean checkVis(ItemStack stack);
 }

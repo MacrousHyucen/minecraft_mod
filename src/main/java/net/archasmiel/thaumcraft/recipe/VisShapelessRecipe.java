@@ -27,10 +27,6 @@ public record VisShapelessRecipe(Identifier id,
     public boolean matches(ImplementedInventory inventory, World world) {
         if (world.isClient) return false;
 
-        if (vis.size() > 0) {
-            if (!checkVis(inventory)) return false;
-        }
-
         DefaultedList<Boolean> occupiedSlot = DefaultedList.ofSize(9, false);
         List<Integer> usedSlots = new ArrayList<>();
 
@@ -56,39 +52,12 @@ public record VisShapelessRecipe(Identifier id,
         return true;
     }
 
-    public boolean matchesItems(ImplementedInventory inventory, World world) {
-        DefaultedList<Boolean> occupiedSlot = DefaultedList.ofSize(9, false);
-        List<Integer> usedSlots = new ArrayList<>();
-
-        for (Ingredient i: input) {
-            for (int j = 0 ; j < 9 ; j++) {
-                if (!occupiedSlot.get(j))
-                    if (i.test(inventory.getStack(j))) {
-                        usedSlots.add(j);
-                        occupiedSlot.set(j, true);
-                        break;
-                    }
-            }
-        }
-
-        if (usedSlots.size() != input.size()) return false;
-
-        for (int i = 0 ; i < 9 ; i++) {
-            int finalI = i;
-            boolean notUsedSlot = usedSlots.stream().noneMatch(e -> e == finalI);
-            if (notUsedSlot && !inventory.getStack(finalI).isEmpty()) return false;
-        }
-
-        return true;
-    }
-
     @Override
     public ItemStack craft(ImplementedInventory inventory) {
         return this.getOutput().copy();
     }
 
-    public void visCraft(ImplementedInventory inventory) {
-        ItemStack wand = inventory.getStack(9);
+    public void visCraft(ItemStack wand) {
         WandAbstract currentWand = (WandAbstract) wand.getItem();
 
         NbtCompound wandVisData = wand.getNbt();
@@ -100,16 +69,17 @@ public record VisShapelessRecipe(Identifier id,
         }
     }
 
-    public boolean checkVis(ImplementedInventory inventory) {
-        ItemStack wand = inventory.getStack(9);
-        if (wand == ItemStack.EMPTY) return false;
-        if (!(wand.getItem() instanceof WandAbstract wandCurrent)) return false;
+    public boolean checkVis(ItemStack wand) {
+        if (vis.size() > 0) {
+            if (wand == ItemStack.EMPTY) return false;
+            if (!(wand.getItem() instanceof WandAbstract wandCurrent)) return false;
 
-        NbtCompound wandVisData;
-        if ((wandVisData = wand.getNbt()) != null) {
-            for (Map.Entry<String, Float> entry: vis.entrySet()) {
-                if ((entry.getValue() * wandCurrent.getDiscount()) > wandVisData.getFloat(entry.getKey())){
-                    return false;
+            NbtCompound wandVisData;
+            if ((wandVisData = wand.getNbt()) != null) {
+                for (Map.Entry<String, Float> entry: vis.entrySet()) {
+                    if ((entry.getValue() * wandCurrent.getDiscount()) > wandVisData.getFloat(entry.getKey())){
+                        return false;
+                    }
                 }
             }
         }

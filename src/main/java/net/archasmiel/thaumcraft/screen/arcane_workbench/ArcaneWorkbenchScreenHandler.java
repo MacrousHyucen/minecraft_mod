@@ -4,11 +4,14 @@ import net.archasmiel.thaumcraft.block.Blocks;
 import net.archasmiel.thaumcraft.blockentity.ArcaneWorkbenchBlockEntity;
 import net.archasmiel.thaumcraft.blockentity.inventory.ImplementedInventory;
 import net.archasmiel.thaumcraft.item.wandcraft.abilities.VisCraft;
+import net.archasmiel.thaumcraft.networking.PacketIDs;
 import net.archasmiel.thaumcraft.recipe.VisCraftingRecipe;
 import net.archasmiel.thaumcraft.screen.ScreenHandlers;
 import net.archasmiel.thaumcraft.screen.arcane_workbench.inventory.CraftingWandInventory;
 import net.archasmiel.thaumcraft.screen.arcane_workbench.slot.ResultSlot;
 import net.archasmiel.thaumcraft.screen.arcane_workbench.slot.WandSlot;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,6 +20,7 @@ import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.CraftingResultInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.s2c.play.ScreenHandlerSlotUpdateS2CPacket;
 import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.Recipe;
@@ -31,6 +35,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
+import java.util.Map;
 import java.util.Optional;
 
 import static net.archasmiel.thaumcraft.recipe.Recipes.VIS_RECIPE_TYPE;
@@ -48,7 +53,6 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
     private final int HOTBAR_INDEX_B;
 
     private final ArcaneWorkbenchBlockEntity entity;
-    static ArcaneWorkbenchBlockEntity lockedEntity;
     private boolean isReading;
 
     private final CraftingInventory input;
@@ -63,14 +67,11 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 
     public ArcaneWorkbenchScreenHandler(int i, PlayerInventory inventory) {
         this(i, inventory, ScreenHandlerContext.EMPTY, null);
+
     }
 
     public ArcaneWorkbenchScreenHandler(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context, ArcaneWorkbenchBlockEntity entity) {
         super(ScreenHandlers.ARCANE_WORKBENCH_SCREEN_HANDLER, syncId);
-
-        if (entity != null) {
-            lockedEntity = entity;
-        }
 
         this.entity = entity;
 
@@ -148,17 +149,36 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
             ImplementedInventory inventory = () -> inv;
 
             Optional<CraftingRecipe> optional = manager.getFirstMatch(CRAFTING, input, world);
-            Optional<VisCraftingRecipe> optionalVisShaped = manager.getFirstMatch(VIS_RECIPE_TYPE, inventory, world);
+            Optional<VisCraftingRecipe> optionalVis = manager.getFirstMatch(VIS_RECIPE_TYPE, inventory, world);
+
+            PacketByteBuf buffer = PacketByteBufs.create();
 
             if (optional.isPresent()) {
                 itemStack = optional.get().craft(input);
-            } else if (optionalVisShaped.isPresent()){
-                itemStack = optionalVisShaped.get().craft(inventory);
+                buffer.writeVarInt(0);
+            }
+            else
+            if (optionalVis.isPresent()){
+                if (optionalVis.get().checkVis(wand.getStack(0))) itemStack = optionalVis.get().craft(inventory);
+
+                buffer.writeVarInt(optionalVis.get().getRecipeVis().entrySet().size());
+                for (Map.Entry<String, Float> entry: optionalVis.get().getRecipeVis().entrySet()) {
+                    buffer.writeString(entry.getKey());
+                    buffer.writeFloat(entry.getValue());
+                }
+            } else {
+                buffer.writeVarInt(0);
             }
 
             result.setStack(0, itemStack);
             handler.setPreviousTrackedSlot(0, itemStack);
+
             serverPlayerEntity.networkHandler.sendPacket(new ScreenHandlerSlotUpdateS2CPacket(handler.syncId, handler.nextRevision(), 0, itemStack));
+            for (int i = 0 ; i < 9 ; i++) {
+                serverPlayerEntity.networkHandler.sendPacket(new ScreenHandlerSlotUpdateS2CPacket(handler.syncId, handler.nextRevision(), i+2, input.getStack(i)));
+            }
+            serverPlayerEntity.networkHandler.sendPacket(new ScreenHandlerSlotUpdateS2CPacket(handler.syncId, handler.nextRevision(), 1, wand.getStack(0)));
+            ServerPlayNetworking.send(serverPlayerEntity, PacketIDs.RECIPE_SYNC_CLIENT, buffer);
         }
     }
 

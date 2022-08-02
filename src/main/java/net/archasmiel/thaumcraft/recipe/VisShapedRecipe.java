@@ -33,27 +33,6 @@ public record VisShapedRecipe(Identifier id,
     public boolean matches(ImplementedInventory inventory, World world) {
         if (world.isClient) return false;
 
-        if (vis.size() > 0) {
-            if (!checkVis(inventory)) return false;
-        }
-
-        for(int i = 0; i <= 3 - recipeSizes.getLeft(); ++i) {
-            for(int j = 0; j <= 3 - recipeSizes.getRight(); ++j) {
-                if (this.matchesPattern(inventory, i, j, true)) {
-                    return true;
-                }
-
-                if (this.matchesPattern(inventory, i, j, false)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    public boolean matchesItems(ImplementedInventory inventory, World world) {
-
         for(int i = 0; i <= 3 - recipeSizes.getLeft(); ++i) {
             for(int j = 0; j <= 3 - recipeSizes.getRight(); ++j) {
                 if (this.matchesPattern(inventory, i, j, true)) {
@@ -74,8 +53,7 @@ public record VisShapedRecipe(Identifier id,
         return this.getOutput().copy();
     }
 
-    public void visCraft(ImplementedInventory inventory) {
-        ItemStack wand = inventory.getStack(9);
+    public void visCraft(ItemStack wand) {
         WandAbstract currentWand = (WandAbstract) wand.getItem();
 
         NbtCompound wandVisData = wand.getNbt();
@@ -87,16 +65,18 @@ public record VisShapedRecipe(Identifier id,
         }
     }
 
-    public boolean checkVis(ImplementedInventory inventory) {
-        ItemStack wand = inventory.getStack(9);
-        if (wand == ItemStack.EMPTY) return false;
-        if (!(wand.getItem() instanceof WandAbstract wandCurrent)) return false;
+    public boolean checkVis(ItemStack wand) {
 
-        NbtCompound wandVisData;
-        if ((wandVisData = wand.getNbt()) != null) {
-            for (Map.Entry<String, Float> entry: vis.entrySet()) {
-                if ((entry.getValue() * wandCurrent.getDiscount()) > wandVisData.getFloat(entry.getKey())){
-                    return false;
+        if (vis.size() > 0) {
+            if (wand == ItemStack.EMPTY) return false;
+            if (!(wand.getItem() instanceof WandAbstract wandCurrent)) return false;
+
+            NbtCompound wandVisData;
+            if ((wandVisData = wand.getNbt()) != null) {
+                for (Map.Entry<String, Float> entry: vis.entrySet()) {
+                    if ((entry.getValue() * wandCurrent.getDiscount()) > wandVisData.getFloat(entry.getKey())){
+                        return false;
+                    }
                 }
             }
         }

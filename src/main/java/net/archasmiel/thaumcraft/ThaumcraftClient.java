@@ -2,6 +2,8 @@ package net.archasmiel.thaumcraft;
 
 import net.archasmiel.thaumcraft.block.Blocks;
 import net.archasmiel.thaumcraft.blockentity.BlockEntities;
+import net.archasmiel.thaumcraft.networking.PacketIDs;
+import net.archasmiel.thaumcraft.networking.PacketsS2C;
 import net.archasmiel.thaumcraft.render.ArcaneWorkbenchBlockEntityRenderer;
 import net.archasmiel.thaumcraft.screen.ScreenHandlers;
 import net.archasmiel.thaumcraft.screen.arcane_workbench.ArcaneWorkbenchScreen;
@@ -25,6 +27,9 @@ public class ThaumcraftClient implements ClientModInitializer {
         HandledScreens.register(ScreenHandlers.ARCANE_WORKBENCH_SCREEN_HANDLER, ArcaneWorkbenchScreen::new);
 
         BlockEntityRendererRegistry.register(BlockEntities.ARCANE_WORKBENCH, ArcaneWorkbenchBlockEntityRenderer::new);
+
+        PacketIDs.register();
+        PacketsS2C.register();
     }
 
 }

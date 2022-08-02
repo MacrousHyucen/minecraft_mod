@@ -29,7 +29,6 @@ public class ArcaneWorkbenchBlockEntityRenderer implements BlockEntityRenderer<A
 
     private void renderWand(ArcaneWorkbenchBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
 
-
         if (entity.getWorld() != null && entity.getWorld().getBlockEntity(entity.getPos()) != null) {
             Pair<Float, Float> coord;       // coordinates for different directions
             float angle1, angle2;           // x and z rotating angles
@@ -73,16 +72,34 @@ public class ArcaneWorkbenchBlockEntityRenderer implements BlockEntityRenderer<A
         for (int i = 0 ; i < 9 ; i++) {
             ItemStack item = entity.getStack(i);
             if (item.getCount() > 0){
-                matrices.push();
-                setCoordinates(entity, matrices, i);
-                setScale(matrices, item);
-                MinecraftClient.getInstance().getItemRenderer().renderItem(item, ModelTransformation.Mode.FIXED, light, overlay, matrices, vertexConsumers, 0);
-                matrices.pop();
+                renderItem(matrices, entity, i, 1, item, vertexConsumers, light, overlay);
+                
+                float percent = (float) item.getCount() / item.getMaxCount();
+                if (item.getMaxCount() > 1 && !item.getName().toString().contains("block")) {
+                    if (percent >= 0.25f)
+                        renderItem(matrices, entity, i, 2, item, vertexConsumers, light, overlay);
+                    if (percent >= 0.50f)
+                        renderItem(matrices, entity, i, 3, item, vertexConsumers, light, overlay);
+                    if (percent >= 0.75f)
+                        renderItem(matrices, entity, i, 4, item, vertexConsumers, light, overlay);
+                }
             }
         }
     }
+    
+    private void renderItem(MatrixStack matrices, ArcaneWorkbenchBlockEntity entity, int slot, int item_num, ItemStack item, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+        matrices.push();
+        setCoordinates(entity, matrices, slot, item_num);
+        setScale(matrices, item);
+        MinecraftClient.getInstance().getItemRenderer().renderItem(item, ModelTransformation.Mode.FIXED, light, overlay, matrices, vertexConsumers, 0);
+        matrices.pop();
+    }
 
-    private void setCoordinates(ArcaneWorkbenchBlockEntity entity, MatrixStack matrices, int slot) {
+
+
+
+
+    private void setCoordinates(ArcaneWorkbenchBlockEntity entity, MatrixStack matrices, int slot, int item_num) {
         if (entity.getWorld() != null && entity.getWorld().getBlockEntity(entity.getPos()) != null) {
             Pair<Float, Float> coord;
             Vec3f rotVectorY = new Vec3f(0f, 0f, 1f);    // vector for model rotation around z axis
@@ -109,7 +126,7 @@ public class ArcaneWorkbenchBlockEntityRenderer implements BlockEntityRenderer<A
                 default -> throw new IllegalStateException("Wrong arcane workbench facing.");
             }
             matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(90.0f));    // rotating model around X axis (for item correct models)
-            matrices.translate(coord.getLeft(), coord.getRight(), -1);          // translating item to its slot on table
+            matrices.translate(coord.getLeft(), coord.getRight(), -1 - item_num*0.01f);          // translating item to its slot on table
             matrices.multiply(rotVectorY.getDegreesQuaternion(angle));          // rotating model around z axis
         }
     }

@@ -7,17 +7,18 @@
   
 ###  **Useful Links**<br>
   **Youtube Showcases**<br>
-  https://www.youtube.com/channel/UCxPTj6mxnN6Ij2uXxbE_e6g<br><br>
+  https://www.youtube.com/channel/UCxPTj6mxnN6Ij2uXxbE_e6g<br>
   **Trello**<br>
   https://trello.com/b/6uJ7dWVl/updates<br><br>
   
 ###  **Version and mod loader used?**<br>
   **Project currently using Fabric 1.18.2.** <br>
   Not planning transfer mod to 1.19 in near time (unstable APIs). <br><br>
-  Used APIs:
+  **Used APIs:**
   1. Parchment (mappings) [Link](https://github.com/ParchmentMC/Parchment)
   2. LibGui (GUI API) [Link](https://github.com/CottonMC/LibGui)
   3. ARRP (Advanced Runtime Resource Packs) [Link](https://github.com/Devan-Kerman/ARRP/)
+  <br><br>
   
 ###  **What about license?**<br>
   I do not own all original images, ideas and etc.<br>
@@ -80,9 +81,12 @@
 
 
 ## ***Fabric Example Mod Credits***
-  #### Setup
-  For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
-  #### License
-  This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+  <details><summary>Show credits</summary> <br> 
+    <b>Setup</b> <br>
+    For setup instructions please see the <a href="https://fabricmc.net/wiki/tutorial:setup">Fabric Page</a> that relates to the IDE that you are using. <br><br>
+    <b>License</b> <br>
+    This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects. <br><br>
+  </details>
+
 
 

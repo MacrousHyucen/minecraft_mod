@@ -5,9 +5,11 @@
 ###  **What's this project?**<br>
   This project is my fun-made rewrite of Thaumcraft 4 (based on latest 1.7.10 mod version).<br><br>
   
-###  **Youtube Showcases**<br>
-  You can find them on my channel:<br>
+###  **Useful Links**<br>
+  **Youtube Showcases**<br>
   https://www.youtube.com/channel/UCxPTj6mxnN6Ij2uXxbE_e6g<br><br>
+  **Trello**<br>
+  https://trello.com/b/6uJ7dWVl/updates<br><br>
   
 ###  **Version and mod loader used?**<br>
   **Project currently using Fabric 1.18.2.** <br>

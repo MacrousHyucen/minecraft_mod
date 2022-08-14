@@ -1,29 +1,34 @@
 package net.archasmiel.thaumcraft.screen.thaumonomicon;
 
 import io.github.cottonmc.cotton.gui.widget.data.Texture;
-import net.archasmiel.thaumcraft.Thaumcraft;
 import net.minecraft.util.Identifier;
+
+import static net.archasmiel.thaumcraft.Thaumcraft.MOD_ID;
 
 public class Icons {
 
-    private static final String research_path = "textures/other/research/";
+    private Icons() {
+
+    }
+
+    private static final String RESEARCH_PATH = "textures/other/research/";
 
     // Research tabs in original sort
     public static final Texture rt_basics =
-            loadTexture(Thaumcraft.MOD_ID, research_path + "tab/r_basics.png");
+            loadTexture(MOD_ID, RESEARCH_PATH + "tab/r_basics.png");
     public static final Texture rt_thaumaturgy =
-            loadTexture(Thaumcraft.MOD_ID, research_path + "tab/r_thaumaturgy.png");
+            loadTexture(MOD_ID, RESEARCH_PATH + "tab/r_thaumaturgy.png");
     public static final Texture rt_alchemy =
-            loadTexture(Thaumcraft.MOD_ID, research_path + "tab/r_alchemy.png");
+            loadTexture(MOD_ID, RESEARCH_PATH + "tab/r_alchemy.png");
     public static final Texture rt_artifice =
-            loadTexture(Thaumcraft.MOD_ID, research_path + "tab/r_artifice.png");
+            loadTexture(MOD_ID, RESEARCH_PATH + "tab/r_artifice.png");
     public static final Texture rt_golemancy =
-            loadTexture(Thaumcraft.MOD_ID, research_path + "tab/r_golemancy.png");
+            loadTexture(MOD_ID, RESEARCH_PATH + "tab/r_golemancy.png");
     public static final Texture rt_eldritch =
-            loadTexture(Thaumcraft.MOD_ID, research_path + "tab/r_eldritch.png");
+            loadTexture(MOD_ID, RESEARCH_PATH + "tab/r_eldritch.png");
 
 
-    private static Texture loadTexture(String mod_id, String path) {
-        return new Texture(new Identifier(mod_id, path));
+    public static Texture loadTexture(String modId, String path) {
+        return new Texture(new Identifier(modId, path));
     }
 }

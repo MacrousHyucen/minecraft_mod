@@ -33,12 +33,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 import java.util.List;
 
-import static net.archasmiel.thaumcraft.Thaumcraft.primaryAspects;
-import static net.archasmiel.thaumcraft.Thaumcraft.primaryAspectsColor;
+import static net.archasmiel.thaumcraft.materials.aspect.Aspect.primaryAspects;
+import static net.archasmiel.thaumcraft.materials.aspect.Aspect.primaryAspectsColor;
 import static net.minecraft.util.Formatting.GOLD;
 
 public abstract class WandAbstract extends ThaumcraftItem {
-    /*
+    /**
             Set multiplier always as:
             10% aspect margin     ->   -0.10f to multiplier constructor/setter,
              5% aspect margin     ->   -0.05f ...,
@@ -50,10 +50,10 @@ public abstract class WandAbstract extends ThaumcraftItem {
 
             Program changes discount/margin to [1 - multiplier] which means:
             -0.10f to constructor/setter   ->   1.10 multiplier for wand,
-            -0.05f to constructor/setter   ->   1.05 ..,
-             0.00f to constructor/setter   ->   1.00 ..,
-             0.10f to constructor/setter   ->   0.90 ..,
-             0.25f to constructor/setter   ->   0.75 ..;
+            -0.05f to constructor/setter   ->   1.05 ...,
+             0.00f to constructor/setter   ->   1.00 ...,
+             0.10f to constructor/setter   ->   0.90 ...,
+             0.25f to constructor/setter   ->   0.75 ...;
     */
 
 
@@ -69,7 +69,7 @@ public abstract class WandAbstract extends ThaumcraftItem {
     private final float discount;
 
 
-    public WandAbstract(Settings settings, String name, RodMaterials rod, CapMaterials cap,
+    protected WandAbstract(Settings settings, String name, RodMaterials rod, CapMaterials cap,
                         float wandDiscount, float capacityMultiplier,
                         String type) {
         super(settings, name);
@@ -146,23 +146,20 @@ public abstract class WandAbstract extends ThaumcraftItem {
 
     // puts wand to arcane workbench if slot is empty
     private void putWandToWorkbench(Item usingItem, World world, BlockPos pos, PlayerEntity player) {
+        if (usingItem instanceof VisCraft && world.getBlockEntity(pos) instanceof ArcaneWorkbenchBlockEntity arcane && arcane.getStack(10).isEmpty()) {
+            PlayerInventory inventory = player.getInventory();
+            if (inventory.getStack(inventory.selectedSlot).isEmpty()) return;
 
-        if (usingItem instanceof VisCraft) {
-            if (world.getBlockEntity(pos) instanceof ArcaneWorkbenchBlockEntity arcane && arcane.getStack(10).isEmpty()) {
-                PlayerInventory inventory = player.getInventory();
-                if (inventory.getStack(inventory.selectedSlot).isEmpty()) return;
+            arcane.setStack(10, inventory.removeStack(inventory.selectedSlot));
+            arcane.markDirty();
 
-                arcane.setStack(10, inventory.removeStack(inventory.selectedSlot));
-                arcane.markDirty();
+            world.playSound(
+                    null, pos,
+                    SoundEvents.BLOCK_BARREL_CLOSE, SoundCategory.BLOCKS,
+                    0.5f, 2.0f
+            );
 
-                world.playSound(
-                        null, pos,
-                        SoundEvents.BLOCK_BARREL_CLOSE, SoundCategory.BLOCKS,
-                        0.5f, 2.0f
-                );
-
-                world.updateListeners(pos, world.getBlockState(pos), world.getBlockState(pos), Block.NOTIFY_LISTENERS);
-            }
+            world.updateListeners(pos, world.getBlockState(pos), world.getBlockState(pos), Block.NOTIFY_LISTENERS);
         }
     }
 

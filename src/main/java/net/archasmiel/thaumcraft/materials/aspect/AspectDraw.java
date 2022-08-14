@@ -2,13 +2,14 @@ package net.archasmiel.thaumcraft.materials.aspect;
 
 import net.minecraft.util.Identifier;
 
-public class AspectCollection {
+public class AspectDraw {
 
     private Identifier id;
-    private Integer x, y;
+    private Integer x;
+    private Integer y;
     private ColorCollection c;
 
-    public AspectCollection(Identifier id, Integer x, Integer y, ColorCollection c) {
+    public AspectDraw(Identifier id, Integer x, Integer y, ColorCollection c) {
         this.id = id;
         this.x = x;
         this.y = y;

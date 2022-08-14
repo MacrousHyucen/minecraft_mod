@@ -12,15 +12,20 @@ import static net.archasmiel.thaumcraft.screen.thaumonomicon.GuiUtil.*;
 
 public class ResearchPanel extends WWidget {
 
-    private final Integer sizeX, sizeY;
-    private float textureX = 0, textureY = 0;
+    private Texture currentBackground;
+    private final Integer sizeX;
+    private final Integer sizeY;
+    private float textureX = 0;
+    private float textureY = 0;
 
 
 
 
-    public ResearchPanel(Integer sizeX, Integer sizeY) {
+    public ResearchPanel(Integer sizeX, Integer sizeY, Texture background) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
+        this.currentBackground = background;
+        setSize(sizeX, sizeY);
     }
 
 
@@ -28,7 +33,7 @@ public class ResearchPanel extends WWidget {
     @Environment(EnvType.CLIENT)
     @Override
     public void paint(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
-        ScreenDrawing.texturedRect(matrices, x, y, sizeX, sizeY, cutBackground(eldritch_back), 0xFFFFFFFF);
+        ScreenDrawing.texturedRect(matrices, x, y, sizeX, sizeY, cutBackground(currentBackground), 0xFFFFFFFF);
         ScreenDrawing.texturedRect(matrices, x, y, sizeX, sizeY, research_border, 0xFFFFFFFF);
         super.paint(matrices, x, y, mouseX, mouseY);
     }
@@ -67,6 +72,10 @@ public class ResearchPanel extends WWidget {
 
     public Integer getSizeY() {
         return sizeY;
+    }
+
+    public void setCurrentBackground(Texture currentBackground) {
+        this.currentBackground = currentBackground;
     }
 
 

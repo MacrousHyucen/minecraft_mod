@@ -11,6 +11,7 @@ import static net.archasmiel.thaumcraft.screen.thaumonomicon.GuiUtil.*;
 
 public class ResearchTab extends WButton {
 
+    private final Texture background;
     private boolean active = false;
     private final Integer size;
     private final Texture icon;
@@ -22,7 +23,8 @@ public class ResearchTab extends WButton {
 
 
 
-    public ResearchTab(Integer size, Texture icon, String name) {
+    public ResearchTab(Texture background, Integer size, Texture icon, String name) {
+        this.background = background;
         this.size = size;
         this.icon = icon;
         this.name = new TranslatableText(name);
@@ -78,4 +80,7 @@ public class ResearchTab extends WButton {
         return size;
     }
 
+    public Texture getBackground() {
+        return background;
+    }
 }

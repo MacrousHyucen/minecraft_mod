@@ -1,7 +1,7 @@
 package net.archasmiel.thaumcraft.materials.wand;
 
 
-/*
+/**
             Set 'visDiscount' always as:
             10% aspect margin     ->   -0.10f to 'discount' constructor/setter,
              5% aspect margin     ->   -0.05f ...,

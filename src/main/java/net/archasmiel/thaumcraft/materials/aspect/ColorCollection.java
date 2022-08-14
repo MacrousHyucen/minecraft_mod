@@ -2,7 +2,9 @@ package net.archasmiel.thaumcraft.materials.aspect;
 
 public class ColorCollection {
 
-    private Float r, g, b;
+    private Float r;
+    private Float g;
+    private Float b;
 
     public ColorCollection(Float r, Float g, Float b) {
         this.r = r;

@@ -5,11 +5,26 @@ import net.minecraft.util.Identifier;
 
 public class PacketIDs {
 
+    // Client
     public static final Identifier RECIPE_SYNC_CLIENT = new Identifier(Thaumcraft.MOD_ID, "recipe-sync-client");
+
+
+
+
+
+    // Server
     public static final Identifier RECIPE_SYNC_SERVER = new Identifier(Thaumcraft.MOD_ID, "recipe-sync-server");
 
-    public static void register() {
 
+
+
+
+    private PacketIDs() {
+
+    }
+
+    public static void register() {
+        // Registering Identifiers for client and server sides
     }
 
 }

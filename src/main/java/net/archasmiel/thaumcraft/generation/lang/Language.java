@@ -4,13 +4,14 @@ import java.util.HashMap;
 
 public class Language {
 
-    private final HashMap<String, String> translation = new HashMap<>();
+    private final HashMap<String, String> translation;
 
 
 
 
 
     public Language() {
+        translation = new HashMap<>();
     }
 
 

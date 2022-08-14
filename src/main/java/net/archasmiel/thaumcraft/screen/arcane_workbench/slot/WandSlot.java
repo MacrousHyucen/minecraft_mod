@@ -16,5 +16,4 @@ public class WandSlot extends Slot {
         return stack.getItem() instanceof VisCraft;
     }
 
-
 }

@@ -28,8 +28,6 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScre
     public static final int SIZE = 11;
     private final DefaultedList<ItemStack> inventory;
 
-    private ScreenHandlerContext context;
-
 
 
 

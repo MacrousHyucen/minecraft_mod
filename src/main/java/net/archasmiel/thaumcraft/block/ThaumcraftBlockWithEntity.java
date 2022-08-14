@@ -8,7 +8,7 @@ public abstract class ThaumcraftBlockWithEntity extends BlockWithEntity {
     private final String name;
     private Block block;
 
-    public ThaumcraftBlockWithEntity(Settings settings, String name){
+    protected ThaumcraftBlockWithEntity(Settings settings, String name){
         super(settings);
         this.name = name;
         load();

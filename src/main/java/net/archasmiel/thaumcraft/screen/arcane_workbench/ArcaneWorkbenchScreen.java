@@ -3,7 +3,7 @@ package net.archasmiel.thaumcraft.screen.arcane_workbench;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.archasmiel.thaumcraft.Thaumcraft;
 import net.archasmiel.thaumcraft.item.wandcraft.WandAbstract;
-import net.archasmiel.thaumcraft.materials.aspect.AspectCollection;
+import net.archasmiel.thaumcraft.materials.aspect.AspectDraw;
 import net.archasmiel.thaumcraft.materials.aspect.ColorCollection;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
@@ -18,7 +18,7 @@ import net.minecraft.util.Identifier;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static net.archasmiel.thaumcraft.Thaumcraft.primaryAspects;
+import static net.archasmiel.thaumcraft.materials.aspect.Aspect.primaryAspects;
 
 public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHandler> {
 
@@ -81,7 +81,7 @@ public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHa
 
     private void drawRecipeVis(MatrixStack matrices, ItemStack wand) {
         NbtCompound nbt = nbtNull.copy();
-        AspectCollection aspect;
+        AspectDraw aspect;
         double discount = 1.0f;
 
         if (!wand.isEmpty()){
@@ -127,17 +127,17 @@ public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHa
         }
     }
 
-    private AspectCollection getAspect(String name) {
+    private AspectDraw getAspect(String name) {
         int centerX = (width - backgroundWidth) / 2 + 64;
         int centerY = (height - backgroundHeight) / 2 + 64;
 
         return switch (name) {
-            case "aer"      -> new AspectCollection(ASPECT_TEXTURES[0], centerX - 48, centerY - 29, ASPECT_COLORS[0]);
-            case "ignis"    -> new AspectCollection(ASPECT_TEXTURES[1], centerX, centerY - 51, ASPECT_COLORS[1]);
-            case "aqua"     -> new AspectCollection(ASPECT_TEXTURES[2], centerX + 48, centerY - 29, ASPECT_COLORS[2]);
-            case "terra"    -> new AspectCollection(ASPECT_TEXTURES[3], centerX - 48, centerY + 30, ASPECT_COLORS[3]);
-            case "ordo"     -> new AspectCollection(ASPECT_TEXTURES[4], centerX, centerY + 51, ASPECT_COLORS[4]);
-            case "perditio" -> new AspectCollection(ASPECT_TEXTURES[5], centerX + 48, centerY + 30, ASPECT_COLORS[5]);
+            case "aer"      -> new AspectDraw(ASPECT_TEXTURES[0], centerX - 48, centerY - 29, ASPECT_COLORS[0]);
+            case "ignis"    -> new AspectDraw(ASPECT_TEXTURES[1], centerX, centerY - 51, ASPECT_COLORS[1]);
+            case "aqua"     -> new AspectDraw(ASPECT_TEXTURES[2], centerX + 48, centerY - 29, ASPECT_COLORS[2]);
+            case "terra"    -> new AspectDraw(ASPECT_TEXTURES[3], centerX - 48, centerY + 30, ASPECT_COLORS[3]);
+            case "ordo"     -> new AspectDraw(ASPECT_TEXTURES[4], centerX, centerY + 51, ASPECT_COLORS[4]);
+            case "perditio" -> new AspectDraw(ASPECT_TEXTURES[5], centerX + 48, centerY + 30, ASPECT_COLORS[5]);
             default -> null;
         };
 

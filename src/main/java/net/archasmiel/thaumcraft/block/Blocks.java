@@ -20,6 +20,10 @@ public class Blocks {
 
 
 
+    private Blocks() {
+
+    }
+
     private static void loadBlocks() {
         TABLE = new Table(WOODEN_BLOCK_SETTINGS, "table").block();
         ARCANE_WORKBENCH = new ArcaneWorkbench(WOODEN_BLOCK_SETTINGS, "arcane_workbench").block();

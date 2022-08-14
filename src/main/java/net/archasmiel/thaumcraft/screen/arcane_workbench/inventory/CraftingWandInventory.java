@@ -66,6 +66,7 @@ public class CraftingWandInventory implements Inventory {
     }
 
     public void markDirty() {
+        // Empty as in CraftingResultInventory
     }
 
     public boolean canPlayerUse(PlayerEntity player) {

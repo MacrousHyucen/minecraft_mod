@@ -119,6 +119,7 @@ public class ArcaneWorkbench extends ThaumcraftBlockWithEntity {
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if (state.getBlock() == newState.getBlock()) return;
 
+        // drop all loot on ground
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof ArcaneWorkbenchBlockEntity){
             ItemScatterer.spawn(world, pos, (Inventory) blockEntity);

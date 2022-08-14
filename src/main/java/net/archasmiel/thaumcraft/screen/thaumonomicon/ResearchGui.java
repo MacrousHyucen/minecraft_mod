@@ -16,10 +16,12 @@ import java.util.List;
 
 public class ResearchGui extends WPlainPanel {
 
-    private final Integer sizeX, sizeY;
+    private final Integer sizeX;
+    private final Integer sizeY;
 
     private ResearchPanel panel;
-    private Integer panelX, panelY;
+    private Integer panelX;
+    private Integer panelY;
 
     private final List<ResearchTab> tabs = new ArrayList<>();
 
@@ -48,21 +50,21 @@ public class ResearchGui extends WPlainPanel {
     @Override
     public InputResult onClick(int x, int y, int button) {
         if (button == 0) {
-            if (x >= 0 && x <= panelX)
-                for (int i = 0 ; i < tabs.size() ; i++) {
-                    if (y >= i * tabs.get(i).getSize() && y <= (i + 1) * tabs.get(i).getSize()){
-                        if (!tabs.get(i).isActive()){
-                            for (ResearchTab tab: tabs) tab.setActive(false);
-                            tabs.get(i).setActive(true);
+            if (x < 0 || x > panelX) return InputResult.IGNORED;
 
-                            // testing sound
-                            MinecraftClient.getInstance()
-                            .getSoundManager().play(PositionedSoundInstance
-                            .master(SoundEvents.ENTITY_LIGHTNING_BOLT_IMPACT, 1.0F));
-                        }
-                    }
-                }
+            for (int i = 0 ; i < tabs.size() ; i++) {
+                if (tabs.get(i).isActive() ||
+                    y < i * tabs.get(i).getSize() ||
+                    y > (i + 1) * tabs.get(i).getSize()) return InputResult.IGNORED;
+
+                for (ResearchTab tab: tabs) tab.setActive(false);
+                tabs.get(i).setActive(true);
+
+                // testing sound
+                MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ENTITY_LIGHTNING_BOLT_IMPACT, 1.0F));
+            }
         }
+
         return InputResult.IGNORED;
     }
 

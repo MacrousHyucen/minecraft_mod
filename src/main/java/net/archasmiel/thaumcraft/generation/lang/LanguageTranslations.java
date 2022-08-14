@@ -5,8 +5,8 @@ import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.archasmiel.thaumcraft.Thaumcraft;
 import net.minecraft.util.JsonHelper;
+import org.slf4j.Logger;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 
 public class LanguageTranslations {
 
+    private final Logger logger;
     private final String modID;
     private final HashMap<String, Language> languages = new HashMap<>();
 
@@ -27,10 +28,10 @@ public class LanguageTranslations {
 
 
 
-    public LanguageTranslations(String modID) {
+    public LanguageTranslations(String modID, Logger logger) {
+        this.logger = logger;
         this.modID = modID;
     }
-
 
 
 
@@ -39,7 +40,7 @@ public class LanguageTranslations {
             return languages.get(lang).get(langEntry);
         }
 
-        Thaumcraft.LOGGER.info("Translation for " + langEntry + " not found in " + lang);
+        logger.info("Translation for {} not found in {}", langEntry, lang);
         return "";
     }
 
@@ -49,7 +50,7 @@ public class LanguageTranslations {
 
     public void readLanguage(String langName) {
 
-        Gson GSON = new Gson();
+        Gson gson = new Gson();
 
         Language currentLang = getLanguage(langName);
 
@@ -57,7 +58,7 @@ public class LanguageTranslations {
                 "/assets/" + modID + "/lang/" + langName + ".json"
         );
 
-        JsonObject jsonObject = GSON.fromJson(
+        JsonObject jsonObject = gson.fromJson(
                 new InputStreamReader(
                         Objects.requireNonNull(inputStream),
                         StandardCharsets.UTF_8

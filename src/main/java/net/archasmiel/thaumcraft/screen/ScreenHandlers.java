@@ -9,6 +9,10 @@ import net.minecraft.util.registry.Registry;
 
 public class ScreenHandlers {
 
+    private ScreenHandlers() {
+
+    }
+
     public static ScreenHandlerType<ArcaneWorkbenchScreenHandler> ARCANE_WORKBENCH_SCREEN_HANDLER;
 
     public static void register() {

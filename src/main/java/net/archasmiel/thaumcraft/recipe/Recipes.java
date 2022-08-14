@@ -10,6 +10,10 @@ import net.minecraft.util.registry.Registry;
 
 public class Recipes {
 
+    private Recipes() {
+
+    }
+
     public static RecipeType<VisCraftingRecipe> VIS_RECIPE_TYPE;
     public static RecipeSerializer<VisShapedRecipe> VIS_SHAPED_RECIPE_SERIALIZER;
     public static RecipeSerializer<VisShapelessRecipe> VIS_SHAPELESS_RECIPE_SERIALIZER;

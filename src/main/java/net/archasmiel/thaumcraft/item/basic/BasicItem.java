@@ -14,10 +14,6 @@ public class BasicItem extends ThaumcraftItem {
         super(settings, name);
         load();
     }
-    public BasicItem(Settings settings, String name, int color) {
-        super(settings, name, color);
-        load();
-    }
 
 
     @Override

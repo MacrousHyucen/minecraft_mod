@@ -32,8 +32,7 @@ public record VisShapelessRecipe(Identifier id,
 
         for (Ingredient i: input) {
             for (int j = 0 ; j < 9 ; j++) {
-                if (!occupiedSlot.get(j))
-                if (i.test(inventory.getStack(j))) {
+                if (!occupiedSlot.get(j) && i.test(inventory.getStack(j))) {
                     usedSlots.add(j);
                     occupiedSlot.set(j, true);
                     break;

@@ -6,6 +6,10 @@ import net.minecraft.util.Identifier;
 
 public class GuiUtil {
 
+    private GuiUtil() {
+
+    }
+
     public static final Texture contents =
             new Texture(new Identifier(Thaumcraft.MOD_ID, "textures/gui/thaumonomicon/research.png"));
     public static final Texture normal_back =
@@ -42,10 +46,10 @@ public class GuiUtil {
 
     public static Texture cutTexture(Texture texture, int x, int y, int dx, int dy, int sizeX, int sizeY) {
         return texture.withUv(
-                (float)x/(float)sizeX,
-                (float)y/(float)sizeY,
-                (float)(x+dx)/(float)sizeX,
-                (float)(y+dy)/(float)sizeY
+                (float)x / sizeX,
+                (float)y / sizeY,
+                (float)(x+dx)/ sizeX,
+                (float)(y+dy)/ sizeY
         );
     }
 

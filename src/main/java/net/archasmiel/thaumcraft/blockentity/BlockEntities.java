@@ -11,6 +11,12 @@ public class BlockEntities {
 
     public static BlockEntityType<ArcaneWorkbenchBlockEntity> ARCANE_WORKBENCH;
 
+
+
+    private BlockEntities() {
+
+    }
+
     public static void register(){
         ARCANE_WORKBENCH = Registry.register(
             Registry.BLOCK_ENTITY_TYPE,

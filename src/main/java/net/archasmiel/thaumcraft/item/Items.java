@@ -8,9 +8,9 @@ import net.archasmiel.thaumcraft.item.wandcraft.WandAbstract;
 import net.archasmiel.thaumcraft.item.wandcraft.variants.Scepter;
 import net.archasmiel.thaumcraft.item.wandcraft.variants.Staff;
 import net.archasmiel.thaumcraft.item.wandcraft.variants.Wand;
+import net.archasmiel.thaumcraft.materials.tools.ToolMaterials;
 import net.archasmiel.thaumcraft.materials.wand.CapMaterials;
 import net.archasmiel.thaumcraft.materials.wand.RodMaterials;
-import net.archasmiel.thaumcraft.materials.tools.ToolMaterials;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -18,12 +18,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.collection.DefaultedList;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import static net.archasmiel.thaumcraft.Thaumcraft.MOD_GROUP_GENERATED;
-import static net.archasmiel.thaumcraft.Thaumcraft.primaryAspects;
 import static net.archasmiel.thaumcraft.generation.WandcraftGeneration.*;
+import static net.archasmiel.thaumcraft.materials.aspect.Aspect.primaryAspects;
 
 
 public class Items {
@@ -144,7 +145,9 @@ public class Items {
 
 
 
+    private Items() {
 
+    }
 
     public static void loadBooks() {
         THAUMONOMICON = new ThaumonomiconItem(ONE_ITEM_SETTINGS, "thaumonomicon").item();
@@ -252,53 +255,44 @@ public class Items {
         // also registers wands in system
         // registered items put in Map
 
-        for (RodMaterials rod: RodMaterials.values()){
-            // there is no primal wand rod
-            if (!rod.isPrimal())
-            for (CapMaterials cap: CapMaterials.values()){
-                Wand wand = new Wand(NOTAB_ONE_ITEM_SETTINGS, rod, cap) {
-                    @Override
-                    public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
-                        registerWandNbt(group, stacks, this);
-                    }
-                };
-
-                generateWandData(wand);
+        // wands
+        Arrays.stream(RodMaterials.values()).filter(rod -> !rod.isPrimal()).forEach(rod ->
+            Arrays.stream(CapMaterials.values()).map(cap -> new Wand(NOTAB_ONE_ITEM_SETTINGS, rod, cap) {
+                @Override
+                public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
+                    registerWandNbt(group, stacks, this);
+                }
+            }).forEach(wand -> {
+                generateWandcraftData(wand);
                 WANDS.put(wand.name(), wand.item());
-            }
-        }
+            })
+        );
 
-        for (RodMaterials rod: RodMaterials.values()){
-            // there is no primal wand rod
-            if (!rod.isPrimal())
-            for (CapMaterials cap: CapMaterials.values()){
-                Scepter scepter = new Scepter(NOTAB_ONE_ITEM_SETTINGS, rod, cap) {
-                    @Override
-                    public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
-                        registerWandNbt(group, stacks, this);
-                    }
-                };
-
-                generateScepterData(scepter);
+        // scepters
+        Arrays.stream(RodMaterials.values()).filter(rodMaterials -> !rodMaterials.isPrimal()).forEach(rodMaterials ->
+            Arrays.stream(CapMaterials.values()).map(cap -> new Scepter(NOTAB_ONE_ITEM_SETTINGS, rodMaterials, cap) {
+                @Override
+                public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
+                    registerWandNbt(group, stacks, this);
+                }
+            }).forEach(scepter -> {
+                generateWandcraftData(scepter);
                 SCEPTERS.put("thaumcraft:" + scepter.name(), scepter.item());
-            }
-        }
+            })
+        );
 
-        for (RodMaterials rod: RodMaterials.values()){
-            // there is no wood staff core
-            if (!rod.isStick())
-            for (CapMaterials cap: CapMaterials.values()){
-                Staff staff = new Staff(NOTAB_ONE_ITEM_SETTINGS, rod, cap){
-                    @Override
-                    public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
-                        registerWandNbt(group, stacks, this);
-                    }
-                };
-
-                generateStaffData(staff);
+        // staffs
+        Arrays.stream(RodMaterials.values()).filter(rod -> !rod.isStick()).forEach(rod ->
+            Arrays.stream(CapMaterials.values()).map(cap -> new Staff(NOTAB_ONE_ITEM_SETTINGS, rod, cap) {
+                @Override
+                public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
+                    registerWandNbt(group, stacks, this);
+                }
+            }).forEach(staff -> {
+                generateWandcraftData(staff);
                 STAFFS.put("thaumcraft:" + staff.name(), staff.item());
-            }
-        }
+            })
+        );
     }
 
     private static void registerWandNbt(ItemGroup group, DefaultedList<ItemStack> stacks, WandAbstract item) {

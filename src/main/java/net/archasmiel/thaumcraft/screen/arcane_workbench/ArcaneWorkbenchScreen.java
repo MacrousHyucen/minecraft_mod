@@ -1,6 +1,5 @@
 package net.archasmiel.thaumcraft.screen.arcane_workbench;
 
-import com.google.common.collect.Maps;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.archasmiel.thaumcraft.Thaumcraft;
 import net.archasmiel.thaumcraft.item.wandcraft.WandAbstract;
@@ -17,16 +16,25 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import static net.archasmiel.thaumcraft.Thaumcraft.primaryAspects;
 
 public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHandler> {
 
-    public static Map<String, Float> curRecipeVis = Maps.newHashMap();
-    public static final float animationTimeMillis = 1000f;
-    public static final float animationTimeHalfMillis = animationTimeMillis / 2;
+    private static final Map<String, Float> currRecipeVis = new ConcurrentHashMap<>();
+    public static final int ANIMATION_TIME = 1500;
+    public static final int ANIMATION_TIME_HALF = ANIMATION_TIME / 2;
+
+    private static final NbtCompound nbtNull = new NbtCompound();
+    static {
+        for (String i: primaryAspects) nbtNull.putFloat(i, 0);
+    }
 
     private static final Identifier BACK_TEXTURE =
             new Identifier(Thaumcraft.MOD_ID, "textures/aspects/_back.png");
-    private static final int iconSize = 16;
+    private static final int ICON_SIZE = 16;
+    private static final int SHADOW_SIZE = ICON_SIZE + 8;
 
     private static final ColorCollection[] ASPECT_COLORS = {
             new ColorCollection(255f/255, 255f/255, 126f/255),
@@ -47,15 +55,16 @@ public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHa
 
     private static final Identifier GUI_TEXTURE =
             new Identifier(Thaumcraft.MOD_ID, "textures/gui/arcane_workbench.png");
-    private static final int sizeX = 200, sizeY = 240;
+    private static final int SIZE_X = 200;
+    private static final int SIZE_Y = 240;
 
 
     public ArcaneWorkbenchScreen(ArcaneWorkbenchScreenHandler handler, PlayerInventory inventory, Text title) {
-        super(handler, inventory, new LiteralText(""));
+        super(handler, inventory, title);
 
-        // hitbox of gui
-        backgroundWidth = sizeX;
-        backgroundHeight = sizeY;
+        // hit box of gui
+        backgroundWidth = SIZE_X;
+        backgroundHeight = SIZE_Y;
     }
 
     @Override
@@ -71,54 +80,54 @@ public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHa
     }
 
     private void drawRecipeVis(MatrixStack matrices, ItemStack wand) {
-        NbtCompound nbt = null;
+        NbtCompound nbt = nbtNull.copy();
         AspectCollection aspect;
-        ColorCollection color;
-
         double discount = 1.0f;
-        NbtCompound nbtNull = new NbtCompound();
-        for (String i: Thaumcraft.primaryAspects) {
-            nbtNull.putFloat(i, 0);
-        }
 
         if (!wand.isEmpty()){
             nbt = wand.getNbt();
             discount = ((WandAbstract) wand.getItem()).getDiscount();
         }
-        if (nbt == null) nbt = nbtNull;
 
-        for (Map.Entry<String, Float> entry : curRecipeVis.entrySet()) {
-            aspect = getAspectCoordinates(entry.getKey());
-            color = aspect.getColor();
+        for (Map.Entry<String, Float> entry: currRecipeVis.entrySet()) {
+            if ((aspect = getAspect(entry.getKey())) != null) {
+                float transparency = 1.0f;
+                if (nbt != null && entry.getValue() * discount > nbt.getFloat(entry.getKey()))
+                    transparency = Math.abs(System.currentTimeMillis() % ANIMATION_TIME - ANIMATION_TIME_HALF) / (float) ANIMATION_TIME_HALF;
 
-            float transp = 1.0f;
-            if (entry.getValue() * discount > nbt.getFloat(entry.getKey()))
-                transp = Math.abs(System.currentTimeMillis() % animationTimeMillis - animationTimeHalfMillis) / animationTimeHalfMillis;
 
-            // drawing aspect icon on position
-            RenderSystem.enableBlend();
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            RenderSystem.setShaderColor(color.getR(), color.getG(), color.getB(), transp);
-            RenderSystem.setShaderTexture(0, aspect.getId());
-            drawTexture(matrices, aspect.getX(), aspect.getY(), 0, 0, iconSize, iconSize, iconSize, iconSize);
+                // drawing aspect icon+shadow on position
+                RenderSystem.enableBlend();
 
-            // blend disable for text correct rendering
-            RenderSystem.disableBlend();
-            matrices.push();
-            matrices.scale(0.5F, 0.5F, 0.5F);
-            drawCenteredTextWithShadow(
-                    matrices,
-                    textRenderer,
-                    new LiteralText(String.format("%.2f", entry.getValue() * discount)).asOrderedText(),
-                    2*(aspect.getX()+8),
-                    2*(aspect.getY()+18),
-                    0xffffff
-            );
-            matrices.pop();
+                RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, transparency / 2);
+                RenderSystem.setShaderTexture(0, BACK_TEXTURE);
+                drawTexture(matrices, aspect.getX() - 4, aspect.getY() - 4, 0, 0, SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE);
+
+                RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                RenderSystem.setShaderColor(aspect.getColor().getR(), aspect.getColor().getG(), aspect.getColor().getB(), transparency);
+                RenderSystem.setShaderTexture(0, aspect.getId());
+                drawTexture(matrices, aspect.getX(), aspect.getY(), 0, 0, ICON_SIZE, ICON_SIZE, ICON_SIZE, ICON_SIZE);
+
+
+                // blend disable for text correct rendering
+                RenderSystem.disableBlend();
+                matrices.push();
+                matrices.scale(0.5F, 0.5F, 0.5F);
+                drawCenteredTextWithShadow(
+                        matrices,
+                        textRenderer,
+                        new LiteralText(String.format("%.2f", entry.getValue() * discount)).asOrderedText(),
+                        2*(aspect.getX()+8),
+                        2*(aspect.getY()+18),
+                        0xffffff
+                );
+                matrices.pop();
+            }
         }
     }
 
-    private AspectCollection getAspectCoordinates(String name) {
+    private AspectCollection getAspect(String name) {
         int centerX = (width - backgroundWidth) / 2 + 64;
         int centerY = (height - backgroundHeight) / 2 + 64;
 
@@ -145,4 +154,13 @@ public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHa
         super.render(matrices, mouseX, mouseY, delta);
         drawMouseoverTooltip(matrices, mouseX, mouseY);
     }
+
+    public static void clearCurrRecipeVis() {
+        currRecipeVis.clear();
+    }
+
+    public static void addCurrRecipeVis(String key, Float value) {
+        currRecipeVis.put(key, value);
+    }
+
 }

@@ -43,14 +43,14 @@ import static net.minecraft.recipe.RecipeType.CRAFTING;
 
 public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<CraftingInventory> {
 
-    private final int OUTPUT_INDEX;
-    private final int WAND_INDEX;
-    private final int CRAFTING_INDEX_A;
-    private final int CRAFTING_INDEX_B;
-    private final int INVENTORY_INDEX_A;
-    private final int INVENTORY_INDEX_B;
-    private final int HOTBAR_INDEX_A;
-    private final int HOTBAR_INDEX_B;
+    private final int outputIndex;
+    private final int wandIndex;
+    private final int craftingIndexA;
+    private final int craftingIndexB;
+    private final int inventoryIndexA;
+    private final int inventoryIndexB;
+    private final int hotbarIndexA;
+    private final int hotbarIndexB;
 
     private final ArcaneWorkbenchBlockEntity entity;
     private boolean isReading;
@@ -85,16 +85,16 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 
 
         // output slot
-        OUTPUT_INDEX = 0;
+        outputIndex = 0;
         this.addSlot(new ResultSlot(playerInventory.player, this.input, this.wand, this.result, 0, 160, 64));
 
         // wand slot
-        WAND_INDEX = 1;
+        wandIndex = 1;
         this.addSlot(new WandSlot(this.wand, 0, 160, 25));
 
         // crafting slots
-        CRAFTING_INDEX_A = 2;
-        CRAFTING_INDEX_B = 11;
+        craftingIndexA = 2;
+        craftingIndexB = 11;
         for (int i = 0 ; i < 3 ; i++) {
             for (int j = 0; j < 3; j++) {
                 this.addSlot(new Slot(this.input, i * 3 + j, 40 + j * 24, 40 + i * 24));
@@ -102,8 +102,8 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
         }
 
         // inventory
-        INVENTORY_INDEX_A = 11;
-        INVENTORY_INDEX_B = 38;
+        inventoryIndexA = 11;
+        inventoryIndexB = 38;
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
                 this.addSlot(new Slot(playerInventory, 9 + i * 9 + j, 16 + 18 * j, 151 + 18 * i));
@@ -111,18 +111,15 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
         }
 
         // hotbar
-        HOTBAR_INDEX_A = 38;
-        HOTBAR_INDEX_B = 47;
+        hotbarIndexA = 38;
+        hotbarIndexB = 47;
         for (int i = 0; i < 9; ++i) {
             this.addSlot(new Slot(playerInventory, i, 16 + 18 * i, 209));
         }
     }
 
 
-
-
-
-
+    @Override
     public void onContentChanged(Inventory inventory) {
         // this function also being called on readContainer method, so here is checking for this
         // if not checking reading state, then a lot of mess happens
@@ -172,11 +169,7 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 
             result.setStack(0, itemStack);
             handler.setPreviousTrackedSlot(0, itemStack);
-
             serverPlayerEntity.networkHandler.sendPacket(new ScreenHandlerSlotUpdateS2CPacket(handler.syncId, handler.nextRevision(), 0, itemStack));
-            for (int i = 0 ; i < 9 ; i++) {
-                serverPlayerEntity.networkHandler.sendPacket(new ScreenHandlerSlotUpdateS2CPacket(handler.syncId, handler.nextRevision(), i+2, input.getStack(i)));
-            }
             serverPlayerEntity.networkHandler.sendPacket(new ScreenHandlerSlotUpdateS2CPacket(handler.syncId, handler.nextRevision(), 1, wand.getStack(0)));
             ServerPlayNetworking.send(serverPlayerEntity, PacketIDs.RECIPE_SYNC_CLIENT, buffer);
         }
@@ -241,59 +234,57 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
         return recipe.matches(this.input, this.player.world);
     }
 
-    public void close(PlayerEntity player) {
-        super.close(player);
-    }
 
     public boolean canUse(PlayerEntity player) {
         // important - use correct block
         return canUse(this.context, player, Blocks.ARCANE_WORKBENCH);
     }
 
+    @Override
     public ItemStack transferSlot(PlayerEntity player, int index) {
-
         ItemStack itemStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
+
         if (slot.hasStack()) {
             ItemStack itemStack2 = slot.getStack();
             itemStack = itemStack2.copy();
 
             // if transferred from result slot
-            if (index == OUTPUT_INDEX) {
+            if (index == outputIndex) {
                 this.context.run((world, pos) -> itemStack2.getItem().onCraft(itemStack2, world, player));
-                if (!this.insertItem(itemStack2, INVENTORY_INDEX_A, HOTBAR_INDEX_B, true)) {
+                if (!this.insertItem(itemStack2, inventoryIndexA, hotbarIndexB, true)) {
                     return ItemStack.EMPTY;
                 }
                 slot.onQuickTransfer(itemStack2, itemStack);
 
             // if transferred from wand slot
-            } else if (index == WAND_INDEX) {
-                if (!this.insertItem(itemStack2, INVENTORY_INDEX_A, HOTBAR_INDEX_B, true)) {
+            } else if (index == wandIndex) {
+                if (!this.insertItem(itemStack2, inventoryIndexA, hotbarIndexB, true)) {
                     return ItemStack.EMPTY;
                 }
 
             // if transferred from inventory slot
-            } else if (index >= INVENTORY_INDEX_A && index < HOTBAR_INDEX_B) {
+            } else if (index >= inventoryIndexA && index < hotbarIndexB) {
 
                 // inserting VisCraft item from inventory to slot
                 if (itemStack2.getItem() instanceof VisCraft) {
-                    if (!this.insertItem(itemStack2, WAND_INDEX, WAND_INDEX + 1, false)) {
+                    if (!this.insertItem(itemStack2, wandIndex, wandIndex + 1, false)) {
                         return ItemStack.EMPTY;
                     }
                 } else {
-                    if (!this.insertItem(itemStack2, CRAFTING_INDEX_A, CRAFTING_INDEX_B, false)) {
-                        if (index < HOTBAR_INDEX_A) {
-                            if (!this.insertItem(itemStack2, HOTBAR_INDEX_A, HOTBAR_INDEX_B, false)) {
+                    if (!this.insertItem(itemStack2, craftingIndexA, craftingIndexB, false)) {
+                        if (index < hotbarIndexA) {
+                            if (!this.insertItem(itemStack2, hotbarIndexA, hotbarIndexB, false)) {
                                 return ItemStack.EMPTY;
                             }
-                        } else if (!this.insertItem(itemStack2, INVENTORY_INDEX_A, INVENTORY_INDEX_B, false)) {
+                        } else if (!this.insertItem(itemStack2, inventoryIndexA, inventoryIndexB, false)) {
                             return ItemStack.EMPTY;
                         }
                     }
                 }
 
             // if transferred from crafting slot
-            } else if (!this.insertItem(itemStack2, INVENTORY_INDEX_A, HOTBAR_INDEX_B, false)) {
+            } else if (!this.insertItem(itemStack2, inventoryIndexA, hotbarIndexB, false)) {
                 return ItemStack.EMPTY;
             }
 
@@ -316,8 +307,9 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
         return itemStack;
     }
 
+    @Override
     public boolean canInsertIntoSlot(ItemStack stack, Slot slot) {
-        return slot.getIndex() != OUTPUT_INDEX && super.canInsertIntoSlot(stack, slot);
+        return slot.getIndex() != outputIndex && super.canInsertIntoSlot(stack, slot);
     }
 
     public int getCraftingResultSlotIndex() {

@@ -80,7 +80,7 @@ public class ArcaneWorkbenchBlockEntityRenderer implements BlockEntityRenderer<A
     private void renderCraftingInventory(ArcaneWorkbenchBlockEntity entity, MatrixStack matrices) {
         for (int i = 0; i < 9; i++) {
             ItemStack item = entity.getStack(i);
-            if (item.getCount() <= 0) return;
+            if (item.getCount() <= 0) continue;
 
             renderItem(matrices, entity, i, 1, item);
 
@@ -103,7 +103,6 @@ public class ArcaneWorkbenchBlockEntityRenderer implements BlockEntityRenderer<A
         MinecraftClient.getInstance().getItemRenderer().renderItem(item, ModelTransformation.Mode.FIXED, light, overlay, matrices, vertexConsumers, 0);
         matrices.pop();
     }
-
 
     private void setCoordinates(ArcaneWorkbenchBlockEntity entity, MatrixStack matrices, int slot, int itemNum) {
         if (entity.getWorld() != null && entity.getWorld().getBlockEntity(entity.getPos()) != null) {

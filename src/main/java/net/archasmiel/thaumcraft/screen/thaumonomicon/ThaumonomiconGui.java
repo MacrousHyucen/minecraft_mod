@@ -2,13 +2,11 @@ package net.archasmiel.thaumcraft.screen.thaumonomicon;
 
 import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
-import static net.archasmiel.thaumcraft.screen.thaumonomicon.GuiUtil.eldritch_back;
-import static net.archasmiel.thaumcraft.screen.thaumonomicon.GuiUtil.normal_back;
-import static net.archasmiel.thaumcraft.screen.thaumonomicon.Icons.*;
-import static net.archasmiel.thaumcraft.screen.thaumonomicon.Icons.rt_basics;
+import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.GuiUtil.*;
+import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Icons.*;
 
 public class ThaumonomiconGui extends LightweightGuiDescription {
 
@@ -21,16 +19,10 @@ public class ThaumonomiconGui extends LightweightGuiDescription {
     private static final Integer SIZE_X = TAB_SIZE + RESEARCH_X;
     private static final Integer SIZE_Y = RESEARCH_Y;
 
-    public static final ResearchGui ROOT = new ResearchGui(SIZE_X, SIZE_Y);
+    private static final List<Tab> TABS = makeBasicTabs();
+    private static final Panel RESEARCH = new Panel(TAB_SIZE, 0, RESEARCH_X, RESEARCH_Y);
+    private static final Gui ROOT = new Gui(RESEARCH, TABS, SIZE_X, SIZE_Y);
 
-    private static List<ResearchTab> tabs = Arrays.asList(
-            new ResearchTab(normal_back, TAB_SIZE, rt_basics, TRANSLATE_PATH + "basics_tab"),
-            new ResearchTab(normal_back, TAB_SIZE, rt_thaumaturgy, TRANSLATE_PATH + "thaumaturgy_tab"),
-            new ResearchTab(normal_back, TAB_SIZE, rt_alchemy, TRANSLATE_PATH + "alchemy_tab"),
-            new ResearchTab(normal_back, TAB_SIZE, rt_artifice, TRANSLATE_PATH + "artifice_tab"),
-            new ResearchTab(normal_back, TAB_SIZE, rt_golemancy, TRANSLATE_PATH + "golemancy_tab"),
-            new ResearchTab(eldritch_back, TAB_SIZE, rt_eldritch, TRANSLATE_PATH + "eldritch_tab")
-    );
 
 
 
@@ -38,23 +30,40 @@ public class ThaumonomiconGui extends LightweightGuiDescription {
 
     public ThaumonomiconGui() {
         setRootPanel(ROOT);
+    }
 
+
+
+    public static List<Tab> getTabs() {
+        return ROOT.getTabs();
+    }
+
+    public static void setTabs(List<Tab> tabs) {
         ROOT.setTabs(tabs);
-        ROOT.setResearchPanel(new ResearchPanel(RESEARCH_X, RESEARCH_Y, tabs.get(0).getBackground()), TAB_SIZE, 0);
     }
 
+    public static void addTab(Tab tab) {
+        ROOT.addTab(tab);
+    }
 
+    public static List<Tab> makeBasicTabs() {
+        List<Tab> tabs = new ArrayList<>();
 
-    public static List<ResearchTab> getTabs() {
+        tabs.add(new Tab(normal_back, 0, 0, TAB_SIZE, rt_basics, TRANSLATE_PATH + "basics_tab"));
+        tabs.add(new Tab(normal_back, 0, 0, TAB_SIZE, rt_thaumaturgy, TRANSLATE_PATH + "thaumaturgy_tab"));
+        tabs.add(new Tab(normal_back, 0, 0, TAB_SIZE, rt_alchemy, TRANSLATE_PATH + "alchemy_tab"));
+        tabs.add(new Tab(normal_back, 0, 0, TAB_SIZE, rt_artifice, TRANSLATE_PATH + "artifice_tab"));
+        tabs.add(new Tab(normal_back, 0, 0, TAB_SIZE, rt_golemancy, TRANSLATE_PATH + "golemancy_tab"));
+        tabs.add(new Tab(eldritch_back, 0, 0, TAB_SIZE, rt_eldritch, TRANSLATE_PATH + "eldritch_tab"));
+
+        int y = 0;
+        for (Tab tab: tabs) {
+            tab.setPosY(y);
+            y += tab.getSize();
+        }
+
+        tabs.get(0).setState(true);
         return tabs;
-    }
-
-    public static void setTabs(List<ResearchTab> origTabs) {
-        tabs = origTabs;
-    }
-
-    public static void addTab(ResearchTab tab) {
-        tabs.add(tab);
     }
 
 }

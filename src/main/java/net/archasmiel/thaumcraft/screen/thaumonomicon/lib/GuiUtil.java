@@ -1,4 +1,4 @@
-package net.archasmiel.thaumcraft.screen.thaumonomicon;
+package net.archasmiel.thaumcraft.screen.thaumonomicon.lib;
 
 import io.github.cottonmc.cotton.gui.widget.data.Texture;
 import net.archasmiel.thaumcraft.Thaumcraft;
@@ -9,6 +9,8 @@ public class GuiUtil {
     private GuiUtil() {
 
     }
+
+    public static final Integer DEF_COLOR = 0xFFFFFFFF;
 
     public static final Texture contents =
             new Texture(new Identifier(Thaumcraft.MOD_ID, "textures/gui/thaumonomicon/research.png"));

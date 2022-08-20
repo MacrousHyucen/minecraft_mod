@@ -4,10 +4,10 @@ import io.github.cottonmc.cotton.gui.client.BackgroundPainter;
 import io.github.cottonmc.cotton.gui.widget.WPanel;
 import io.github.cottonmc.cotton.gui.widget.WPlainPanel;
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
+import net.archasmiel.thaumcraft.sounds.Sounds;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.sound.SoundEvents;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,14 +53,14 @@ public class Gui extends WPlainPanel {
     @Override
     public InputResult onClick(int x, int y, int button) {
         if (button == 0) {
-            for (Tab tab : tabs) {
+            for (Tab tab: tabs) {
                 if (!tab.getState() && tab.isPointOnTab(x, y)) {
                     panel.getCurrentTab().setState(false);
                     panel.setCurrentTab(tab);
                     tab.setState(true);
 
                     MinecraftClient.getInstance().getSoundManager()
-                            .play(PositionedSoundInstance.master(SoundEvents.ENTITY_LIGHTNING_BOLT_IMPACT, 1.0F));
+                            .play(PositionedSoundInstance.master(Sounds.PAGE_FLIP, 1.0F));
 
                     return InputResult.PROCESSED;
                 }

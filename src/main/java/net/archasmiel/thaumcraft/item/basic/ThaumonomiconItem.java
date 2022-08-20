@@ -5,13 +5,13 @@ import net.archasmiel.thaumcraft.Thaumcraft;
 import net.archasmiel.thaumcraft.generation.ThaumcraftRegistry;
 import net.archasmiel.thaumcraft.register.Register;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.ThaumonomiconGui;
+import net.archasmiel.thaumcraft.sounds.Sounds;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
@@ -52,7 +52,7 @@ public class ThaumonomiconItem extends ThaumcraftItem {
         MinecraftClient.getInstance().setScreenAndRender(new CottonClientScreen(new ThaumonomiconGui()));
         MinecraftClient.getInstance().getSoundManager().play(
             PositionedSoundInstance.master(
-                SoundEvents.ENTITY_LIGHTNING_BOLT_IMPACT, 1.0F
+                Sounds.PAGE_FLIP, 1.0F
             )
         );
     }

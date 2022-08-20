@@ -4,15 +4,20 @@ import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
 import io.github.cottonmc.cotton.gui.widget.WWidget;
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
 import io.github.cottonmc.cotton.gui.widget.data.Texture;
+import net.archasmiel.thaumcraft.networking.PacketIDs;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.network.PacketByteBuf;
 
-import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.GuiUtil.*;
+import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.GuiUtil.DEF_COLOR;
+import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.GuiUtil.research_border;
 
 public class Panel extends WWidget {
 
-    private Tab activeTab;
+    private Tab currentTab;
 
     private final Integer sizeX;
     private final Integer sizeY;
@@ -44,39 +49,49 @@ public class Panel extends WWidget {
     @Override
     public InputResult onMouseDrag(int x, int y, int button, double deltaX, double deltaY) {
         if (button == 0) {
-            double backX = activeTab.getBackX() - deltaX;
+            float backX = currentTab.getBackX() - (float) deltaX;
             if (backX < 0) backX = 0;
             else if (backX > sizeX) backX = sizeX;
-            activeTab.setBackX(backX);
+            currentTab.setBackX(backX);
 
-            double backY = activeTab.getBackY() - deltaY;
+            float backY = currentTab.getBackY() - (float) deltaY;
             if (backY < 0) backY = 0;
             else if (backY > sizeY) backY = sizeY;
-            activeTab.setBackY(backY);
+            currentTab.setBackY(backY);
         }
+        sendActiveTabUpdate();
         return InputResult.PROCESSED;
+    }
+
+    private void sendActiveTabUpdate() {
+        PacketByteBuf packet = PacketByteBufs.create();
+        packet.writeString(currentTab.id);
+        packet.writeFloat(currentTab.getBackX());
+        packet.writeFloat(currentTab.getBackY());
+        ClientPlayNetworking.send(PacketIDs.THAUMONOMICON_DATA_SERVER, packet);
     }
 
 
 
 
     private Texture cutBack() {
-        float backX = (float) activeTab.getBackX();
-        float backY = (float) activeTab.getBackY();
-        return activeTab.getBackground().withUv(
-                (backX)/sizeX/2,
-                (backY)/sizeY/2,
-                (backX)/sizeX/2 + 0.5f,
-                (backY)/sizeY/2 + 0.5f
-        );
+        float backX = currentTab.getBackX();
+        float backY = currentTab.getBackY();
+
+        float x1 = backX/sizeX/2;
+        float y1 = backY/sizeY/2;
+        float x2 = x1 + 0.5f;
+        float y2 = y1 + 0.5f;
+
+        return currentTab.getBackground().withUv(x1, y1, x2, y2);
     }
 
     public void setCurrentTab(Tab tab) {
-        this.activeTab = tab;
+        this.currentTab = tab;
     }
 
     public Tab getCurrentTab() {
-        return activeTab;
+        return currentTab;
     }
 
 

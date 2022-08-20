@@ -1,4 +1,4 @@
-package net.archasmiel.thaumcraft.networking.c2s;
+package net.archasmiel.thaumcraft.networking.s2c;
 
 import net.archasmiel.thaumcraft.screen.arcane_workbench.ArcaneWorkbenchScreen;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;

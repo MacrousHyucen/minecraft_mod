@@ -4,9 +4,10 @@ import net.archasmiel.thaumcraft.block.Blocks;
 import net.archasmiel.thaumcraft.blockentity.BlockEntities;
 import net.archasmiel.thaumcraft.item.Items;
 import net.archasmiel.thaumcraft.networking.PacketIDs;
-import net.archasmiel.thaumcraft.networking.PacketsC2S;
+import net.archasmiel.thaumcraft.networking.c2s.PacketsC2S;
 import net.archasmiel.thaumcraft.recipe.Recipes;
 import net.archasmiel.thaumcraft.screen.ScreenHandlers;
+import net.archasmiel.thaumcraft.sounds.Sounds;
 import net.archasmiel.thaumcraft.translation.Translations;
 import net.devtech.arrp.api.RRPCallback;
 import net.devtech.arrp.api.RuntimeResourcePack;
@@ -50,6 +51,7 @@ public class Thaumcraft implements ModInitializer {
 		Blocks.register();
 		Items.register();
 
+		Sounds.register();
 		BlockEntities.register();
 		ScreenHandlers.register();
 		Recipes.register();

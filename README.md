@@ -41,14 +41,13 @@
 - [x] *Custom ItemGroup for mod*
 - [x] *Blockbench models of table, arcane workbench and deconstruction table (and rotation ability)*
 - [x] *Arcane Workbench GUI + wand special slot + obtained by clicking wand on table + server stability + vis visualization*
-- [x] *Arcane Workbench VisShaped and VisShapeless recipe types + vanilla recipes*
-- [x] *Basic Thaumonomicon GUI (explosion test sound)*
-- [x] *Some amount of original items (including all types of shards, wand+staff cores and caps)*
-- [x] *Working thaumium tool set*
-- [x] *Working void metal tool set (with self-repairing)*
-- [x] *English, Russian and Chinese translation files*
-- [x] *Basic autogenerating of wand, staff and scepter - models, recipes and lang (full tab with items)*
+- [x] *Arcane Workbench VisShaped and VisShapeless recipe types + vanilla recipes + original wandcraft recipes with vis usage*
+- [x] *Thaumonomicon GUI (original icons and names, page position storing with nbt)*
+- [x] *Original items (including all types of shards, wand+staff cores and caps)*
+- [x] *Working thaumium tool set and void metal tool set (with self-repairing)*
+- [x] *Autogenerating of wand, staff and scepter - models, recipes and lang (full tab with items)*
 - [x] *Wand, staff and scepter NBT data and tooltip*
+- [x] *English, Russian and Chinese translation*
 
 
 
@@ -58,8 +57,10 @@
 
 
 ## ***WIP***
-- [ ] *Deconstruction table GUI* **(Current Goal)** 
-- [ ] *Thaumonomicon GUI improvements (tabs with icons, actions on clicking, current page saving after closing, player research data)* **(Next Goal)**
+- [ ] *Thaumonomicon GUI improvements (tabs with researches, actions on clicking)* **(Current Goal)** 
+- [ ] *Research and aspects storing* **Next Goal**
+- [ ] *Thaumonomicon researches with papers*
+- [ ] *Deconstruction table GUI* 
 - [ ] *OBJ model loading - Alchemical Furnace • Arcane Alembic*
 - [ ] *Basic vis nodes, wand charge animation and vis capacity interface*
 

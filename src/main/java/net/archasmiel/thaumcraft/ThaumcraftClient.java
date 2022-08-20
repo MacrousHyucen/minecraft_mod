@@ -3,7 +3,7 @@ package net.archasmiel.thaumcraft;
 import net.archasmiel.thaumcraft.block.Blocks;
 import net.archasmiel.thaumcraft.blockentity.BlockEntities;
 import net.archasmiel.thaumcraft.networking.PacketIDs;
-import net.archasmiel.thaumcraft.networking.PacketsS2C;
+import net.archasmiel.thaumcraft.networking.s2c.PacketsS2C;
 import net.archasmiel.thaumcraft.render.ArcaneWorkbenchBlockEntityRenderer;
 import net.archasmiel.thaumcraft.screen.ScreenHandlers;
 import net.archasmiel.thaumcraft.screen.arcane_workbench.ArcaneWorkbenchScreen;

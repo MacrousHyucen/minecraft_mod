@@ -6,16 +6,14 @@ import net.minecraft.util.Identifier;
 public class PacketIDs {
 
     // Client
-    public static final Identifier RECIPE_SYNC_CLIENT = new Identifier(Thaumcraft.MOD_ID, "recipe-sync-client");
-
-
-
+    public static final Identifier RECIPE_SYNC_CLIENT = new Identifier(Thaumcraft.MOD_ID, "recipe-c");
 
 
     // Server
-    public static final Identifier RECIPE_SYNC_SERVER = new Identifier(Thaumcraft.MOD_ID, "recipe-sync-server");
 
-
+    // Request
+    public static final Identifier THAUMONOMICON_DATA_CLIENT = new Identifier(Thaumcraft.MOD_ID, "thaumonomicon-data-c");
+    public static final Identifier THAUMONOMICON_DATA_SERVER = new Identifier(Thaumcraft.MOD_ID, "thaumonomicon-data-s");
 
 
 

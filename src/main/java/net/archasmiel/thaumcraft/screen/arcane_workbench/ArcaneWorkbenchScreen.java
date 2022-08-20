@@ -100,7 +100,7 @@ public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHa
                 RenderSystem.enableBlend();
 
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, transparency / 2);
+                RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 0.5f);
                 RenderSystem.setShaderTexture(0, BACK_TEXTURE);
                 drawTexture(matrices, aspect.getX() - 4, aspect.getY() - 4, 0, 0, SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE);
 

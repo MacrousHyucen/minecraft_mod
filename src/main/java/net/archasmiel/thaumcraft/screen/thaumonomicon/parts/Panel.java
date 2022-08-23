@@ -11,8 +11,8 @@ import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.network.PacketByteBuf;
 
-import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.GuiUtil.DEF_COLOR;
-import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.GuiUtil.research_border;
+import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Textures.DEF_COLOR;
+import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Textures.RESEARCH_BORDER;
 
 public class Panel extends WWidget {
 
@@ -41,7 +41,7 @@ public class Panel extends WWidget {
     @Override
     public void paint(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
         ScreenDrawing.texturedRect(matrices, x, y, sizeX, sizeY, currentTab.cutBackground(sizeX, sizeY), DEF_COLOR);
-        ScreenDrawing.texturedRect(matrices, x, y, sizeX, sizeY, research_border, DEF_COLOR);
+        ScreenDrawing.texturedRect(matrices, x, y, sizeX, sizeY, RESEARCH_BORDER, DEF_COLOR);
     }
 
     @Environment(EnvType.CLIENT)
@@ -66,7 +66,7 @@ public class Panel extends WWidget {
 
     private void sendActiveTabUpdate() {
         PacketByteBuf packet = PacketByteBufs.create();
-        packet.writeString(currentTab.id);
+        packet.writeString(currentTab.getId());
         packet.writeFloat(currentTab.getBackX());
         packet.writeFloat(currentTab.getBackY());
         ClientPlayNetworking.send(PacketIDs.THAUMONOMICON_DATA_SERVER, packet);

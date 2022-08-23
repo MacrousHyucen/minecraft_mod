@@ -7,16 +7,118 @@ import io.github.cottonmc.cotton.gui.widget.data.Texture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.TranslatableText;
 
-import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.GuiUtil.*;
+import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Textures.*;
 import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Tabs.TRANSLATE_PATH;
 
 public class Tab extends WButton {
 
-    // TODO make builder and research basic system
+    public static class Builder {
 
-    public final String id;
-    private final TranslatableText name;
-    private final Texture icon;
+        private final Tab tab;
+
+        public Builder() {
+            tab = new Tab();
+            tab.posX = 0;
+            tab.posY = 0;
+            tab.backX = 0;
+            tab.backY = 0;
+            tab.state = false;
+            tab.flipped = false;
+        }
+
+
+        public Builder id(String id) {
+            tab.id = id;
+            return this;
+        }
+
+
+        // only-thaumcraft builder method
+        public Builder name() {
+            if (tab.id == null || tab.id.equals(""))
+                throw new IllegalStateException("No id found for tab name");
+            tab.name = new TranslatableText(TRANSLATE_PATH + tab.id + "_tab");
+            return this;
+        }
+
+        public Builder name(TranslatableText name) {
+            tab.name = name;
+            return this;
+        }
+
+        public Builder name(String key) {
+            tab.name = new TranslatableText(key);
+            return this;
+        }
+
+
+
+        public Builder icon(Texture icon) {
+            tab.icon = icon;
+            return this;
+        }
+
+        public Builder pos(int posX, int posY) {
+            tab.posX = posX;
+            tab.posY = posY;
+            return this;
+        }
+
+        public Builder size(int size) {
+            tab.size = size;
+            tab.sizeD2 = size / 2;
+            tab.sizeD4 = size / 4;
+            tab.sizeD8 = size / 8;
+            return this;
+        }
+
+        public Builder background(Texture background) {
+            tab.background = background;
+            return this;
+        }
+
+
+        public Builder backPos(float backX, float backY) {
+            tab.backX = backX;
+            tab.backY = backY;
+            return this;
+        }
+
+        public Builder flipped() {
+            tab.flipped = true;
+            return this;
+        }
+
+        public Builder active() {
+            tab.state = true;
+            return this;
+        }
+
+
+
+        public Tab build() {
+            if (tab.id == null || tab.id.equals(""))
+                throw new IllegalStateException("No id for tab");
+            if (tab.name == null)
+                throw new IllegalStateException("No name for tab");
+            if (tab.icon == null)
+                throw new IllegalStateException("No icon for tab");
+            if (tab.size == 0)
+                throw new IllegalStateException("No size for tab");
+            if (tab.background == null)
+                throw new IllegalStateException("No background for tab");
+
+            return tab;
+        }
+
+
+    }
+
+    // TODO make research basic system
+
+    private String id;
+    private TranslatableText name;
+    private Texture icon;
 
     private Integer posX;
     private Integer posY;
@@ -26,46 +128,22 @@ public class Tab extends WButton {
     private Integer sizeD4;
     private Integer sizeD8;
 
+
+
+    private float backX;
+    private float backY;
+
+    private Texture background;
+    private boolean state;
     private boolean flipped;
 
-    private float backX = 0;
-    private float backY = 0;
-
-    private final Texture background;
-    private boolean state = false;
 
 
 
+    private Tab() {
 
-
-    public Tab(String id, Texture background, Integer size, Texture icon) {
-        this.id = id;
-        this.name = new TranslatableText(TRANSLATE_PATH + id + "_tab");
-        this.icon = icon;
-
-        this.posX = this.posY = 0;
-        this.size = size;
-        this.sizeD2 = size/2;
-        this.sizeD4 = size/4;
-        this.sizeD8 = size/8;
-
-        this.background = background;
     }
 
-    public Tab(String id, Texture background, Integer x, Integer y, Integer size, Texture icon) {
-        this.id = id;
-        this.name = new TranslatableText(TRANSLATE_PATH + id + "_tab");
-        this.icon = icon;
-
-        this.posX = x;
-        this.posY = y;
-        this.size = size;
-        this.sizeD2 = size/2;
-        this.sizeD4 = size/4;
-        this.sizeD8 = size/8;
-
-        this.background = background;
-    }
 
 
 
@@ -75,14 +153,15 @@ public class Tab extends WButton {
         int iconSize = 3*sizeD4;
 
         if (getState()) {
-            ScreenDrawing.texturedRect(matrices, x, y, size, size, research_tab_active, DEF_COLOR);
+            ScreenDrawing.texturedRect(matrices, x, y, size, size, RESEARCH_TAB_ACTIVE, DEF_COLOR);
             ScreenDrawing.texturedRect(matrices, x + sizeD4, y + sizeD8, iconSize, iconSize, icon, DEF_COLOR);
             return;
         }
-        ScreenDrawing.texturedRect(matrices, x, y, size, size, research_tab_inactive, DEF_COLOR);
-        ScreenDrawing.texturedRect(matrices, x + sizeD2, y + sizeD8, iconSize, iconSize, icon, DEF_COLOR);
 
-        if (!isPointOnTab(mouseX, mouseY)) ScreenDrawing.texturedRect(matrices, x, y, size, size, research_tab_shadow, DEF_COLOR);
+        ScreenDrawing.texturedRect(matrices, x, y, size, size, RESEARCH_TAB_INACTIVE, DEF_COLOR);
+        ScreenDrawing.texturedRect(matrices, x + sizeD2, y + sizeD8, iconSize, iconSize, icon, DEF_COLOR);
+        if (!isPointOnTab(mouseX, mouseY))
+            ScreenDrawing.texturedRect(matrices, x, y, size, size, RESEARCH_TAB_SHADOW, DEF_COLOR);
     }
 
     @Override
@@ -126,6 +205,9 @@ public class Tab extends WButton {
 
 
 
+    public String getId() {
+        return id;
+    }
 
     public Integer getPosX() {
         return posX;
@@ -157,23 +239,12 @@ public class Tab extends WButton {
 
 
 
-    public void setPosX(Integer posX) {
+    public void setPosX(int posX) {
         this.posX = posX;
     }
 
-    public void setPosY(Integer posY) {
+    public void setPosY(int posY) {
         this.posY = posY;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-        this.sizeD2 = size/2;
-        this.sizeD4 = size/4;
-        this.sizeD8 = size/8;
-    }
-
-    public void setState(boolean state) {
-        this.state = state;
     }
 
     public void setBackX(float backX) {
@@ -184,4 +255,7 @@ public class Tab extends WButton {
         this.backY = backY;
     }
 
+    public void setState(boolean state) {
+        this.state = state;
+    }
 }

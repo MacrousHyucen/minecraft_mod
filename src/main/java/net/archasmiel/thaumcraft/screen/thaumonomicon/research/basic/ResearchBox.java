@@ -8,7 +8,7 @@ import net.minecraft.client.util.math.MatrixStack;
 
 import java.util.Objects;
 
-import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.GuiUtil.DEF_COLOR;
+import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Textures.DEF_COLOR;
 
 public class ResearchBox extends WButton {
 
@@ -97,7 +97,8 @@ public class ResearchBox extends WButton {
     @Override
     public void paint(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
         ScreenDrawing.texturedRect(matrices, x, y, sizeX, sizeY, formTex, DEF_COLOR);
-        ScreenDrawing.texturedRect(matrices, x, y, sizeX, sizeY, boundsTex, DEF_COLOR);
+        if (hasBounds)
+            ScreenDrawing.texturedRect(matrices, x, y, sizeX, sizeY, boundsTex, DEF_COLOR);
         ScreenDrawing.texturedRect(matrices, x, y, sizeX, sizeY, research.getIcon(), DEF_COLOR);
     }
 

@@ -24,7 +24,7 @@ public class PlayerManagerMixin {
     public void onPlayerConnect(ClientConnection connection, ServerPlayerEntity player, CallbackInfo ci) {
         PacketByteBuf packetOut = PacketByteBufs.create();
         for (Tab tab: ThaumonomiconGui.getTabs()) {
-            Pair<Float, Float> pos = ThaumonomiconPosData.getTabPos((IEntityDataSaver) player, tab.id);
+            Pair<Float, Float> pos = ThaumonomiconPosData.getTabPos((IEntityDataSaver) player, tab.getId());
             packetOut.writeFloat(pos.getLeft());
             packetOut.writeFloat(pos.getRight());
         }

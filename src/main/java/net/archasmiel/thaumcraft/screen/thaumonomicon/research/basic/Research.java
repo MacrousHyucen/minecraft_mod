@@ -19,6 +19,7 @@ public class Research {
         }
 
 
+
         public Builder tabId(String tabId) {
             research.tabId = tabId;
             return this;
@@ -28,8 +29,6 @@ public class Research {
             research.id = id;
             return this;
         }
-
-
 
 
 
@@ -52,7 +51,8 @@ public class Research {
 
 
         public Builder description() {
-            if (research.id == null || research.id.equals("")) throw new IllegalStateException("No id found for research description");
+            if (research.id == null || research.id.equals(""))
+                throw new IllegalStateException("No id found for research description");
             research.description = new TranslatableText(RESEARCH_DESC + research.id);
             return this;
         }

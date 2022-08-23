@@ -11,21 +11,23 @@ public class Icons {
 
     }
 
-    private static final String RESEARCH_PATH = "textures/other/research/";
+    public static final String RESEARCH_PATH = "textures/other/research/";
 
     // Research tabs in original sort
-    public static final Texture rt_basics =
+    public static final Texture RT_BASICS =
             loadTexture(MOD_ID, RESEARCH_PATH + "tab/r_basics.png");
-    public static final Texture rt_thaumaturgy =
+    public static final Texture RT_THAUMATURGY =
             loadTexture(MOD_ID, RESEARCH_PATH + "tab/r_thaumaturgy.png");
-    public static final Texture rt_alchemy =
+    public static final Texture RT_ALCHEMY =
             loadTexture(MOD_ID, RESEARCH_PATH + "tab/r_alchemy.png");
-    public static final Texture rt_artifice =
+    public static final Texture RT_ARTIFICE =
             loadTexture(MOD_ID, RESEARCH_PATH + "tab/r_artifice.png");
-    public static final Texture rt_golemancy =
+    public static final Texture RT_GOLEMANCY =
             loadTexture(MOD_ID, RESEARCH_PATH + "tab/r_golemancy.png");
-    public static final Texture rt_eldritch =
+    public static final Texture RT_ELDRITCH =
             loadTexture(MOD_ID, RESEARCH_PATH + "tab/r_eldritch.png");
+
+
 
 
     public static Texture loadTexture(String modId, String path) {

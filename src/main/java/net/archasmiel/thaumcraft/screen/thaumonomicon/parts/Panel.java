@@ -1,9 +1,8 @@
-package net.archasmiel.thaumcraft.screen.thaumonomicon;
+package net.archasmiel.thaumcraft.screen.thaumonomicon.parts;
 
 import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
 import io.github.cottonmc.cotton.gui.widget.WWidget;
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
-import io.github.cottonmc.cotton.gui.widget.data.Texture;
 import net.archasmiel.thaumcraft.networking.PacketIDs;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -41,7 +40,7 @@ public class Panel extends WWidget {
     @Environment(EnvType.CLIENT)
     @Override
     public void paint(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
-        ScreenDrawing.texturedRect(matrices, x, y, sizeX, sizeY, cutBack(), DEF_COLOR);
+        ScreenDrawing.texturedRect(matrices, x, y, sizeX, sizeY, currentTab.cutBackground(sizeX, sizeY), DEF_COLOR);
         ScreenDrawing.texturedRect(matrices, x, y, sizeX, sizeY, research_border, DEF_COLOR);
     }
 
@@ -51,12 +50,14 @@ public class Panel extends WWidget {
         if (button == 0) {
             float backX = currentTab.getBackX() - (float) deltaX;
             if (backX < 0) backX = 0;
-            else if (backX > sizeX) backX = sizeX;
+            else
+            if (backX > sizeX) backX = sizeX;
             currentTab.setBackX(backX);
 
             float backY = currentTab.getBackY() - (float) deltaY;
             if (backY < 0) backY = 0;
-            else if (backY > sizeY) backY = sizeY;
+            else
+            if (backY > sizeY) backY = sizeY;
             currentTab.setBackY(backY);
         }
         sendActiveTabUpdate();
@@ -74,17 +75,7 @@ public class Panel extends WWidget {
 
 
 
-    private Texture cutBack() {
-        float backX = currentTab.getBackX();
-        float backY = currentTab.getBackY();
 
-        float x1 = backX/sizeX/2;
-        float y1 = backY/sizeY/2;
-        float x2 = x1 + 0.5f;
-        float y2 = y1 + 0.5f;
-
-        return currentTab.getBackground().withUv(x1, y1, x2, y2);
-    }
 
     public void setCurrentTab(Tab tab) {
         this.currentTab = tab;

@@ -1,4 +1,4 @@
-package net.archasmiel.thaumcraft.screen.thaumonomicon;
+package net.archasmiel.thaumcraft.screen.thaumonomicon.parts;
 
 import io.github.cottonmc.cotton.gui.client.BackgroundPainter;
 import io.github.cottonmc.cotton.gui.widget.WPanel;
@@ -44,7 +44,7 @@ public class Gui extends WPlainPanel {
 
     @Override
     public void paint(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
-        for (Tab tab : tabs) {
+        for (Tab tab: tabs) {
             tab.paint(matrices, x + tab.getPosX(), y + tab.getPosY(), mouseX, mouseY);
         }
         panel.paint(matrices, x + panel.getPanelX(), y + panel.getPanelY(), mouseX, mouseY);
@@ -88,16 +88,16 @@ public class Gui extends WPlainPanel {
         updateChildren();
     }
 
+    public List<Tab> getTabs() {
+        return tabs;
+    }
+
     private void updateChildren() {
         this.children.clear();
         this.add(panel, panel.getPanelX(), panel.getPanelY(), panel.getSizeX(), panel.getSizeY());
         for (Tab tab : tabs) {
             this.add(tab, tab.getPosX(), tab.getPosY(), tab.getSize(), tab.getSize());
         }
-    }
-
-    public List<Tab> getTabs() {
-        return tabs;
     }
 
 }

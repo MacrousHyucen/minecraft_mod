@@ -60,7 +60,7 @@ public class Thaumcraft implements ModInitializer {
 		PacketsC2S.register();
 
 		TRANSLATIONS.pushOutput();
-		RRPCallback.BEFORE_VANILLA.register(a -> a.add(RESOURCE_PACK));
+		RRPCallback.AFTER_VANILLA.register(a -> a.add(RESOURCE_PACK));
 
 	}
 }

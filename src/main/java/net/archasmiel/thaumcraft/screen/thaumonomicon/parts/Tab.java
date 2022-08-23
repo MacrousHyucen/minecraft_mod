@@ -1,4 +1,4 @@
-package net.archasmiel.thaumcraft.screen.thaumonomicon;
+package net.archasmiel.thaumcraft.screen.thaumonomicon.parts;
 
 import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
 import io.github.cottonmc.cotton.gui.widget.WButton;
@@ -11,6 +11,8 @@ import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.GuiUtil.*;
 import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Tabs.TRANSLATE_PATH;
 
 public class Tab extends WButton {
+
+    // TODO make builder and research basic system
 
     public final String id;
     private final TranslatableText name;
@@ -79,13 +81,13 @@ public class Tab extends WButton {
         }
         ScreenDrawing.texturedRect(matrices, x, y, size, size, research_tab_inactive, DEF_COLOR);
         ScreenDrawing.texturedRect(matrices, x + sizeD2, y + sizeD8, iconSize, iconSize, icon, DEF_COLOR);
+
         if (!isPointOnTab(mouseX, mouseY)) ScreenDrawing.texturedRect(matrices, x, y, size, size, research_tab_shadow, DEF_COLOR);
     }
 
     @Override
     public void renderTooltip(MatrixStack matrices, int x, int y, int tX, int tY) {
-        System.out.println(this.id);
-        ScreenDrawing.drawString(matrices, name.asOrderedText(), x + tX + 8, y + tY, 0x00CCCCCC);
+        ScreenDrawing.drawString(matrices, name.asOrderedText(), x + tX + 8, y + tY, DEF_COLOR);
     }
 
     @Override
@@ -110,6 +112,14 @@ public class Tab extends WButton {
 
     public boolean isPointOnTab(Integer x, Integer y) {
         return (x > posX && x < posX+size) && (y > posY && y < posY+size);
+    }
+
+    public Texture cutBackground(int sizeX, int sizeY) {
+        float x1 = backX/sizeX/2;
+        float y1 = backY/sizeY/2;
+        float x2 = x1 + 0.5f;
+        float y2 = y1 + 0.5f;
+        return background.withUv(x1, y1, x2, y2);
     }
 
 

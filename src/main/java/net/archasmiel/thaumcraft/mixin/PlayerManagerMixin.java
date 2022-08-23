@@ -1,7 +1,7 @@
 package net.archasmiel.thaumcraft.mixin;
 
 import net.archasmiel.thaumcraft.networking.PacketIDs;
-import net.archasmiel.thaumcraft.screen.thaumonomicon.Tab;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.Tab;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.ThaumonomiconGui;
 import net.archasmiel.thaumcraft.util.IEntityDataSaver;
 import net.archasmiel.thaumcraft.util.Pair;

@@ -89,4 +89,20 @@ public class TabResearchMap {
         return new ArrayList<>(nodes);
     }
 
+    public List<ResearchBox> keyList() {
+        List<ResearchBox> boxes = new ArrayList<>();
+        for (Entry entry: nodes) {
+            boxes.add(entry.key);
+        }
+        return boxes;
+    }
+
+    public List<List<ResearchBox>> valuesList() {
+        List<List<ResearchBox>> boxes = new ArrayList<>();
+        for (Entry entry: nodes) {
+            boxes.add(entry.values);
+        }
+        return boxes;
+    }
+
 }

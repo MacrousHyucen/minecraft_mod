@@ -122,7 +122,6 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
     @Override
     public void onContentChanged(Inventory inventory) {
         // this function also being called on readContainer method, so here is checking for this
-        // if not checking reading state, then a lot of mess happens
 
         if (!isReading) {
             this.context.run((world, pos) -> updateResult(this, world, this.player, this.input, this.result, this.wand));

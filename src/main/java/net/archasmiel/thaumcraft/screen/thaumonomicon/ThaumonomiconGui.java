@@ -1,6 +1,8 @@
 package net.archasmiel.thaumcraft.screen.thaumonomicon;
 
 import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Tabs;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.data.BasicsResearches;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.Gui;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.Panel;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.Tab;
@@ -22,6 +24,8 @@ public class ThaumonomiconGui extends LightweightGuiDescription {
 
     private static final List<Tab> TABS = new ArrayList<>();
     static {
+        Tabs.register();
+        BasicsResearches.register();
         TABS.add(BASICS);
         TABS.add(THAUMATURGY);
         TABS.add(ALCHEMY);

@@ -44,11 +44,20 @@ public class Gui extends WPlainPanel {
 
     @Override
     public void paint(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
+        paintTabs(matrices, x, y, mouseX, mouseY);
+        paintPanel(matrices, x, y, mouseX, mouseY);
+    }
+
+    private void paintTabs(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
         for (Tab tab: tabs) {
             tab.paint(matrices, x + tab.getPosX(), y + tab.getPosY(), mouseX, mouseY);
         }
+    }
+
+    private void paintPanel(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
         panel.paint(matrices, x + panel.getPanelX(), y + panel.getPanelY(), mouseX, mouseY);
     }
+
 
     @Override
     public InputResult onClick(int x, int y, int button) {
@@ -57,7 +66,7 @@ public class Gui extends WPlainPanel {
                 if (!tab.getState() && tab.isPointOnTab(x, y)) {
                     panel.getCurrentTab().setState(false);
                     panel.setCurrentTab(tab);
-                    tab.setState(true);
+                    panel.getCurrentTab().setState(true);
 
                     MinecraftClient.getInstance().getSoundManager()
                             .play(PositionedSoundInstance.master(Sounds.PAGE_FLIP, 1.0F));

@@ -30,10 +30,21 @@ public class ResearchBox extends WButton {
             return this;
         }
 
+
+        public Builder size() {
+            return this.size(24);
+        }
+
+        public Builder size(int size) {
+            return this.size(size, size);
+        }
+
         public Builder size(int sizeX, int sizeY) {
             box.setSizes(sizeX, sizeY);
             return this;
         }
+
+
 
         public Builder form(Texture formTex) {
             box.formTex = formTex;
@@ -99,7 +110,7 @@ public class ResearchBox extends WButton {
         ScreenDrawing.texturedRect(matrices, x, y, sizeX, sizeY, formTex, DEF_COLOR);
         if (hasBounds)
             ScreenDrawing.texturedRect(matrices, x, y, sizeX, sizeY, boundsTex, DEF_COLOR);
-        ScreenDrawing.texturedRect(matrices, x, y, sizeX, sizeY, research.getIcon(), DEF_COLOR);
+        ScreenDrawing.texturedRect(matrices, x + sizeX/8, y + sizeX/8, sizeX*3/4, sizeY*3/4, research.getIcon(), DEF_COLOR);
     }
 
     @Override
@@ -107,6 +118,11 @@ public class ResearchBox extends WButton {
         return InputResult.IGNORED;
     }
 
+    @Override
+    public void renderTooltip(MatrixStack matrices, int x, int y, int tX, int tY) {
+        // TODO
+        // ScreenDrawing.coloredRect(matrices, x, y, );
+    }
 
 
 

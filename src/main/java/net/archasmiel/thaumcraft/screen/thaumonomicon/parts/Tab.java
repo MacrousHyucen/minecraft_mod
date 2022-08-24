@@ -4,6 +4,7 @@ import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
 import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
 import io.github.cottonmc.cotton.gui.widget.data.Texture;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.research.basic.TabResearchMap;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.TranslatableText;
 
@@ -69,6 +70,7 @@ public class Tab extends WButton {
             tab.sizeD2 = size / 2;
             tab.sizeD4 = size / 4;
             tab.sizeD8 = size / 8;
+            tab.iconSize = 3*tab.sizeD4;
             return this;
         }
 
@@ -96,6 +98,18 @@ public class Tab extends WButton {
 
 
 
+        public Builder researchMap(TabResearchMap researchMap) {
+            tab.researchMap = researchMap;
+            return this;
+        }
+
+        public Builder researchMap() {
+            tab.researchMap = new TabResearchMap();
+            return this;
+        }
+
+
+
         public Tab build() {
             if (tab.id == null || tab.id.equals(""))
                 throw new IllegalStateException("No id for tab");
@@ -114,8 +128,6 @@ public class Tab extends WButton {
 
     }
 
-    // TODO make research basic system
-
     private String id;
     private TranslatableText name;
     private Texture icon;
@@ -127,8 +139,9 @@ public class Tab extends WButton {
     private Integer sizeD2;
     private Integer sizeD4;
     private Integer sizeD8;
+    private Integer iconSize;
 
-
+    private TabResearchMap researchMap;
 
     private float backX;
     private float backY;
@@ -150,7 +163,6 @@ public class Tab extends WButton {
 
     @Override
     public void paint(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
-        int iconSize = 3*sizeD4;
 
         if (getState()) {
             ScreenDrawing.texturedRect(matrices, x, y, size, size, RESEARCH_TAB_ACTIVE, DEF_COLOR);
@@ -235,6 +247,10 @@ public class Tab extends WButton {
 
     public Texture getBackground() {
         return background;
+    }
+
+    public TabResearchMap getResearchMap() {
+        return researchMap;
     }
 
 

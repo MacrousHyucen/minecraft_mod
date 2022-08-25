@@ -52,10 +52,8 @@ public class Panel extends WWidget {
         for (ResearchBox box: currentTab.getResearchMap().keyList()) {
             int posX = x + box.getPosX() - backX;
             int posY = y + box.getPosY() - backY;
-            int intent = 2;
-            if (posX >= x-intent && posX <= x+sizeX-currentTab.getSize()+intent && posY >= y-intent && posY <= y+sizeY-currentTab.getSize()+intent)
+            if (posX >= x && posX <= x+sizeX-currentTab.getSize() && posY >= y && posY <= y+sizeY-currentTab.getSize())
                 box.paint(matrices, posX, posY, mouseX, mouseY);
-            System.out.printf("[%d;%d] [%d;%d]%n", posX, posY, x+sizeX+intent, y+sizeY+intent);
         }
     }
 

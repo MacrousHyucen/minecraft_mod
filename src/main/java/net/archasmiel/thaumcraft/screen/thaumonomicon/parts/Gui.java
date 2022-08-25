@@ -4,6 +4,7 @@ import io.github.cottonmc.cotton.gui.client.BackgroundPainter;
 import io.github.cottonmc.cotton.gui.widget.WPanel;
 import io.github.cottonmc.cotton.gui.widget.WPlainPanel;
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.research.basic.ResearchBox;
 import net.archasmiel.thaumcraft.sounds.Sounds;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.PositionedSoundInstance;
@@ -72,6 +73,23 @@ public class Gui extends WPlainPanel {
                             .play(PositionedSoundInstance.master(Sounds.PAGE_FLIP, 1.0F));
 
                     return InputResult.PROCESSED;
+                }
+            }
+
+
+
+            for (ResearchBox box: panel.getCurrentTab().getResearchMap().keyList()) {
+                int posX = panel.getPanelX() + box.getPosX() - (int) panel.getCurrentTab().getBackX();
+                int posY = panel.getPanelY() + box.getPosY() - (int) panel.getCurrentTab().getBackY();
+
+                if (posX >= panel.getPanelX() && posX <= panel.getPanelX()+panel.getSizeX()-panel.getCurrentTab().getSize() &&
+                    posY >= panel.getPanelY() && posY <= panel.getPanelY()+panel.getSizeY()-panel.getCurrentTab().getSize() &&
+                    x >= posX && x <= posX+box.getSizeX() && y >= posY && y <= posY+box.getSizeY())
+                {
+
+                    System.out.println(panel.getCurrentTab().getId() + "." + box.getResearch().getId());
+                    return InputResult.PROCESSED;
+
                 }
             }
         }

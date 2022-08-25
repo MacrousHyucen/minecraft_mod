@@ -1,5 +1,6 @@
 package net.archasmiel.thaumcraft.screen.thaumonomicon.data;
 
+import net.archasmiel.thaumcraft.Thaumcraft;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Textures;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Utility;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.research.basic.ForbiddenLevel;
@@ -9,9 +10,6 @@ import net.archasmiel.thaumcraft.screen.thaumonomicon.research.basic.TabResearch
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static net.archasmiel.thaumcraft.Thaumcraft.MOD_ID;
-import static net.archasmiel.thaumcraft.screen.thaumonomicon.data.Tabs.TAB_SIZE;
 
 
 
@@ -23,24 +21,47 @@ public class BasicsResearches {
 
 
 
+
     // researches
-    private static final Research ASPECTS_OF_MAGIC = new Research.Builder()
-            .id("aspects_of_magic").name().description()
-            .icon(Utility.loadTexture(MOD_ID, Textures.RESEARCH_PATH + "r_aspects.png"))
-            .author("Archasmiel").forbiddenLevel(ForbiddenLevel.SAFE).build();
-
-
-
-    // boxes
-    private static final ResearchBox BOX_ASPECTS_OF_MAGIC = new ResearchBox.Builder()
-            .research(ASPECTS_OF_MAGIC)
-            .pos(242, 242).size(TAB_SIZE)
+    private static final ResearchBox ASPECTS_OF_MAGIC = new ResearchBox.Builder()
+            .research(new Research.Builder()
+                    .id("aspects_of_magic").name().description()
+                    .icon(Utility.loadTexture(Textures.RESEARCH_PATH + "r_aspects.png"))
+                    .author(Thaumcraft.AUTHOR).forbiddenLevel(ForbiddenLevel.SAFE).build())
+            .pos(242, 242).size()
             .form(Textures.RESEARCH_CIRCLE).noBounds().build();
+
+    private static final ResearchBox AURAS_AND_NODES = new ResearchBox.Builder()
+            .research(new Research.Builder()
+                    .id("auras_and_nodes").name().description()
+                    .icon(Utility.loadTexture(Textures.RESEARCH_PATH + "r_nodes.png"))
+                    .author(Thaumcraft.AUTHOR).forbiddenLevel(ForbiddenLevel.SAFE).build())
+            .pos(194, 242).size()
+            .form(Textures.RESEARCH_CIRCLE).noBounds().build();
+
+    private static final ResearchBox WARP_FLUX_THINGS = new ResearchBox.Builder()
+            .research(new Research.Builder()
+                    .id("warp_flux_things").name().description()
+                    .icon(Utility.loadTexture(Textures.RESEARCH_PATH + "r_warp.png"))
+                    .author(Thaumcraft.AUTHOR).forbiddenLevel(ForbiddenLevel.SAFE).build())
+            .pos(242, 290).size()
+            .form(Textures.RESEARCH_CIRCLE).noBounds().build();
+
+    private static final ResearchBox CRIMSON_CULT = new ResearchBox.Builder()
+            .research(new Research.Builder()
+                    .id("crimson_cult").name().description()
+                    .icon(Utility.loadTexture(Textures.ITEM_PATH + "crimson_rites.png"))
+                    .author(Thaumcraft.AUTHOR).forbiddenLevel(ForbiddenLevel.MODERATE).build())
+            .pos(242, 338).size()
+            .form(Textures.RESEARCH_CIRCLE).bounds(Textures.RESEARCH_FLOWER).build();
 
 
 
     static {
-        BASICS_RESEARCHES.put(BOX_ASPECTS_OF_MAGIC, ZERO_DEPENDENCIES);
+        BASICS_RESEARCHES.put(ASPECTS_OF_MAGIC, ZERO_DEPENDENCIES);
+        BASICS_RESEARCHES.put(AURAS_AND_NODES, List.of());
+        BASICS_RESEARCHES.put(WARP_FLUX_THINGS, ZERO_DEPENDENCIES);
+        BASICS_RESEARCHES.put(CRIMSON_CULT, ZERO_DEPENDENCIES);
     }
 
 

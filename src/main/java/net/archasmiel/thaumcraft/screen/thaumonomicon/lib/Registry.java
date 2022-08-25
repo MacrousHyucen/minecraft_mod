@@ -1,7 +1,5 @@
 package net.archasmiel.thaumcraft.screen.thaumonomicon.lib;
 
-import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.Identified;
-
 import java.util.*;
 
 public class Registry<T extends Identified> {

@@ -74,6 +74,23 @@ public class Gui extends WPlainPanel {
                     return InputResult.PROCESSED;
                 }
             }
+
+
+
+            for (ResearchBox box: panel.getCurrentTab().getResearchMap().keyList()) {
+                int posX = panel.getPanelX() + box.getPosX() - (int) panel.getCurrentTab().getBackX();
+                int posY = panel.getPanelY() + box.getPosY() - (int) panel.getCurrentTab().getBackY();
+
+                if (posX >= panel.getPanelX() && posX <= panel.getPanelX()+panel.getSizeX()-panel.getCurrentTab().getSize() &&
+                    posY >= panel.getPanelY() && posY <= panel.getPanelY()+panel.getSizeY()-panel.getCurrentTab().getSize() &&
+                    x >= posX && x <= posX+box.getSizeX() && y >= posY && y <= posY+box.getSizeY())
+                {
+
+                    System.out.println(panel.getCurrentTab().getId() + "." + box.getResearch().getId());
+                    return InputResult.PROCESSED;
+
+                }
+            }
         }
 
         return InputResult.IGNORED;

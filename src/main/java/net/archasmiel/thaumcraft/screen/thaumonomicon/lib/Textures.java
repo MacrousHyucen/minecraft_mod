@@ -16,6 +16,7 @@ public class Textures {
 
     public static final Integer DEF_COLOR = 0xFFFFFFFF;
     public static final String RESEARCH_PATH = "textures/other/research/";
+    public static final String ITEM_PATH = "textures/item/";
 
 
     // backgrounds for book

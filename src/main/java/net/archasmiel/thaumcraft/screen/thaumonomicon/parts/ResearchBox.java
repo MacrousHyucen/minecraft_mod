@@ -1,14 +1,16 @@
-package net.archasmiel.thaumcraft.screen.thaumonomicon.research.basic;
+package net.archasmiel.thaumcraft.screen.thaumonomicon.parts;
 
-import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
 import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
 import io.github.cottonmc.cotton.gui.widget.data.Texture;
-import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.Identified;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Utility;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Identified;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.research.basic.Research;
 import net.minecraft.client.util.math.MatrixStack;
 
 import java.util.Objects;
 
+import static net.archasmiel.thaumcraft.screen.thaumonomicon.data.Tabs.TAB_SIZE;
 import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Textures.DEF_COLOR;
 
 public class ResearchBox extends WButton implements Identified {
@@ -33,7 +35,7 @@ public class ResearchBox extends WButton implements Identified {
 
 
         public Builder size() {
-            return this.size(24);
+            return this.size(TAB_SIZE);
         }
 
         public Builder size(int size) {
@@ -108,14 +110,21 @@ public class ResearchBox extends WButton implements Identified {
 
     @Override
     public void paint(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
-        ScreenDrawing.texturedRect(matrices, x, y, sizeX, sizeY, formTex, DEF_COLOR);
+        Utility.precisiveTexturedRect(matrices, x, y, sizeX, sizeY, formTex, DEF_COLOR);
         if (hasBounds)
-            ScreenDrawing.texturedRect(matrices, x, y, sizeX, sizeY, boundsTex, DEF_COLOR);
-        ScreenDrawing.texturedRect(matrices, x + sizeX/8, y + sizeX/8, sizeX*3/4, sizeY*3/4, research.getIcon(), DEF_COLOR);
+            Utility.precisiveTexturedRect(matrices, x, y, sizeX, sizeY, boundsTex, DEF_COLOR);
+        Utility.precisiveTexturedRect(matrices, x + (float) sizeX*3/16, y + (float) sizeX*3/16, (float) sizeX*5/8, (float) sizeX*5/8, research.getIcon(), DEF_COLOR);
     }
+
+
+
+
+
+
 
     @Override
     public InputResult onClick(int x, int y, int button) {
+        System.out.println(this.research.getId());
         return InputResult.IGNORED;
     }
 
@@ -183,6 +192,10 @@ public class ResearchBox extends WButton implements Identified {
 
     public Texture getBoundsTex() {
         return boundsTex;
+    }
+
+    public Research getResearch() {
+        return research;
     }
 
 

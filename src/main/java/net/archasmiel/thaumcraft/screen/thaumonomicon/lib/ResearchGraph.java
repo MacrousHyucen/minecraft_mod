@@ -1,8 +1,10 @@
-package net.archasmiel.thaumcraft.screen.thaumonomicon.research.basic;
+package net.archasmiel.thaumcraft.screen.thaumonomicon.lib;
+
+import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.ResearchBox;
 
 import java.util.*;
 
-public class TabResearchMap {
+public class ResearchGraph {
 
     public static class Entry {
 
@@ -56,7 +58,7 @@ public class TabResearchMap {
 
     private final List<Entry> nodes;
 
-    public TabResearchMap() {
+    public ResearchGraph() {
         nodes = new ArrayList<>();
     }
 

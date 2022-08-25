@@ -24,6 +24,7 @@ public class Thaumcraft implements ModInitializer {
 
 	public static final String MOD_ID = "thaumcraft";
 	public static final String MOD_NAME = "Thaumcraft";
+	public static final String AUTHOR = "Archasmiel";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
 	// groups

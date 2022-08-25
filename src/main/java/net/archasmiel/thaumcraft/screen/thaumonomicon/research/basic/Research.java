@@ -20,11 +20,6 @@ public class Research {
 
 
 
-        public Builder tabId(String tabId) {
-            research.tabId = tabId;
-            return this;
-        }
-
         public Builder id(String id) {
             research.id = id;
             return this;
@@ -95,8 +90,6 @@ public class Research {
 
 
         public Research build() {
-            if (research.tabId == null || research.tabId.equals(""))
-                throw new IllegalStateException("Research tab id not found");
             if (research.id == null || research.id.equals(""))
                 throw new IllegalStateException("Research id not found");
             if (research.name == null)
@@ -119,7 +112,6 @@ public class Research {
 
 
 
-    private String tabId;
     private String id;
     private TranslatableText name;
     private TranslatableText description;

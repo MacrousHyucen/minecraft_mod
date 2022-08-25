@@ -17,6 +17,7 @@ public class ThaumonomiconDataSaverMixin implements IEntityDataSaver {
 
 
 
+
     @Override
     public NbtCompound getPersistentData() {
         if (this.persistentData == null) {

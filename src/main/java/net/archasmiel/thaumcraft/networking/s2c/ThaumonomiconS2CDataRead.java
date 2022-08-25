@@ -1,7 +1,7 @@
 package net.archasmiel.thaumcraft.networking.s2c;
 
+import net.archasmiel.thaumcraft.screen.thaumonomicon.data.Tabs;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.Tab;
-import net.archasmiel.thaumcraft.screen.thaumonomicon.ThaumonomiconGui;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
@@ -19,7 +19,7 @@ public class ThaumonomiconS2CDataRead {
         float posX;
         float posY;
 
-        for (Tab tab: ThaumonomiconGui.getTabs()) {
+        for (Tab tab: Tabs.getTabList()) {
             posX = packetIn.readFloat();
             tab.setBackX(posX);
             posY = packetIn.readFloat();

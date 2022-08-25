@@ -4,7 +4,7 @@ import java.util.*;
 
 public class TabResearchMap {
 
-    static class Entry {
+    public static class Entry {
 
         private final ResearchBox key;
         private final List<ResearchBox> values;
@@ -50,7 +50,6 @@ public class TabResearchMap {
             return result;
         }
     }
-
 
 
 

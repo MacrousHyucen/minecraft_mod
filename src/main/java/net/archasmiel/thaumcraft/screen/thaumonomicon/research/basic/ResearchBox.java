@@ -4,13 +4,14 @@ import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
 import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
 import io.github.cottonmc.cotton.gui.widget.data.Texture;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.Identified;
 import net.minecraft.client.util.math.MatrixStack;
 
 import java.util.Objects;
 
 import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Textures.DEF_COLOR;
 
-public class ResearchBox extends WButton {
+public class ResearchBox extends WButton implements Identified {
 
     public static class Builder {
 
@@ -154,6 +155,11 @@ public class ResearchBox extends WButton {
     }
 
 
+
+    @Override
+    public String getId() {
+        return research.getId();
+    }
 
     public int getPosX() {
         return posX;

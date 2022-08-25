@@ -9,9 +9,9 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.TranslatableText;
 
 import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Textures.*;
-import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Tabs.TRANSLATE_PATH;
+import static net.archasmiel.thaumcraft.screen.thaumonomicon.data.Tabs.TRANSLATE_PATH;
 
-public class Tab extends WButton {
+public class Tab extends WButton implements Identified {
 
     public static class Builder {
 
@@ -216,7 +216,7 @@ public class Tab extends WButton {
 
 
 
-
+    @Override
     public String getId() {
         return id;
     }

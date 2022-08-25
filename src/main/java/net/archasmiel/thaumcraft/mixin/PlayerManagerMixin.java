@@ -1,8 +1,8 @@
 package net.archasmiel.thaumcraft.mixin;
 
 import net.archasmiel.thaumcraft.networking.PacketIDs;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.data.Tabs;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.Tab;
-import net.archasmiel.thaumcraft.screen.thaumonomicon.ThaumonomiconGui;
 import net.archasmiel.thaumcraft.util.IEntityDataSaver;
 import net.archasmiel.thaumcraft.util.Pair;
 import net.archasmiel.thaumcraft.util.ThaumonomiconPosData;
@@ -23,7 +23,7 @@ public class PlayerManagerMixin {
     @Inject(method = "onPlayerConnect", at = @At("TAIL"))
     public void onPlayerConnect(ClientConnection connection, ServerPlayerEntity player, CallbackInfo ci) {
         PacketByteBuf packetOut = PacketByteBufs.create();
-        for (Tab tab: ThaumonomiconGui.getTabs()) {
+        for (Tab tab: Tabs.getTabList()) {
             Pair<Float, Float> pos = ThaumonomiconPosData.getTabPos((IEntityDataSaver) player, tab.getId());
             packetOut.writeFloat(pos.getLeft());
             packetOut.writeFloat(pos.getRight());

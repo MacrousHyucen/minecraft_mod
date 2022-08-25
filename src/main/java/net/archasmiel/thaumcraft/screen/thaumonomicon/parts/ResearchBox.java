@@ -1,10 +1,11 @@
-package net.archasmiel.thaumcraft.screen.thaumonomicon.research.basic;
+package net.archasmiel.thaumcraft.screen.thaumonomicon.parts;
 
 import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
 import io.github.cottonmc.cotton.gui.widget.data.Texture;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Utility;
-import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.Identified;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Identified;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.research.basic.Research;
 import net.minecraft.client.util.math.MatrixStack;
 
 import java.util.Objects;

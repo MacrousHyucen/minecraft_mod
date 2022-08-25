@@ -4,7 +4,6 @@ import io.github.cottonmc.cotton.gui.client.BackgroundPainter;
 import io.github.cottonmc.cotton.gui.widget.WPanel;
 import io.github.cottonmc.cotton.gui.widget.WPlainPanel;
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
-import net.archasmiel.thaumcraft.screen.thaumonomicon.research.basic.ResearchBox;
 import net.archasmiel.thaumcraft.sounds.Sounds;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.PositionedSoundInstance;

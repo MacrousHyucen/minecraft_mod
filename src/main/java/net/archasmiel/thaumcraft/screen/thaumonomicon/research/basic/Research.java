@@ -1,6 +1,7 @@
 package net.archasmiel.thaumcraft.screen.thaumonomicon.research.basic;
 
 import io.github.cottonmc.cotton.gui.widget.data.Texture;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.research.bookview.BookView;
 import net.minecraft.text.TranslatableText;
 
 public class Research {

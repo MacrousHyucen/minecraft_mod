@@ -4,7 +4,8 @@ import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
 import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
 import io.github.cottonmc.cotton.gui.widget.data.Texture;
-import net.archasmiel.thaumcraft.screen.thaumonomicon.research.basic.TabResearchMap;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Identified;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.ResearchGraph;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.TranslatableText;
 
@@ -98,13 +99,13 @@ public class Tab extends WButton implements Identified {
 
 
 
-        public Builder researchMap(TabResearchMap researchMap) {
+        public Builder researchMap(ResearchGraph researchMap) {
             tab.researchMap = researchMap;
             return this;
         }
 
         public Builder researchMap() {
-            tab.researchMap = new TabResearchMap();
+            tab.researchMap = new ResearchGraph();
             return this;
         }
 
@@ -141,7 +142,7 @@ public class Tab extends WButton implements Identified {
     private Integer sizeD8;
     private Integer iconSize;
 
-    private TabResearchMap researchMap;
+    private ResearchGraph researchMap;
 
     private float backX;
     private float backY;
@@ -249,7 +250,7 @@ public class Tab extends WButton implements Identified {
         return background;
     }
 
-    public TabResearchMap getResearchMap() {
+    public ResearchGraph getResearchMap() {
         return researchMap;
     }
 

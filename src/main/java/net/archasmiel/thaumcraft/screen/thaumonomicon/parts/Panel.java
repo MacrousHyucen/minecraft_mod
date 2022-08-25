@@ -4,7 +4,6 @@ import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
 import io.github.cottonmc.cotton.gui.widget.WWidget;
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
 import net.archasmiel.thaumcraft.networking.PacketIDs;
-import net.archasmiel.thaumcraft.screen.thaumonomicon.research.basic.ResearchBox;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;

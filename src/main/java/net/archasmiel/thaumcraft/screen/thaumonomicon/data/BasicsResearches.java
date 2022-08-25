@@ -5,8 +5,8 @@ import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Textures;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Utility;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.research.basic.ForbiddenLevel;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.research.basic.Research;
-import net.archasmiel.thaumcraft.screen.thaumonomicon.research.basic.ResearchBox;
-import net.archasmiel.thaumcraft.screen.thaumonomicon.research.basic.TabResearchMap;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.ResearchBox;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.ResearchGraph;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ public class BasicsResearches {
 
     // map
     private static final List<ResearchBox> ZERO_DEPENDENCIES = new ArrayList<>();
-    public static final TabResearchMap BASICS_RESEARCHES = new TabResearchMap();
+    public static final ResearchGraph BASICS_RESEARCHES = new ResearchGraph();
 
 
 

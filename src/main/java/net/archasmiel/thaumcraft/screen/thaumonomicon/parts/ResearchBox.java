@@ -1,11 +1,14 @@
 package net.archasmiel.thaumcraft.screen.thaumonomicon.parts;
 
-import io.github.cottonmc.cotton.gui.widget.WButton;
+import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
+import io.github.cottonmc.cotton.gui.widget.WWidget;
+import io.github.cottonmc.cotton.gui.widget.data.HorizontalAlignment;
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
 import io.github.cottonmc.cotton.gui.widget.data.Texture;
-import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Utility;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Identified;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Utility;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.research.basic.Research;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
 
 import java.util.Objects;
@@ -13,7 +16,7 @@ import java.util.Objects;
 import static net.archasmiel.thaumcraft.screen.thaumonomicon.data.Tabs.TAB_SIZE;
 import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Textures.DEF_COLOR;
 
-public class ResearchBox extends WButton implements Identified {
+public class ResearchBox extends WWidget implements Identified {
 
     public static class Builder {
 
@@ -105,15 +108,17 @@ public class ResearchBox extends WButton implements Identified {
 
 
 
-
-
-
     @Override
     public void paint(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
-        Utility.precisiveTexturedRect(matrices, x, y, sizeX, sizeY, formTex, DEF_COLOR);
-        if (hasBounds)
-            Utility.precisiveTexturedRect(matrices, x, y, sizeX, sizeY, boundsTex, DEF_COLOR);
-        Utility.precisiveTexturedRect(matrices, x + (float) sizeX*3/16, y + (float) sizeX*3/16, (float) sizeX*5/8, (float) sizeX*5/8, research.getIcon(), DEF_COLOR);
+        if (this.getParent() instanceof Panel panel) {
+            int pX = x + posX - (int) panel.getCurrentTab().getBackX();
+            int pY = y + posY - (int) panel.getCurrentTab().getBackY();
+            if (pX >= x && pX <= x+panel.getSizeX()-sizeX && pY >= y && pY <= y+panel.getSizeY()-sizeY) {
+                Utility.precisiveTexturedRect(matrices, pX, pY, sizeX, sizeY, formTex, DEF_COLOR);
+                if (hasBounds) Utility.precisiveTexturedRect(matrices, pX, pY, sizeX, sizeY, boundsTex, DEF_COLOR);
+                Utility.precisiveTexturedRect(matrices, pX + (float) sizeX*3/16, pY + (float) sizeX*3/16, (float) sizeX*5/8, (float) sizeX*5/8, research.getIcon(), DEF_COLOR);
+            }
+        }
     }
 
 
@@ -124,14 +129,37 @@ public class ResearchBox extends WButton implements Identified {
 
     @Override
     public InputResult onClick(int x, int y, int button) {
-        System.out.println(this.research.getId());
-        return InputResult.IGNORED;
+        System.out.println("clicked on " + research.getId());
+        return InputResult.PROCESSED;
     }
 
     @Override
     public void renderTooltip(MatrixStack matrices, int x, int y, int tX, int tY) {
-        // TODO
-        // ScreenDrawing.coloredRect(matrices, x, y, );
+        int maxWidth = (int) Math.max(
+            MinecraftClient.getInstance().textRenderer.getWidth(research.getName()) * 0.75f,
+            MinecraftClient.getInstance().textRenderer.getWidth(research.getDescription()) * 0.66f
+        ) + 7;
+
+        x += 7;
+        y -= 15;
+        ScreenDrawing.coloredRect(matrices, x+tX, y+tY, maxWidth, 25, 0xBB000000);
+
+        x += 4;
+        y += 4;
+        matrices.push();
+
+        float scaling = 0.75f;
+        float invScaling = 1/scaling;
+        matrices.scale(scaling, scaling, 1.0f);
+        ScreenDrawing.drawStringWithShadow(matrices, research.getName().asOrderedText(), HorizontalAlignment.LEFT, (int)(invScaling*(x+tX)), (int)(invScaling*(y+tY)), 200, 0x99FFFFFF);
+
+        matrices.scale(invScaling, invScaling, 1.0f);
+        scaling = 0.66f;
+        invScaling = 1/scaling;
+        matrices.scale(scaling, scaling, 1.0f);
+        ScreenDrawing.drawStringWithShadow(matrices, research.getDescription().asOrderedText(), HorizontalAlignment.LEFT, (int)(invScaling*(x+tX)), (int)(invScaling*(y+tY+10)), 200, 0x99CCCCCC);
+
+        matrices.pop();
     }
 
 

@@ -19,9 +19,8 @@ public class ThaumonomiconGui extends LightweightGuiDescription {
     private static final Integer RESEARCH_Y = SIZE_Y;
 
 
-
-    private final Panel research = new Panel(TAB_SIZE, 0, RESEARCH_X, RESEARCH_Y);
-    private final Gui root = new Gui(research, Tabs.getTabList(), SIZE_X, SIZE_Y);
+    private final Panel researchPanel = new Panel(TAB_SIZE, 0, RESEARCH_X, RESEARCH_Y);
+    private final Gui root = new Gui(researchPanel, Tabs.getTabList(), SIZE_X, SIZE_Y);
 
 
 
@@ -31,7 +30,6 @@ public class ThaumonomiconGui extends LightweightGuiDescription {
     public ThaumonomiconGui() {
         setRootPanel(root);
     }
-
 
 
     public List<Tab> getTabs() {

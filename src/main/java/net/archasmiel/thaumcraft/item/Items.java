@@ -24,7 +24,7 @@ import java.util.Map;
 
 import static net.archasmiel.thaumcraft.Thaumcraft.MOD_GROUP_GENERATED;
 import static net.archasmiel.thaumcraft.generation.WandcraftGeneration.*;
-import static net.archasmiel.thaumcraft.materials.aspect.Aspect.primaryAspects;
+import static net.archasmiel.thaumcraft.materials.aspect.Aspect.PRIMARY_ASPECTS;
 
 
 public class Items {
@@ -299,7 +299,7 @@ public class Items {
         if (group == MOD_GROUP_GENERATED) {
             ItemStack stack = new ItemStack(item, 1);
             NbtCompound nbt = stack.getNbt() != null ? stack.getNbt() : new NbtCompound();
-            for (String i: primaryAspects) {
+            for (String i: PRIMARY_ASPECTS) {
                 nbt.putFloat(i, item.getCapacity());
             }
             stack.setNbt(nbt);

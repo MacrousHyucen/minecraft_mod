@@ -3,10 +3,8 @@ package net.archasmiel.thaumcraft.screen.thaumonomicon.parts;
 import io.github.cottonmc.cotton.gui.client.BackgroundPainter;
 import io.github.cottonmc.cotton.gui.widget.WPanel;
 import io.github.cottonmc.cotton.gui.widget.WPlainPanel;
+import io.github.cottonmc.cotton.gui.widget.WWidget;
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
-import net.archasmiel.thaumcraft.sounds.Sounds;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.util.math.MatrixStack;
 
 import java.util.ArrayList;
@@ -16,7 +14,7 @@ import java.util.List;
 
 public class Gui extends WPlainPanel {
 
-    private final Panel panel;
+    private Panel panel;
     private final List<Tab> tabs = new ArrayList<>();
 
 
@@ -28,71 +26,28 @@ public class Gui extends WPlainPanel {
 
     public Gui(Panel panel, List<Tab> tabs, Integer sizeX, Integer sizeY) {
         setSize(sizeX, sizeY);
-
         this.panel = panel;
-
         setTabs(tabs);
-        for (Tab tab: tabs) {
-            if (tab.getState()) {
-                this.panel.setCurrentTab(tab);
-                break;
-            }
-        }
+        setLocation(0, 0);
     }
 
 
 
     @Override
     public void paint(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
-        paintTabs(matrices, x, y, mouseX, mouseY);
-        paintPanel(matrices, x, y, mouseX, mouseY);
-    }
-
-    private void paintTabs(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
-        for (Tab tab: tabs) {
-            tab.paint(matrices, x + tab.getPosX(), y + tab.getPosY(), mouseX, mouseY);
+        for (WWidget widget: this.children){
+            if (widget instanceof Tab t)
+                t.paint(matrices, x + t.getPosX(), y + t.getPosY(), mouseX, mouseY);
         }
-    }
-
-    private void paintPanel(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
-        panel.paint(matrices, x + panel.getPanelX(), y + panel.getPanelY(), mouseX, mouseY);
+        for (WWidget widget: this.children){
+            if (widget instanceof Panel p)
+                p.paint(matrices, x + p.getPanelX(), y + p.getPanelY(), mouseX, mouseY);
+        }
     }
 
 
     @Override
     public InputResult onClick(int x, int y, int button) {
-        if (button == 0) {
-            for (Tab tab: tabs) {
-                if (!tab.getState() && tab.isPointOnTab(x, y)) {
-                    panel.getCurrentTab().setState(false);
-                    panel.setCurrentTab(tab);
-                    panel.getCurrentTab().setState(true);
-
-                    MinecraftClient.getInstance().getSoundManager()
-                            .play(PositionedSoundInstance.master(Sounds.PAGE_FLIP, 1.0F));
-
-                    return InputResult.PROCESSED;
-                }
-            }
-
-
-
-            for (ResearchBox box: panel.getCurrentTab().getResearchMap().keyList()) {
-                int posX = panel.getPanelX() + box.getPosX() - (int) panel.getCurrentTab().getBackX();
-                int posY = panel.getPanelY() + box.getPosY() - (int) panel.getCurrentTab().getBackY();
-
-                if (posX >= panel.getPanelX() && posX <= panel.getPanelX()+panel.getSizeX()-panel.getCurrentTab().getSize() &&
-                    posY >= panel.getPanelY() && posY <= panel.getPanelY()+panel.getSizeY()-panel.getCurrentTab().getSize() &&
-                    x >= posX && x <= posX+box.getSizeX() && y >= posY && y <= posY+box.getSizeY())
-                {
-
-                    System.out.println(panel.getCurrentTab().getId() + "." + box.getResearch().getId());
-                    return InputResult.PROCESSED;
-
-                }
-            }
-        }
-
         return InputResult.IGNORED;
     }
 
@@ -103,8 +58,17 @@ public class Gui extends WPlainPanel {
 
 
 
+
+
+
+
     public void addTab(Tab tab) {
         tabs.add(tab);
+        updateChildren();
+    }
+
+    public void setPanel(Panel panel) {
+        this.panel = panel;
         updateChildren();
     }
 
@@ -112,10 +76,13 @@ public class Gui extends WPlainPanel {
         this.tabs.clear();
         this.tabs.addAll(tabs);
         updateChildren();
-    }
 
-    public List<Tab> getTabs() {
-        return tabs;
+        for (Tab tab: tabs) {
+            if (tab.getState()) {
+                this.panel.setCurrentTab(tab);
+                break;
+            }
+        }
     }
 
     private void updateChildren() {
@@ -124,6 +91,14 @@ public class Gui extends WPlainPanel {
         for (Tab tab : tabs) {
             this.add(tab, tab.getPosX(), tab.getPosY(), tab.getSize(), tab.getSize());
         }
+    }
+
+    public Panel getPanel() {
+        return panel;
+    }
+
+    public List<Tab> getTabs() {
+        return tabs;
     }
 
 }

@@ -33,8 +33,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 import java.util.List;
 
-import static net.archasmiel.thaumcraft.materials.aspect.Aspect.primaryAspects;
-import static net.archasmiel.thaumcraft.materials.aspect.Aspect.primaryAspectsColor;
+import static net.archasmiel.thaumcraft.materials.aspect.Aspect.PRIMARY_ASPECTS;
+import static net.archasmiel.thaumcraft.materials.aspect.Aspect.PRIMARY_ASPECTS_COLOR;
 import static net.minecraft.util.Formatting.GOLD;
 
 public abstract class WandAbstract extends ThaumcraftItem {
@@ -189,7 +189,7 @@ public abstract class WandAbstract extends ThaumcraftItem {
 
         // collecting vis information
         HashMap<String, Float> visData = new HashMap<>();
-        for (String i: primaryAspects)
+        for (String i: PRIMARY_ASPECTS)
             visData.put(i, nbt.getFloat(i));
 
 
@@ -203,14 +203,14 @@ public abstract class WandAbstract extends ThaumcraftItem {
             );
 
             // all aspects information (6 lines)
-            for (int i = 0 ; i < primaryAspects.length ; i++)
+            for (int i = 0; i < PRIMARY_ASPECTS.length ; i++)
                 tooltip.add(
                     new LiteralText("")
                         .append(String.format(
                                 " %s%s §f× %s, ",
-                                primaryAspectsColor[i],
-                                StringUtil.capitalize(primaryAspects[i]),
-                                uncutFloat(visData.get(primaryAspects[i]))
+                                PRIMARY_ASPECTS_COLOR[i],
+                                StringUtil.capitalize(PRIMARY_ASPECTS[i]),
+                                uncutFloat(visData.get(PRIMARY_ASPECTS[i]))
                         ))
                         .append("§f(" + getStringDiscount(this.getDiscount()) + "%")
                         .append(new TranslatableText("gui.thaumcraft.vis_cost"))
@@ -231,12 +231,12 @@ public abstract class WandAbstract extends ThaumcraftItem {
                 Text.of(
                     String.format(
                         "%s%s §f§l╎ %s%s §f§l╎ %s%s §f§l╎ %s%s §f§l╎ %s%s §f§l╎ %s%s",
-                        primaryAspectsColor[0], cutFloat(visData.get(primaryAspects[0])),
-                        primaryAspectsColor[1], cutFloat(visData.get(primaryAspects[1])),
-                        primaryAspectsColor[2], cutFloat(visData.get(primaryAspects[2])),
-                        primaryAspectsColor[3], cutFloat(visData.get(primaryAspects[3])),
-                        primaryAspectsColor[4], cutFloat(visData.get(primaryAspects[4])),
-                        primaryAspectsColor[5], cutFloat(visData.get(primaryAspects[5]))
+                        PRIMARY_ASPECTS_COLOR[0], cutFloat(visData.get(PRIMARY_ASPECTS[0])),
+                        PRIMARY_ASPECTS_COLOR[1], cutFloat(visData.get(PRIMARY_ASPECTS[1])),
+                        PRIMARY_ASPECTS_COLOR[2], cutFloat(visData.get(PRIMARY_ASPECTS[2])),
+                        PRIMARY_ASPECTS_COLOR[3], cutFloat(visData.get(PRIMARY_ASPECTS[3])),
+                        PRIMARY_ASPECTS_COLOR[4], cutFloat(visData.get(PRIMARY_ASPECTS[4])),
+                        PRIMARY_ASPECTS_COLOR[5], cutFloat(visData.get(PRIMARY_ASPECTS[5]))
                     )
                 )
             );
@@ -248,7 +248,7 @@ public abstract class WandAbstract extends ThaumcraftItem {
     private NbtCompound checkWandNbt(NbtCompound nbt) {
         if (nbt == null) nbt = new NbtCompound();
 
-        for (String i: primaryAspects)
+        for (String i: PRIMARY_ASPECTS)
             if (!nbt.contains(i))
                 nbt.putFloat(i, 0);
 

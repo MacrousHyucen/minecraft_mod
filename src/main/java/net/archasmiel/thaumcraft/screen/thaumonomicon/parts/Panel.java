@@ -1,6 +1,9 @@
 package net.archasmiel.thaumcraft.screen.thaumonomicon.parts;
 
+import io.github.cottonmc.cotton.gui.client.BackgroundPainter;
 import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
+import io.github.cottonmc.cotton.gui.widget.WPanel;
+import io.github.cottonmc.cotton.gui.widget.WPlainPanel;
 import io.github.cottonmc.cotton.gui.widget.WWidget;
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
 import net.archasmiel.thaumcraft.networking.PacketIDs;
@@ -14,7 +17,7 @@ import net.minecraft.network.PacketByteBuf;
 import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Textures.DEF_COLOR;
 import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Textures.RESEARCH_BORDER;
 
-public class Panel extends WWidget {
+public class Panel extends WPlainPanel {
 
     private Tab currentTab;
 
@@ -37,25 +40,18 @@ public class Panel extends WWidget {
 
 
 
+    @Override
+    public WPanel setBackgroundPainter(BackgroundPainter painter) {
+        return null;
+    }
+
     @Environment(EnvType.CLIENT)
     @Override
     public void paint(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
         ScreenDrawing.texturedRect(matrices, x, y, sizeX, sizeY, currentTab.cutBackground(sizeX, sizeY), DEF_COLOR);
-        paintResearches(matrices, x, y, mouseX, mouseY);
+        for (WWidget widget: this.children) widget.paint(matrices, x, y, mouseX, mouseY);
         ScreenDrawing.texturedRect(matrices, x, y, sizeX, sizeY, RESEARCH_BORDER, DEF_COLOR);
     }
-
-    private void paintResearches(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
-        int backX = (int) currentTab.getBackX();
-        int backY = (int) currentTab.getBackY();
-        for (ResearchBox box: currentTab.getResearchMap().keyList()) {
-            int posX = x + box.getPosX() - backX;
-            int posY = y + box.getPosY() - backY;
-            if (posX >= x && posX <= x+sizeX-currentTab.getSize() && posY >= y && posY <= y+sizeY-currentTab.getSize())
-                box.paint(matrices, posX, posY, mouseX, mouseY);
-        }
-    }
-
 
     @Environment(EnvType.CLIENT)
     @Override
@@ -72,6 +68,8 @@ public class Panel extends WWidget {
             else
             if (backY > sizeY) backY = sizeY;
             currentTab.setBackY(backY);
+
+            updateChildren();
         }
         sendActiveTabUpdate();
         return InputResult.PROCESSED;
@@ -88,10 +86,27 @@ public class Panel extends WWidget {
 
 
 
-
+    public void updateChildren() {
+        for (WWidget widget: this.children) {
+            if (widget instanceof ResearchBox box) {
+                int pX = box.getPosX() - (int) currentTab.getBackX();
+                int pY = box.getPosY() - (int) currentTab.getBackY();
+                if (pX >= 0 && pX <= sizeX-box.getSizeX() && pY >= 0 && pY <= sizeY-box.getSizeY()) {
+                    box.setLocation(pX, pY);
+                } else {
+                    box.setLocation(Integer.MAX_VALUE, Integer.MAX_VALUE);
+                }
+            }
+        }
+    }
 
     public void setCurrentTab(Tab tab) {
         this.currentTab = tab;
+        this.children.clear();
+        for (ResearchBox box: this.currentTab.getResearchMap().keyList()) {
+            this.add(box, Integer.MAX_VALUE, Integer.MAX_VALUE, box.getSizeX(), box.getSizeY());
+        }
+        updateChildren();
     }
 
     public Tab getCurrentTab() {

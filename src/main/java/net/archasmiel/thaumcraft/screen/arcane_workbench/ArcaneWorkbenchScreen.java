@@ -18,7 +18,7 @@ import net.minecraft.util.Identifier;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static net.archasmiel.thaumcraft.materials.aspect.Aspect.primaryAspects;
+import static net.archasmiel.thaumcraft.materials.aspect.Aspect.PRIMARY_ASPECTS;
 
 public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHandler> {
 
@@ -28,7 +28,7 @@ public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHa
 
     private static final NbtCompound nbtNull = new NbtCompound();
     static {
-        for (String i: primaryAspects) nbtNull.putFloat(i, 0);
+        for (String i: PRIMARY_ASPECTS) nbtNull.putFloat(i, 0);
     }
 
     private static final Identifier BACK_TEXTURE =

@@ -6,11 +6,15 @@ import io.github.cottonmc.cotton.gui.widget.data.InputResult;
 import io.github.cottonmc.cotton.gui.widget.data.Texture;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Identified;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.ResearchGraph;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Utility;
+import net.archasmiel.thaumcraft.sounds.Sounds;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.TranslatableText;
 
-import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Textures.*;
 import static net.archasmiel.thaumcraft.screen.thaumonomicon.data.Tabs.TRANSLATE_PATH;
+import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Textures.*;
 
 public class Tab extends WButton implements Identified {
 
@@ -68,10 +72,6 @@ public class Tab extends WButton implements Identified {
 
         public Builder size(int size) {
             tab.size = size;
-            tab.sizeD2 = size / 2;
-            tab.sizeD4 = size / 4;
-            tab.sizeD8 = size / 8;
-            tab.iconSize = 3*tab.sizeD4;
             return this;
         }
 
@@ -129,6 +129,7 @@ public class Tab extends WButton implements Identified {
 
     }
 
+
     private String id;
     private TranslatableText name;
     private Texture icon;
@@ -137,10 +138,6 @@ public class Tab extends WButton implements Identified {
     private Integer posY;
 
     private Integer size;
-    private Integer sizeD2;
-    private Integer sizeD4;
-    private Integer sizeD8;
-    private Integer iconSize;
 
     private ResearchGraph researchMap;
 
@@ -164,17 +161,16 @@ public class Tab extends WButton implements Identified {
 
     @Override
     public void paint(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
-
         if (getState()) {
-            ScreenDrawing.texturedRect(matrices, x, y, size, size, RESEARCH_TAB_ACTIVE, DEF_COLOR);
-            ScreenDrawing.texturedRect(matrices, x + sizeD4, y + sizeD8, iconSize, iconSize, icon, DEF_COLOR);
+            Utility.precisiveTexturedRect(matrices, x, y, size, size, RESEARCH_TAB_ACTIVE, DEF_COLOR);
+            Utility.precisiveTexturedRect(matrices, x + (float) size/4, y + (float) size/8, (float) size*3/4, (float) size*3/4, icon, DEF_COLOR);
             return;
         }
 
-        ScreenDrawing.texturedRect(matrices, x, y, size, size, RESEARCH_TAB_INACTIVE, DEF_COLOR);
-        ScreenDrawing.texturedRect(matrices, x + sizeD2, y + sizeD8, iconSize, iconSize, icon, DEF_COLOR);
+        Utility.precisiveTexturedRect(matrices, x, y, size, size, RESEARCH_TAB_INACTIVE, DEF_COLOR);
+        Utility.precisiveTexturedRect(matrices, x + (float) size/2, y + (float) size/8, (float) size*3/4, (float) size*3/4, icon, DEF_COLOR);
         if (!isPointOnTab(mouseX, mouseY))
-            ScreenDrawing.texturedRect(matrices, x, y, size, size, RESEARCH_TAB_SHADOW, DEF_COLOR);
+            Utility.precisiveTexturedRect(matrices, x, y, size, size, RESEARCH_TAB_SHADOW, DEF_COLOR);
     }
 
     @Override
@@ -184,6 +180,17 @@ public class Tab extends WButton implements Identified {
 
     @Override
     public InputResult onClick(int x, int y, int button) {
+        if (button == 0 && this.getParent() instanceof Gui gui && !id.equals(gui.getPanel().getCurrentTab().getId())) {
+            gui.getPanel().getCurrentTab().setState(false);
+            gui.getPanel().setCurrentTab(this);
+            gui.getPanel().getCurrentTab().setState(true);
+
+            MinecraftClient.getInstance().getSoundManager()
+                    .play(PositionedSoundInstance.master(Sounds.PAGE_FLIP, 1.0F));
+
+            return InputResult.PROCESSED;
+        }
+
         return InputResult.IGNORED;
     }
 

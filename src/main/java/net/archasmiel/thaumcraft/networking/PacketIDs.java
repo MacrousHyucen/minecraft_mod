@@ -7,12 +7,10 @@ public class PacketIDs {
 
     // Client
     public static final Identifier RECIPE_SYNC_CLIENT = new Identifier(Thaumcraft.MOD_ID, "recipe-c");
+    public static final Identifier THAUMONOMICON_DATA_CLIENT = new Identifier(Thaumcraft.MOD_ID, "thaumonomicon-data-c");
 
 
     // Server
-
-    // Request
-    public static final Identifier THAUMONOMICON_DATA_CLIENT = new Identifier(Thaumcraft.MOD_ID, "thaumonomicon-data-c");
     public static final Identifier THAUMONOMICON_DATA_SERVER = new Identifier(Thaumcraft.MOD_ID, "thaumonomicon-data-s");
 
 
@@ -22,7 +20,7 @@ public class PacketIDs {
     }
 
     public static void register() {
-        // Registering Identifiers for client and server sides
+        // Registering identifiers for client and server sides
     }
 
 }

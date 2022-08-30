@@ -62,6 +62,5 @@ public class Thaumcraft implements ModInitializer {
 
 		TRANSLATIONS.pushOutput();
 		RRPCallback.AFTER_VANILLA.register(a -> a.add(RESOURCE_PACK));
-
 	}
 }

@@ -1,7 +1,7 @@
 package net.archasmiel.thaumcraft.networking.c2s;
 
-import net.archasmiel.thaumcraft.util.IEntityDataSaver;
-import net.archasmiel.thaumcraft.util.ThaumonomiconPosData;
+import net.archasmiel.thaumcraft.util.server.IEntityDataSaver;
+import net.archasmiel.thaumcraft.util.thaumonomicon.ThaumonomiconPosData;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;

@@ -70,16 +70,18 @@ public class Panel extends WPlainPanel {
             currentTab.setBackY(backY);
 
             updateChildren();
+            sendActiveTabUpdate();
+
+            return InputResult.PROCESSED;
         }
-        sendActiveTabUpdate();
-        return InputResult.PROCESSED;
+
+        return InputResult.IGNORED;
     }
 
     private void sendActiveTabUpdate() {
         PacketByteBuf packet = PacketByteBufs.create();
         packet.writeString(currentTab.getId());
-        packet.writeFloat(currentTab.getBackX());
-        packet.writeFloat(currentTab.getBackY());
+        packet.writeFloat(currentTab.getBackX()).writeFloat(currentTab.getBackY());
         ClientPlayNetworking.send(PacketIDs.THAUMONOMICON_DATA_SERVER, packet);
     }
 

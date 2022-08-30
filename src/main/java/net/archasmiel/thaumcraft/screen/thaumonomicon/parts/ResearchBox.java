@@ -135,14 +135,13 @@ public class ResearchBox extends WWidget implements Identified {
 
     @Override
     public void renderTooltip(MatrixStack matrices, int x, int y, int tX, int tY) {
-        int maxWidth = (int) Math.max(
-            MinecraftClient.getInstance().textRenderer.getWidth(research.getName()) * 0.75f,
-            MinecraftClient.getInstance().textRenderer.getWidth(research.getDescription()) * 0.66f
-        ) + 7;
-
         x += 7;
         y -= 15;
-        ScreenDrawing.coloredRect(matrices, x+tX, y+tY, maxWidth, 25, 0xBB000000);
+        int width = (int) Math.max(
+                MinecraftClient.getInstance().textRenderer.getWidth(research.getName()) * 0.75f,
+                MinecraftClient.getInstance().textRenderer.getWidth(research.getDescription()) * 0.66f
+        ) + 7;
+        ScreenDrawing.coloredRect(matrices, x+tX, y+tY, width, 25, 0xBB000000);
 
         x += 4;
         y += 4;

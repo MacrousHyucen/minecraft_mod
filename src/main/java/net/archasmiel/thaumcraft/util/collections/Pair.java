@@ -1,4 +1,4 @@
-package net.archasmiel.thaumcraft.util;
+package net.archasmiel.thaumcraft.util.collections;
 
 public class Pair<A, B> {
 

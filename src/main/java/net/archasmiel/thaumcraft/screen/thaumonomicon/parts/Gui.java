@@ -67,11 +67,6 @@ public class Gui extends WPlainPanel {
         updateChildren();
     }
 
-    public void setPanel(Panel panel) {
-        this.panel = panel;
-        updateChildren();
-    }
-
     public void setTabs(List<Tab> tabs) {
         this.tabs.clear();
         this.tabs.addAll(tabs);
@@ -85,6 +80,13 @@ public class Gui extends WPlainPanel {
         }
     }
 
+    public void setPanel(Panel panel) {
+        this.panel = panel;
+        updateChildren();
+    }
+
+
+
     private void updateChildren() {
         this.children.clear();
         this.add(panel, panel.getPanelX(), panel.getPanelY(), panel.getSizeX(), panel.getSizeY());
@@ -92,6 +94,8 @@ public class Gui extends WPlainPanel {
             this.add(tab, tab.getPosX(), tab.getPosY(), tab.getSize(), tab.getSize());
         }
     }
+
+
 
     public Panel getPanel() {
         return panel;

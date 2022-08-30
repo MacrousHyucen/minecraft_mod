@@ -1,4 +1,4 @@
-package net.archasmiel.thaumcraft.util;
+package net.archasmiel.thaumcraft.util.server;
 
 import net.minecraft.nbt.NbtCompound;
 

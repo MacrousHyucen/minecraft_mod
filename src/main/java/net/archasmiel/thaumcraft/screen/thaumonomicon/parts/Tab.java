@@ -5,7 +5,7 @@ import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
 import io.github.cottonmc.cotton.gui.widget.data.Texture;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Identified;
-import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.ResearchGraph;
+import net.archasmiel.thaumcraft.util.collections.ResearchGraph;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Utility;
 import net.archasmiel.thaumcraft.sounds.Sounds;
 import net.minecraft.client.MinecraftClient;

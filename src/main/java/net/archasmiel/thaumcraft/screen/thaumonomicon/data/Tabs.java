@@ -1,6 +1,6 @@
 package net.archasmiel.thaumcraft.screen.thaumonomicon.data;
 
-import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Registry;
+import net.archasmiel.thaumcraft.util.collections.Registry;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.Tab;
 
 import java.util.List;

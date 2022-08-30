@@ -1,5 +1,7 @@
-package net.archasmiel.thaumcraft.util;
+package net.archasmiel.thaumcraft.util.thaumonomicon;
 
+import net.archasmiel.thaumcraft.util.server.IEntityDataSaver;
+import net.archasmiel.thaumcraft.util.collections.Pair;
 import net.minecraft.nbt.NbtCompound;
 
 public class ThaumonomiconPosData {

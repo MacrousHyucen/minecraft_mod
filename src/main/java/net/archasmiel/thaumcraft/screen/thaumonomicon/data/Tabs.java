@@ -1,7 +1,7 @@
 package net.archasmiel.thaumcraft.screen.thaumonomicon.data;
 
 import net.archasmiel.thaumcraft.util.collections.Registry;
-import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.Tab;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.researchview.Tab;
 
 import java.util.List;
 
@@ -26,46 +26,40 @@ public class Tabs {
     public static final String GOLEMANCY_ID = "golemancy";
     public static final String ELDRITCH_ID = "eldritch";
 
-
-
     private static final Tab basics = new Tab.Builder()
             .id(BASICS_ID).name()
             .icon(RT_BASICS).background(NORMAL_BACKGROUND)
-            .size(TAB_SIZE).researchMap(BasicsResearches.BASICS_RESEARCHES).active().build();
+            .size().researchMap(BasicsResearches.BASICS_RESEARCHES).active().build();
 
     private static final Tab thaumaturgy = new Tab.Builder()
             .id(THAUMATURGY_ID).name()
             .icon(RT_THAUMATURGY).background(NORMAL_BACKGROUND)
-            .size(TAB_SIZE).researchMap().build();
+            .size().researchMap().build();
 
     private static final Tab alchemy = new Tab.Builder()
-                .id(ALCHEMY_ID).name()
-                .icon(RT_ALCHEMY).background(NORMAL_BACKGROUND)
-                .size(TAB_SIZE).researchMap().build();
+            .id(ALCHEMY_ID).name()
+            .icon(RT_ALCHEMY).background(NORMAL_BACKGROUND)
+            .size().researchMap().build();
 
     private static final Tab artifice = new Tab.Builder()
-                .id(ARTIFICE_ID).name()
-                .icon(RT_ARTIFICE).background(NORMAL_BACKGROUND)
-                .size(TAB_SIZE).researchMap().build();
+            .id(ARTIFICE_ID).name()
+            .icon(RT_ARTIFICE).background(NORMAL_BACKGROUND)
+            .size().researchMap().build();
 
     private static final Tab golemancy = new Tab.Builder()
-                .id(GOLEMANCY_ID).name()
-                .icon(RT_GOLEMANCY).background(NORMAL_BACKGROUND)
-                .size(TAB_SIZE).researchMap().build();
+            .id(GOLEMANCY_ID).name()
+            .icon(RT_GOLEMANCY).background(NORMAL_BACKGROUND)
+            .size().researchMap().build();
 
     private static final Tab eldritch = new Tab.Builder()
-                .id(ELDRITCH_ID).name()
-                .icon(RT_ELDRITCH).background(ELDRITCH_BACKGROUND)
-                .size(TAB_SIZE).researchMap().build();
+            .id(ELDRITCH_ID).name()
+            .icon(RT_ELDRITCH).background(ELDRITCH_BACKGROUND)
+            .size().researchMap().build();
 
     static {
         addTabs(basics, thaumaturgy, alchemy, artifice, golemancy, eldritch);
         reposTabs();
     }
-
-
-
-
 
 
 
@@ -85,8 +79,8 @@ public class Tabs {
     public static void reposTabs() {
         int y = 0;
         for (Tab tab: TAB_REGISTRY.valueList()) {
-            tab.setPosY(y);
-            y += tab.getSize();
+            tab.setLocation(tab.getX(), y);
+            y += tab.getHeight();
         }
     }
 
@@ -96,8 +90,6 @@ public class Tabs {
         TAB_REGISTRY.register(tab);
     }
 
-
-
     public static void addTabs(Tab... tabs) {
         TAB_REGISTRY.registerAll(tabs);
     }
@@ -106,11 +98,8 @@ public class Tabs {
         TAB_REGISTRY.registerAll(tabs);
     }
 
-
-
     public static List<Tab> getTabList() {
         return TAB_REGISTRY.valueList();
     }
-
 
 }

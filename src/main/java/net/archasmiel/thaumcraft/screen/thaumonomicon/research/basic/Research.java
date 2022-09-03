@@ -113,6 +113,15 @@ public class Research {
 
 
 
+
+
+
+
+
+    private Research() {
+
+    }
+
     private String id;
     private TranslatableText name;
     private TranslatableText description;
@@ -123,16 +132,6 @@ public class Research {
 
     private ForbiddenLevel forbiddenLevel;
     private boolean isForbidden = false;
-
-
-
-
-
-    private Research() {
-
-    }
-
-
 
 
 

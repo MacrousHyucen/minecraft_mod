@@ -1,6 +1,6 @@
 package net.archasmiel.thaumcraft.util.collections;
 
-import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.ResearchBox;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.researchview.ResearchBox;
 
 import java.util.*;
 

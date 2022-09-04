@@ -2,7 +2,7 @@ package net.archasmiel.thaumcraft.mixin;
 
 import net.archasmiel.thaumcraft.networking.PacketIDs;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.data.Tabs;
-import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.Tab;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.researchview.Tab;
 import net.archasmiel.thaumcraft.util.server.IEntityDataSaver;
 import net.archasmiel.thaumcraft.util.collections.Pair;
 import net.archasmiel.thaumcraft.util.thaumonomicon.ThaumonomiconPosData;

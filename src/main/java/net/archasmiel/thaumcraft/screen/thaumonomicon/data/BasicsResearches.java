@@ -3,7 +3,7 @@ package net.archasmiel.thaumcraft.screen.thaumonomicon.data;
 import net.archasmiel.thaumcraft.Thaumcraft;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Textures;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Utility;
-import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.ResearchBox;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.researchview.ResearchBox;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.research.basic.ForbiddenLevel;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.research.basic.Research;
 import net.archasmiel.thaumcraft.util.collections.ResearchGraph;

@@ -1,7 +1,7 @@
 package net.archasmiel.thaumcraft.networking.s2c;
 
 import net.archasmiel.thaumcraft.screen.thaumonomicon.data.Tabs;
-import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.Tab;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.researchview.Tab;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;

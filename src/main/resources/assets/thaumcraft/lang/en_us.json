@@ -132,5 +132,14 @@
   "wand_rod.thaumcraft.primal": "Primal",
 
   "gui.thaumcraft.wand_capacity": "Capacity ",
-  "gui.thaumcraft.vis_cost": " vis cost"
+  "gui.thaumcraft.vis_cost": " vis cost",
+
+  "gui.thaumcraft.research_name.aspects_of_magic": "Aspects of Magic",
+  "gui.thaumcraft.research_desc.aspects_of_magic": "The building blocks of magic",
+  "gui.thaumcraft.research_name.auras_and_nodes": "Auras and Nodes",
+  "gui.thaumcraft.research_desc.auras_and_nodes": "Magic is everywhere",
+  "gui.thaumcraft.research_name.warp_flux_things": "Warp, Flux and all things bad",
+  "gui.thaumcraft.research_desc.warp_flux_things": "Everything has a price",
+  "gui.thaumcraft.research_name.crimson_cult": "§6The Crimson Cult",
+  "gui.thaumcraft.research_desc.crimson_cult": "A Cautionary Tale"
 }

@@ -2,7 +2,6 @@ package net.archasmiel.thaumcraft.screen.thaumonomicon.parts.researchview;
 
 import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
 import io.github.cottonmc.cotton.gui.widget.WWidget;
-import io.github.cottonmc.cotton.gui.widget.data.HorizontalAlignment;
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
 import io.github.cottonmc.cotton.gui.widget.data.Texture;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Identified;
@@ -97,6 +96,7 @@ public class ResearchBox extends WWidget implements Identified {
     private Research research;
     private int relX;
     private int relY;
+    private boolean visible = false;
 
     @Override
     public String getId() {
@@ -123,90 +123,91 @@ public class ResearchBox extends WWidget implements Identified {
         return relY;
     }
 
+    public void setVisible(boolean state) {
+        this.visible = state;
+    }
+
     @Override
     public void paint(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
-        if (this.getParent() instanceof Panel panel) {
-            float pX = (float) x + this.x;
-            float pY = (float) y + this.y;
+        if (!visible) return;
 
-            if (pX >= x && pY >= y && pX <= (x + panel.getWidth() - this.width) && pY <= (y + panel.getHeight() - this.height)) {
-                Utility.precisiveTexturedRect(
-                    matrices,
-                    pX, pY,
-                    this.width, this.height,
-                    formTex, DEF_COLOR
-                );
+        float pX = (float) x + this.x;
+        float pY = (float) y + this.y;
 
-                float iconWidth = this.width * 0.625f;
-                float iconHeight = this.height * 0.625f;
-                Utility.precisiveTexturedRect(
-                    matrices,
-                    pX + (this.width - iconWidth) * 0.5f,
-                    pY + (this.height - iconHeight) * 0.5f,
-                    iconWidth,
-                    iconHeight,
-                    research.getIcon(),
-                    DEF_COLOR
-                );
+        Utility.precisiveTexturedRect(
+            matrices,
+            pX, pY,
+            this.width, this.height,
+            formTex, DEF_COLOR
+        );
 
-                if (hasBounds) {
-                    Utility.precisiveTexturedRect(
-                        matrices,
-                        pX, pY,
-                        this.width, this.height,
-                        boundsTex, DEF_COLOR
-                    );
-                }
-            }
+        float iconWidth = this.width * 0.625f;
+        float iconHeight = this.height * 0.625f;
+        Utility.precisiveTexturedRect(
+            matrices,
+            pX + (this.width - iconWidth) * 0.5f,
+            pY + (this.height - iconHeight) * 0.5f,
+            iconWidth,
+            iconHeight,
+            research.getIcon(),
+            DEF_COLOR
+        );
+
+        if (hasBounds) {
+            Utility.precisiveTexturedRect(
+                matrices,
+                pX, pY,
+                this.width, this.height,
+                boundsTex, DEF_COLOR
+            );
         }
     }
 
     @Override
     public InputResult onClick(int x, int y, int button) {
+        if (!visible) return InputResult.IGNORED;
+
         System.out.println("clicked on " + research.getId());
         return InputResult.PROCESSED;
     }
 
     @Override
     public void renderTooltip(MatrixStack matrices, int x, int y, int tX, int tY) {
+        if (!visible) return;
+
         x += 7;
         y -= 15;
         TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
         int width = (int) Math.max(
-            textRenderer.getWidth(research.getName()) * 0.75f,
-            textRenderer.getWidth(research.getDescription()) * 0.66f
+            textRenderer.getWidth(research.getName()) * 0.8f,
+            textRenderer.getWidth(research.getDescription()) * 0.5f
         ) + 7;
-        ScreenDrawing.coloredRect(matrices, x+tX, y+tY, width, 25, 0xBB000000);
+        ScreenDrawing.coloredRect(matrices, x+tX, y+tY, width, 23, 0xBB000000);
 
         x += 4;
         y += 4;
         matrices.push();
 
-        float scaling = 0.75f;
+        float scaling = 0.8f;
         float invScaling = 1/scaling;
         matrices.scale(scaling, scaling, 1.0f);
-        ScreenDrawing.drawStringWithShadow(
-            matrices,
-            research.getName().asOrderedText(),
-            HorizontalAlignment.LEFT,
-            (int)(invScaling*(x+tX)),
-            (int)(invScaling*(y+tY)),
-            200, 0x99FFFFFF
-        );
+        MinecraftClient.getInstance().textRenderer.drawWithShadow(
+            matrices, research.getName().asOrderedText(),
+            invScaling*(x+tX), invScaling*(y+tY), DEF_COLOR);
 
         matrices.scale(invScaling, invScaling, 1.0f);
-        scaling = 0.66f;
+        scaling = 0.5f;
         invScaling = 1/scaling;
         matrices.scale(scaling, scaling, 1.0f);
-        ScreenDrawing.drawStringWithShadow(
-            matrices,
-            research.getDescription().asOrderedText(),
-            HorizontalAlignment.LEFT,
-            (int)(invScaling*(x+tX)),
-            (int)(invScaling*(y+tY+10)),
-            200, 0x99CCCCCC
-        );
+        MinecraftClient.getInstance().textRenderer.drawWithShadow(
+            matrices, research.getDescription().asOrderedText(),
+            invScaling*(x+tX), invScaling*(y+tY+10), 0xBB8888FF);
 
         matrices.pop();
+    }
+
+    @Override
+    public boolean canResize() {
+        return false;
     }
 }

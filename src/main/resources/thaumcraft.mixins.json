@@ -8,6 +8,7 @@
     "ThaumonomiconDataSaverMixin"
   ],
   "client": [
+    "ClientWorldMixin"
   ],
   "injectors": {
     "defaultRequire": 1

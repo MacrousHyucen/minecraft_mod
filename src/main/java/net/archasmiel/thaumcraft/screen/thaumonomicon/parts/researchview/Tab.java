@@ -1,7 +1,7 @@
 package net.archasmiel.thaumcraft.screen.thaumonomicon.parts.researchview;
 
 import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
-import io.github.cottonmc.cotton.gui.widget.WButton;
+import io.github.cottonmc.cotton.gui.widget.WWidget;
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
 import io.github.cottonmc.cotton.gui.widget.data.Texture;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Identified;
@@ -16,9 +16,8 @@ import net.minecraft.text.TranslatableText;
 import static net.archasmiel.thaumcraft.screen.thaumonomicon.data.Tabs.TAB_SIZE;
 import static net.archasmiel.thaumcraft.screen.thaumonomicon.data.Tabs.TRANSLATE_PATH;
 import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Textures.*;
-import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Textures.DEF_COLOR;
 
-public class Tab extends WButton implements Identified {
+public class Tab extends WWidget implements Identified {
 
     public static class Builder {
 

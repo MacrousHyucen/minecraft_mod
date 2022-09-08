@@ -4,11 +4,14 @@ import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
 import io.github.cottonmc.cotton.gui.widget.WWidget;
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
 import io.github.cottonmc.cotton.gui.widget.data.Texture;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.ThaumonomiconGUI;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Identified;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Utility;
-import net.archasmiel.thaumcraft.screen.thaumonomicon.research.basic.Research;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.research.Research;
+import net.archasmiel.thaumcraft.sounds.Sounds;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.util.math.MatrixStack;
 
 import static net.archasmiel.thaumcraft.screen.thaumonomicon.data.Tabs.TAB_SIZE;
@@ -86,10 +89,6 @@ public class ResearchBox extends WWidget implements Identified {
 
     }
 
-    private ResearchBox() {
-
-    }
-
     private Texture formTex;
     private boolean hasBounds;
     private Texture boundsTex;
@@ -97,6 +96,10 @@ public class ResearchBox extends WWidget implements Identified {
     private int relX;
     private int relY;
     private boolean visible = false;
+
+    private ResearchBox() {
+
+    }
 
     @Override
     public String getId() {
@@ -167,7 +170,15 @@ public class ResearchBox extends WWidget implements Identified {
     public InputResult onClick(int x, int y, int button) {
         if (!visible) return InputResult.IGNORED;
 
-        System.out.println("clicked on " + research.getId());
+        if (this.getHost() instanceof ThaumonomiconGUI gui) {
+            gui.getBook().setCurrentView(this.research.getBookView());
+            gui.setRootPanel(gui.getBook());
+            gui.getBook().setHost(this.getHost());
+
+            MinecraftClient.getInstance().getSoundManager()
+                .play(PositionedSoundInstance.master(Sounds.PAGE_FLIP, 1.0F));
+        }
+
         return InputResult.PROCESSED;
     }
 
@@ -175,19 +186,21 @@ public class ResearchBox extends WWidget implements Identified {
     public void renderTooltip(MatrixStack matrices, int x, int y, int tX, int tY) {
         if (!visible) return;
 
+        int intent = 3;
+
         x += 7;
         y -= 15;
         TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
         int width = (int) Math.max(
             textRenderer.getWidth(research.getName()) * 0.8f,
             textRenderer.getWidth(research.getDescription()) * 0.5f
-        ) + 7;
-        ScreenDrawing.coloredRect(matrices, x+tX, y+tY, width, 23, 0xBB000000);
+        ) + 2*intent;
+        int height = (int) (30*0.5f);
+        ScreenDrawing.coloredRect(matrices, x+tX, y+tY, width, height+2*intent, 0xAA000000);
 
-        x += 4;
-        y += 4;
+        x += intent;
+        y += intent;
         matrices.push();
-
         float scaling = 0.8f;
         float invScaling = 1/scaling;
         matrices.scale(scaling, scaling, 1.0f);
@@ -202,7 +215,6 @@ public class ResearchBox extends WWidget implements Identified {
         MinecraftClient.getInstance().textRenderer.drawWithShadow(
             matrices, research.getDescription().asOrderedText(),
             invScaling*(x+tX), invScaling*(y+tY+10), 0xBB8888FF);
-
         matrices.pop();
     }
 

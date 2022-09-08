@@ -10,10 +10,6 @@ import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Textures.ELDRIT
 
 public class Tabs {
 
-    private Tabs() {
-
-    }
-
     public static final String TRANSLATE_PATH = "gui.thaumcraft.";
     public static final Integer TAB_SIZE = 24;
 
@@ -25,6 +21,10 @@ public class Tabs {
     public static final String ARTIFICE_ID = "artifice";
     public static final String GOLEMANCY_ID = "golemancy";
     public static final String ELDRITCH_ID = "eldritch";
+
+    private Tabs() {
+
+    }
 
     private static final Tab basics = new Tab.Builder()
             .id(BASICS_ID).name()
@@ -63,7 +63,7 @@ public class Tabs {
 
 
 
-    public static Tab getVanillaTab(String name) {
+    public static Tab getVanillaTabByName(String name) {
         return switch (name) {
             case BASICS_ID -> basics;
             case THAUMATURGY_ID -> thaumaturgy;

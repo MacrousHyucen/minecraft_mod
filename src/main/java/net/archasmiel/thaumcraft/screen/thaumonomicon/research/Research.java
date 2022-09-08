@@ -1,7 +1,7 @@
-package net.archasmiel.thaumcraft.screen.thaumonomicon.research.basic;
+package net.archasmiel.thaumcraft.screen.thaumonomicon.research;
 
 import io.github.cottonmc.cotton.gui.widget.data.Texture;
-import net.archasmiel.thaumcraft.screen.thaumonomicon.research.bookview.BookView;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.bookview.basic.BookView;
 import net.minecraft.text.TranslatableText;
 
 public class Research {
@@ -63,6 +63,11 @@ public class Research {
             return this;
         }
 
+        public Builder bookview(BookView bookView) {
+            research.bookView = bookView;
+            return this;
+        }
+
 
 
         public Builder icon(Texture icon) {
@@ -101,6 +106,9 @@ public class Research {
                 throw new IllegalStateException("Research icon not found");
             if (research.author == null)
                 research.author = "";
+            if (research.bookView == null)
+                throw new IllegalStateException("Research book view not found");
+
 
             if (research.forbiddenLevel == null)
                 throw new IllegalStateException("Research forbidden level not found");

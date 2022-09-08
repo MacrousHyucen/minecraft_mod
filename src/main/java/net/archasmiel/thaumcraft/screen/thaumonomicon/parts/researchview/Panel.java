@@ -13,26 +13,15 @@ import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Textures.RESEAR
 
 public class Panel extends WLockedPlainPanel {
 
+    private Tab currentTab;
+
     public Panel(int panelX, int panelY, int sizeX, int sizeY) {
         setLocation(panelX, panelY);
         setSize(sizeX, sizeY);
     }
 
-    private Tab currentTab;
-
     public Tab getCurrentTab() {
         return currentTab;
-    }
-
-    public void updateChildren() {
-        this.children.forEach(e -> {
-            ResearchBox box = (ResearchBox) e;
-            float pX = box.getRelX() - currentTab.getBackX();
-            float pY = box.getRelY() - currentTab.getBackY();
-
-            box.setLocation((int) pX, (int) pY);
-            box.setVisible(!(pX < -box.getWidth() || pY < -box.getHeight() || pX > width || pY > height));
-        });
     }
 
     public void setCurrentTab(Tab tab) {
@@ -47,6 +36,17 @@ public class Panel extends WLockedPlainPanel {
             this.add(box, Integer.MAX_VALUE, Integer.MAX_VALUE, box.getWidth(), box.getHeight())
         );
         updateChildren();
+    }
+
+    public void updateChildren() {
+        this.children.forEach(e -> {
+            ResearchBox box = (ResearchBox) e;
+            float pX = box.getRelX() - currentTab.getBackX();
+            float pY = box.getRelY() - currentTab.getBackY();
+
+            box.setLocation((int) pX, (int) pY);
+            box.setVisible(!(pX < -box.getWidth() || pY < -box.getHeight() || pX > width || pY > height));
+        });
     }
 
     @Environment(EnvType.CLIENT)

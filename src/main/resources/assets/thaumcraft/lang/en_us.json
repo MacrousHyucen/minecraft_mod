@@ -134,6 +134,9 @@
   "gui.thaumcraft.wand_capacity": "Capacity ",
   "gui.thaumcraft.vis_cost": " vis cost",
 
+  "gui.thaumcraft.back_button": "Back",
+  "gui.thaumcraft.right_button": "Next",
+  "gui.thaumcraft.left_button": "Previous",
   "gui.thaumcraft.research_name.aspects_of_magic": "Aspects of Magic",
   "gui.thaumcraft.research_desc.aspects_of_magic": "The building blocks of magic",
   "gui.thaumcraft.research_name.auras_and_nodes": "Auras and Nodes",

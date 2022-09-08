@@ -1,4 +1,4 @@
-package net.archasmiel.thaumcraft.screen.thaumonomicon.research.basic;
+package net.archasmiel.thaumcraft.screen.thaumonomicon.research;
 
 public enum ForbiddenLevel {
 

@@ -9,6 +9,7 @@ import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Utility;
 import net.archasmiel.thaumcraft.sounds.Sounds;
 import net.archasmiel.thaumcraft.util.collections.ResearchGraph;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.TranslatableText;
@@ -228,7 +229,23 @@ public class Tab extends WWidget implements Identified {
 
     @Override
     public void renderTooltip(MatrixStack matrices, int x, int y, int tX, int tY) {
-        ScreenDrawing.drawString(matrices, name.asOrderedText(), x + tX + 8, y + tY, DEF_COLOR);
+        float scale = 0.75f;
+        int intent = 2;
+
+        x += 3;
+        y -= 7;
+        TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
+        int width = (int) (textRenderer.getWidth(name)*scale + 2*intent);
+        int height = (int) (12*0.5f);
+        ScreenDrawing.coloredRect(matrices, x+tX, y+tY, width, height+2*intent, 0xAA000000);
+
+        x += intent;
+        y += intent;
+        matrices.push();
+        matrices.scale(scale, scale, 1.0f);
+        MinecraftClient.getInstance().textRenderer
+            .drawWithShadow(matrices, name.asOrderedText(), (x+tX)/scale, (y+tY)/scale, DEF_COLOR);
+        matrices.pop();
     }
 
     @Override

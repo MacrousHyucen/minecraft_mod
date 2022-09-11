@@ -89,12 +89,6 @@ public class Research {
 
 
 
-
-
-
-
-
-
         public Research build() {
             if (research.id == null || research.id.equals(""))
                 throw new IllegalStateException("Research id not found");
@@ -116,13 +110,7 @@ public class Research {
 
             return research;
         }
-
     }
-
-
-
-
-
 
 
 

@@ -33,9 +33,8 @@ public class ResearchGUI extends WLockedPlainPanel {
         this.tabs.addAll(tabs);
         updateTabs();
 
-        tabs.stream().filter(Tab::getState).findFirst().ifPresent(tab ->
-            this.panel.setCurrentTab(tab)
-        );
+        this.panel.setCurrentTab(tabs.get(0));
+        this.panel.getCurrentTab().setState(true);
     }
 
     public void setPanel(Panel panel) {

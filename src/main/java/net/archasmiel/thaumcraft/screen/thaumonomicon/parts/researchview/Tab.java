@@ -4,8 +4,8 @@ import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
 import io.github.cottonmc.cotton.gui.widget.WWidget;
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
 import io.github.cottonmc.cotton.gui.widget.data.Texture;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.DrawUtility;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Identified;
-import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Utility;
 import net.archasmiel.thaumcraft.sounds.Sounds;
 import net.archasmiel.thaumcraft.util.collections.ResearchGraph;
 import net.minecraft.client.MinecraftClient;
@@ -13,6 +13,8 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.TranslatableText;
+
+import java.util.function.Supplier;
 
 import static net.archasmiel.thaumcraft.screen.thaumonomicon.data.Tabs.TAB_SIZE;
 import static net.archasmiel.thaumcraft.screen.thaumonomicon.data.Tabs.TRANSLATE_PATH;
@@ -102,6 +104,10 @@ public class Tab extends WWidget implements Identified {
         }
 
 
+        public Builder researchMap(Supplier<ResearchGraph> supplier) {
+            tab.researchMap = supplier.get();
+            return this;
+        }
 
         public Builder researchMap(ResearchGraph researchMap) {
             tab.researchMap = researchMap;
@@ -195,13 +201,11 @@ public class Tab extends WWidget implements Identified {
         return background.withUv(x1, y1, x2, y2);
     }
 
-
-
     @Override
     public void paint(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
         if (state) {
-            Utility.precisiveTexturedRect(matrices, x, y, width, height, RESEARCH_TAB_ACTIVE, DEF_COLOR);
-            Utility.precisiveTexturedRect(
+            DrawUtility.precisiveTexturedRect(matrices, x, y, width, height, RESEARCH_TAB_ACTIVE, DEF_COLOR);
+            DrawUtility.precisiveTexturedRect(
                 matrices,
                 x + (float) width/4,
                 y + (float) height/8,
@@ -213,8 +217,8 @@ public class Tab extends WWidget implements Identified {
             return;
         }
 
-        Utility.precisiveTexturedRect(matrices, x, y, width, height, RESEARCH_TAB_INACTIVE, DEF_COLOR);
-        Utility.precisiveTexturedRect(
+        DrawUtility.precisiveTexturedRect(matrices, x, y, width, height, RESEARCH_TAB_INACTIVE, DEF_COLOR);
+        DrawUtility.precisiveTexturedRect(
             matrices,
             x + (float) width/2,
             y + (float) height/8,
@@ -224,7 +228,7 @@ public class Tab extends WWidget implements Identified {
             DEF_COLOR
         );
         if (!isPointOnTab(mouseX, mouseY))
-            Utility.precisiveTexturedRect(matrices, x, y, width, height, RESEARCH_TAB_SHADOW, DEF_COLOR);
+            DrawUtility.precisiveTexturedRect(matrices, x, y, width, height, RESEARCH_TAB_SHADOW, DEF_COLOR);
     }
 
     @Override

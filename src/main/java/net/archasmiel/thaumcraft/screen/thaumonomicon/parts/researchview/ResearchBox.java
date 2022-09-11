@@ -5,8 +5,8 @@ import io.github.cottonmc.cotton.gui.widget.WWidget;
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
 import io.github.cottonmc.cotton.gui.widget.data.Texture;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.ThaumonomiconGUI;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.DrawUtility;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Identified;
-import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Utility;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.research.Research;
 import net.archasmiel.thaumcraft.sounds.Sounds;
 import net.minecraft.client.MinecraftClient;
@@ -137,7 +137,7 @@ public class ResearchBox extends WWidget implements Identified {
         float pX = (float) x + this.x;
         float pY = (float) y + this.y;
 
-        Utility.precisiveTexturedRect(
+        DrawUtility.precisiveTexturedRect(
             matrices,
             pX, pY,
             this.width, this.height,
@@ -146,7 +146,7 @@ public class ResearchBox extends WWidget implements Identified {
 
         float iconWidth = this.width * 0.625f;
         float iconHeight = this.height * 0.625f;
-        Utility.precisiveTexturedRect(
+        DrawUtility.precisiveTexturedRect(
             matrices,
             pX + (this.width - iconWidth) * 0.5f,
             pY + (this.height - iconHeight) * 0.5f,
@@ -157,7 +157,7 @@ public class ResearchBox extends WWidget implements Identified {
         );
 
         if (hasBounds) {
-            Utility.precisiveTexturedRect(
+            DrawUtility.precisiveTexturedRect(
                 matrices,
                 pX, pY,
                 this.width, this.height,
@@ -173,7 +173,6 @@ public class ResearchBox extends WWidget implements Identified {
         if (this.getHost() instanceof ThaumonomiconGUI gui) {
             gui.getBook().setCurrentView(this.research.getBookView());
             gui.setRootPanel(gui.getBook());
-            gui.getBook().setHost(this.getHost());
 
             MinecraftClient.getInstance().getSoundManager()
                 .play(PositionedSoundInstance.master(Sounds.PAGE_FLIP, 1.0F));

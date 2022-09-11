@@ -1,9 +1,11 @@
 package net.archasmiel.thaumcraft.screen.thaumonomicon.parts.bookview;
 
 import io.github.cottonmc.cotton.gui.widget.WWidget;
-import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Utility;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.DrawUtility;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.WLockedPlainPanel;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.bookview.basic.BookView;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.bookview.button.BackButton;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.bookview.button.PosButton;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.TranslatableText;
 
@@ -30,9 +32,9 @@ public class BookGUI extends WLockedPlainPanel {
 		setSize(sizeX, sizeY);
 
 		setCurrentView(view);
-		leftButton = new PosButton(LEFT_NAME, BOOKVIEW_LEFT_BUTTON, 20, height-21, 12, 8, false);
-		rightButton = new PosButton(RIGHT_NAME, BOOKVIEW_RIGHT_BUTTON, width-32, height-21, 12, 8, true);
-		backButton = new BackButton(BACK_NAME, BOOKVIEW_BACK_BUTTON, 18, 10, 14, 8);
+		leftButton = new PosButton(LEFT_NAME, BOOKVIEW_LEFT_BUTTON, 23, height-21, 12, 8, false);
+		rightButton = new PosButton(RIGHT_NAME, BOOKVIEW_RIGHT_BUTTON, width-35, height-21, 12, 8, true);
+		backButton = new BackButton(BACK_NAME, BOOKVIEW_BACK_BUTTON, 21, 10, 14, 8);
 		this.add(leftButton);     // left button
 		this.add(rightButton);    // right button
 		this.add(backButton);     // back button
@@ -47,14 +49,14 @@ public class BookGUI extends WLockedPlainPanel {
 	}
 
 	private void add(WWidget widget) {
-		this.add(widget, widget.getX(), widget.getY(), widget.getWidth(), widget.getHeight());
+		this.add(widget, this.x+widget.getX(), this.y+widget.getY(), widget.getWidth(), widget.getHeight());
 	}
 
 	@Override
 	public void paint(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
-		Utility.precisiveTexturedRect(
+		DrawUtility.precisiveTexturedRect(
 			matrices,
-			x, y,
+			x+this.x, y+this.y,
 			width, height,
 			BOOKVIEW_BACKGROUND, DEF_COLOR
 		);

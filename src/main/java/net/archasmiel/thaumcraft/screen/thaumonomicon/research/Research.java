@@ -4,6 +4,8 @@ import io.github.cottonmc.cotton.gui.widget.data.Texture;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.bookview.basic.BookView;
 import net.minecraft.text.TranslatableText;
 
+import java.util.function.Supplier;
+
 public class Research {
 
     public static final String RESEARCH_NAME = "gui.thaumcraft.research_name.";
@@ -63,7 +65,7 @@ public class Research {
             return this;
         }
 
-        public Builder bookview(BookView bookView) {
+        public Builder bookview(Supplier<BookView> bookView) {
             research.bookView = bookView;
             return this;
         }
@@ -124,7 +126,7 @@ public class Research {
     private Texture icon;
     private String author;
 
-    private BookView bookView;
+    private Supplier<BookView> bookView;
 
     private ForbiddenLevel forbiddenLevel;
     private boolean isForbidden = false;
@@ -144,7 +146,7 @@ public class Research {
     }
 
     public BookView getBookView() {
-        return bookView;
+        return bookView.get();
     }
 
     public boolean isForbidden() {

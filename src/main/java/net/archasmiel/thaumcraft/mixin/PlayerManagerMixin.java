@@ -22,8 +22,8 @@ public class PlayerManagerMixin {
     @Inject(method = "onPlayerConnect", at = @At("TAIL"))
     public void onPlayerConnect(ClientConnection connection, ServerPlayerEntity player, CallbackInfo ci) {
         PacketByteBuf packetOut = PacketByteBufs.create();
-        Tabs.buildTabs().forEach(tab -> {
-            Pair<Float, Float> pos = ThaumonomiconPosData.getTabPos((IEntityDataSaver) player, tab.getId());
+        Tabs.getTabIDs().forEach(tabID -> {
+            Pair<Float, Float> pos = ThaumonomiconPosData.getTabPos((IEntityDataSaver) player, tabID);
             packetOut.writeFloat(pos.getLeft());
             packetOut.writeFloat(pos.getRight());
         });

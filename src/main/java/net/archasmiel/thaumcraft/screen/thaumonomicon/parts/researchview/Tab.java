@@ -8,6 +8,8 @@ import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.DrawUtility;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Identified;
 import net.archasmiel.thaumcraft.sounds.Sounds;
 import net.archasmiel.thaumcraft.util.collections.ResearchGraph;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.sound.PositionedSoundInstance;
@@ -253,6 +255,7 @@ public class Tab extends WWidget implements Identified {
     }
 
     @Override
+    @Environment(EnvType.CLIENT)
     public InputResult onClick(int x, int y, int button) {
         if (button == 0 && this.getParent() instanceof ResearchGUI gui && !id.equals(gui.getPanel().getCurrentTab().getId())) {
             gui.getPanel().setCurrentTab(this);

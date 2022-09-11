@@ -19,7 +19,7 @@ public class ThaumonomiconS2CDataRead {
         float posX;
         float posY;
 
-        for (Tab tab: Tabs.buildTabs()) {
+        for (Tab tab: Tabs.getTabs()) {
             posX = packetIn.readFloat();
             tab.setBackX(posX);
             posY = packetIn.readFloat();

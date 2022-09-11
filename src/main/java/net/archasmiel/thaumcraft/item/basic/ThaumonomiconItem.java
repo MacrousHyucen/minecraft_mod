@@ -1,10 +1,10 @@
 package net.archasmiel.thaumcraft.item.basic;
 
-import io.github.cottonmc.cotton.gui.client.CottonClientScreen;
 import net.archasmiel.thaumcraft.Thaumcraft;
 import net.archasmiel.thaumcraft.generation.ThaumcraftRegistry;
 import net.archasmiel.thaumcraft.register.Register;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.ThaumonomiconGUI;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.ThaumonomiconScreen;
 import net.archasmiel.thaumcraft.sounds.Sounds;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -49,7 +49,9 @@ public class ThaumonomiconItem extends ThaumcraftItem {
 
     @Environment(EnvType.CLIENT)
     private void drawScreen() {
-        MinecraftClient.getInstance().setScreenAndRender(new CottonClientScreen(new ThaumonomiconGUI()));
+        MinecraftClient.getInstance().setScreenAndRender(
+            new ThaumonomiconScreen(new ThaumonomiconGUI())
+        );
         MinecraftClient.getInstance().getSoundManager().play(
             PositionedSoundInstance.master(
                 Sounds.PAGE_FLIP, 1.0F

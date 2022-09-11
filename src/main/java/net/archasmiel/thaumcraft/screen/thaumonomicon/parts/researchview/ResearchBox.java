@@ -9,6 +9,8 @@ import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.DrawUtility;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Identified;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.research.Research;
 import net.archasmiel.thaumcraft.sounds.Sounds;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.sound.PositionedSoundInstance;
@@ -167,6 +169,7 @@ public class ResearchBox extends WWidget implements Identified {
     }
 
     @Override
+    @Environment(EnvType.CLIENT)
     public InputResult onClick(int x, int y, int button) {
         if (!visible) return InputResult.IGNORED;
 

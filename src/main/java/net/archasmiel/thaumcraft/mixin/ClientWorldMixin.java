@@ -16,7 +16,7 @@ public class ClientWorldMixin {
 
 	@Inject(method = "disconnect", at = @At("HEAD"))
 	protected void disconnect(CallbackInfo ci) {
-		Tabs.buildTabs().forEach(tab -> {
+		Tabs.getTabs().forEach(tab -> {
 			PacketByteBuf packet = PacketByteBufs.create();
 			packet.writeString(tab.getId());
 			packet.writeFloat(tab.getBackX()).writeFloat(tab.getBackY());

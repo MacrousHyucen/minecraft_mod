@@ -14,12 +14,12 @@ public class ThaumonomiconS2CDataRead {
     }
 
     public static void receive(MinecraftClient client, ClientPlayNetworkHandler handler,
-                               PacketByteBuf packetIn, PacketSender packetSender) {
-
+                               PacketByteBuf packetIn, PacketSender packetSender)
+    {
         float posX;
         float posY;
 
-        for (Tab tab: Tabs.getTabList()) {
+        for (Tab tab: Tabs.buildTabs()) {
             posX = packetIn.readFloat();
             tab.setBackX(posX);
             posY = packetIn.readFloat();

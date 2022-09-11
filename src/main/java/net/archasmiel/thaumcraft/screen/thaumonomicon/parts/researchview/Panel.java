@@ -45,7 +45,7 @@ public class Panel extends WLockedPlainPanel {
             float pY = box.getRelY() - currentTab.getBackY();
 
             box.setLocation((int) pX, (int) pY);
-            box.setVisible(!(pX < -box.getWidth() || pY < -box.getHeight() || pX > width || pY > height));
+            box.setVisible(pX > -box.getWidth() && pY > -box.getHeight() && pX < width && pY < height);
         });
     }
 

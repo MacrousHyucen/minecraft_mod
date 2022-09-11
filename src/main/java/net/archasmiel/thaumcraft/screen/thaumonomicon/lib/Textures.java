@@ -5,8 +5,8 @@ import net.archasmiel.thaumcraft.Thaumcraft;
 import net.minecraft.util.Identifier;
 
 import static net.archasmiel.thaumcraft.Thaumcraft.MOD_ID;
-import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Utility.cutTexture;
-import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Utility.loadTexture;
+import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.DrawUtility.cutTexture;
+import static net.archasmiel.thaumcraft.screen.thaumonomicon.lib.DrawUtility.loadTexture;
 
 public class Textures {
 

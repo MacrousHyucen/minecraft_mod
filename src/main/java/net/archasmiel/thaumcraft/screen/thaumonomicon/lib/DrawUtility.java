@@ -9,9 +9,9 @@ import net.minecraft.util.math.Matrix4f;
 
 import static net.archasmiel.thaumcraft.Thaumcraft.MOD_ID;
 
-public class Utility {
+public class DrawUtility {
 
-    private Utility() {
+    private DrawUtility() {
 
     }
 

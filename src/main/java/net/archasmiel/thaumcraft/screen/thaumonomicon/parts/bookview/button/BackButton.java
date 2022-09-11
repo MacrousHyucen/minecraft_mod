@@ -1,9 +1,8 @@
-package net.archasmiel.thaumcraft.screen.thaumonomicon.parts.bookview;
+package net.archasmiel.thaumcraft.screen.thaumonomicon.parts.bookview.button;
 
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
 import io.github.cottonmc.cotton.gui.widget.data.Texture;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.ThaumonomiconGUI;
-import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.bookview.basic.BookViewButton;
 import net.archasmiel.thaumcraft.sounds.Sounds;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.PositionedSoundInstance;

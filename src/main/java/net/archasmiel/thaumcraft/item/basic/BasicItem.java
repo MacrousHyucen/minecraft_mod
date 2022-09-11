@@ -8,8 +8,6 @@ import net.archasmiel.thaumcraft.register.Register;
 
 public class BasicItem extends ThaumcraftItem {
 
-
-
     public BasicItem(Settings settings, String name) {
         super(settings, name);
         load();

@@ -1,9 +1,9 @@
-package net.archasmiel.thaumcraft.screen.thaumonomicon.parts.bookview;
+package net.archasmiel.thaumcraft.screen.thaumonomicon.parts.bookview.button;
 
 import io.github.cottonmc.cotton.gui.widget.data.InputResult;
 import io.github.cottonmc.cotton.gui.widget.data.Texture;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.bookview.BookGUI;
 import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.bookview.basic.BookView;
-import net.archasmiel.thaumcraft.screen.thaumonomicon.parts.bookview.basic.BookViewButton;
 import net.minecraft.text.TranslatableText;
 
 public class PosButton extends BookViewButton {

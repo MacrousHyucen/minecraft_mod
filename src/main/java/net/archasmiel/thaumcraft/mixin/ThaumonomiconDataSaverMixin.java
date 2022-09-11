@@ -15,9 +15,6 @@ public class ThaumonomiconDataSaverMixin implements IEntityDataSaver {
     private static final String POS_TAG = "thaumcraft.thaumonomicon_pos_data";
     private NbtCompound persistentData;
 
-
-
-
     @Override
     public NbtCompound getPersistentData() {
         if (this.persistentData == null) {

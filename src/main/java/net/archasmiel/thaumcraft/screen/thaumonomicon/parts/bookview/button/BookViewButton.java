@@ -1,9 +1,9 @@
-package net.archasmiel.thaumcraft.screen.thaumonomicon.parts.bookview.basic;
+package net.archasmiel.thaumcraft.screen.thaumonomicon.parts.bookview.button;
 
 import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
 import io.github.cottonmc.cotton.gui.widget.WWidget;
 import io.github.cottonmc.cotton.gui.widget.data.Texture;
-import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.Utility;
+import net.archasmiel.thaumcraft.screen.thaumonomicon.lib.DrawUtility;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -23,7 +23,7 @@ public abstract class BookViewButton extends WWidget {
 
 	@Override
 	public void paint(MatrixStack matrices, int x, int y, int mouseX, int mouseY) {
-		Utility.precisiveTexturedRect(matrices, x + this.x, y + this.y, width, height, texture, DEF_COLOR);
+		DrawUtility.precisiveTexturedRect(matrices, x + this.x, y + this.y, width, height, texture, DEF_COLOR);
 	}
 
 	@Override
@@ -53,8 +53,8 @@ public abstract class BookViewButton extends WWidget {
 	}
 
 	private void drawBorder(MatrixStack matrices, int x, int y) {
-		int scale = 1;
-		Utility.precisiveTexturedRect(matrices, x+this.x-scale , y+this.y-scale, width+2*scale, height+2*scale, texture, DEF_COLOR, 0.5f);
+		float scale = 1;
+		DrawUtility.precisiveTexturedRect(matrices, x+this.x-scale , y+this.y-scale, width+2*scale, height+2*scale, texture, DEF_COLOR, 0.5f);
 	}
 
 	@Override

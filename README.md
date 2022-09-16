@@ -5,19 +5,6 @@
 ###  **> What's this project?**<br>
   This project is my _personal fun-made porting_ of Thaumcraft 4 (based on latest 1.7.10 mod version) on new 1.18+ versions.<br>
   
-###  **> About License**<br>
-  _**I do not own all original images, ideas and etc.<br>
-  If original mod-related person don't like my project, contact me via Issues or profile contacts.<br>
-  All license rights for Thaumcraft are on author - Azanor.**_<br>
-  [**Azanor GitHub**](https://github.com/Azanor)<br>
-  [**Azanor Repos**](https://github.com/Azanor?tab=repositories)<br>
-
-###  **> Plans/Showcases**<br>
-  **Youtube Showcases**<br>
-  https://www.youtube.com/channel/UCxPTj6mxnN6Ij2uXxbE_e6g<br>
-  **Trello**<br>
-  https://trello.com/b/6uJ7dWVl/updates<br>
-  
 ###  **> Version/Mod Loader**<br>
   Project currently using _Fabric 1.18.2_. <br>
   Not planning transfer mod to 1.19 in near time (unstable APIs). <br>
@@ -58,16 +45,6 @@
 - [ ] *OBJ model loading - Alchemical Furnace • Arcane Alembic*
 - [ ] *Basic vis nodes, wand charge animation and vis capacity interface*
 
-
-
-
-
-
-## ***Translations***
-- [x] *English*
-- [x] *Russian*
-- [x] *Chinese (by Darknight123MC, Cactusstudent)*
-- [ ] *Ukrainian* **(future plans)**
 
 
 

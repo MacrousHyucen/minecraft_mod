@@ -65,6 +65,7 @@
   "item.thaumcraft.cap_void": "充能虚空金属杖端",
   "item.thaumcraft.cap_void_inert": "惰性虚空金属杖端",
 
+
   "item.thaumcraft.wand_rod_blaze": "烈焰杖柄",
   "item.thaumcraft.wand_rod_bone": "骨杖柄",
   "item.thaumcraft.wand_rod_greatwood": "宏伟之木杖柄",
@@ -102,7 +103,6 @@
   "item.thaumcraft.coin": "金币",
 
 
-
   "block.thaumcraft.arcane_workbench": "奥术工作台",
   "block.thaumcraft.deconstruction_table": "解构工作台",
   "block.thaumcraft.table": "神秘工作台",
@@ -133,5 +133,17 @@
   "wand_rod.thaumcraft.primal": "元始",
 
   "gui.thaumcraft.wand_capacity": "容量 ",
-  "gui.thaumcraft.vis_cost": " Vis消耗"
+  "gui.thaumcraft.vis_cost": " Vis消耗",
+
+  "gui.thaumcraft.back_button": "返回",
+  "gui.thaumcraft.right_button": "下一个",
+  "gui.thaumcraft.left_button": "上一个",
+  "gui.thaumcraft.research_name.aspects_of_magic": "Aspects of Magic",
+  "gui.thaumcraft.research_desc.aspects_of_magic": "The building blocks of magic",
+  "gui.thaumcraft.research_name.auras_and_nodes": "Auras and Nodes",
+  "gui.thaumcraft.research_desc.auras_and_nodes": "魔法无处不在",
+  "gui.thaumcraft.research_name.warp_flux_things": "扭曲，咒波和一切不好的事情",
+  "gui.thaumcraft.research_desc.warp_flux_things": "所有事物都伴有些许代价",
+  "gui.thaumcraft.research_name.crimson_cult": "§6The Crimson Cult",
+  "gui.thaumcraft.research_desc.crimson_cult": "A Cautionary Tale"
 }

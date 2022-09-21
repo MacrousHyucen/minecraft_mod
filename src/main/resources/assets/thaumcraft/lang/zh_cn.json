@@ -138,12 +138,12 @@
   "gui.thaumcraft.back_button": "返回",
   "gui.thaumcraft.right_button": "下一个",
   "gui.thaumcraft.left_button": "上一个",
-  "gui.thaumcraft.research_name.aspects_of_magic": "Aspects of Magic",
-  "gui.thaumcraft.research_desc.aspects_of_magic": "The building blocks of magic",
-  "gui.thaumcraft.research_name.auras_and_nodes": "Auras and Nodes",
+  "gui.thaumcraft.research_name.aspects_of_magic": "奥能元素",
+  "gui.thaumcraft.research_desc.aspects_of_magic": "方块中蕴含的魔力",
+  "gui.thaumcraft.research_name.auras_and_nodes": "灵气与节点",
   "gui.thaumcraft.research_desc.auras_and_nodes": "魔法无处不在",
-  "gui.thaumcraft.research_name.warp_flux_things": "扭曲，咒波和一切不好的事情",
-  "gui.thaumcraft.research_desc.warp_flux_things": "所有事物都伴有些许代价",
-  "gui.thaumcraft.research_name.crimson_cult": "§6The Crimson Cult",
-  "gui.thaumcraft.research_desc.crimson_cult": "A Cautionary Tale"
+  "gui.thaumcraft.research_name.warp_flux_things": "扭曲，咒波和一切坏东西",
+  "gui.thaumcraft.research_desc.warp_flux_things": "万物都有其价值所在",
+  "gui.thaumcraft.research_name.crimson_cult": "§6血腥崇拜",
+  "gui.thaumcraft.research_desc.crimson_cult": "一部警示录"
 }
